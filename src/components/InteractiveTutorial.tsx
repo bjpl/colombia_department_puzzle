@@ -105,11 +105,15 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-      {/* Tutorial Card */}
-      <div className={`bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden transform transition-all duration-300 ${
-        isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
-      }`}>
+    <div className="fixed inset-0 z-50 pointer-events-none">
+      {/* Semi-transparent overlay with cut-out for highlighted areas */}
+      <div className="absolute inset-0 bg-black bg-opacity-50 pointer-events-auto" />
+
+      {/* Tutorial Card - positioned at bottom to not cover the game */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 pointer-events-auto">
+        <div className={`bg-white rounded-xl shadow-2xl w-full max-w-2xl flex flex-col overflow-hidden transform transition-all duration-300 ${
+          isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
+        }`}>
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-500 to-green-500 text-white p-6 rounded-t-xl">
           <div className="flex justify-between items-center">
@@ -247,20 +251,26 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
         </div>
       </div>
 
-      {/* Overlay indicators for highlighted areas (visual only) */}
+      {/* Overlay indicators for highlighted areas with semi-transparent backgrounds */}
       {step.highlightArea && (
-        <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute inset-0 pointer-events-none">
           {step.highlightArea === 'map' && (
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 border-4 border-yellow-400 rounded-lg animate-pulse" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-[600px] h-[500px] border-4 border-yellow-400 rounded-lg animate-pulse shadow-2xl"
+                   style={{ boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.3)' }} />
+            </div>
           )}
           {step.highlightArea === 'tray' && (
-            <div className="absolute left-4 top-32 w-52 h-96 border-4 border-yellow-400 rounded-lg animate-pulse" />
+            <div className="absolute left-4 top-32 w-64 h-[500px] border-4 border-yellow-400 rounded-lg animate-pulse"
+                 style={{ boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.3)' }} />
           )}
           {step.highlightArea === 'score' && (
-            <div className="absolute top-20 right-96 w-24 h-16 border-4 border-yellow-400 rounded-lg animate-pulse" />
+            <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-32 h-20 border-4 border-yellow-400 rounded-lg animate-pulse"
+                 style={{ boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.3)' }} />
           )}
           {step.highlightArea === 'hints' && (
-            <div className="absolute right-4 top-32 w-52 h-64 border-4 border-yellow-400 rounded-lg animate-pulse" />
+            <div className="absolute right-4 top-32 w-64 h-80 border-4 border-yellow-400 rounded-lg animate-pulse"
+                 style={{ boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.3)' }} />
           )}
         </div>
       )}
