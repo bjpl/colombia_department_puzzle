@@ -25,3 +25,30 @@
     @apply ring-4 ring-blue-400 ring-opacity-50;
   }
 }
+
+/* Animations for drop target highlighting */
+@keyframes dropTargetPulse {
+  0%, 100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes dropTargetGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.8));
+  }
+}
+
+.drop-target-highlight {
+  animation: dropTargetPulse 1s ease-in-out infinite;
+}
+
+.drop-target-glow {
+  animation: dropTargetGlow 1.5s ease-in-out infinite;
+}

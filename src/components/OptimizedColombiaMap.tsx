@@ -20,44 +20,69 @@ const DepartmentPath = memo(({
   pathString,
   isPlaced,
   isOver,
+  isDragging,
   onHover
 }: {
   feature: GeoFeature;
   pathString: string;
   isPlaced: boolean;
   isOver: boolean;
+  isDragging: boolean;
   onHover: (name: string | null) => void;
 }) => {
   const departmentColor = useMemo(() => {
-    if (isPlaced) return '#10b981';
-    if (isOver) return '#60a5fa';
-    return '#e5e7eb';
-  }, [isPlaced, isOver]);
+    if (isPlaced) return '#10b981'; // Green for placed
+    if (isOver && isDragging) return '#fbbf24'; // Yellow/gold when hovering with a dragged item
+    if (isOver) return '#60a5fa'; // Blue when just hovering
+    return '#e5e7eb'; // Default gray
+  }, [isPlaced, isOver, isDragging]);
+
+  const strokeColor = useMemo(() => {
+    if (isOver && isDragging) return '#f59e0b'; // Orange border when drop target
+    if (isOver) return '#3b82f6'; // Blue border on hover
+    return '#374151'; // Default dark gray
+  }, [isOver, isDragging]);
+
+  const strokeWidth = useMemo(() => {
+    if (isOver && isDragging) return '3'; // Thick border when drop target
+    if (isOver) return '2'; // Medium border on hover
+    return '1'; // Default thin border
+  }, [isOver, isDragging]);
 
   return (
     <path
       d={pathString}
       fill={departmentColor}
-      stroke="#374151"
-      strokeWidth="1"
-      opacity={isPlaced ? 0.8 : 0.6}
-      className="transition-colors duration-200"
+      stroke={strokeColor}
+      strokeWidth={strokeWidth}
+      opacity={isPlaced ? 0.8 : isOver ? 0.9 : 0.6}
+      className="transition-all duration-200"
       onMouseEnter={() => onHover(feature.properties.name)}
       onMouseLeave={() => onHover(null)}
-      style={{ cursor: 'pointer' }}
+      style={{
+        cursor: isDragging ? 'grabbing' : 'pointer',
+        filter: isOver && isDragging ? 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.6))' : 'none'
+      }}
     />
   );
 });
 
 // Droppable wrapper for each department
-const DroppableDepartment = ({ feature, children }: { feature: GeoFeature; children: React.ReactNode }) => {
+const DroppableDepartment = ({ feature, isDragging, children }: {
+  feature: GeoFeature;
+  isDragging: boolean;
+  children: (isOver: boolean) => React.ReactNode;
+}) => {
   const { setNodeRef, isOver } = useDroppable({
     id: normalizeId(feature.properties.name),
+    data: {
+      name: feature.properties.name
+    }
   });
 
   return (
     <g ref={setNodeRef} data-over={isOver}>
-      {children}
+      {children(isOver)}
     </g>
   );
 };
@@ -67,8 +92,10 @@ export default function OptimizedColombiaMap() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [hoveredDepartment, setHoveredDepartment] = useState<string | null>(null);
+  const [draggedOverDepartment, setDraggedOverDepartment] = useState<string | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const game = useGame();
+  const isDragging = game.currentDepartment !== null;
 
   useEffect(() => {
     loadGeoDataProgressive();
@@ -193,14 +220,26 @@ export default function OptimizedColombiaMap() {
             const isPlaced = game.placedDepartments.has(normalizedName);
 
             return (
-              <DroppableDepartment key={key} feature={feature}>
-                <DepartmentPath
-                  feature={feature}
-                  pathString={pathString}
-                  isPlaced={isPlaced}
-                  isOver={false}
-                  onHover={setHoveredDepartment}
-                />
+              <DroppableDepartment key={key} feature={feature} isDragging={isDragging}>
+                {(isOver) => {
+                  // Update draggedOver state when hovering
+                  if (isOver && draggedOverDepartment !== feature.properties.name) {
+                    setDraggedOverDepartment(feature.properties.name);
+                  } else if (!isOver && draggedOverDepartment === feature.properties.name) {
+                    setDraggedOverDepartment(null);
+                  }
+
+                  return (
+                    <DepartmentPath
+                      feature={feature}
+                      pathString={pathString}
+                      isPlaced={isPlaced}
+                      isOver={isOver}
+                      isDragging={isDragging}
+                      onHover={setHoveredDepartment}
+                    />
+                  );
+                }}
               </DroppableDepartment>
             );
           })}
@@ -230,10 +269,20 @@ export default function OptimizedColombiaMap() {
         </g>
       </svg>
 
-      {/* Hover tooltip */}
-      {hoveredDepartment && (
-        <div className="absolute top-2 left-2 bg-white px-3 py-1 rounded shadow-lg pointer-events-none z-10">
-          <p className="text-sm font-semibold">{hoveredDepartment}</p>
+      {/* Hover/Drag tooltip */}
+      {(hoveredDepartment || draggedOverDepartment) && (
+        <div className="absolute top-2 left-2 pointer-events-none z-10">
+          {draggedOverDepartment && isDragging && (
+            <div className="bg-yellow-100 border-2 border-yellow-500 px-3 py-2 rounded shadow-xl mb-2">
+              <p className="text-sm font-bold text-gray-800">📍 Soltar en:</p>
+              <p className="text-lg font-semibold text-yellow-700">{draggedOverDepartment}</p>
+            </div>
+          )}
+          {hoveredDepartment && !isDragging && (
+            <div className="bg-white px-3 py-1 rounded shadow-lg">
+              <p className="text-sm font-semibold">{hoveredDepartment}</p>
+            </div>
+          )}
         </div>
       )}
 
