@@ -18,6 +18,7 @@ interface GameState {
   placeDepartment: (departmentId: string, correct: boolean) => void;
   selectDepartment: (department: Department) => void;
   useHint: () => void;
+  deductPoints: (points: number) => void;
   resetGame: () => void;
   updateElapsedTime: (time: number) => void;
 }
@@ -68,6 +69,12 @@ const useGameStore = create<GameState>((set, get) => ({
     set((state) => ({
       hints: Math.max(0, state.hints - 1),
       score: Math.max(0, state.score - 50)
+    }));
+  },
+
+  deductPoints: (points: number) => {
+    set((state) => ({
+      score: Math.max(0, state.score - points)
     }));
   },
 
