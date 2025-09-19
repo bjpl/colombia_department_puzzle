@@ -9,24 +9,30 @@ export default function DragOverlay() {
     return null;
   }
 
+  // Get region color to match the chip being dragged
+  const regionColors: { [key: string]: string } = {
+    'Andina': 'bg-green-100 border-green-400',
+    'Caribe': 'bg-blue-100 border-blue-400',
+    'Pacífica': 'bg-purple-100 border-purple-400',
+    'Orinoquía': 'bg-yellow-100 border-yellow-400',
+    'Amazonía': 'bg-emerald-100 border-emerald-400',
+    'Insular': 'bg-cyan-100 border-cyan-400',
+  };
+
+  const colorClass = regionColors[game.currentDepartment.region] || 'bg-gray-100 border-gray-400';
+
   return (
     <DndDragOverlay>
-      <div className="bg-gradient-to-r from-blue-100 to-green-100
-                      border-3 border-blue-500 rounded-lg p-4
-                      shadow-2xl cursor-grabbing transform scale-110
-                      animate-pulse">
-        <div className="font-bold text-lg text-gray-800">
+      {/* Compact chip-style overlay matching the original chip */}
+      <div className={`
+        inline-flex items-center px-3 py-1 rounded-md
+        ${colorClass}
+        border-2 shadow-2xl cursor-grabbing
+        transform scale-125 opacity-90
+      `}>
+        <span className="text-xs font-semibold text-gray-800">
           {game.currentDepartment.name}
-        </div>
-        <div className="text-sm text-gray-600 mt-1">
-          📍 {game.currentDepartment.capital}
-        </div>
-        <div className="text-xs text-blue-600 mt-1">
-          {game.currentDepartment.region}
-        </div>
-        <div className="mt-2 text-xs text-green-600 font-semibold">
-          ↓ Arrastra al mapa ↓
-        </div>
+        </span>
       </div>
     </DndDragOverlay>
   );

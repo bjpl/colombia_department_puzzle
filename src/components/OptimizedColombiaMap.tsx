@@ -273,14 +273,14 @@ export default function OptimizedColombiaMap() {
       {(hoveredDepartment || draggedOverDepartment) && (
         <div className="absolute top-2 left-2 pointer-events-none z-10">
           {draggedOverDepartment && isDragging && (
-            <div className="bg-yellow-100 border-2 border-yellow-500 px-3 py-2 rounded shadow-xl mb-2">
-              <p className="text-sm font-bold text-gray-800">📍 Soltar en:</p>
-              <p className="text-lg font-semibold text-yellow-700">{draggedOverDepartment}</p>
+            <div className="bg-yellow-100 border-2 border-yellow-500 px-2 py-1 rounded-lg shadow-xl">
+              <p className="text-xs font-medium text-gray-700">Soltar en:</p>
+              <p className="text-sm font-bold text-yellow-700">{draggedOverDepartment}</p>
             </div>
           )}
           {hoveredDepartment && !isDragging && (
-            <div className="bg-white px-3 py-1 rounded shadow-lg">
-              <p className="text-sm font-semibold">{hoveredDepartment}</p>
+            <div className="bg-white px-2 py-1 rounded shadow-lg">
+              <p className="text-xs font-semibold">{hoveredDepartment}</p>
             </div>
           )}
         </div>
