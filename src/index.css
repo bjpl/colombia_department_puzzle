@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+@layer components {
+  .department-piece {
+    @apply cursor-move transition-all duration-200;
+  }
+
+  .department-piece:hover {
+    @apply scale-105 shadow-lg;
+  }
+
+  .department-placed {
+    @apply cursor-default opacity-90;
+  }
+
+  .drop-zone-active {
+    @apply ring-4 ring-blue-400 ring-opacity-50;
+  }
+}

@@ -1,0 +1,68 @@
+# Map Rendering Pseudocode
+
+## Core Algorithm
+
+```
+FUNCTION renderColombiaMap:
+    INPUT: containerElement, departmentData, renderOptions
+    OUTPUT: InteractiveMapInstance
+
+    // Initialize rendering context
+    IF renderOptions.useWebGL AND WebGLSupported():
+        context = initializeWebGLContext(containerElement)
+    ELSE:
+        context = initializeCanvasContext(containerElement)
+
+    // Load and process geographic data
+    geoData = loadGeoJSON(departmentData)
+    projectedData = projectToMercator(geoData)
+    optimizedPaths = simplifyPaths(projectedData, renderOptions.detail)
+
+    // Create department entities
+    departments = []
+    FOR EACH region IN optimizedPaths:
+        department = {
+            id: region.properties.id,
+            name: region.properties.name,
+            path: region.geometry,
+            bounds: calculateBounds(region.geometry),
+            centroid: calculateCentroid(region.geometry),
+            isPlaced: false,
+            color: generateDistinctColor(region.properties.id)
+        }
+        departments.push(department)
+
+    // Render map layers
+    renderBaseLayer(context, departments)
+    renderBoundaryLayer(context, departments)
+    renderInteractionLayer(context, departments)
+
+    // Setup interaction handlers
+    attachPanZoomHandlers(context, containerElement)
+    attachHoverHandlers(context, departments)
+
+    RETURN MapInstance(context, departments)
+
+FUNCTION projectToMercator(geoData):
+    // Convert lat/lon to screen coordinates
+    FOR EACH point IN geoData:
+        x = (longitude + 180) * (width / 360)
+        y = (90 - latitude) * (height / 180)
+        projectedPoint = {x, y}
+    RETURN projectedData
+
+FUNCTION simplifyPaths(paths, detailLevel):
+    // Douglas-Peucker algorithm for path simplification
+    tolerance = calculateTolerance(detailLevel)
+    FOR EACH path IN paths:
+        simplifiedPath = douglasPeucker(path, tolerance)
+    RETURN simplifiedPaths
+```
+
+## Optimization Strategies
+
+1. **Viewport Culling**: Only render departments visible in current viewport
+2. **Level of Detail (LOD)**: Use simplified paths when zoomed out
+3. **Batch Rendering**: Group similar render operations
+4. **Dirty Rectangle**: Only redraw changed portions
+5. **WebWorker Processing**: Offload heavy calculations

@@ -1,0 +1,50 @@
+{
+  "name": "colombia-departments-puzzle",
+  "version": "1.0.0",
+  "description": "An educational puzzle game to learn Colombian departments through drag-and-drop interaction",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bjpl/colombia_department_puzzle.git"
+  },
+  "keywords": [
+    "colombia",
+    "geography",
+    "education",
+    "puzzle",
+    "game",
+    "interactive"
+  ],
+  "author": "BJPL",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "d3-geo": "^3.1.0",
+    "topojson-client": "^3.1.0",
+    "@dnd-kit/core": "^6.1.0",
+    "@dnd-kit/sortable": "^8.0.0",
+    "zustand": "^4.4.7"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@types/d3-geo": "^3.1.0",
+    "@types/topojson-client": "^3.1.3",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.55.0",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8",
+    "vitest": "^1.0.4"
+  }
+}
