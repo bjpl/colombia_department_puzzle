@@ -60,19 +60,19 @@ export default function StudyModeMap({
       'guainia': [-68, 3],
       'guaviare': [-72, 2],
       'huila': [-75.5, 2.5],
-      'la_guajira': [-72.5, 11.5],
+      'la-guajira': [-72.5, 11.5],
       'magdalena': [-74.2, 10.2], // Adjusted slightly east to avoid Atlántico
       'meta': [-72.5, 3.5],
       'narino': [-77.5, 1.2],
-      'norte_de_santander': [-72.5, 8],
+      'norte-de-santander': [-72.5, 8],
       'putumayo': [-76, 0.5],
       'quindio': [-75.6, 4.4],     // Adjusted slightly south
       'risaralda': [-75.8, 4.9],    // Adjusted slightly west
-      'san_andres_y_providencia': [-81.7, 12.5],
+      'san-andres-y-providencia': [-81.7, 12.5],
       'santander': [-73, 6.8],      // Adjusted slightly south to avoid Norte de Santander
       'sucre': [-75.4, 9.1],        // Adjusted slightly south to avoid overlap
       'tolima': [-75.1, 3.8],       // Adjusted slightly south
-      'valle_del_cauca': [-76.5, 3.5],
+      'valle-del-cauca': [-76.5, 3.5],
       'vaupes': [-70.5, 1],
       'vichada': [-69, 5],
     };

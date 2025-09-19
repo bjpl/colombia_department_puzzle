@@ -103,9 +103,10 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
   const step = tutorialSteps[currentStep];
 
   useEffect(() => {
-    const settings = storage.getSettings();
-    settings.tutorialShown = true;
-    storage.saveSetting('tutorialShown', true);
+    // Only mark tutorial as shown when completed, not when opened
+    return () => {
+      // Cleanup function runs when component unmounts
+    };
   }, []);
 
   const handleNext = () => {
@@ -116,6 +117,8 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
         setIsAnimating(false);
       }, 300);
     } else {
+      // Mark tutorial as completed only when user finishes it
+      storage.saveSetting('tutorialShown', true);
       onComplete();
     }
   };

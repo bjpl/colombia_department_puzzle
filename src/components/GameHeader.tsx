@@ -3,9 +3,10 @@ import { useGame } from '../context/GameContext';
 
 interface GameHeaderProps {
   onStudyMode?: () => void;
+  onTutorial?: () => void;
 }
 
-export default function GameHeader({ onStudyMode }: GameHeaderProps) {
+export default function GameHeader({ onStudyMode, onTutorial }: GameHeaderProps) {
   const game = useGame();
 
   const formatTime = (seconds: number) => {
@@ -80,6 +81,15 @@ export default function GameHeader({ onStudyMode }: GameHeaderProps) {
         </div>
 
         <div className="flex gap-2">
+          {onTutorial && (
+            <button
+              onClick={onTutorial}
+              className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors flex items-center gap-2"
+              title="Ver tutorial interactivo"
+            >
+              ❓ Tutorial
+            </button>
+          )}
           {onStudyMode && (
             <button
               onClick={onStudyMode}
