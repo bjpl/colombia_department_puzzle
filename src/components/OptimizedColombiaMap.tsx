@@ -103,13 +103,13 @@ export default function OptimizedColombiaMap() {
     try {
       // Step 1: Load ultra-light version first (8KB)
       setLoadingProgress(10);
-      const ultraLightResponse = await fetch('/data/colombia-departments-ultralight.json');
+      const ultraLightResponse = await fetch(`${import.meta.env.BASE_URL}data/colombia-departments-ultralight.json`);
       const ultraLightData = await ultraLightResponse.json();
       setGeoData(ultraLightData);
       setLoadingProgress(30);
 
       // Step 2: Load optimized version (110KB)
-      const optimizedResponse = await fetch('/data/colombia-departments-optimized.json');
+      const optimizedResponse = await fetch(`${import.meta.env.BASE_URL}data/colombia-departments-optimized.json`);
       const optimizedData = await optimizedResponse.json();
       setGeoData(optimizedData);
       setLoadingProgress(100);
@@ -120,7 +120,7 @@ export default function OptimizedColombiaMap() {
       // Error loading map data - falling back to simplified version
       // Fallback to simplified version
       try {
-        const fallbackResponse = await fetch('/data/colombia-departments-simplified.json');
+        const fallbackResponse = await fetch(`${import.meta.env.BASE_URL}data/colombia-departments-simplified.json`);
         const fallbackData = await fallbackResponse.json();
         setGeoData(fallbackData);
         setIsLoading(false);
