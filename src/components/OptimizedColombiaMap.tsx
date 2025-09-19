@@ -30,9 +30,8 @@ const DepartmentPath = memo(({
 }) => {
   const departmentColor = useMemo(() => {
     if (isPlaced) return '#10b981'; // Green for placed
-    if (isOver && isDragging) return '#fbbf24'; // Yellow/gold when hovering with a dragged item
-    if (isOver) return '#60a5fa'; // Blue when just hovering
-    return '#e5e7eb'; // Default gray
+    if (isOver && isDragging) return '#fbbf24'; // Yellow/gold when hovering with a dragged item (drop target)
+    return '#e5e7eb'; // Default gray for unplaced
   }, [isPlaced, isOver, isDragging]);
 
   const strokeColor = useMemo(() => {
@@ -379,8 +378,8 @@ export default function OptimizedColombiaMap() {
           <text x="22" y="29" fontSize="9" fill="#6b7280">Por colocar</text>
           <rect x="8" y="34" width="10" height="8" fill="#10b981" />
           <text x="22" y="41" fontSize="9" fill="#6b7280">Colocado</text>
-          <rect x="8" y="46" width="10" height="8" fill="#60a5fa" />
-          <text x="22" y="53" fontSize="9" fill="#6b7280">Arrastrando</text>
+          <rect x="8" y="46" width="10" height="8" fill="#fbbf24" />
+          <text x="22" y="53" fontSize="9" fill="#6b7280">Zona objetivo</text>
         </g>
       </svg>
 
@@ -393,12 +392,12 @@ export default function OptimizedColombiaMap() {
         </div>
       )}
 
-      {/* Drag indicator only - no hover tooltip to avoid giving away the answer */}
+      {/* Drag indicator only - shows drop zone is active without revealing the name */}
       {draggedOverDepartment && isDragging && (
         <div className="absolute top-2 left-2 pointer-events-none z-10">
-          <div className="bg-yellow-100 border-2 border-yellow-500 px-2 py-1 rounded-lg shadow-xl">
-            <p className="text-xs font-medium text-gray-700">Soltar en:</p>
-            <p className="text-sm font-bold text-yellow-700">{draggedOverDepartment}</p>
+          <div className="bg-yellow-100 border-2 border-yellow-500 px-3 py-2 rounded-lg shadow-xl flex items-center gap-2">
+            <div className="text-yellow-600">📍</div>
+            <p className="text-sm font-semibold text-yellow-700">Zona de destino</p>
           </div>
         </div>
       )}
