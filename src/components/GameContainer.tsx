@@ -5,19 +5,24 @@ import DepartmentTray from './DepartmentTray';
 import GameHeader from './GameHeader';
 import EducationalPanel from './EducationalPanel';
 import DragOverlay from './DragOverlay';
+import PlacementFeedback from './PlacementFeedback';
 import { useGame } from '../context/GameContext';
-import WinModal from './WinModal';
 import StudyMode from './StudyMode';
 import PostGameReport from './PostGameReport';
 import InteractiveTutorial from './InteractiveTutorial';
 import { normalizeId, departmentNameMap } from '../utils/nameNormalizer';
 import { storage } from '../services/storage';
+import { useModalManager } from '../hooks/useModalManager';
 
 export default function GameContainer() {
   const game = useGame();
-  const [showStudyMode, setShowStudyMode] = useState(false);
-  const [showPostGameReport, setShowPostGameReport] = useState(false);
-  const [showTutorial, setShowTutorial] = useState(false);
+  const modal = useModalManager();
+  const [placementFeedback, setPlacementFeedback] = useState({
+    show: false,
+    isCorrect: false,
+    departmentName: '',
+    position: { x: 0, y: 0 }
+  });
 
   useEffect(() => {
     if (game.startTime && !game.isGameComplete) {
@@ -33,15 +38,15 @@ export default function GameContainer() {
   // Check for first-time player and show tutorial
   useEffect(() => {
     const settings = storage.getSettings();
-    if (!settings.tutorialShown && !showTutorial) {
-      setShowTutorial(true);
+    if (!settings.tutorialShown) {
+      modal.openModal('tutorial');
     }
   }, []);
 
   // Show post-game report when game completes
   useEffect(() => {
-    if (game.isGameComplete && !showPostGameReport) {
-      setShowPostGameReport(true);
+    if (game.isGameComplete && !modal.isModalOpen('postGame')) {
+      modal.openModal('postGame');
     }
   }, [game.isGameComplete]);
 
@@ -67,6 +72,15 @@ export default function GameContainer() {
       // Check if the placement is correct
       const isCorrect = mappedDraggedName === targetId || draggedId === targetId;
 
+      // Show placement feedback
+      const rect = (event.over as any)?.rect;
+      setPlacementFeedback({
+        show: true,
+        isCorrect,
+        departmentName: isCorrect ? active.data.current?.name : '',
+        position: rect ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 } : { x: window.innerWidth / 2, y: window.innerHeight / 2 }
+      });
+
       if (isCorrect) {
         // Correct placement
         game.placeDepartment(targetId, true);
@@ -80,7 +94,7 @@ export default function GameContainer() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
       <div className="container mx-auto p-4 max-w-[1400px]">
-        <GameHeader onStudyMode={() => setShowStudyMode(true)} />
+        <GameHeader onStudyMode={() => modal.openModal('study')} />
 
         <DndContext
           onDragStart={handleDragStart}
@@ -126,32 +140,35 @@ export default function GameContainer() {
           <DragOverlay />
         </DndContext>
 
+        {/* Placement Feedback */}
+        <PlacementFeedback {...placementFeedback} />
+
         {/* Modals */}
-        {showTutorial && (
+        {modal.isModalOpen('tutorial') && (
           <InteractiveTutorial
-            onComplete={() => setShowTutorial(false)}
-            onSkip={() => setShowTutorial(false)}
+            onComplete={() => modal.closeModal()}
+            onSkip={() => modal.closeModal()}
           />
         )}
-        {showStudyMode && (
+        {modal.isModalOpen('study') && (
           <StudyMode
-            onClose={() => setShowStudyMode(false)}
+            onClose={() => modal.closeModal()}
             onStartGame={() => {
-              setShowStudyMode(false);
+              modal.closeModal();
               game.resetGame();
             }}
           />
         )}
-        {showPostGameReport && (
+        {modal.isModalOpen('postGame') && (
           <PostGameReport
-            onClose={() => setShowPostGameReport(false)}
+            onClose={() => modal.closeModal()}
             onPlayAgain={() => {
-              setShowPostGameReport(false);
+              modal.closeModal();
               game.resetGame();
             }}
             onStudyMode={() => {
-              setShowPostGameReport(false);
-              setShowStudyMode(true);
+              modal.closeModal();
+              modal.openModal('study');
               game.resetGame();
             }}
           />

@@ -121,9 +121,9 @@ export default function OptimizedColombiaMap() {
       setLoadingProgress(100);
       setIsLoading(false);
 
-      console.log('✅ Map data loaded:', optimizedData.features.length, 'departments');
+      // Map data loaded successfully
     } catch (error) {
-      console.error('❌ Error loading map data:', error);
+      // Error loading map data - falling back to simplified version
       // Fallback to simplified version
       try {
         const fallbackResponse = await fetch('/data/colombia-departments-simplified.json');
@@ -131,7 +131,8 @@ export default function OptimizedColombiaMap() {
         setGeoData(fallbackData);
         setIsLoading(false);
       } catch (fallbackError) {
-        console.error('❌ Fallback also failed:', fallbackError);
+        setIsLoading(false);
+        // Both primary and fallback data loading failed
       }
     }
   };
