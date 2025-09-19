@@ -105,14 +105,22 @@ export default function OptimizedColombiaMap() {
     }
   };
 
-  // Memoize projection and path generator
+  // Memoize projection and path generator with responsive sizing
   const { projection, pathGenerator, width, height } = useMemo(() => {
-    const w = 800;
-    const h = 600;
+    // Calculate optimal dimensions based on viewport
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    // Map takes center column, minus sidebars and padding
+    const w = Math.min(viewportWidth - 600, 900); // Max 900px, accounting for 2x 256px sidebars + padding
+    const h = Math.min(viewportHeight - 250, 700); // Leave room for header/footer
+
+    // Adjust scale based on available space
+    const scale = Math.min(w, h) * 2.5;
 
     const proj = geoMercator()
       .center([-74, 4.5])
-      .scale(1600)
+      .scale(scale)
       .translate([w / 2, h / 2]);
 
     const path = geoPath().projection(proj);
@@ -155,10 +163,12 @@ export default function OptimizedColombiaMap() {
     <div className="relative">
       <svg
         ref={svgRef}
-        width={width}
-        height={height}
+        width="100%"
+        height="100%"
         className="border border-gray-300 rounded-lg shadow-inner bg-gradient-to-br from-blue-50 to-green-50"
         viewBox={`0 0 ${width} ${height}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{ maxWidth: width, maxHeight: height }}
       >
         {/* Ocean gradient */}
         <defs>

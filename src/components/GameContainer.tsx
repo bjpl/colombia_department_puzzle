@@ -73,27 +73,30 @@ export default function GameContainer() {
             },
           }}
         >
-          {/* Improved Layout: Fixed positions to eliminate scrolling */}
-          <div className="mt-6 flex gap-6" style={{ height: 'calc(100vh - 200px)' }}>
+          {/* Optimized Layout: Map-focused with compact sidebars */}
+          <div className="mt-6 flex gap-4" style={{ height: 'calc(100vh - 180px)' }}>
 
-            {/* Left Sidebar - Department Tray (Fixed) */}
-            <div className="w-80 bg-white rounded-lg shadow-lg p-4 overflow-y-auto">
-              <h3 className="text-lg font-semibold mb-4 sticky top-0 bg-white pb-2 border-b">
-                🧩 Departamentos Disponibles
+            {/* Left Sidebar - Compact Department Chips */}
+            <div className="w-64 bg-white/95 rounded-lg shadow-lg p-3 overflow-y-auto backdrop-blur-sm">
+              <h3 className="text-sm font-bold mb-3 sticky top-0 bg-white z-10 pb-2 border-b flex items-center justify-between">
+                <span>🧩 Departamentos</span>
+                <span className="text-xs bg-blue-100 px-2 py-1 rounded-full">
+                  {game.departments.filter(d => !game.placedDepartments.has(d.id)).length}
+                </span>
               </h3>
-              <div className="space-y-2">
-                <DepartmentTray layout="vertical" />
+              <div className="space-y-1">
+                <DepartmentTray layout="compact" />
               </div>
             </div>
 
-            {/* Center - Map Canvas (Fixed) */}
-            <div className="flex-1 bg-white rounded-lg shadow-lg p-6 overflow-hidden">
+            {/* Center - Full Map Canvas (Maximized) */}
+            <div className="flex-1 bg-white rounded-lg shadow-lg p-4 overflow-auto flex items-center justify-center">
               <MapCanvas />
             </div>
 
-            {/* Right Sidebar - Educational Panel (Fixed) */}
-            <div className="w-80 bg-white rounded-lg shadow-lg p-4 overflow-y-auto">
-              <EducationalPanel />
+            {/* Right Sidebar - Minimal Educational Panel */}
+            <div className="w-64 bg-white/95 rounded-lg shadow-lg p-3 overflow-y-auto backdrop-blur-sm">
+              <EducationalPanel compact={true} />
             </div>
           </div>
 

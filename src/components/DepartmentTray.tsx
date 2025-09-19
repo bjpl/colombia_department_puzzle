@@ -2,6 +2,53 @@ import React from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
 
+// Compact chip-style draggable for precise placement
+function DraggableChip({ department }: { department: any }) {
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id: department.id,
+  });
+
+  const style = transform ? {
+    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+    zIndex: 9999,
+  } : undefined;
+
+  // Region colors for visual grouping
+  const regionColors: { [key: string]: string } = {
+    'Andina': 'from-green-100 to-green-200 border-green-400 hover:border-green-600',
+    'Caribe': 'from-blue-100 to-blue-200 border-blue-400 hover:border-blue-600',
+    'Pacífica': 'from-purple-100 to-purple-200 border-purple-400 hover:border-purple-600',
+    'Orinoquía': 'from-yellow-100 to-yellow-200 border-yellow-400 hover:border-yellow-600',
+    'Amazonía': 'from-emerald-100 to-emerald-200 border-emerald-400 hover:border-emerald-600',
+    'Insular': 'from-cyan-100 to-cyan-200 border-cyan-400 hover:border-cyan-600',
+  };
+
+  const colorClass = regionColors[department.region] || 'from-gray-100 to-gray-200 border-gray-400 hover:border-gray-600';
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+      className={`
+        inline-flex items-center px-3 py-1.5 rounded-full
+        bg-gradient-to-r ${colorClass}
+        border-2 cursor-move select-none
+        hover:shadow-lg hover:scale-110
+        transition-all duration-150 text-xs font-medium
+        ${isDragging ? 'opacity-50 shadow-2xl ring-2 ring-offset-2 ring-blue-400' : ''}
+      `}
+      title={`${department.name} - Capital: ${department.capital}`}
+    >
+      <span className="text-gray-800 truncate max-w-[120px]">
+        {department.name}
+      </span>
+    </div>
+  );
+}
+
+// Legacy full-size component (kept for compatibility)
 function DraggableDepartment({ department, compact = false }: { department: any; compact?: boolean }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: department.id,
@@ -46,7 +93,7 @@ function DraggableDepartment({ department, compact = false }: { department: any;
 }
 
 interface DepartmentTrayProps {
-  layout?: 'horizontal' | 'vertical';
+  layout?: 'horizontal' | 'vertical' | 'compact';
 }
 
 export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTrayProps) {
@@ -59,10 +106,10 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
 
   if (availableDepartments.length === 0) {
     return (
-      <div className="text-center py-8 text-gray-500">
-        <div className="text-2xl mb-2">🎉</div>
-        <div>¡Todos los departamentos han sido colocados!</div>
-        <div className="text-xs mt-2">¡Excelente trabajo!</div>
+      <div className="text-center py-4 text-gray-500">
+        <div className="text-xl mb-1">🎉</div>
+        <div className="text-sm">¡Completado!</div>
+        <div className="text-xs mt-1 text-green-600 font-semibold">¡Excelente!</div>
       </div>
     );
   }
@@ -80,6 +127,30 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
     }
     regionGroups[dept.region].push(dept);
   });
+
+  // Compact chip layout for minimal space usage
+  if (layout === 'compact') {
+    return (
+      <div className="space-y-3">
+        {/* Region groups with compact chips */}
+        {Object.entries(regionGroups).map(([region, depts]) => (
+          <div key={region} className="space-y-1.5">
+            <h4 className="text-xs font-semibold text-gray-600 uppercase tracking-wide px-1">
+              {region} ({depts.length})
+            </h4>
+            <div className="flex flex-wrap gap-1.5">
+              {depts.map(department => (
+                <DraggableChip
+                  key={department.id}
+                  department={department}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   // Vertical layout for sidebar
   if (layout === 'vertical') {
