@@ -191,19 +191,40 @@ export default function OptimizedColombiaMap() {
     );
   }
 
-  // Handle mouse wheel zoom
+  // Handle mouse wheel zoom at cursor position
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
+
+    // Get mouse position relative to SVG
+    const rect = svgRef.current?.getBoundingClientRect();
+    if (!rect) return;
+
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    // Convert to SVG coordinates
+    const svgX = (mouseX / rect.width) * width;
+    const svgY = (mouseY / rect.height) * height;
+
+    // Calculate zoom
     const delta = e.deltaY > 0 ? 0.9 : 1.1;
     const newZoom = Math.min(Math.max(zoomLevel * delta, 0.5), 4);
+
+    // Adjust pan to keep point under cursor
+    const zoomRatio = newZoom / zoomLevel;
+    const newPanX = panOffset.x + (svgX - width / 2) * (1 - zoomRatio);
+    const newPanY = panOffset.y + (svgY - height / 2) * (1 - zoomRatio);
+
     setZoomLevel(newZoom);
+    setPanOffset({ x: newPanX, y: newPanY });
   };
 
   // Handle pan start
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (e.button === 0 && !isDragging) { // Left click only, not when dragging departments
+    if (e.button === 0 && !isDragging && zoomLevel > 1) { // Only pan when zoomed in
       setIsPanning(true);
       setPanStart({ x: e.clientX - panOffset.x, y: e.clientY - panOffset.y });
+      e.preventDefault();
     }
   };
 
@@ -230,6 +251,18 @@ export default function OptimizedColombiaMap() {
 
   return (
     <div className="relative w-full h-full flex items-center justify-center">
+      {/* Pan Indicator */}
+      {zoomLevel > 1 && !isDragging && (
+        <div className="absolute top-4 left-4 z-20 bg-white/90 px-3 py-2 rounded-lg shadow-md border border-gray-300">
+          <div className="text-xs text-gray-600 flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20" />
+            </svg>
+            Arrastra para mover
+          </div>
+        </div>
+      )}
+
       {/* Zoom Controls */}
       <div className="absolute top-4 right-4 z-20 flex flex-col gap-2">
         <button
@@ -297,7 +330,7 @@ export default function OptimizedColombiaMap() {
         <rect width={width} height={height} fill="url(#ocean)" />
 
         {/* Render departments with zoom and pan transform */}
-        <g transform={`translate(${panOffset.x}, ${panOffset.y}) scale(${zoomLevel})`} style={{ transformOrigin: 'center' }}>
+        <g transform={`translate(${width / 2 + panOffset.x}, ${height / 2 + panOffset.y}) scale(${zoomLevel}) translate(${-width / 2}, ${-height / 2})`}>
           {geoData.features.map((feature: GeoFeature) => {
             const key = feature.properties.id || feature.properties.name;
             const pathString = pathStrings[key];

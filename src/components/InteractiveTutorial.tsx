@@ -107,7 +107,7 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
       {/* Tutorial Card */}
-      <div className={`bg-white rounded-xl shadow-2xl w-full max-w-2xl transform transition-all duration-300 ${
+      <div className={`bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden transform transition-all duration-300 ${
         isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
       }`}>
         {/* Header */}

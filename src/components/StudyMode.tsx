@@ -49,7 +49,7 @@ export default function StudyMode({ onClose, onStartGame }: StudyModeProps) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-6xl h-[90vh] flex flex-col overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-500 to-green-500 text-white p-4">
           <div className="flex justify-between items-center">
@@ -87,7 +87,7 @@ export default function StudyMode({ onClose, onStartGame }: StudyModeProps) {
           </p>
         </div>
 
-        <div className="flex h-[calc(90vh-120px)]">
+        <div className="flex flex-1 min-h-0">
           {/* Left Panel - Department List */}
           <div className="w-2/3 overflow-y-auto p-4 border-r">
             {viewMode === 'grid' ? (
@@ -132,7 +132,7 @@ export default function StudyMode({ onClose, onStartGame }: StudyModeProps) {
           </div>
 
           {/* Right Panel - Department Details */}
-          <div className="w-1/3 p-4 bg-gray-50">
+          <div className="w-1/3 p-4 bg-gray-50 overflow-y-auto">
             {selectedDepartment ? (
               <div className="space-y-4">
                 <div className={`p-4 rounded-lg border-2 ${getRegionColor(selectedDepartment.region)}`}>
@@ -198,7 +198,7 @@ export default function StudyMode({ onClose, onStartGame }: StudyModeProps) {
         </div>
 
         {/* Footer */}
-        <div className="bg-gray-100 px-6 py-3 flex justify-between items-center">
+        <div className="bg-gray-100 px-6 py-3 flex justify-between items-center flex-shrink-0">
           <div className="text-sm text-gray-600">
             💡 Tip: Estudia todos los departamentos antes de jugar para mejores resultados
           </div>
