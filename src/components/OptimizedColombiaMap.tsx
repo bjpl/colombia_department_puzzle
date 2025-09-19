@@ -20,15 +20,13 @@ const DepartmentPath = memo(({
   pathString,
   isPlaced,
   isOver,
-  isDragging,
-  onHover
+  isDragging
 }: {
   feature: GeoFeature;
   pathString: string;
   isPlaced: boolean;
   isOver: boolean;
   isDragging: boolean;
-  onHover: (name: string | null) => void;
 }) => {
   const departmentColor = useMemo(() => {
     if (isPlaced) return '#10b981'; // Green for placed
@@ -57,8 +55,6 @@ const DepartmentPath = memo(({
       strokeWidth={strokeWidth}
       opacity={isPlaced ? 0.8 : isOver ? 0.9 : 0.6}
       className="transition-all duration-200"
-      onMouseEnter={() => onHover(feature.properties.name)}
-      onMouseLeave={() => onHover(null)}
       style={{
         cursor: isDragging ? 'grabbing' : 'pointer',
         filter: isOver && isDragging ? 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.6))' : 'none'
@@ -91,7 +87,6 @@ export default function OptimizedColombiaMap() {
   const [geoData, setGeoData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
-  const [hoveredDepartment, setHoveredDepartment] = useState<string | null>(null);
   const [draggedOverDepartment, setDraggedOverDepartment] = useState<string | null>(null);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
@@ -357,7 +352,6 @@ export default function OptimizedColombiaMap() {
                       isPlaced={isPlaced}
                       isOver={isOver}
                       isDragging={isDragging}
-                      onHover={setHoveredDepartment}
                     />
                   );
                 }}
@@ -399,20 +393,13 @@ export default function OptimizedColombiaMap() {
         </div>
       )}
 
-      {/* Hover/Drag tooltip */}
-      {(hoveredDepartment || draggedOverDepartment) && (
+      {/* Drag indicator only - no hover tooltip to avoid giving away the answer */}
+      {draggedOverDepartment && isDragging && (
         <div className="absolute top-2 left-2 pointer-events-none z-10">
-          {draggedOverDepartment && isDragging && (
-            <div className="bg-yellow-100 border-2 border-yellow-500 px-2 py-1 rounded-lg shadow-xl">
-              <p className="text-xs font-medium text-gray-700">Soltar en:</p>
-              <p className="text-sm font-bold text-yellow-700">{draggedOverDepartment}</p>
-            </div>
-          )}
-          {hoveredDepartment && !isDragging && (
-            <div className="bg-white px-2 py-1 rounded shadow-lg">
-              <p className="text-xs font-semibold">{hoveredDepartment}</p>
-            </div>
-          )}
+          <div className="bg-yellow-100 border-2 border-yellow-500 px-2 py-1 rounded-lg shadow-xl">
+            <p className="text-xs font-medium text-gray-700">Soltar en:</p>
+            <p className="text-sm font-bold text-yellow-700">{draggedOverDepartment}</p>
+          </div>
         </div>
       )}
 
