@@ -3,6 +3,7 @@ import { geoMercator, geoPath } from 'd3-geo';
 import { useDroppable } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
 import { normalizeId } from '../utils/nameNormalizer';
+import { colombiaDepartments } from '../data/colombiaDepartments';
 
 interface GeoFeature {
   type: string;
@@ -14,25 +15,45 @@ interface GeoFeature {
   geometry: any;
 }
 
+// Region color mapping
+const regionColors: Record<string, string> = {
+  'Andina': '#86efac', // Green
+  'Caribe': '#93c5fd', // Blue
+  'Pacífica': '#d8b4fe', // Purple
+  'Orinoquía': '#fde047', // Yellow
+  'Amazonía': '#6ee7b7', // Emerald
+  'Insular': '#67e8f9', // Cyan
+};
+
 // Memoized department component to prevent unnecessary re-renders
 const DepartmentPath = memo(({
   feature,
   pathString,
   isPlaced,
   isOver,
-  isDragging
+  isDragging,
+  showRegionColors
 }: {
   feature: GeoFeature;
   pathString: string;
   isPlaced: boolean;
   isOver: boolean;
   isDragging: boolean;
+  showRegionColors: boolean;
 }) => {
+  // Find the region for this department
+  const department = colombiaDepartments.find(d =>
+    normalizeId(d.name) === normalizeId(feature.properties.name) ||
+    d.id === feature.properties.id
+  );
+  const regionColor = department ? regionColors[department.region] : '#e5e7eb';
+
   const departmentColor = useMemo(() => {
     if (isPlaced) return '#10b981'; // Green for placed
-    if (isOver && isDragging) return '#fbbf24'; // Yellow/gold when hovering with a dragged item (drop target)
+    if (isOver && isDragging) return '#fbbf24'; // Yellow/gold when hovering
+    if (showRegionColors) return regionColor; // Show region color
     return '#e5e7eb'; // Default gray for unplaced
-  }, [isPlaced, isOver, isDragging]);
+  }, [isPlaced, isOver, isDragging, showRegionColors, regionColor]);
 
   const strokeColor = useMemo(() => {
     if (isOver && isDragging) return '#f59e0b'; // Orange border when drop target
@@ -91,6 +112,7 @@ export default function OptimizedColombiaMap() {
   const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
   const [isPanning, setIsPanning] = useState(false);
   const [panStart, setPanStart] = useState({ x: 0, y: 0 });
+  const [showRegionColors, setShowRegionColors] = useState(false); // New state for region colors
   const svgRef = useRef<SVGSVGElement>(null);
   const game = useGame();
   const isDragging = game.currentDepartment !== null;
@@ -257,6 +279,57 @@ export default function OptimizedColombiaMap() {
         </div>
       )}
 
+      {/* Region Color Toggle */}
+      <div className="absolute bottom-4 left-4 z-20">
+        <button
+          onClick={() => setShowRegionColors(!showRegionColors)}
+          className={`flex items-center gap-2 px-3 py-2 rounded-lg shadow-md border transition-all ${
+            showRegionColors
+              ? 'bg-gradient-to-r from-blue-500 to-green-500 text-white border-blue-600'
+              : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'
+          }`}
+          title="Mostrar/Ocultar colores de regiones"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M4 2a2 2 0 00-2 2v11a3 3 0 106 0V4a2 2 0 00-2-2H4zm1 14a1 1 0 100-2 1 1 0 000 2zm5-1.757l4.9-4.9a2 2 0 000-2.828L13.485 5.1a2 2 0 00-2.828 0L10 5.757v8.486zM16 18H9.071l6-6H16a2 2 0 012 2v2a2 2 0 01-2 2z" clipRule="evenodd" />
+          </svg>
+          <span className="text-sm font-medium">
+            {showRegionColors ? 'Ocultar' : 'Mostrar'} Regiones
+          </span>
+        </button>
+        {showRegionColors && (
+          <div className="mt-2 bg-white/95 rounded-lg shadow-md p-3 border border-gray-300">
+            <p className="text-xs font-semibold text-gray-700 mb-2">Regiones de Colombia:</p>
+            <div className="grid grid-cols-2 gap-1 text-xs">
+              <div className="flex items-center gap-1">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: regionColors['Andina'] }}></div>
+                <span>Andina</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: regionColors['Caribe'] }}></div>
+                <span>Caribe</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: regionColors['Pacífica'] }}></div>
+                <span>Pacífica</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: regionColors['Orinoquía'] }}></div>
+                <span>Orinoquía</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: regionColors['Amazonía'] }}></div>
+                <span>Amazonía</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: regionColors['Insular'] }}></div>
+                <span>Insular</span>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* Zoom Controls */}
       <div className="absolute top-4 right-4 z-20 flex flex-col gap-2">
         <button
@@ -351,6 +424,7 @@ export default function OptimizedColombiaMap() {
                       isPlaced={isPlaced}
                       isOver={isOver}
                       isDragging={isDragging}
+                      showRegionColors={showRegionColors}
                     />
                   );
                 }}

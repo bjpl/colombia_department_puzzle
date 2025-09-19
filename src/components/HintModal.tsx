@@ -242,57 +242,257 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
 
   if (!isVisible) return null;
 
+  // Determine department characteristics for varied hints
+  const isCoastal = ['La Guajira', 'Magdalena', 'Atlántico', 'Bolívar', 'Córdoba', 'Sucre', 'Chocó', 'Valle del Cauca', 'Cauca', 'Nariño'].includes(departmentName);
+  const isBorder = ['La Guajira', 'Norte de Santander', 'Arauca', 'Vichada', 'Guainía', 'Vaupés', 'Amazonas', 'Putumayo', 'Nariño'].includes(departmentName);
+  const isSmall = ['Atlántico', 'Quindío', 'Risaralda', 'San Andrés y Providencia'].includes(departmentName);
+  const isLarge = ['Amazonas', 'Vichada', 'Meta', 'Casanare', 'Caquetá', 'Antioquia'].includes(departmentName);
+  const isCapitalRegion = ['Cundinamarca', 'Bogotá D.C.'].includes(departmentName);
+  const isIsland = departmentName === 'San Andrés y Providencia';
+
   const getHintContent = () => {
     // Progressive hints based on level
     if (hintLevel === 1) {
-      // Level 1: Region and general area
+      // Level 1: Varied first hints based on department characteristics
+
+      // Special case for islands
+      if (isIsland) {
+        return (
+          <>
+            <div className="text-6xl mb-4 animate-bounce">🏝️</div>
+            <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+              Pista: Territorio Insular
+            </h3>
+            <div className="space-y-4">
+              <div className="bg-cyan-50 rounded-lg p-4 border-2 border-cyan-300">
+                <p className="text-lg font-semibold text-cyan-900 mb-2">
+                  {departmentName} es el único departamento insular
+                </p>
+                <p className="text-cyan-700">
+                  🌊 Ubicado en el Mar Caribe, lejos de la costa continental
+                </p>
+                <p className="text-sm text-cyan-600 mt-2">
+                  Busca las islas en el Caribe, más cerca de Nicaragua que de Colombia
+                </p>
+              </div>
+            </div>
+          </>
+        );
+      }
+
+      // For coastal departments, emphasize the coastline
+      if (isCoastal) {
+        const coast = departmentName === 'Chocó' || departmentName === 'Valle del Cauca' || departmentName === 'Cauca' || departmentName === 'Nariño' ? 'Pacífico' : 'Caribe';
+        return (
+          <>
+            <div className="text-6xl mb-4 animate-bounce">{coast === 'Pacífico' ? '🌊' : '🏖️'}</div>
+            <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
+              Pista: Departamento Costero
+            </h3>
+            <div className="space-y-4">
+              <div className="bg-blue-50 rounded-lg p-4">
+                <p className="text-lg font-semibold text-blue-900 mb-2">
+                  {departmentName} tiene costa en el {coast}
+                </p>
+                {geoHints.position && (
+                  <p className="text-blue-700 mb-2">
+                    📍 {geoHints.position}
+                  </p>
+                )}
+                {department && (
+                  <p className="text-sm text-blue-600 mt-2">
+                    Capital: {department.capital}
+                  </p>
+                )}
+              </div>
+            </div>
+          </>
+        );
+      }
+
+      // For border departments, emphasize international borders
+      if (isBorder && !isCoastal) {
+        const borderCountry = ['La Guajira', 'Norte de Santander', 'Arauca', 'Vichada', 'Guainía'].includes(departmentName) ? 'Venezuela' :
+                            ['Vaupés', 'Amazonas', 'Guainía'].includes(departmentName) ? 'Brasil' :
+                            ['Putumayo', 'Amazonas'].includes(departmentName) ? 'Perú' :
+                            'Ecuador';
+        return (
+          <>
+            <div className="text-6xl mb-4 animate-pulse">🗺️</div>
+            <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
+              Pista: Frontera Internacional
+            </h3>
+            <div className="space-y-4">
+              <div className="bg-orange-50 rounded-lg p-4 border-l-4 border-orange-400">
+                <p className="text-lg font-semibold text-orange-900 mb-2">
+                  {departmentName} hace frontera con {borderCountry}
+                </p>
+                {geoHints.landmark && (
+                  <p className="text-orange-700 mb-2">
+                    🏛️ {geoHints.landmark}
+                  </p>
+                )}
+                <p className="text-sm text-orange-600 mt-2">
+                  Busca en los límites del país con {borderCountry}
+                </p>
+              </div>
+            </div>
+          </>
+        );
+      }
+
+      // For very small departments, emphasize size
+      if (isSmall) {
+        return (
+          <>
+            <div className="text-6xl mb-4 animate-bounce">🔍</div>
+            <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+              Pista: Tamaño Pequeño
+            </h3>
+            <div className="space-y-4">
+              <div className="bg-purple-50 rounded-lg p-4">
+                <p className="text-lg font-semibold text-purple-900 mb-2">
+                  {departmentName} es uno de los más pequeños
+                </p>
+                {geoHints.position && (
+                  <p className="text-purple-700 mb-2">
+                    📍 {geoHints.position}
+                  </p>
+                )}
+                {department && (
+                  <div className="bg-purple-100 rounded p-2 mt-2">
+                    <p className="text-sm text-purple-800">
+                      💡 Capital: {department.capital}
+                    </p>
+                    <p className="text-xs text-purple-600">
+                      Área: {department.area?.toLocaleString()} km²
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </>
+        );
+      }
+
+      // For very large departments, emphasize size and shape
+      if (isLarge) {
+        return (
+          <>
+            <div className="text-6xl mb-4 animate-pulse">🗾</div>
+            <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">
+              Pista: Gran Extensión
+            </h3>
+            <div className="space-y-4">
+              <div className="bg-green-50 rounded-lg p-4">
+                <p className="text-lg font-semibold text-green-900 mb-2">
+                  {departmentName} es uno de los más grandes del país
+                </p>
+                {geoHints.size && (
+                  <p className="text-green-700 mb-2">
+                    🔍 {geoHints.size}
+                  </p>
+                )}
+                {geoHints.position && (
+                  <p className="text-sm text-green-600 mt-2">
+                    📍 {geoHints.position}
+                  </p>
+                )}
+              </div>
+            </div>
+          </>
+        );
+      }
+
+      // Default: Show region and unique characteristic
       return (
         <>
           <div className="text-6xl mb-4 animate-bounce">{regionData.icon}</div>
           <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
-            Pista Nivel 1: Región
+            Pista: Ubicación Regional
           </h3>
           <div className="space-y-4">
-            <p className="text-gray-700">
-              <span className="font-semibold text-gray-900">{departmentName}</span> está en:
-            </p>
-            <div className={`inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r ${regionData.bg} text-white font-bold text-lg shadow-lg`}>
-              <span className="text-2xl">{regionData.icon}</span>
-              Región {region}
-            </div>
-
-            {department && (
-              <div className="bg-blue-50 rounded-lg p-3 border-l-4 border-blue-400">
-                <p className="text-sm text-blue-800">
-                  <span className="font-semibold">💡 Dato útil:</span> La capital es {department.capital}
+            <div className={`bg-gradient-to-r ${regionData.bg} bg-opacity-10 rounded-lg p-4`}>
+              <p className="text-lg font-semibold text-gray-900 mb-2">
+                {departmentName} - Región {region}
+              </p>
+              {geoHints.landmark && (
+                <p className="text-gray-700 mb-2">
+                  🏛️ {geoHints.landmark}
+                </p>
+              )}
+              {department && (
+                <p className="text-sm text-gray-600 mt-2">
+                  Capital: {department.capital}
+                </p>
+              )}
+              <div className="mt-3 bg-blue-50 rounded p-2">
+                <p className="text-xs text-blue-700">
+                  💡 Tip: Usa el botón "Mostrar Regiones" en el mapa para ver los colores
                 </p>
               </div>
-            )}
-
-            <p className="text-sm text-gray-600 italic">
-              Busca en las áreas de color {
-                region === 'Andina' ? 'verde (centro del país)' :
-                region === 'Caribe' ? 'azul (costa norte)' :
-                region === 'Pacífica' ? 'púrpura (costa oeste)' :
-                region === 'Orinoquía' ? 'amarillo (llanos orientales)' :
-                region === 'Amazonía' ? 'esmeralda (sur selvático)' :
-                'cyan (islas del Caribe)'
-              }
-            </p>
+            </div>
           </div>
         </>
       );
     } else if (hintLevel === 2) {
-      // Level 2: Neighboring departments and position
+      // Level 2: More specific location hints
+
+      // For islands, show unique position
+      if (isIsland) {
+        return (
+          <>
+            <div className="text-6xl mb-4 animate-pulse">🗺️</div>
+            <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
+              Pista Nivel 2: Ubicación Exacta
+            </h3>
+            <div className="space-y-4">
+              <div className="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-lg p-4">
+                <p className="text-lg font-bold text-cyan-900 mb-3">
+                  🏝️ Archipiélago en el Caribe
+                </p>
+                <div className="bg-white rounded p-3">
+                  <p className="text-sm text-gray-700">
+                    📐 Más cerca de Nicaragua que de la costa colombiana
+                  </p>
+                  <p className="text-sm text-gray-700 mt-2">
+                    🧭 Al noroeste del territorio continental
+                  </p>
+                  <p className="text-sm text-gray-700 mt-2">
+                    🌊 En medio del Mar Caribe
+                  </p>
+                </div>
+              </div>
+            </div>
+          </>
+        );
+      }
+
+      // Show different information based on what's most helpful
+      const hasMany = geoHints.neighbors && geoHints.neighbors.length > 4;
+      const hasFew = geoHints.neighbors && geoHints.neighbors.length <= 3;
+
       return (
         <>
           <div className="text-6xl mb-4 animate-pulse">🧭</div>
           <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-            Pista Nivel 2: Ubicación
+            Pista Nivel 2: {hasMany ? 'Conexiones' : hasFew ? 'Vecinos Clave' : 'Posición Específica'}
           </h3>
           <div className="space-y-4">
             <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-4">
-              <p className="font-semibold text-gray-900 mb-2">{departmentName}</p>
+              <p className="font-bold text-gray-900 mb-3">{departmentName}</p>
+
+              {/* Show neighbors differently based on count */}
+              {hasMany && (
+                <div className="bg-yellow-50 rounded p-3 mb-3">
+                  <p className="text-sm font-semibold text-yellow-800 mb-1">
+                    ⚠️ Departamento muy conectado
+                  </p>
+                  <p className="text-xs text-yellow-700">
+                    Limita con {geoHints.neighbors.length} departamentos
+                  </p>
+                </div>
+              )}
 
               {geoHints.position && (
                 <p className="text-gray-700 mb-3">
@@ -302,24 +502,39 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
 
               {geoHints.neighbors && geoHints.neighbors.length > 0 && (
                 <div className="mt-3">
-                  <p className="text-sm font-semibold text-gray-700 mb-2">Limita con:</p>
+                  <p className="text-sm font-semibold text-gray-700 mb-2">
+                    {hasFew ? '🎯 Vecinos clave:' : '🔗 Limita con:'}
+                  </p>
                   <div className="flex flex-wrap gap-2">
-                    {geoHints.neighbors.map(neighbor => (
-                      <span key={neighbor} className="px-3 py-1 bg-white rounded-full text-sm font-medium text-gray-700 shadow-sm">
+                    {geoHints.neighbors.slice(0, hasFew ? 3 : 5).map(neighbor => (
+                      <span key={neighbor} className={`px-3 py-1 rounded-full text-sm font-medium shadow-sm ${
+                        hasFew ? 'bg-green-100 text-green-800' : 'bg-white text-gray-700'
+                      }`}>
                         {neighbor}
                       </span>
                     ))}
+                    {geoHints.neighbors.length > 5 && (
+                      <span className="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-500">
+                        +{geoHints.neighbors.length - 5} más
+                      </span>
+                    )}
                   </div>
                 </div>
               )}
 
+              {/* Add shape hint for large departments */}
+              {isLarge && geoHints.size && (
+                <div className="mt-3 bg-green-50 rounded p-2">
+                  <p className="text-sm text-green-800">
+                    🔍 Forma: {geoHints.size}
+                  </p>
+                </div>
+              )}
+
+              {/* Add area comparison for context */}
               {department && department.area && (
-                <p className="text-sm text-gray-600 mt-3">
-                  📏 Tamaño: {department.area > 50000 ? 'Muy grande' :
-                             department.area > 20000 ? 'Grande' :
-                             department.area > 10000 ? 'Mediano' :
-                             department.area > 5000 ? 'Pequeño' : 'Muy pequeño'}
-                  {' '}({department.area.toLocaleString()} km²)
+                <p className="text-xs text-gray-500 mt-3">
+                  📏 Área: {department.area.toLocaleString()} km²
                 </p>
               )}
             </div>
