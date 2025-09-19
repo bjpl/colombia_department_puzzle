@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DndContext, DragEndEvent, DragStartEvent, pointerWithin, rectIntersection } from '@dnd-kit/core';
 import MapCanvas from './MapCanvas';
 import DepartmentTray from './DepartmentTray';
@@ -7,10 +7,17 @@ import EducationalPanel from './EducationalPanel';
 import DragOverlay from './DragOverlay';
 import { useGame } from '../context/GameContext';
 import WinModal from './WinModal';
+import StudyMode from './StudyMode';
+import PostGameReport from './PostGameReport';
+import InteractiveTutorial from './InteractiveTutorial';
 import { normalizeId, departmentNameMap } from '../utils/nameNormalizer';
+import { storage } from '../services/storage';
 
 export default function GameContainer() {
   const game = useGame();
+  const [showStudyMode, setShowStudyMode] = useState(false);
+  const [showPostGameReport, setShowPostGameReport] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false);
 
   useEffect(() => {
     if (game.startTime && !game.isGameComplete) {
@@ -22,6 +29,21 @@ export default function GameContainer() {
       return () => clearInterval(timer);
     }
   }, [game.startTime, game.isGameComplete]);
+
+  // Check for first-time player and show tutorial
+  useEffect(() => {
+    const settings = storage.getSettings();
+    if (!settings.tutorialShown && !showTutorial) {
+      setShowTutorial(true);
+    }
+  }, []);
+
+  // Show post-game report when game completes
+  useEffect(() => {
+    if (game.isGameComplete && !showPostGameReport) {
+      setShowPostGameReport(true);
+    }
+  }, [game.isGameComplete]);
 
   const handleDragStart = (event: DragStartEvent) => {
     const departmentId = event.active.id as string;
@@ -58,7 +80,7 @@ export default function GameContainer() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
       <div className="container mx-auto p-4 max-w-[1400px]">
-        <GameHeader />
+        <GameHeader onStudyMode={() => setShowStudyMode(true)} />
 
         <DndContext
           onDragStart={handleDragStart}
@@ -104,7 +126,36 @@ export default function GameContainer() {
           <DragOverlay />
         </DndContext>
 
-        {game.isGameComplete && <WinModal />}
+        {/* Modals */}
+        {showTutorial && (
+          <InteractiveTutorial
+            onComplete={() => setShowTutorial(false)}
+            onSkip={() => setShowTutorial(false)}
+          />
+        )}
+        {showStudyMode && (
+          <StudyMode
+            onClose={() => setShowStudyMode(false)}
+            onStartGame={() => {
+              setShowStudyMode(false);
+              game.resetGame();
+            }}
+          />
+        )}
+        {showPostGameReport && (
+          <PostGameReport
+            onClose={() => setShowPostGameReport(false)}
+            onPlayAgain={() => {
+              setShowPostGameReport(false);
+              game.resetGame();
+            }}
+            onStudyMode={() => {
+              setShowPostGameReport(false);
+              setShowStudyMode(true);
+              game.resetGame();
+            }}
+          />
+        )}
       </div>
     </div>
   );

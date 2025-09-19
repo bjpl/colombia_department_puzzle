@@ -96,7 +96,7 @@ class StorageService {
   }
 
   // Game Sessions
-  saveSess(session: GameSession): void {
+  saveSession(session: GameSession): void {
     const sessions = this.getSessions();
     sessions.push(session);
 

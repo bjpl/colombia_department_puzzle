@@ -1,7 +1,11 @@
 import React from 'react';
 import { useGame } from '../context/GameContext';
 
-export default function GameHeader() {
+interface GameHeaderProps {
+  onStudyMode?: () => void;
+}
+
+export default function GameHeader({ onStudyMode }: GameHeaderProps) {
   const game = useGame();
 
   const formatTime = (seconds: number) => {
@@ -48,12 +52,22 @@ export default function GameHeader() {
           </div>
         </div>
 
-        <button
-          onClick={game.resetGame}
-          className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
-        >
-          Reiniciar
-        </button>
+        <div className="flex gap-2">
+          {onStudyMode && (
+            <button
+              onClick={onStudyMode}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors flex items-center gap-2"
+            >
+              📚 Estudiar
+            </button>
+          )}
+          <button
+            onClick={game.resetGame}
+            className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+          >
+            Reiniciar
+          </button>
+        </div>
       </div>
 
       {/* Progress bar */}
