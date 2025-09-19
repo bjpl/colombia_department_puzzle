@@ -115,10 +115,11 @@ export default function ColombiaMap() {
   const width = 800;
   const height = 600;
 
+  // Create projection optimized for Colombia
   const projection = geoMercator()
-    .fitSize([width, height], geoData)
-    .center([-74, 4]) // Center on Colombia
-    .scale(2000); // Adjust scale as needed
+    .center([-74, 4.5]) // Colombia's center coordinates
+    .scale(1500) // Adjusted scale for Colombia
+    .translate([width / 2, height / 2]); // Center in SVG
 
   const pathGenerator = geoPath().projection(projection);
 

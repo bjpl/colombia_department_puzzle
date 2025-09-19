@@ -1,6 +1,6 @@
 import React from 'react';
-import ColombiaMap from './ColombiaMap';
+import OptimizedColombiaMap from './OptimizedColombiaMap';
 
 export default function MapCanvas() {
-  return <ColombiaMap />;
+  return <OptimizedColombiaMap />;
 }
