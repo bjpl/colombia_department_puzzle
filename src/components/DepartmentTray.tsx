@@ -6,6 +6,7 @@ import { useGame } from '../context/GameContext';
 function DraggableChip({ department }: { department: any }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: department.id,
+    data: department,
   });
 
   const style = transform ? {
@@ -52,6 +53,7 @@ function DraggableChip({ department }: { department: any }) {
 function DraggableDepartment({ department, compact = false }: { department: any; compact?: boolean }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: department.id,
+    data: department,
   });
 
   const style = transform ? {
