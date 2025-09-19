@@ -13,10 +13,12 @@ import InteractiveTutorial from './InteractiveTutorial';
 import { normalizeId, departmentNameMap } from '../utils/nameNormalizer';
 import { storage } from '../services/storage';
 import { useModalManager } from '../hooks/useModalManager';
+import { useGameTimer } from '../hooks/useGameTimer';
 
 export default function GameContainer() {
   const game = useGame();
   const modal = useModalManager();
+  const timer = useGameTimer();
   const [placementFeedback, setPlacementFeedback] = useState({
     show: false,
     isCorrect: false,
@@ -24,16 +26,27 @@ export default function GameContainer() {
     position: { x: 0, y: 0 }
   });
 
+  // Sync timer with game state
   useEffect(() => {
-    if (game.startTime && !game.isGameComplete) {
-      const timer = setInterval(() => {
-        const elapsed = Math.floor((Date.now() - game.startTime!) / 1000);
-        game.updateElapsedTime(elapsed);
-      }, 1000);
-
-      return () => clearInterval(timer);
+    if (game.isGameStarted && !game.isPaused && !game.isGameComplete) {
+      if (!timer.isRunning) {
+        timer.startTimer();
+      } else if (timer.isPaused) {
+        timer.resumeTimer();
+      }
+    } else if (game.isPaused && timer.isRunning && !timer.isPaused) {
+      timer.pauseTimer();
+    } else if (game.isGameComplete && timer.isRunning) {
+      timer.stopTimer();
     }
-  }, [game.startTime, game.isGameComplete]);
+  }, [game.isGameStarted, game.isPaused, game.isGameComplete]);
+
+  // Update game elapsed time
+  useEffect(() => {
+    if (timer.elapsedTime !== game.elapsedTime) {
+      game.updateElapsedTime(timer.elapsedTime);
+    }
+  }, [timer.elapsedTime]);
 
   // Check for first-time player and show tutorial
   useEffect(() => {

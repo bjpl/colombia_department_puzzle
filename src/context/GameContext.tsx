@@ -13,6 +13,8 @@ interface GameState {
   isGameComplete: boolean;
   startTime: number | null;
   elapsedTime: number;
+  isPaused: boolean;
+  isGameStarted: boolean;
 
   // Actions
   placeDepartment: (departmentId: string, correct: boolean) => void;
@@ -21,6 +23,9 @@ interface GameState {
   deductPoints: (points: number) => void;
   resetGame: () => void;
   updateElapsedTime: (time: number) => void;
+  startGame: () => void;
+  pauseGame: () => void;
+  resumeGame: () => void;
 }
 
 const useGameStore = create<GameState>((set, get) => ({
@@ -33,6 +38,8 @@ const useGameStore = create<GameState>((set, get) => ({
   isGameComplete: false,
   startTime: null,
   elapsedTime: 0,
+  isPaused: false,
+  isGameStarted: false,
 
   placeDepartment: (departmentId: string, correct: boolean) => {
     set((state) => {
@@ -59,9 +66,15 @@ const useGameStore = create<GameState>((set, get) => ({
   },
 
   selectDepartment: (department: Department) => {
+    const state = get();
+    if (!state.isGameStarted) {
+      set({
+        isGameStarted: true,
+        startTime: Date.now()
+      });
+    }
     set({
-      currentDepartment: department,
-      startTime: get().startTime || Date.now()
+      currentDepartment: department
     });
   },
 
@@ -87,12 +100,30 @@ const useGameStore = create<GameState>((set, get) => ({
       hints: 3,
       isGameComplete: false,
       startTime: null,
-      elapsedTime: 0
+      elapsedTime: 0,
+      isPaused: false,
+      isGameStarted: false
     });
   },
 
   updateElapsedTime: (time: number) => {
     set({ elapsedTime: time });
+  },
+
+  startGame: () => {
+    set({
+      isGameStarted: true,
+      startTime: Date.now(),
+      isPaused: false
+    });
+  },
+
+  pauseGame: () => {
+    set({ isPaused: true });
+  },
+
+  resumeGame: () => {
+    set({ isPaused: false });
   }
 }));
 

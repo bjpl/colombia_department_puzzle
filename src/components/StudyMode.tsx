@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Department, colombiaDepartments } from '../data/colombiaDepartments';
 import { normalizeId } from '../utils/nameNormalizer';
+import StudyModeMap from './StudyModeMap';
+import { storage } from '../services/storage';
 
 interface StudyModeProps {
   onClose: () => void;
@@ -11,6 +13,15 @@ export default function StudyMode({ onClose, onStartGame }: StudyModeProps) {
   const [selectedDepartment, setSelectedDepartment] = useState<Department | null>(null);
   const [studiedDepartments, setStudiedDepartments] = useState<Set<string>>(new Set());
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
+
+  // Load studied departments from storage
+  useEffect(() => {
+    const profile = storage.getActiveProfile();
+    if (profile?.stats?.departmentStats) {
+      const studied = Object.keys(profile.stats.departmentStats);
+      setStudiedDepartments(new Set(studied));
+    }
+  }, []);
 
   const handleDepartmentClick = (dept: Department) => {
     setSelectedDepartment(dept);
@@ -111,14 +122,12 @@ export default function StudyMode({ onClose, onStartGame }: StudyModeProps) {
                 ))}
               </div>
             ) : (
-              <div className="flex items-center justify-center h-full">
-                <div className="text-center">
-                  <p className="text-gray-500 mb-4">Vista de mapa en desarrollo</p>
-                  <p className="text-sm text-gray-400">
-                    Por ahora, usa la vista de lista para estudiar
-                  </p>
-                </div>
-              </div>
+              <StudyModeMap
+                selectedDepartment={selectedDepartment}
+                studiedDepartments={studiedDepartments}
+                onDepartmentClick={handleDepartmentClick}
+                departments={colombiaDepartments}
+              />
             )}
           </div>
 

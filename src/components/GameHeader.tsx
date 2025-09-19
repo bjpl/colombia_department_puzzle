@@ -14,6 +14,16 @@ export default function GameHeader({ onStudyMode }: GameHeaderProps) {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
+  const handlePausePlay = () => {
+    if (!game.isGameStarted) {
+      game.startGame();
+    } else if (game.isPaused) {
+      game.resumeGame();
+    } else {
+      game.pauseGame();
+    }
+  };
+
   const progress = Math.round((game.placedDepartments.size / game.departments.length) * 100);
 
   return (
@@ -35,10 +45,27 @@ export default function GameHeader({ onStudyMode }: GameHeaderProps) {
           </div>
 
           <div className="text-center">
-            <div className="text-2xl font-bold text-green-600">
-              {formatTime(game.elapsedTime)}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handlePausePlay}
+                className={`p-1 rounded transition-colors ${
+                  game.isPaused
+                    ? 'bg-green-100 hover:bg-green-200 text-green-700'
+                    : 'bg-blue-100 hover:bg-blue-200 text-blue-700'
+                }`}
+                title={game.isPaused ? 'Reanudar' : 'Pausar'}
+              >
+                {game.isPaused ? '▶️' : '⏸️'}
+              </button>
+              <div>
+                <div className="text-2xl font-bold text-green-600">
+                  {formatTime(game.elapsedTime)}
+                </div>
+                <div className="text-sm text-gray-600">
+                  {game.isPaused ? 'Pausado' : 'Tiempo'}
+                </div>
+              </div>
             </div>
-            <div className="text-sm text-gray-600">Tiempo</div>
           </div>
 
           <div className="text-center">
