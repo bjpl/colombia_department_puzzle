@@ -9,15 +9,26 @@ interface EducationalPanelProps {
 export default function EducationalPanel({ compact = false }: EducationalPanelProps) {
   const game = useGame();
   const [showHintModal, setShowHintModal] = useState(false);
-  const [currentHintType, setCurrentHintType] = useState<'region' | 'letter' | 'location'>('region');
+  const [currentHintLevel, setCurrentHintLevel] = useState(1);
+  const [departmentAttempts, setDepartmentAttempts] = useState<Record<string, number>>({});
 
   const handleUseHint = () => {
     if (game.hints > 0 && game.currentDepartment) {
+      // Track attempts per department for better hints
+      const deptName = game.currentDepartment.name;
+      const attempts = departmentAttempts[deptName] || 0;
+      setDepartmentAttempts(prev => ({
+        ...prev,
+        [deptName]: attempts + 1
+      }));
+
+      // Progressive hints: start with level 1, increase based on attempts
+      let hintLevel = 1;
+      if (attempts >= 2) hintLevel = 2;
+      if (attempts >= 4) hintLevel = 3;
+
+      setCurrentHintLevel(hintLevel);
       game.useHint();
-      // Determine hint type based on remaining hints (for variety)
-      const hintTypes: ('region' | 'letter' | 'location')[] = ['region', 'letter', 'location'];
-      const typeIndex = (3 - game.hints) % 3;
-      setCurrentHintType(hintTypes[typeIndex] || 'region');
       setShowHintModal(true);
     }
   };
@@ -31,7 +42,8 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
           onClose={() => setShowHintModal(false)}
           departmentName={game.currentDepartment.name}
           region={game.currentDepartment.region}
-          hintType={currentHintType}
+          hintLevel={currentHintLevel}
+          attempts={departmentAttempts[game.currentDepartment.name] || 0}
         />
       )}
 
