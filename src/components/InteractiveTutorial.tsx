@@ -10,89 +10,90 @@ interface TutorialStep {
   id: number;
   title: string;
   content: string;
-  position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'center-bottom' | 'center-top';
-  highlightArea?: {
-    top: string;
-    left: string;
+  position: 'floating' | 'anchored-left' | 'anchored-right' | 'anchored-center';
+  anchor?: { x: string; y: string };
+  spotlight?: {
+    x: string;
+    y: string;
     width: string;
     height: string;
   };
-  arrow?: {
-    direction: 'up' | 'down' | 'left' | 'right';
-    targetX?: string;
-    targetY?: string;
+  beacon?: {
+    x: string;
+    y: string;
   };
 }
 
 const tutorialSteps: TutorialStep[] = [
   {
     id: 1,
-    title: "¡Bienvenido! 👋",
-    content: "Aprende los 32 departamentos de Colombia arrastrando y soltando.",
-    position: 'center-bottom',
+    title: "Bienvenido",
+    content: "Aprende los 32 departamentos de Colombia de forma interactiva",
+    position: 'floating',
   },
   {
     id: 2,
-    title: "El Mapa 🗺️",
-    content: "Cada color representa una región: Andina (verde), Caribe (azul), Pacífica (púrpura).",
-    position: 'bottom-right',
-    highlightArea: {
-      top: '50%',
-      left: '50%',
+    title: "El Mapa",
+    content: "Cada región tiene su color: Andina, Caribe, Pacífica",
+    position: 'anchored-center',
+    anchor: { x: '50%', y: '60%' },
+    spotlight: {
+      x: '50%',
+      y: '50%',
       width: '600px',
-      height: '500px'
+      height: '450px'
     },
-    arrow: {
-      direction: 'up',
-      targetX: '50%',
-      targetY: '40%'
+    beacon: {
+      x: '50%',
+      y: '50%'
     }
   },
   {
     id: 3,
-    title: "Departamentos 📍",
-    content: "Arrastra los departamentos desde aquí hacia su ubicación correcta.",
-    position: 'top-left',
-    highlightArea: {
-      top: '140px',
-      left: '20px',
-      width: '280px',
-      height: '500px'
+    title: "Departamentos",
+    content: "Arrastra desde aquí hacia el mapa",
+    position: 'anchored-left',
+    anchor: { x: '280px', y: '350px' },
+    spotlight: {
+      x: '160px',
+      y: '380px',
+      width: '300px',
+      height: '520px'
     },
-    arrow: {
-      direction: 'left',
-      targetX: '150px',
-      targetY: '300px'
+    beacon: {
+      x: '160px',
+      y: '250px'
     }
   },
   {
     id: 4,
-    title: "Puntuación 💯",
-    content: "100 pts por acierto. Pierde puntos con cada intento fallido.",
-    position: 'top-right',
-    arrow: {
-      direction: 'up',
-      targetX: '50%',
-      targetY: '80px'
+    title: "Puntuación",
+    content: "100 puntos por ubicación correcta",
+    position: 'anchored-center',
+    anchor: { x: '50%', y: '120px' },
+    beacon: {
+      x: '50%',
+      y: '70px'
     }
   },
   {
     id: 5,
-    title: "Pistas 💡",
-    content: "¿Atascado? Usa pistas: Región (10pts), Primera letra (20pts), Ubicación (50pts).",
-    position: 'bottom-right',
-    highlightArea: {
-      top: '140px',
-      left: 'auto',
-      width: '280px',
-      height: '300px'
+    title: "Pistas",
+    content: "Usa ayudas cuando lo necesites",
+    position: 'anchored-right',
+    anchor: { x: 'calc(100% - 280px)', y: '350px' },
+    spotlight: {
+      x: 'calc(100% - 160px)',
+      y: '300px',
+      width: '300px',
+      height: '320px'
     }
   },
   {
     id: 6,
-    title: "¡A jugar! 🚀",
-    content: "Completa los 32 departamentos. ¡Buena suerte!",
-    position: 'center-bottom',
+    title: "¡Comienza!",
+    content: "Completa el mapa de Colombia",
+    position: 'floating',
   }
 ];
 
@@ -113,7 +114,7 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
       setTimeout(() => {
         setCurrentStep(currentStep + 1);
         setIsAnimating(false);
-      }, 200);
+      }, 300);
     } else {
       onComplete();
     }
@@ -125,180 +126,249 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
       setTimeout(() => {
         setCurrentStep(currentStep - 1);
         setIsAnimating(false);
-      }, 200);
+      }, 300);
     }
   };
 
-  // Position classes based on step position
-  const getPositionClasses = () => {
-    const positions = {
-      'top-left': 'top-24 left-6',
-      'top-right': 'top-24 right-6',
-      'bottom-left': 'bottom-6 left-6',
-      'bottom-right': 'bottom-6 right-6',
-      'center-bottom': 'bottom-6 left-1/2 -translate-x-1/2',
-      'center-top': 'top-24 left-1/2 -translate-x-1/2'
-    };
-    return positions[step.position];
+  // Calculate card position based on anchor or centered
+  const getCardStyle = () => {
+    if (step.position === 'floating') {
+      return {
+        left: '50%',
+        bottom: '40px',
+        transform: 'translateX(-50%)'
+      };
+    }
+
+    if (step.anchor) {
+      const baseStyle: React.CSSProperties = {
+        position: 'fixed' as const,
+      };
+
+      if (step.position === 'anchored-left') {
+        return {
+          ...baseStyle,
+          left: step.anchor.x,
+          top: step.anchor.y,
+          transform: 'translate(20px, -50%)'
+        };
+      } else if (step.position === 'anchored-right') {
+        return {
+          ...baseStyle,
+          left: step.anchor.x,
+          top: step.anchor.y,
+          transform: 'translate(-100%, -50%)'
+        };
+      } else {
+        return {
+          ...baseStyle,
+          left: step.anchor.x,
+          top: step.anchor.y,
+          transform: 'translate(-50%, 20px)'
+        };
+      }
+    }
+
+    return {};
   };
 
   return (
     <>
-      {/* Dark overlay with cutout for highlighted area */}
+      {/* Elegant overlay with spotlight */}
       <div className="fixed inset-0 z-40 pointer-events-none">
-        {step.highlightArea && (
-          <svg className="absolute inset-0 w-full h-full">
-            <defs>
-              <mask id="spotlight">
-                <rect width="100%" height="100%" fill="white" />
-                <rect
-                  x={`calc(${step.highlightArea.left} - ${parseInt(step.highlightArea.width) / 2}px)`}
-                  y={`calc(${step.highlightArea.top} - ${parseInt(step.highlightArea.height) / 2}px)`}
-                  width={step.highlightArea.width}
-                  height={step.highlightArea.height}
-                  rx="12"
-                  fill="black"
-                />
-              </mask>
-            </defs>
-            <rect
-              width="100%"
-              height="100%"
-              fill="rgba(0, 0, 0, 0.6)"
-              mask="url(#spotlight)"
-            />
-          </svg>
-        )}
-        {!step.highlightArea && (
-          <div className="absolute inset-0 bg-black/30" />
+        <div
+          className={`absolute inset-0 bg-black transition-opacity duration-500 ${
+            step.spotlight ? 'opacity-50' : 'opacity-30'
+          }`}
+        />
+
+        {/* Spotlight gradient */}
+        {step.spotlight && (
+          <div
+            className="absolute rounded-2xl"
+            style={{
+              left: step.spotlight.x,
+              top: step.spotlight.y,
+              width: step.spotlight.width,
+              height: step.spotlight.height,
+              transform: 'translate(-50%, -50%)',
+              background: `
+                radial-gradient(
+                  ellipse at center,
+                  transparent 0%,
+                  transparent 40%,
+                  rgba(0, 0, 0, 0.1) 50%,
+                  rgba(0, 0, 0, 0.5) 100%
+                )
+              `,
+              boxShadow: '0 0 0 100vmax rgba(0, 0, 0, 0.5)',
+              mixBlendMode: 'multiply'
+            }}
+          />
         )}
       </div>
 
-      {/* Highlight border animation */}
-      {step.highlightArea && (
+      {/* Elegant beacon pulse */}
+      {step.beacon && (
         <div
-          className="fixed z-40 border-3 border-yellow-400 rounded-xl pointer-events-none animate-pulse"
+          className="fixed z-45 pointer-events-none"
           style={{
-            top: `calc(${step.highlightArea.top} - ${parseInt(step.highlightArea.height) / 2}px)`,
-            left: step.highlightArea.left === 'auto'
-              ? 'auto'
-              : `calc(${step.highlightArea.left} - ${parseInt(step.highlightArea.width) / 2}px)`,
-            right: step.highlightArea.left === 'auto' ? '20px' : 'auto',
-            width: step.highlightArea.width,
-            height: step.highlightArea.height,
-          }}
-        />
-      )}
-
-      {/* Arrow pointer */}
-      {step.arrow && (
-        <div
-          className="fixed z-50 pointer-events-none"
-          style={{
-            left: step.arrow.targetX,
-            top: step.arrow.targetY,
+            left: step.beacon.x,
+            top: step.beacon.y,
             transform: 'translate(-50%, -50%)'
           }}
         >
-          <div className={`
-            w-0 h-0 animate-bounce
-            ${step.arrow.direction === 'up' ? 'border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent border-b-[30px] border-b-yellow-400' : ''}
-            ${step.arrow.direction === 'down' ? 'border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent border-t-[30px] border-t-yellow-400' : ''}
-            ${step.arrow.direction === 'left' ? 'border-t-[20px] border-t-transparent border-b-[20px] border-b-transparent border-r-[30px] border-r-yellow-400' : ''}
-            ${step.arrow.direction === 'right' ? 'border-t-[20px] border-t-transparent border-b-[20px] border-b-transparent border-l-[30px] border-l-yellow-400' : ''}
-          `} />
+          {/* Outer ring */}
+          <div className="absolute w-12 h-12 -inset-6">
+            <div className="absolute inset-0 bg-white rounded-full opacity-20 animate-ping" />
+          </div>
+          {/* Middle ring */}
+          <div className="absolute w-8 h-8 -inset-4">
+            <div className="absolute inset-0 bg-white rounded-full opacity-40 animate-ping animation-delay-200" />
+          </div>
+          {/* Core */}
+          <div className="relative w-4 h-4">
+            <div className="absolute inset-0 bg-white rounded-full animate-pulse" />
+            <div className="absolute inset-1 bg-blue-400 rounded-full" />
+          </div>
         </div>
       )}
 
-      {/* Compact floating tutorial card */}
-      <div className={`
-        fixed z-50
-        ${getPositionClasses()}
-        transition-all duration-300 ease-out
-        ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}
-      `}>
-        <div className="
-          bg-white/95 backdrop-blur-xl
-          rounded-2xl shadow-2xl
-          border border-white/50
-          p-6
-          max-w-sm
-          transform hover:scale-105 transition-transform
-        ">
-          {/* Minimalist header */}
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">{step.title.split(' ')[1]}</span>
-              <h3 className="text-lg font-bold text-gray-900">
-                {step.title.split(' ')[0]}
-              </h3>
-            </div>
+      {/* Connection line (when anchored) */}
+      {step.anchor && step.position !== 'floating' && (
+        <svg
+          className="fixed inset-0 z-48 pointer-events-none"
+          style={{ width: '100%', height: '100%' }}
+        >
+          <defs>
+            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="white" stopOpacity="0" />
+              <stop offset="50%" stopColor="white" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="white" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          {step.beacon && (
+            <line
+              x1={step.beacon.x}
+              y1={step.beacon.y}
+              x2={step.anchor.x}
+              y2={step.anchor.y}
+              stroke="url(#lineGradient)"
+              strokeWidth="2"
+              strokeDasharray="5,5"
+              className="animate-pulse"
+            />
+          )}
+        </svg>
+      )}
+
+      {/* Beautiful floating card */}
+      <div
+        className={`fixed z-50 transition-all duration-500 ease-out ${
+          isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+        }`}
+        style={getCardStyle()}
+      >
+        <div className="relative">
+          {/* Card glow effect */}
+          <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-2xl blur-xl opacity-20" />
+
+          {/* Main card */}
+          <div className="relative bg-white/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/20 p-6 max-w-sm">
+            {/* Close button */}
             <button
               onClick={onSkip}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100/80 hover:bg-gray-200/80 transition-colors group"
               aria-label="Skip tutorial"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-gray-500 group-hover:text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-          </div>
 
-          {/* Content */}
-          <p className="text-gray-700 text-sm mb-4 leading-relaxed">
-            {step.content}
-          </p>
-
-          {/* Progress dots */}
-          <div className="flex items-center justify-between">
-            <div className="flex gap-1">
-              {tutorialSteps.map((_, index) => (
-                <div
-                  key={index}
-                  className={`
-                    h-1.5 rounded-full transition-all duration-300
-                    ${index === currentStep
-                      ? 'w-6 bg-gradient-to-r from-blue-500 to-green-500'
-                      : index < currentStep
-                      ? 'w-1.5 bg-green-500'
-                      : 'w-1.5 bg-gray-300'}
-                  `}
-                />
-              ))}
+            {/* Step indicator */}
+            <div className="flex items-center gap-3 mb-3">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-green-500 text-white text-sm font-bold">
+                {currentStep + 1}
+              </div>
+              <div className="flex gap-1">
+                {tutorialSteps.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`h-1 rounded-full transition-all duration-300 ${
+                      index === currentStep
+                        ? 'w-8 bg-gradient-to-r from-blue-500 to-green-500'
+                        : index < currentStep
+                        ? 'w-1 bg-green-500'
+                        : 'w-1 bg-gray-300'
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
 
-            {/* Navigation */}
-            <div className="flex gap-2">
-              {currentStep > 0 && (
+            {/* Content */}
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              {step.title}
+            </h3>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              {step.content}
+            </p>
+
+            {/* Actions */}
+            <div className="flex items-center justify-between">
+              {currentStep > 0 ? (
                 <button
                   onClick={handlePrevious}
-                  className="
-                    px-3 py-1.5
-                    text-sm text-gray-600
-                    hover:text-gray-900
-                    transition-colors
-                  "
+                  className="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-700 transition-colors"
                 >
-                  ← Atrás
+                  Anterior
                 </button>
+              ) : (
+                <div />
               )}
+
               <button
                 onClick={handleNext}
-                className="
-                  px-4 py-1.5
-                  text-sm font-medium
-                  bg-gradient-to-r from-blue-500 to-green-500
-                  text-white rounded-lg
-                  hover:shadow-lg transform hover:scale-105
-                  transition-all duration-200
-                "
+                className="px-5 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-green-500 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200"
               >
-                {currentStep === tutorialSteps.length - 1 ? '¡Comenzar!' : 'Siguiente →'}
+                {currentStep === tutorialSteps.length - 1 ? 'Comenzar' : 'Siguiente'}
               </button>
             </div>
           </div>
         </div>
       </div>
+
+      {/* CSS for custom animations */}
+      <style jsx>{`
+        @keyframes ping {
+          75%, 100% {
+            transform: scale(2);
+            opacity: 0;
+          }
+        }
+
+        .animate-ping {
+          animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        .animation-delay-200 {
+          animation-delay: 0.2s;
+        }
+
+        @keyframes pulse {
+          0%, 100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.5;
+          }
+        }
+
+        .animate-pulse {
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+      `}</style>
     </>
   );
 }
