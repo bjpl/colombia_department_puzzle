@@ -73,29 +73,29 @@ export default function GameContainer() {
             },
           }}
         >
-          {/* Optimized Layout: Map-focused with compact sidebars */}
-          <div className="mt-6 flex gap-4" style={{ height: 'calc(100vh - 180px)' }}>
+          {/* MAXIMIZED Layout: Full-screen map with minimal sidebars */}
+          <div className="mt-4 flex gap-3" style={{ height: 'calc(100vh - 140px)' }}>
 
-            {/* Left Sidebar - Compact Department Chips */}
-            <div className="w-64 bg-white/95 rounded-lg shadow-lg p-3 overflow-y-auto backdrop-blur-sm">
-              <h3 className="text-sm font-bold mb-3 sticky top-0 bg-white z-10 pb-2 border-b flex items-center justify-between">
+            {/* Left Sidebar - Ultra-Compact Department Chips */}
+            <div className="w-52 bg-white/90 rounded-lg shadow p-2 overflow-y-auto">
+              <h3 className="text-xs font-bold mb-2 sticky top-0 bg-white z-10 pb-1 border-b flex items-center justify-between">
                 <span>🧩 Departamentos</span>
-                <span className="text-xs bg-blue-100 px-2 py-1 rounded-full">
+                <span className="text-xs bg-blue-100 px-1.5 py-0.5 rounded-full">
                   {game.departments.filter(d => !game.placedDepartments.has(d.id)).length}
                 </span>
               </h3>
               <div className="space-y-1">
-                <DepartmentTray layout="compact" />
+                <DepartmentTray layout="ultra-compact" />
               </div>
             </div>
 
-            {/* Center - Full Map Canvas (Maximized) */}
-            <div className="flex-1 bg-white rounded-lg shadow-lg p-4 overflow-auto flex items-center justify-center">
+            {/* Center - MAXIMIZED Map Canvas */}
+            <div className="flex-1 bg-white rounded-lg shadow-lg p-2 flex items-center justify-center" style={{ minHeight: '600px' }}>
               <MapCanvas />
             </div>
 
-            {/* Right Sidebar - Minimal Educational Panel */}
-            <div className="w-64 bg-white/95 rounded-lg shadow-lg p-3 overflow-y-auto backdrop-blur-sm">
+            {/* Right Sidebar - Ultra-Minimal Educational Panel */}
+            <div className="w-52 bg-white/90 rounded-lg shadow p-2 overflow-y-auto">
               <EducationalPanel compact={true} />
             </div>
           </div>

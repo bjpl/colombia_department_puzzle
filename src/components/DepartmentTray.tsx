@@ -2,7 +2,7 @@ import React from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
 
-// Compact chip-style draggable for precise placement
+// Ultra-compact mini chip for maximum map space
 function DraggableChip({ department }: { department: any }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: department.id,
@@ -13,17 +13,17 @@ function DraggableChip({ department }: { department: any }) {
     zIndex: 9999,
   } : undefined;
 
-  // Region colors for visual grouping
+  // Simplified region colors with lighter borders
   const regionColors: { [key: string]: string } = {
-    'Andina': 'from-green-100 to-green-200 border-green-400 hover:border-green-600',
-    'Caribe': 'from-blue-100 to-blue-200 border-blue-400 hover:border-blue-600',
-    'Pacífica': 'from-purple-100 to-purple-200 border-purple-400 hover:border-purple-600',
-    'Orinoquía': 'from-yellow-100 to-yellow-200 border-yellow-400 hover:border-yellow-600',
-    'Amazonía': 'from-emerald-100 to-emerald-200 border-emerald-400 hover:border-emerald-600',
-    'Insular': 'from-cyan-100 to-cyan-200 border-cyan-400 hover:border-cyan-600',
+    'Andina': 'bg-green-100 border-green-300 hover:bg-green-200',
+    'Caribe': 'bg-blue-100 border-blue-300 hover:bg-blue-200',
+    'Pacífica': 'bg-purple-100 border-purple-300 hover:bg-purple-200',
+    'Orinoquía': 'bg-yellow-100 border-yellow-300 hover:bg-yellow-200',
+    'Amazonía': 'bg-emerald-100 border-emerald-300 hover:bg-emerald-200',
+    'Insular': 'bg-cyan-100 border-cyan-300 hover:bg-cyan-200',
   };
 
-  const colorClass = regionColors[department.region] || 'from-gray-100 to-gray-200 border-gray-400 hover:border-gray-600';
+  const colorClass = regionColors[department.region] || 'bg-gray-100 border-gray-300 hover:bg-gray-200';
 
   return (
     <div
@@ -32,16 +32,16 @@ function DraggableChip({ department }: { department: any }) {
       {...listeners}
       {...attributes}
       className={`
-        inline-flex items-center px-3 py-1.5 rounded-full
-        bg-gradient-to-r ${colorClass}
-        border-2 cursor-move select-none
-        hover:shadow-lg hover:scale-110
-        transition-all duration-150 text-xs font-medium
-        ${isDragging ? 'opacity-50 shadow-2xl ring-2 ring-offset-2 ring-blue-400' : ''}
+        inline-flex items-center px-2 py-0.5 rounded-md
+        ${colorClass}
+        border cursor-move select-none
+        hover:shadow-md hover:scale-105
+        transition-all duration-150
+        ${isDragging ? 'opacity-50 shadow-xl ring-2 ring-blue-400' : ''}
       `}
       title={`${department.name} - Capital: ${department.capital}`}
     >
-      <span className="text-gray-800 truncate max-w-[120px]">
+      <span className="text-[10px] font-medium text-gray-700 truncate max-w-[80px]">
         {department.name}
       </span>
     </div>
@@ -93,7 +93,7 @@ function DraggableDepartment({ department, compact = false }: { department: any;
 }
 
 interface DepartmentTrayProps {
-  layout?: 'horizontal' | 'vertical' | 'compact';
+  layout?: 'horizontal' | 'vertical' | 'compact' | 'ultra-compact';
 }
 
 export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTrayProps) {
@@ -139,6 +139,30 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
               {region} ({depts.length})
             </h4>
             <div className="flex flex-wrap gap-1.5">
+              {depts.map(department => (
+                <DraggableChip
+                  key={department.id}
+                  department={department}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Ultra-compact layout for maximum map space
+  if (layout === 'ultra-compact') {
+    return (
+      <div className="space-y-2">
+        {/* Tiny chips grouped by region */}
+        {Object.entries(regionGroups).map(([region, depts]) => (
+          <div key={region} className="space-y-1">
+            <h4 className="text-[10px] font-semibold text-gray-500 uppercase px-0.5">
+              {region}
+            </h4>
+            <div className="flex flex-wrap gap-1">
               {depts.map(department => (
                 <DraggableChip
                   key={department.id}

@@ -105,18 +105,18 @@ export default function OptimizedColombiaMap() {
     }
   };
 
-  // Memoize projection and path generator with responsive sizing
+  // Memoize projection and path generator with MAXIMIZED sizing
   const { projection, pathGenerator, width, height } = useMemo(() => {
     // Calculate optimal dimensions based on viewport
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
 
-    // Map takes center column, minus sidebars and padding
-    const w = Math.min(viewportWidth - 600, 900); // Max 900px, accounting for 2x 256px sidebars + padding
-    const h = Math.min(viewportHeight - 250, 700); // Leave room for header/footer
+    // MAXIMIZE map size - only accounting for small sidebars (2x 208px) and minimal padding
+    const w = Math.max(viewportWidth - 450, 1000); // Much larger map, minimum 1000px
+    const h = Math.max(viewportHeight - 200, 650); // Use most of vertical space
 
-    // Adjust scale based on available space
-    const scale = Math.min(w, h) * 2.5;
+    // Increase scale significantly for a larger map display
+    const scale = Math.min(w, h) * 3.2; // Increased from 2.5 to 3.2
 
     const proj = geoMercator()
       .center([-74, 4.5])
@@ -160,15 +160,15 @@ export default function OptimizedColombiaMap() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative w-full h-full flex items-center justify-center">
       <svg
         ref={svgRef}
         width="100%"
         height="100%"
-        className="border border-gray-300 rounded-lg shadow-inner bg-gradient-to-br from-blue-50 to-green-50"
+        className="border border-gray-200 rounded-lg shadow-lg bg-gradient-to-br from-blue-50 via-white to-green-50"
         viewBox={`0 0 ${width} ${height}`}
         preserveAspectRatio="xMidYMid meet"
-        style={{ maxWidth: width, maxHeight: height }}
+        style={{ width: '100%', height: '100%', minHeight: '550px' }}
       >
         {/* Ocean gradient */}
         <defs>
@@ -206,27 +206,27 @@ export default function OptimizedColombiaMap() {
           })}
         </g>
 
-        {/* Title */}
+        {/* Title - Made smaller to save space */}
         <text
           x={width / 2}
-          y={30}
+          y={25}
           textAnchor="middle"
-          className="text-2xl font-bold"
+          className="text-xl font-bold"
           fill="#1f2937"
         >
           Colombia - Rompecabezas de Departamentos
         </text>
 
-        {/* Legend */}
-        <g transform={`translate(${width - 140}, 50)`}>
-          <rect width="130" height="70" fill="white" opacity="0.9" rx="5" stroke="#e5e7eb" />
-          <text x="10" y="20" fontSize="12" fontWeight="600" fill="#374151">Leyenda:</text>
-          <rect x="10" y="25" width="12" height="10" fill="#e5e7eb" />
-          <text x="26" y="33" fontSize="11" fill="#6b7280">Por colocar</text>
-          <rect x="10" y="40" width="12" height="10" fill="#10b981" />
-          <text x="26" y="48" fontSize="11" fill="#6b7280">Colocado</text>
-          <rect x="10" y="55" width="12" height="10" fill="#60a5fa" />
-          <text x="26" y="63" fontSize="11" fill="#6b7280">Arrastrando</text>
+        {/* Legend - Made smaller and repositioned */}
+        <g transform={`translate(${width - 120}, 40)`}>
+          <rect width="110" height="60" fill="white" opacity="0.85" rx="4" stroke="#e5e7eb" strokeWidth="0.5" />
+          <text x="8" y="16" fontSize="10" fontWeight="600" fill="#374151">Leyenda:</text>
+          <rect x="8" y="22" width="10" height="8" fill="#e5e7eb" />
+          <text x="22" y="29" fontSize="9" fill="#6b7280">Por colocar</text>
+          <rect x="8" y="34" width="10" height="8" fill="#10b981" />
+          <text x="22" y="41" fontSize="9" fill="#6b7280">Colocado</text>
+          <rect x="8" y="46" width="10" height="8" fill="#60a5fa" />
+          <text x="22" y="53" fontSize="9" fill="#6b7280">Arrastrando</text>
         </g>
       </svg>
 
@@ -237,14 +237,15 @@ export default function OptimizedColombiaMap() {
         </div>
       )}
 
-      {/* Progress indicator */}
-      <div className="mt-2 text-center">
-        <div className="text-sm text-gray-600 mb-1">
-          {game.placedDepartments.size} de {geoData.features.length} departamentos colocados
+      {/* Progress indicator - Made more compact */}
+      <div className="absolute bottom-2 left-2 right-2">
+        <div className="flex items-center justify-between text-xs text-gray-600 mb-1">
+          <span>{game.placedDepartments.size} de {geoData.features.length} colocados</span>
+          <span>{Math.round((game.placedDepartments.size / geoData.features.length) * 100)}%</span>
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-2">
+        <div className="w-full bg-gray-200 rounded-full h-1.5">
           <div
-            className="bg-gradient-to-r from-blue-400 to-green-400 h-2 rounded-full transition-all duration-500"
+            className="bg-gradient-to-r from-blue-400 to-green-400 h-1.5 rounded-full transition-all duration-500"
             style={{ width: `${(game.placedDepartments.size / geoData.features.length) * 100}%` }}
           />
         </div>
