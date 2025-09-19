@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGame } from '../context/GameContext';
+import HintModal from './HintModal';
 
 interface EducationalPanelProps {
   compact?: boolean;
@@ -7,17 +8,34 @@ interface EducationalPanelProps {
 
 export default function EducationalPanel({ compact = false }: EducationalPanelProps) {
   const game = useGame();
+  const [showHintModal, setShowHintModal] = useState(false);
+  const [currentHintType, setCurrentHintType] = useState<'region' | 'letter' | 'location'>('region');
 
   const handleUseHint = () => {
     if (game.hints > 0 && game.currentDepartment) {
       game.useHint();
-      // In a real implementation, we'd highlight the correct drop zone
-      alert(`Pista: ${game.currentDepartment.name} está en la región ${game.currentDepartment.region}`);
+      // Determine hint type based on remaining hints (for variety)
+      const hintTypes: ('region' | 'letter' | 'location')[] = ['region', 'letter', 'location'];
+      const typeIndex = (3 - game.hints) % 3;
+      setCurrentHintType(hintTypes[typeIndex] || 'region');
+      setShowHintModal(true);
     }
   };
 
   return (
-    <div className="space-y-4">
+    <>
+      {/* Hint Modal */}
+      {game.currentDepartment && (
+        <HintModal
+          isOpen={showHintModal}
+          onClose={() => setShowHintModal(false)}
+          departmentName={game.currentDepartment.name}
+          region={game.currentDepartment.region}
+          hintType={currentHintType}
+        />
+      )}
+
+      <div className="space-y-4">
       {/* Current department info */}
       {game.currentDepartment && (
         <div className={`bg-white rounded-lg shadow-lg ${compact ? 'p-3' : 'p-6'}`}>
@@ -116,5 +134,6 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
         </div>
       )}
     </div>
+    </>
   );
 }
