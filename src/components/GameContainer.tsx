@@ -6,6 +6,7 @@ import GameHeader from './GameHeader';
 import EducationalPanel from './EducationalPanel';
 import { useGame } from '../context/GameContext';
 import WinModal from './WinModal';
+import { normalizeId, departmentNameMap } from '../utils/nameNormalizer';
 
 export default function GameContainer() {
   const game = useGame();
@@ -32,12 +33,24 @@ export default function GameContainer() {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
-    if (over && active.id === over.id) {
-      // Correct placement
-      game.placeDepartment(active.id as string, true);
-    } else if (over) {
-      // Incorrect placement
-      game.placeDepartment(active.id as string, false);
+    if (over) {
+      // Get the normalized names for comparison
+      const draggedId = active.id as string;
+      const targetId = over.id as string;
+
+      // Get the mapped name for the dragged department
+      const mappedDraggedName = departmentNameMap[draggedId] || normalizeId(draggedId);
+
+      // Check if the placement is correct
+      const isCorrect = mappedDraggedName === targetId || draggedId === targetId;
+
+      if (isCorrect) {
+        // Correct placement
+        game.placeDepartment(targetId, true);
+      } else {
+        // Incorrect placement
+        game.placeDepartment(draggedId, false);
+      }
     }
   };
 
