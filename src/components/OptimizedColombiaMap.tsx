@@ -93,6 +93,10 @@ export default function OptimizedColombiaMap() {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [hoveredDepartment, setHoveredDepartment] = useState<string | null>(null);
   const [draggedOverDepartment, setDraggedOverDepartment] = useState<string | null>(null);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
+  const [isPanning, setIsPanning] = useState(false);
+  const [panStart, setPanStart] = useState({ x: 0, y: 0 });
   const svgRef = useRef<SVGSVGElement>(null);
   const game = useGame();
   const isDragging = game.currentDepartment !== null;
@@ -186,8 +190,81 @@ export default function OptimizedColombiaMap() {
     );
   }
 
+  // Handle mouse wheel zoom
+  const handleWheel = (e: React.WheelEvent) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? 0.9 : 1.1;
+    const newZoom = Math.min(Math.max(zoomLevel * delta, 0.5), 4);
+    setZoomLevel(newZoom);
+  };
+
+  // Handle pan start
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (e.button === 0 && !isDragging) { // Left click only, not when dragging departments
+      setIsPanning(true);
+      setPanStart({ x: e.clientX - panOffset.x, y: e.clientY - panOffset.y });
+    }
+  };
+
+  // Handle pan move
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (isPanning && !isDragging) {
+      setPanOffset({
+        x: e.clientX - panStart.x,
+        y: e.clientY - panStart.y
+      });
+    }
+  };
+
+  // Handle pan end
+  const handleMouseUp = () => {
+    setIsPanning(false);
+  };
+
+  // Reset zoom and pan
+  const resetView = () => {
+    setZoomLevel(1);
+    setPanOffset({ x: 0, y: 0 });
+  };
+
   return (
     <div className="relative w-full h-full flex items-center justify-center">
+      {/* Zoom Controls */}
+      <div className="absolute top-4 right-4 z-20 flex flex-col gap-2">
+        <button
+          onClick={() => setZoomLevel(Math.min(zoomLevel * 1.2, 4))}
+          className="bg-white hover:bg-gray-100 text-gray-700 p-2 rounded-lg shadow-md border border-gray-300"
+          title="Acercar (Zoom In)"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+            <path fillRule="evenodd" d="M8 6a.5.5 0 01.5.5V7.5H9.5a.5.5 0 010 1H8.5V9.5a.5.5 0 01-1 0V8.5H6.5a.5.5 0 010-1H7.5V6.5A.5.5 0 018 6z" clipRule="evenodd" />
+          </svg>
+        </button>
+        <button
+          onClick={() => setZoomLevel(Math.max(zoomLevel * 0.8, 0.5))}
+          className="bg-white hover:bg-gray-100 text-gray-700 p-2 rounded-lg shadow-md border border-gray-300"
+          title="Alejar (Zoom Out)"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+            <path fillRule="evenodd" d="M6.5 8a.5.5 0 01.5-.5h2a.5.5 0 010 1H7a.5.5 0 01-.5-.5z" clipRule="evenodd" />
+          </svg>
+        </button>
+        <button
+          onClick={resetView}
+          className="bg-white hover:bg-gray-100 text-gray-700 p-2 rounded-lg shadow-md border border-gray-300"
+          title="Restablecer Vista"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
+          </svg>
+        </button>
+        <div className="text-xs text-center bg-white px-2 py-1 rounded border border-gray-300">
+          {Math.round(zoomLevel * 100)}%
+        </div>
+      </div>
+
       <svg
         ref={svgRef}
         width="100%"
@@ -195,7 +272,17 @@ export default function OptimizedColombiaMap() {
         className="border border-gray-200 rounded-lg shadow-lg bg-gradient-to-br from-blue-50 via-white to-green-50"
         viewBox={`0 0 ${width} ${height}`}
         preserveAspectRatio="xMidYMid meet"
-        style={{ width: '100%', height: '100%', minHeight: '550px' }}
+        style={{
+          width: '100%',
+          height: '100%',
+          minHeight: '550px',
+          cursor: isPanning ? 'grabbing' : (isDragging ? 'default' : 'grab')
+        }}
+        onWheel={handleWheel}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
       >
         {/* Ocean gradient */}
         <defs>
@@ -208,8 +295,8 @@ export default function OptimizedColombiaMap() {
         {/* Background */}
         <rect width={width} height={height} fill="url(#ocean)" />
 
-        {/* Render departments */}
-        <g>
+        {/* Render departments with zoom and pan transform */}
+        <g transform={`translate(${panOffset.x}, ${panOffset.y}) scale(${zoomLevel})`} style={{ transformOrigin: 'center' }}>
           {geoData.features.map((feature: GeoFeature) => {
             const key = feature.properties.id || feature.properties.name;
             const pathString = pathStrings[key];
@@ -268,6 +355,15 @@ export default function OptimizedColombiaMap() {
           <text x="22" y="53" fontSize="9" fill="#6b7280">Arrastrando</text>
         </g>
       </svg>
+
+      {/* Zoom hint for small departments */}
+      {zoomLevel === 1 && (
+        <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 pointer-events-none">
+          <div className="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full border border-blue-300">
+            🔍 Usa la rueda del mouse o los botones para hacer zoom en áreas pequeñas como Bogotá
+          </div>
+        </div>
+      )}
 
       {/* Hover/Drag tooltip */}
       {(hoveredDepartment || draggedOverDepartment) && (
