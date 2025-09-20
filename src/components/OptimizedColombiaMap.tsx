@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo, memo } from 'react';
+import React, { useEffect, useState, useRef, useMemo, memo, useCallback } from 'react';
 import { geoMercator, geoPath } from 'd3-geo';
 import { useDroppable } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
@@ -270,7 +270,7 @@ export default function OptimizedColombiaMap() {
     <div className="relative w-full h-full flex items-center justify-center">
       {/* Pan Indicator */}
       {zoomLevel > 1 && !isDragging && (
-        <div className="absolute top-4 left-4 z-20 bg-white/90 px-3 py-2 rounded-lg shadow-md border border-gray-300">
+        <div className="absolute top-16 left-4 z-20 bg-white/90 px-3 py-2 rounded-lg shadow-md border border-gray-300 pointer-events-none">
           <div className="text-xs text-gray-600 flex items-center gap-2">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20" />
@@ -378,7 +378,8 @@ export default function OptimizedColombiaMap() {
           width: '100%',
           height: '100%',
           minHeight: '550px',
-          cursor: isPanning ? 'grabbing' : (isDragging ? 'default' : 'grab')
+          cursor: isDragging ? 'default' : (isPanning ? 'grabbing' : (zoomLevel > 1 ? 'grab' : 'default')),
+          pointerEvents: 'all'
         }}
         onWheel={handleWheel}
         onMouseDown={handleMouseDown}
