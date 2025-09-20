@@ -26,15 +26,14 @@ export default function ScreenReaderAnnouncements() {
         // Find the department name from the game data
         const dept = game.getFilteredDepartments().find(d => d.id === lastPlaced);
         if (dept) {
-          const message = game.correctPlacements.has(lastPlaced)
-            ? `¡Correcto! ${dept.name} colocado correctamente. ${placedCount} de ${game.getFilteredDepartments().length} departamentos completados.`
-            : `Incorrecto. ${dept.name} colocado en posición incorrecta. Intenta de nuevo.`;
-
+          // Since all departments in placedDepartments are correct placements,
+          // we can announce it as correct
+          const message = `¡Correcto! ${dept.name} colocado correctamente. ${placedCount} de ${game.getFilteredDepartments().length} departamentos completados.`;
           announceMessage(message);
         }
       }
     }
-  }, [game.placedDepartments, game.correctPlacements, game]);
+  }, [game.placedDepartments, game]);
 
   // Announce score changes
   useEffect(() => {
@@ -52,9 +51,9 @@ export default function ScreenReaderAnnouncements() {
 
   // Announce game completion
   useEffect(() => {
-    if (game.gameCompleted) {
+    if (game.isGameComplete) {
       const totalDepartments = game.getFilteredDepartments().length;
-      const correctCount = game.correctPlacements.size;
+      const correctCount = game.placedDepartments.size;
       const accuracy = Math.round((correctCount / totalDepartments) * 100);
 
       announceMessage(
@@ -62,14 +61,14 @@ export default function ScreenReaderAnnouncements() {
         `Precisión: ${accuracy}%. Puntuación final: ${game.score} puntos.`
       );
     }
-  }, [game.gameCompleted, game]);
+  }, [game.isGameComplete, game]);
 
   // Announce hints
   useEffect(() => {
-    if (game.hintsUsed > 0) {
-      announceMessage(`Pista utilizada. Pistas restantes: ${3 - game.hintsUsed}.`);
+    if (game.hints < 3) {
+      announceMessage(`Pista utilizada. Pistas restantes: ${game.hints}.`);
     }
-  }, [game.hintsUsed]);
+  }, [game.hints]);
 
   /**
    * Helper function to announce messages to screen readers
