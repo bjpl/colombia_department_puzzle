@@ -8,13 +8,15 @@ interface StudyModeMapProps {
   studiedDepartments: Set<string>;
   onDepartmentClick: (dept: Department) => void;
   departments: Department[];
+  focusedRegion?: string | null;
 }
 
 export default function StudyModeMap({
   selectedDepartment,
   studiedDepartments,
   onDepartmentClick,
-  departments
+  departments,
+  focusedRegion
 }: StudyModeMapProps) {
   const [zoomLevel, setZoomLevel] = useState(1);
   const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
