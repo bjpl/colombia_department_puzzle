@@ -83,15 +83,16 @@ const DroppableDepartment = ({ feature, isDragging, children }: {
   isDragging: boolean;
   children: (isOver: boolean) => React.ReactNode;
 }) => {
+  const departmentId = normalizeId(feature.properties.name);
   const { setNodeRef, isOver } = useDroppable({
-    id: normalizeId(feature.properties.name),
+    id: departmentId,
     data: {
       name: feature.properties.name
     }
   });
 
   return (
-    <g ref={setNodeRef} data-over={isOver} data-department-drop-zone={id}>
+    <g ref={setNodeRef} data-over={isOver} data-department-drop-zone={departmentId}>
       {children(isOver)}
     </g>
   );
