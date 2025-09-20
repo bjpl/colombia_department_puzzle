@@ -90,7 +90,7 @@ const DroppableDepartment = ({ feature, isDragging, children }: {
   });
 
   return (
-    <g ref={setNodeRef} data-over={isOver}>
+    <g ref={setNodeRef} data-over={isOver} data-department-drop-zone={id}>
       {children(isOver)}
     </g>
   );

@@ -35,6 +35,7 @@ function DraggableChip({ department }: { department: any }) {
       tabIndex={0}
       aria-label={`Arrastra ${department.name} al mapa. Capital: ${department.capital}, Región: ${department.region}`}
       aria-grabbed={isDragging}
+      data-department-id={department.id}
     >
       <span className="text-[11px] font-bold truncate max-w-[80px]">
         {department.name}
@@ -74,6 +75,7 @@ function DraggableDepartment({ department, compact = false }: { department: any;
       aria-label={`Departamento ${department.name}. Capital: ${department.capital}. Región: ${department.region}. Presiona Enter para seleccionar, luego usa las flechas para mover`}
       aria-grabbed={isDragging}
       aria-describedby={`hint-${department.id}`}
+      data-department-id={department.id}
     >
       {/* Drag indicator */}
       <div className="absolute top-1 right-1 opacity-30 group-hover:opacity-70 transition-opacity">

@@ -15,16 +15,19 @@ import InteractiveTutorial from './InteractiveTutorial';
 import GameModeSelector, { GameModeConfig } from './GameModeSelector';
 // Removed QuickStartFlow - using InteractiveTutorial for simplicity
 import ModeTransition from './ModeTransition';
+import KeyboardHelp from './KeyboardHelp';
 import { normalizeId, departmentNameMap } from '../utils/nameNormalizer';
 import { storage } from '../services/storage';
 import { useModalManager } from '../hooks/useModalManager';
 import { useGameTimer } from '../hooks/useGameTimer';
+import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
 
 export default function GameContainer() {
   const game = useGame();
   const modal = useModalManager();
   const timer = useGameTimer();
   const sound = useSoundEffect();
+  const keyboard = useKeyboardNavigation();
   const [placementFeedback, setPlacementFeedback] = useState({
     show: false,
     isCorrect: false,
@@ -252,6 +255,9 @@ export default function GameContainer() {
 
         {/* Screen Reader Announcements */}
         <ScreenReaderAnnouncements />
+
+        {/* Keyboard Help Overlay */}
+        <KeyboardHelp />
 
         {/* Mode Transition Animation */}
         {showTransition && transitionConfig && (
