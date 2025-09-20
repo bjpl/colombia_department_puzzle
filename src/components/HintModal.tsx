@@ -543,41 +543,99 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
         </>
       );
     } else {
-      // Level 3: Very specific hints
+      // Level 3: Maximum help - directional guidance and key identifiers
       return (
         <>
-          <div className="text-6xl mb-4 animate-pulse">🎯</div>
-          <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
-            Pista Nivel 3: Ubicación Específica
+          <div className="text-6xl mb-4 animate-bounce">🎯</div>
+          <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent">
+            Pista Nivel 3: Ayuda Máxima
           </h3>
           <div className="space-y-4">
-            <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-lg p-4 border-2 border-orange-300">
-              <p className="font-bold text-gray-900 text-lg mb-3">{departmentName}</p>
+            <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-lg p-4 border-2 border-red-300">
+              <p className="font-bold text-gray-900 text-lg mb-3">📍 {departmentName}</p>
 
-              {geoHints.landmark && (
-                <div className="bg-white rounded-lg p-3 mb-3">
-                  <p className="text-gray-800">
-                    🏛️ <span className="font-semibold">Referencia clave:</span>
+              {/* Directional guidance based on department */}
+              <div className="bg-white rounded-lg p-3 mb-3 border-l-4 border-red-400">
+                <p className="text-sm font-semibold text-red-800 mb-2">
+                  🧭 Búscalo aquí:
+                </p>
+                {isIsland && (
+                  <p className="text-gray-700">
+                    En el Mar Caribe, esquina superior izquierda del mapa,
+                    lejos de la costa continental
                   </p>
-                  <p className="text-gray-700 ml-6">{geoHints.landmark}</p>
+                )}
+                {departmentName === 'Amazonas' && (
+                  <p className="text-gray-700">
+                    Extremo sur del país, el departamento más grande,
+                    forma triangular apuntando hacia Brasil y Perú
+                  </p>
+                )}
+                {departmentName === 'La Guajira' && (
+                  <p className="text-gray-700">
+                    Península en el extremo norte, la punta más al norte de Colombia
+                  </p>
+                )}
+                {departmentName === 'Nariño' && (
+                  <p className="text-gray-700">
+                    Suroeste, en la frontera con Ecuador, costa Pacífica
+                  </p>
+                )}
+                {departmentName === 'Chocó' && (
+                  <p className="text-gray-700">
+                    Costa Pacífica, departamento largo y delgado desde Panamá hacia el sur
+                  </p>
+                )}
+                {!isIsland && !['Amazonas', 'La Guajira', 'Nariño', 'Chocó'].includes(departmentName) && geoHints.position && (
+                  <p className="text-gray-700">
+                    {geoHints.position}
+                  </p>
+                )}
+              </div>
+
+              {/* Visual shape description */}
+              {geoHints.size && (
+                <div className="bg-yellow-50 rounded p-2 mb-3">
+                  <p className="text-sm text-yellow-800">
+                    🔍 <span className="font-semibold">Forma característica:</span>
+                  </p>
+                  <p className="text-sm text-yellow-700 ml-6">{geoHints.size}</p>
                 </div>
               )}
 
-              {geoHints.size && (
-                <p className="text-gray-700 mb-2">
-                  🔍 <span className="font-semibold">Forma:</span> {geoHints.size}
-                </p>
+              {/* All neighbors for reference */}
+              {geoHints.neighbors && geoHints.neighbors.length > 0 && (
+                <div className="bg-blue-50 rounded p-2 mb-3">
+                  <p className="text-sm font-semibold text-blue-800 mb-1">
+                    🔗 Todos sus vecinos:
+                  </p>
+                  <div className="flex flex-wrap gap-1 ml-6">
+                    {geoHints.neighbors.map(neighbor => (
+                      <span key={neighbor} className="px-2 py-0.5 bg-blue-100 rounded text-xs text-blue-700">
+                        {neighbor}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               )}
 
-              <div className="mt-4 p-3 bg-yellow-100 rounded-lg border border-yellow-300">
-                <p className="text-sm text-yellow-800 font-medium">
-                  ⚡ Mira cuidadosamente en la región {region}
-                </p>
-                {attempts > 2 && (
-                  <p className="text-xs text-yellow-700 mt-1">
-                    Has intentado {attempts} veces. ¡Busca con calma!
+              {/* Capital as final clue */}
+              {department && (
+                <div className="mt-3 p-2 bg-gradient-to-r from-pink-100 to-red-100 rounded border border-pink-300">
+                  <p className="text-sm font-bold text-red-800">
+                    🏛️ Capital: {department.capital}
                   </p>
-                )}
+                  <p className="text-xs text-red-600 mt-1">
+                    Busca donde estaría esta ciudad importante
+                  </p>
+                </div>
+              )}
+
+              {/* Encouragement message */}
+              <div className="mt-3 text-center">
+                <p className="text-xs text-gray-600 italic">
+                  💪 ¡Ya casi lo tienes! Esta es la máxima ayuda disponible
+                </p>
               </div>
             </div>
           </div>
