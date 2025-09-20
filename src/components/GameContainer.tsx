@@ -9,6 +9,7 @@ import PlacementFeedback from './PlacementFeedback';
 import ScreenReaderAnnouncements from './ScreenReaderAnnouncements';
 import { useGame } from '../context/GameContext';
 import StudyMode from './StudyMode';
+import { soundManager, useSoundEffect } from '../services/soundManager';
 import PostGameReport from './PostGameReport';
 import InteractiveTutorial from './InteractiveTutorial';
 import GameModeSelector, { GameModeConfig } from './GameModeSelector';
@@ -23,6 +24,7 @@ export default function GameContainer() {
   const game = useGame();
   const modal = useModalManager();
   const timer = useGameTimer();
+  const sound = useSoundEffect();
   const [placementFeedback, setPlacementFeedback] = useState({
     show: false,
     isCorrect: false,
@@ -35,6 +37,11 @@ export default function GameContainer() {
   // Enhanced flow states
   const [showTransition, setShowTransition] = useState(false);
   const [transitionConfig, setTransitionConfig] = useState<{ from: string; to: string; mode: GameModeConfig } | null>(null);
+
+  // Initialize sound system on first user interaction
+  useEffect(() => {
+    sound.initSound();
+  }, []);
 
   // Sync timer with game state
   useEffect(() => {
@@ -83,6 +90,7 @@ export default function GameContainer() {
   useEffect(() => {
     if (game.isGameComplete && !modal.isModalOpen('postGame')) {
       modal.openModal('postGame');
+      sound.playSound('win');
     }
   }, [game.isGameComplete]);
 
@@ -91,6 +99,7 @@ export default function GameContainer() {
     const department = game.departments.find(d => d.id === departmentId);
     if (department) {
       game.selectDepartment(department);
+      sound.playSound('pickup', 0.5);
     }
     // Store initial position to track if actual dragging occurs
     dragStartPos.current = {
@@ -143,9 +152,11 @@ export default function GameContainer() {
       if (isCorrect) {
         // Correct placement
         game.placeDepartment(targetId, true);
+        sound.playSound('correct');
       } else {
         // Incorrect placement
         game.placeDepartment(draggedId, false);
+        sound.playSound('incorrect');
       }
     } else {
       // No target - user cancelled the drag or dropped in empty space
