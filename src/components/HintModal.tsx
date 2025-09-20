@@ -258,7 +258,7 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
           <>
             <div className="text-6xl mb-4 animate-bounce">🏝️</div>
             <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
-              Pista: Territorio Insular
+              Pista Nivel 1: Territorio Insular
             </h3>
             <div className="space-y-4">
               <div className="bg-cyan-50 rounded-lg p-4 border-2 border-cyan-300">
@@ -284,7 +284,7 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
           <>
             <div className="text-6xl mb-4 animate-bounce">{coast === 'Pacífico' ? '🌊' : '🏖️'}</div>
             <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
-              Pista: Departamento Costero
+              Pista Nivel 1: Departamento Costero
             </h3>
             <div className="space-y-4">
               <div className="bg-blue-50 rounded-lg p-4">
@@ -317,7 +317,7 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
           <>
             <div className="text-6xl mb-4 animate-pulse">🗺️</div>
             <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
-              Pista: Frontera Internacional
+              Pista Nivel 1: Frontera Internacional
             </h3>
             <div className="space-y-4">
               <div className="bg-orange-50 rounded-lg p-4 border-l-4 border-orange-400">
@@ -344,7 +344,7 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
           <>
             <div className="text-6xl mb-4 animate-bounce">🔍</div>
             <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-              Pista: Tamaño Pequeño
+              Pista Nivel 1: Tamaño Pequeño
             </h3>
             <div className="space-y-4">
               <div className="bg-purple-50 rounded-lg p-4">
@@ -378,7 +378,7 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
           <>
             <div className="text-6xl mb-4 animate-pulse">🗾</div>
             <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">
-              Pista: Gran Extensión
+              Pista Nivel 1: Gran Extensión
             </h3>
             <div className="space-y-4">
               <div className="bg-green-50 rounded-lg p-4">
@@ -406,7 +406,7 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
         <>
           <div className="text-6xl mb-4 animate-bounce">{regionData.icon}</div>
           <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
-            Pista: Ubicación Regional
+            Pista Nivel 1: Ubicación Regional
           </h3>
           <div className="space-y-4">
             <div className={`bg-gradient-to-r ${regionData.bg} bg-opacity-10 rounded-lg p-4`}>
