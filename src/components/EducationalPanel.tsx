@@ -16,16 +16,18 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
     if (game.hints > 0 && game.currentDepartment) {
       // Track attempts per department for better hints
       const deptName = game.currentDepartment.name;
-      const attempts = departmentAttempts[deptName] || 0;
+      const currentAttempts = departmentAttempts[deptName] || 0;
+      const newAttempts = currentAttempts + 1;
+
       setDepartmentAttempts(prev => ({
         ...prev,
-        [deptName]: attempts + 1
+        [deptName]: newAttempts
       }));
 
-      // Progressive hints: start with level 1, increase based on attempts
+      // Progressive hints: start with level 1, increase based on the NEW attempt count
       let hintLevel = 1;
-      if (attempts >= 2) hintLevel = 2;
-      if (attempts >= 4) hintLevel = 3;
+      if (newAttempts >= 2) hintLevel = 2;
+      if (newAttempts >= 4) hintLevel = 3;
 
       setCurrentHintLevel(hintLevel);
       game.useHint();

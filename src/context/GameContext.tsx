@@ -60,7 +60,8 @@ const useGameStore = create<GameState>((set, get) => ({
       }
 
       return {
-        attempts: state.attempts + 1
+        attempts: state.attempts + 1,
+        currentDepartment: null  // Clear current department after incorrect placement too
       };
     });
   },
