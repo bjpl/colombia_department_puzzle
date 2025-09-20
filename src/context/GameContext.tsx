@@ -127,17 +127,22 @@ const useGameStore = create<GameState>((set, get) => ({
   },
 
   resetGame: () => {
+    const state = get();
+    // Ensure we have a valid game mode, default to easiest region if none set
+    const safeMode = state.gameMode.type ? state.gameMode : { type: 'region' as const, selectedRegions: ['Insular'] };
+
     set({
       placedDepartments: new Set(),
       currentDepartment: null,
       score: 0,
       attempts: 0,
-      hints: 3,
+      hints: safeMode.type === 'progression' ? 5 : 3,
       isGameComplete: false,
       startTime: null,
       elapsedTime: 0,
       isPaused: false,
-      isGameStarted: false
+      isGameStarted: false,
+      gameMode: safeMode
     });
   },
 
@@ -146,6 +151,17 @@ const useGameStore = create<GameState>((set, get) => ({
   },
 
   startGame: () => {
+    const state = get();
+    // Ensure we have departments to play with
+    if (state.activeDepartments.length === 0) {
+      // Fallback to Insular region if no departments active
+      const insularDepts = colombiaDepartments.filter(dept => dept.region === 'Insular');
+      set({
+        activeDepartments: insularDepts.length > 0 ? insularDepts : [colombiaDepartments[0]],
+        gameMode: { type: 'region', selectedRegions: ['Insular'] }
+      });
+    }
+
     set({
       isGameStarted: true,
       startTime: Date.now(),

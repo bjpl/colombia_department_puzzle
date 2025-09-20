@@ -8,7 +8,6 @@ import DragOverlay from './DragOverlay';
 import PlacementFeedback from './PlacementFeedback';
 import { useGame } from '../context/GameContext';
 import StudyMode from './StudyMode';
-import EnhancedStudyMode from './EnhancedStudyMode';
 import PostGameReport from './PostGameReport';
 import InteractiveTutorial from './InteractiveTutorial';
 import GameModeSelector, { GameModeConfig } from './GameModeSelector';
@@ -35,7 +34,6 @@ export default function GameContainer() {
   // Enhanced flow states
   const [showTransition, setShowTransition] = useState(false);
   const [transitionConfig, setTransitionConfig] = useState<{ from: string; to: string; mode: GameModeConfig } | null>(null);
-  const [useEnhancedStudy, setUseEnhancedStudy] = useState(true);
 
   // Sync timer with game state
   useEffect(() => {
@@ -295,40 +293,26 @@ export default function GameContainer() {
           />
         )}
         {modal.isModalOpen('study') && (
-          useEnhancedStudy ? (
-            <EnhancedStudyMode
-              onClose={() => {
-                game.clearCurrentDepartment();
-                modal.closeModal();
-              }}
-              onStartGame={() => {
-                game.clearCurrentDepartment();
-                modal.closeModal();
-                setTransitionConfig({ from: 'study', to: 'game', mode: game.gameMode });
-                setShowTransition(true);
-                setTimeout(() => game.resetGame(), 500);
-              }}
-              onSelectMode={(mode) => {
-                game.setGameMode(mode);
-                modal.closeModal();
-                setTransitionConfig({ from: 'study', to: 'game', mode });
-                setShowTransition(true);
-                setTimeout(() => game.resetGame(), 500);
-              }}
-            />
-          ) : (
-            <StudyMode
-              onClose={() => {
-                game.clearCurrentDepartment();
-                modal.closeModal();
-              }}
-              onStartGame={() => {
-                game.clearCurrentDepartment();
-                modal.closeModal();
-                game.resetGame();
-              }}
-            />
-          )
+          <StudyMode
+            onClose={() => {
+              game.clearCurrentDepartment();
+              modal.closeModal();
+            }}
+            onStartGame={() => {
+              game.clearCurrentDepartment();
+              modal.closeModal();
+              setTransitionConfig({ from: 'study', to: 'game', mode: game.gameMode });
+              setShowTransition(true);
+              setTimeout(() => game.resetGame(), 500);
+            }}
+            onSelectMode={(mode) => {
+              game.setGameMode(mode);
+              modal.closeModal();
+              setTransitionConfig({ from: 'study', to: 'game', mode });
+              setShowTransition(true);
+              setTimeout(() => game.resetGame(), 500);
+            }}
+          />
         )}
         {modal.isModalOpen('postGame') && (
           <PostGameReport

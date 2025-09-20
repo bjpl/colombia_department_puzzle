@@ -29,7 +29,7 @@ const getTransitionMessage = (from: string, to: string, mode: GameModeConfig): T
           'Los colores indican las regiones',
           'Usa las pistas si lo necesitas'
         ],
-        duration: 3000
+        duration: 1200
       };
     }
     if (mode.type === 'full') {
@@ -42,7 +42,7 @@ const getTransitionMessage = (from: string, to: string, mode: GameModeConfig): T
           'Agrupa por regiones mentalmente',
           'La práctica hace al maestro'
         ],
-        duration: 3000
+        duration: 1200
       };
     }
     return {
@@ -54,7 +54,7 @@ const getTransitionMessage = (from: string, to: string, mode: GameModeConfig): T
         'No te apresures',
         'Aprende de los errores'
       ],
-      duration: 2500
+      duration: 1000
     };
   }
 
@@ -69,7 +69,7 @@ const getTransitionMessage = (from: string, to: string, mode: GameModeConfig): T
         'Explora nuevas regiones',
         'Toma tu tiempo para aprender'
       ],
-      duration: 2500
+      duration: 1000
     };
   }
 
@@ -84,7 +84,7 @@ const getTransitionMessage = (from: string, to: string, mode: GameModeConfig): T
         'Mejora tu tiempo',
         'Explora otras regiones'
       ],
-      duration: 3500
+      duration: 1500
     };
   }
 
@@ -99,7 +99,7 @@ const getTransitionMessage = (from: string, to: string, mode: GameModeConfig): T
         'Disfruta aprendiendo',
         'Cada error es una oportunidad'
       ],
-      duration: 3000
+      duration: 1200
     };
   }
 
@@ -109,7 +109,7 @@ const getTransitionMessage = (from: string, to: string, mode: GameModeConfig): T
     title: 'Cambiando Modo',
     subtitle: 'Preparando nueva experiencia',
     tips: ['Cargando...'],
-    duration: 2000
+    duration: 800
   };
 };
 
