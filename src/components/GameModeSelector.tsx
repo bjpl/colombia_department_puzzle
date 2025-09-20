@@ -7,7 +7,7 @@ interface GameModeSelectorProps {
 }
 
 export interface GameModeConfig {
-  type: 'full' | 'region' | 'progression';
+  type: 'full' | 'region' | 'study';
   selectedRegions?: string[];
   difficulty?: 'easy' | 'medium' | 'hard';
 }
@@ -28,7 +28,7 @@ const REGIONS = [
 ];
 
 export default function GameModeSelector({ onSelectMode, onClose, userStats }: GameModeSelectorProps) {
-  const [selectedMode, setSelectedMode] = useState<'full' | 'region' | 'progression' | null>(null);
+  const [selectedMode, setSelectedMode] = useState<'full' | 'region' | 'study' | null>(null);
   const [selectedRegions, setSelectedRegions] = useState<Set<string>>(new Set());
   const [showRegionSelector, setShowRegionSelector] = useState(false);
 
@@ -39,7 +39,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
     return getTotalStars() >= region.unlockRequirement;
   };
 
-  const handleModeSelect = (mode: 'full' | 'region' | 'progression') => {
+  const handleModeSelect = (mode: 'full' | 'region' | 'study') => {
     setSelectedMode(mode);
     if (mode === 'region') {
       setShowRegionSelector(true);
@@ -74,10 +74,10 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
           <div className="flex justify-between items-start mb-6">
             <div>
               <h1 className="text-3xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-                ¿Cómo quieres jugar?
+                Elige Tu Modo de Juego
               </h1>
               <p className="text-gray-600">
-                Elige tu modo de juego para aprender la geografía de Colombia
+                Tres formas simples de aprender los departamentos de Colombia
               </p>
             </div>
             <button
@@ -99,11 +99,10 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                   <div className="text-4xl mb-4">🌎</div>
                   <h3 className="text-xl font-bold mb-2">Colombia Completa</h3>
                   <p className="text-sm text-gray-600 mb-4">
-                    Juega con los 33 departamentos. El desafío completo.
+                    Todos los 33 departamentos de una vez. ¡El desafío completo!
                   </p>
                   <div className="flex items-center justify-center gap-2 text-xs">
-                    <span className="px-2 py-1 bg-red-100 text-red-700 rounded-full">Experto</span>
-                    <span className="text-gray-500">33 departamentos</span>
+                    <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full">33 departamentos</span>
                   </div>
                 </div>
               </button>
@@ -117,11 +116,10 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                   <div className="text-4xl mb-4">🗺️</div>
                   <h3 className="text-xl font-bold mb-2">Por Regiones</h3>
                   <p className="text-sm text-gray-600 mb-4">
-                    Practica con regiones específicas a tu ritmo.
+                    Elige regiones específicas para practicar paso a paso.
                   </p>
                   <div className="flex items-center justify-center gap-2 text-xs">
-                    <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full">Flexible</span>
-                    <span className="text-gray-500">1-10 departamentos</span>
+                    <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full">1-10 departamentos</span>
                   </div>
                 </div>
                 <div className="absolute -top-2 -right-2 bg-yellow-400 text-xs px-2 py-1 rounded-full font-bold">
@@ -129,20 +127,19 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                 </div>
               </button>
 
-              {/* Progressive Mode */}
+              {/* Study Mode */}
               <button
-                onClick={() => handleModeSelect('progression')}
+                onClick={() => handleModeSelect('study')}
                 className="relative group transform transition-all hover:scale-105"
               >
                 <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border-2 border-purple-200 hover:border-purple-400 transition-all">
-                  <div className="text-4xl mb-4">🎓</div>
-                  <h3 className="text-xl font-bold mb-2">Modo Aprendizaje</h3>
+                  <div className="text-4xl mb-4">📚</div>
+                  <h3 className="text-xl font-bold mb-2">Modo Estudio</h3>
                   <p className="text-sm text-gray-600 mb-4">
-                    Progresión guiada de fácil a difícil.
+                    Aprende primero, luego practica. Ideal para principiantes.
                   </p>
                   <div className="flex items-center justify-center gap-2 text-xs">
-                    <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded-full">Progresivo</span>
-                    <span className="text-gray-500">Con tutoriales</span>
+                    <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded-full">Aprendizaje</span>
                   </div>
                 </div>
               </button>

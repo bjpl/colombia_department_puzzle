@@ -1,0 +1,707 @@
+{
+  "timestamp": "2025-09-20T04:47:01.997Z",
+  "totalPaths": 9,
+  "successfulPaths": 9,
+  "deadEndsFound": 0,
+  "details": [
+    {
+      "pathId": "beginner-visual",
+      "description": "Beginner + Visual → Insular (1 dept)",
+      "profile": {
+        "level": "beginner",
+        "style": "visual",
+        "goal": "learn"
+      },
+      "initialMode": {
+        "type": "region",
+        "selectedRegions": [
+          "Insular"
+        ]
+      },
+      "completionScenarios": [
+        {
+          "scenario": "Immediate completion after initial regions",
+          "completion": {
+            "completedRegions": [
+              "Insular"
+            ],
+            "performance": "excellent"
+          },
+          "nextOptions": [
+            {
+              "title": "Continuar a Región Pacífica",
+              "difficulty": "next",
+              "description": "3 departamentos costeros"
+            },
+            {
+              "title": "Practicar Regiones Combinadas",
+              "difficulty": "same",
+              "description": "Repaso de regiones completadas"
+            },
+            {
+              "title": "Modo Estudio",
+              "difficulty": "easier",
+              "description": "Aprender antes de continuar"
+            }
+          ],
+          "hasDeadEnd": false
+        },
+        {
+          "scenario": "Completion with poor performance",
+          "completion": {
+            "completedRegions": [
+              "Insular"
+            ],
+            "performance": "needs-practice"
+          },
+          "nextOptions": [
+            {
+              "title": "Continuar a Región Pacífica",
+              "difficulty": "next",
+              "description": "3 departamentos costeros"
+            },
+            {
+              "title": "Practicar Regiones Combinadas",
+              "difficulty": "same",
+              "description": "Repaso de regiones completadas"
+            },
+            {
+              "title": "Modo Estudio",
+              "difficulty": "easier",
+              "description": "Aprender antes de continuar"
+            }
+          ],
+          "hasDeadEnd": false
+        }
+      ],
+      "hasDeadEnd": false,
+      "recommendations": []
+    },
+    {
+      "pathId": "beginner-practice",
+      "description": "Beginner + Practice → Insular + Pacífica (4 depts)",
+      "profile": {
+        "level": "beginner",
+        "style": "practice",
+        "goal": "learn"
+      },
+      "initialMode": {
+        "type": "region",
+        "selectedRegions": [
+          "Insular",
+          "Pacífica"
+        ]
+      },
+      "completionScenarios": [
+        {
+          "scenario": "Immediate completion after initial regions",
+          "completion": {
+            "completedRegions": [
+              "Insular",
+              "Pacífica"
+            ],
+            "performance": "excellent"
+          },
+          "nextOptions": [
+            {
+              "title": "Explorar Orinoquía",
+              "difficulty": "next",
+              "description": "4 departamentos de los llanos"
+            },
+            {
+              "title": "Practicar Regiones Combinadas",
+              "difficulty": "same",
+              "description": "Repaso de regiones completadas"
+            },
+            {
+              "title": "Modo Estudio",
+              "difficulty": "easier",
+              "description": "Aprender antes de continuar"
+            }
+          ],
+          "hasDeadEnd": false
+        },
+        {
+          "scenario": "Partial completion (first region only)",
+          "completion": {
+            "completedRegions": [
+              "Insular"
+            ],
+            "performance": "good"
+          },
+          "nextOptions": [
+            {
+              "title": "Continuar a Región Pacífica",
+              "difficulty": "next",
+              "description": "3 departamentos costeros"
+            },
+            {
+              "title": "Practicar Regiones Combinadas",
+              "difficulty": "same",
+              "description": "Repaso de regiones completadas"
+            },
+            {
+              "title": "Modo Estudio",
+              "difficulty": "easier",
+              "description": "Aprender antes de continuar"
+            }
+          ],
+          "hasDeadEnd": false
+        },
+        {
+          "scenario": "Completion with poor performance",
+          "completion": {
+            "completedRegions": [
+              "Insular",
+              "Pacífica"
+            ],
+            "performance": "needs-practice"
+          },
+          "nextOptions": [
+            {
+              "title": "Explorar Orinoquía",
+              "difficulty": "next",
+              "description": "4 departamentos de los llanos"
+            },
+            {
+              "title": "Practicar Regiones Combinadas",
+              "difficulty": "same",
+              "description": "Repaso de regiones completadas"
+            },
+            {
+              "title": "Modo Estudio",
+              "difficulty": "easier",
+              "description": "Aprender antes de continuar"
+            }
+          ],
+          "hasDeadEnd": false
+        }
+      ],
+      "hasDeadEnd": false,
+      "recommendations": []
+    },
+    {
+      "pathId": "beginner-systematic",
+      "description": "Beginner + Systematic → Progressive mode",
+      "profile": {
+        "level": "beginner",
+        "style": "systematic",
+        "goal": "learn"
+      },
+      "initialMode": {
+        "type": "progression"
+      },
+      "completionScenarios": [
+        {
+          "scenario": "First stage completion",
+          "completion": {
+            "stage": 1,
+            "unlockedRegions": [
+              "Insular",
+              "Pacífica"
+            ]
+          },
+          "nextOptions": [
+            {
+              "title": "Modo Estudio",
+              "difficulty": "easier",
+              "description": "Aprender antes de continuar"
+            },
+            {
+              "title": "Continuar Progreso",
+              "difficulty": "next",
+              "description": "Etapa 2"
+            }
+          ],
+          "hasDeadEnd": false
+        },
+        {
+          "scenario": "Mid-progression",
+          "completion": {
+            "stage": 3,
+            "unlockedRegions": [
+              "Insular",
+              "Pacífica",
+              "Orinoquía",
+              "Amazonía"
+            ]
+          },
+          "nextOptions": [
+            {
+              "title": "Modo Estudio",
+              "difficulty": "easier",
+              "description": "Aprender antes de continuar"
+            },
+            {
+              "title": "Continuar Progreso",
+              "difficulty": "next",
+              "description": "Etapa 4"
+            }
+          ],
+          "hasDeadEnd": false
+        }
+      ],
+      "hasDeadEnd": false,
+      "recommendations": []
+    },
+    {
+      "pathId": "intermediate-challenge",
+      "description": "Intermediate + Challenge → Andina (10 depts)",
+      "profile": {
+        "level": "intermediate",
+        "style": "practice",
+        "goal": "challenge"
+      },
+      "initialMode": {
+        "type": "region",
+        "selectedRegions": [
+          "Andina"
+        ]
+      },
+      "completionScenarios": [
+        {
+          "scenario": "Immediate completion after initial regions",
+          "completion": {
+            "completedRegions": [
+              "Andina"
+            ],
+            "performance": "excellent"
+          },
+          "nextOptions": [
+            {
+              "title": "Desafío Colombia Completo",
+              "difficulty": "harder",
+              "description": "Todos los 33 departamentos"
+            },
+            {
+              "title": "Explorar Región Caribe",
+              "difficulty": "same",
+              "description": "7 departamentos costeros"
+            },
+            {
+              "title": "Mejorar Tiempo",
+              "difficulty": "same",
+              "description": "Desafío de velocidad"
+            }
+          ],
+          "hasDeadEnd": false
+        },
+        {
+          "scenario": "Completion with poor performance",
+          "completion": {
+            "completedRegions": [
+              "Andina"
+            ],
+            "performance": "needs-practice"
+          },
+          "nextOptions": [
+            {
+              "title": "Desafío Colombia Completo",
+              "difficulty": "harder",
+              "description": "Todos los 33 departamentos"
+            },
+            {
+              "title": "Explorar Región Caribe",
+              "difficulty": "same",
+              "description": "7 departamentos costeros"
+            },
+            {
+              "title": "Mejorar Tiempo",
+              "difficulty": "same",
+              "description": "Desafío de velocidad"
+            }
+          ],
+          "hasDeadEnd": false
+        }
+      ],
+      "hasDeadEnd": false,
+      "recommendations": []
+    },
+    {
+      "pathId": "intermediate-review",
+      "description": "Intermediate + Review → Caribe + Pacífica (10 depts)",
+      "profile": {
+        "level": "intermediate",
+        "style": "visual",
+        "goal": "review"
+      },
+      "initialMode": {
+        "type": "region",
+        "selectedRegions": [
+          "Caribe",
+          "Pacífica"
+        ]
+      },
+      "completionScenarios": [
+        {
+          "scenario": "Immediate completion after initial regions",
+          "completion": {
+            "completedRegions": [
+              "Caribe",
+              "Pacífica"
+            ],
+            "performance": "excellent"
+          },
+          "nextOptions": [
+            {
+              "title": "Combinar Todas las Regiones",
+              "difficulty": "harder",
+              "description": "Práctica integral"
+            },
+            {
+              "title": "Mejorar Tiempo",
+              "difficulty": "same",
+              "description": "Desafío de velocidad"
+            }
+          ],
+          "hasDeadEnd": false
+        },
+        {
+          "scenario": "Partial completion (first region only)",
+          "completion": {
+            "completedRegions": [
+              "Caribe"
+            ],
+            "performance": "good"
+          },
+          "nextOptions": [
+            {
+              "title": "Mejorar Tiempo",
+              "difficulty": "same",
+              "description": "Desafío de velocidad"
+            }
+          ],
+          "hasDeadEnd": false
+        },
+        {
+          "scenario": "Completion with poor performance",
+          "completion": {
+            "completedRegions": [
+              "Caribe",
+              "Pacífica"
+            ],
+            "performance": "needs-practice"
+          },
+          "nextOptions": [
+            {
+              "title": "Combinar Todas las Regiones",
+              "difficulty": "harder",
+              "description": "Práctica integral"
+            },
+            {
+              "title": "Mejorar Tiempo",
+              "difficulty": "same",
+              "description": "Desafío de velocidad"
+            }
+          ],
+          "hasDeadEnd": false
+        }
+      ],
+      "hasDeadEnd": false,
+      "recommendations": []
+    },
+    {
+      "pathId": "intermediate-learn",
+      "description": "Intermediate + Learn → Orinoquía + Amazonía (9 depts)",
+      "profile": {
+        "level": "intermediate",
+        "style": "systematic",
+        "goal": "learn"
+      },
+      "initialMode": {
+        "type": "region",
+        "selectedRegions": [
+          "Orinoquía",
+          "Amazonía"
+        ]
+      },
+      "completionScenarios": [
+        {
+          "scenario": "Immediate completion after initial regions",
+          "completion": {
+            "completedRegions": [
+              "Orinoquía",
+              "Amazonía"
+            ],
+            "performance": "excellent"
+          },
+          "nextOptions": [
+            {
+              "title": "Combinar Todas las Regiones",
+              "difficulty": "harder",
+              "description": "Práctica integral"
+            },
+            {
+              "title": "Mejorar Tiempo",
+              "difficulty": "same",
+              "description": "Desafío de velocidad"
+            }
+          ],
+          "hasDeadEnd": false
+        },
+        {
+          "scenario": "Partial completion (first region only)",
+          "completion": {
+            "completedRegions": [
+              "Orinoquía"
+            ],
+            "performance": "good"
+          },
+          "nextOptions": [
+            {
+              "title": "Mejorar Tiempo",
+              "difficulty": "same",
+              "description": "Desafío de velocidad"
+            }
+          ],
+          "hasDeadEnd": false
+        },
+        {
+          "scenario": "Completion with poor performance",
+          "completion": {
+            "completedRegions": [
+              "Orinoquía",
+              "Amazonía"
+            ],
+            "performance": "needs-practice"
+          },
+          "nextOptions": [
+            {
+              "title": "Combinar Todas las Regiones",
+              "difficulty": "harder",
+              "description": "Práctica integral"
+            },
+            {
+              "title": "Mejorar Tiempo",
+              "difficulty": "same",
+              "description": "Desafío de velocidad"
+            }
+          ],
+          "hasDeadEnd": false
+        }
+      ],
+      "hasDeadEnd": false,
+      "recommendations": []
+    },
+    {
+      "pathId": "expert-any-visual",
+      "description": "Expert + Visual → Full country (33 depts)",
+      "profile": {
+        "level": "expert",
+        "style": "visual",
+        "goal": "challenge"
+      },
+      "initialMode": {
+        "type": "full"
+      },
+      "completionScenarios": [
+        {
+          "scenario": "Full completion - excellent",
+          "completion": {
+            "allDepartments": true,
+            "accuracy": 95,
+            "time": "fast"
+          },
+          "nextOptions": [
+            {
+              "title": "Modo Velocidad Extrema",
+              "difficulty": "harder",
+              "description": "Menos de 2 minutos"
+            },
+            {
+              "title": "Sin Pistas - Modo Maestro",
+              "difficulty": "harder",
+              "description": "Completar sin ayuda"
+            },
+            {
+              "title": "Orden Aleatorio",
+              "difficulty": "same",
+              "description": "Departamentos mezclados"
+            }
+          ],
+          "hasDeadEnd": false
+        },
+        {
+          "scenario": "Full completion - average",
+          "completion": {
+            "allDepartments": true,
+            "accuracy": 75,
+            "time": "average"
+          },
+          "nextOptions": [
+            {
+              "title": "Modo Velocidad Extrema",
+              "difficulty": "harder",
+              "description": "Menos de 2 minutos"
+            },
+            {
+              "title": "Sin Pistas - Modo Maestro",
+              "difficulty": "harder",
+              "description": "Completar sin ayuda"
+            },
+            {
+              "title": "Orden Aleatorio",
+              "difficulty": "same",
+              "description": "Departamentos mezclados"
+            },
+            {
+              "title": "Perfeccionar Precisión",
+              "difficulty": "same",
+              "description": "Alcanzar 100% accuracy"
+            }
+          ],
+          "hasDeadEnd": false
+        }
+      ],
+      "hasDeadEnd": false,
+      "recommendations": []
+    },
+    {
+      "pathId": "expert-any-practice",
+      "description": "Expert + Practice → Full country (33 depts)",
+      "profile": {
+        "level": "expert",
+        "style": "practice",
+        "goal": "challenge"
+      },
+      "initialMode": {
+        "type": "full"
+      },
+      "completionScenarios": [
+        {
+          "scenario": "Full completion - excellent",
+          "completion": {
+            "allDepartments": true,
+            "accuracy": 95,
+            "time": "fast"
+          },
+          "nextOptions": [
+            {
+              "title": "Modo Velocidad Extrema",
+              "difficulty": "harder",
+              "description": "Menos de 2 minutos"
+            },
+            {
+              "title": "Sin Pistas - Modo Maestro",
+              "difficulty": "harder",
+              "description": "Completar sin ayuda"
+            },
+            {
+              "title": "Orden Aleatorio",
+              "difficulty": "same",
+              "description": "Departamentos mezclados"
+            }
+          ],
+          "hasDeadEnd": false
+        },
+        {
+          "scenario": "Full completion - average",
+          "completion": {
+            "allDepartments": true,
+            "accuracy": 75,
+            "time": "average"
+          },
+          "nextOptions": [
+            {
+              "title": "Modo Velocidad Extrema",
+              "difficulty": "harder",
+              "description": "Menos de 2 minutos"
+            },
+            {
+              "title": "Sin Pistas - Modo Maestro",
+              "difficulty": "harder",
+              "description": "Completar sin ayuda"
+            },
+            {
+              "title": "Orden Aleatorio",
+              "difficulty": "same",
+              "description": "Departamentos mezclados"
+            },
+            {
+              "title": "Perfeccionar Precisión",
+              "difficulty": "same",
+              "description": "Alcanzar 100% accuracy"
+            }
+          ],
+          "hasDeadEnd": false
+        }
+      ],
+      "hasDeadEnd": false,
+      "recommendations": []
+    },
+    {
+      "pathId": "expert-any-systematic",
+      "description": "Expert + Systematic → Full country (33 depts)",
+      "profile": {
+        "level": "expert",
+        "style": "systematic",
+        "goal": "review"
+      },
+      "initialMode": {
+        "type": "full"
+      },
+      "completionScenarios": [
+        {
+          "scenario": "Full completion - excellent",
+          "completion": {
+            "allDepartments": true,
+            "accuracy": 95,
+            "time": "fast"
+          },
+          "nextOptions": [
+            {
+              "title": "Modo Velocidad Extrema",
+              "difficulty": "harder",
+              "description": "Menos de 2 minutos"
+            },
+            {
+              "title": "Sin Pistas - Modo Maestro",
+              "difficulty": "harder",
+              "description": "Completar sin ayuda"
+            },
+            {
+              "title": "Orden Aleatorio",
+              "difficulty": "same",
+              "description": "Departamentos mezclados"
+            }
+          ],
+          "hasDeadEnd": false
+        },
+        {
+          "scenario": "Full completion - average",
+          "completion": {
+            "allDepartments": true,
+            "accuracy": 75,
+            "time": "average"
+          },
+          "nextOptions": [
+            {
+              "title": "Modo Velocidad Extrema",
+              "difficulty": "harder",
+              "description": "Menos de 2 minutos"
+            },
+            {
+              "title": "Sin Pistas - Modo Maestro",
+              "difficulty": "harder",
+              "description": "Completar sin ayuda"
+            },
+            {
+              "title": "Orden Aleatorio",
+              "difficulty": "same",
+              "description": "Departamentos mezclados"
+            },
+            {
+              "title": "Perfeccionar Precisión",
+              "difficulty": "same",
+              "description": "Alcanzar 100% accuracy"
+            }
+          ],
+          "hasDeadEnd": false
+        }
+      ],
+      "hasDeadEnd": false,
+      "recommendations": []
+    }
+  ],
+  "recommendations": []
+}

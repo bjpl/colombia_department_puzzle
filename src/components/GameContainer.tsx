@@ -11,7 +11,7 @@ import StudyMode from './StudyMode';
 import PostGameReport from './PostGameReport';
 import InteractiveTutorial from './InteractiveTutorial';
 import GameModeSelector, { GameModeConfig } from './GameModeSelector';
-import QuickStartFlow from './QuickStartFlow';
+// Removed QuickStartFlow - using InteractiveTutorial for simplicity
 import ModeTransition from './ModeTransition';
 import { normalizeId, departmentNameMap } from '../utils/nameNormalizer';
 import { storage } from '../services/storage';
@@ -57,17 +57,13 @@ export default function GameContainer() {
     }
   }, [timer.elapsedTime]);
 
-  // Check for first-time player and show appropriate intro
+  // Check for first-time player and show tutorial
   useEffect(() => {
     const settings = storage.getSettings();
     const profile = storage.getActiveProfile();
 
-    // First-time user: show quick start
-    if (!profile || (!profile.stats?.gamesPlayed || profile.stats.gamesPlayed === 0)) {
-      modal.openModal('quickstart');
-    }
-    // Returning user who hasn't seen tutorial
-    else if (!settings.tutorialShown) {
+    // Show tutorial for first-time users or those who haven't seen it
+    if (!settings.tutorialShown || !profile || (!profile.stats?.gamesPlayed || profile.stats.gamesPlayed === 0)) {
       modal.openModal('tutorial');
     }
   }, []);
@@ -256,27 +252,19 @@ export default function GameContainer() {
         )}
 
         {/* Modals */}
-        {modal.isModalOpen('quickstart') && (
-          <QuickStartFlow
-            onComplete={(mode) => {
-              game.setGameMode(mode);
-              modal.closeModal();
-              setTransitionConfig({ from: 'quickstart', to: 'game', mode });
-              setShowTransition(true);
-              setTimeout(() => game.resetGame(), 500);
-            }}
-            onSkip={() => {
-              modal.closeModal();
-              modal.openModal('gameMode');
-            }}
-          />
-        )}
         {modal.isModalOpen('gameMode') && (
           <GameModeSelector
             onSelectMode={(mode) => {
-              game.setGameMode(mode);
-              modal.closeModal();
-              game.resetGame();
+              if (mode.type === 'study') {
+                // Open Study Mode instead of starting game
+                modal.closeModal();
+                modal.openModal('study');
+              } else {
+                // Start game with selected mode
+                game.setGameMode(mode);
+                modal.closeModal();
+                game.resetGame();
+              }
             }}
             onClose={() => modal.closeModal()}
             userStats={{
@@ -288,8 +276,22 @@ export default function GameContainer() {
         )}
         {modal.isModalOpen('tutorial') && (
           <InteractiveTutorial
-            onComplete={() => modal.closeModal()}
-            onSkip={() => modal.closeModal()}
+            onComplete={() => {
+              modal.closeModal();
+              // After tutorial, show mode selector for first-time users
+              const profile = storage.getActiveProfile();
+              if (!profile || !profile.stats?.gamesPlayed || profile.stats.gamesPlayed === 0) {
+                modal.openModal('gameMode');
+              }
+            }}
+            onSkip={() => {
+              modal.closeModal();
+              // If skipping tutorial, also show mode selector for first-time users
+              const profile = storage.getActiveProfile();
+              if (!profile || !profile.stats?.gamesPlayed || profile.stats.gamesPlayed === 0) {
+                modal.openModal('gameMode');
+              }
+            }}
           />
         )}
         {modal.isModalOpen('study') && (
