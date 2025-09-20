@@ -331,6 +331,13 @@ export default function GameContainer() {
               modal.openModal('study');
               game.resetGame();
             }}
+            onSelectMode={(mode) => {
+              game.setGameMode(mode);
+              modal.closeModal();
+              setTransitionConfig({ from: 'complete', to: 'next', mode });
+              setShowTransition(true);
+              setTimeout(() => game.resetGame(), 500);
+            }}
           />
         )}
       </div>

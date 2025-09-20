@@ -1,0 +1,21 @@
+{
+  "enabled": true,
+  "telemetry": {
+    "claudeCode": {
+      "env": "CLAUDE_CODE_ENABLE_TELEMETRY",
+      "value": "1",
+      "description": "Enable Claude Code OpenTelemetry metrics"
+    }
+  },
+  "tracking": {
+    "tokens": true,
+    "costs": true,
+    "agents": true,
+    "sessions": true
+  },
+  "storage": {
+    "location": ".claude-flow/token-usage.json",
+    "format": "json",
+    "rotation": "monthly"
+  }
+}

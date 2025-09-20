@@ -2,11 +2,14 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useGame } from '../context/GameContext';
 import { storage, GameSession } from '../services/storage';
 import { Department, colombiaDepartments } from '../data/colombiaDepartments';
+import NextChallengeRecommender from './NextChallengeRecommender';
+import { GameModeConfig } from './GameModeSelector';
 
 interface PostGameReportProps {
   onClose: () => void;
   onPlayAgain: () => void;
   onStudyMode: () => void;
+  onSelectMode?: (mode: GameModeConfig) => void;
 }
 
 interface Achievement {
@@ -24,18 +27,22 @@ interface DepartmentStats {
   hintsUsed: number;
 }
 
-export default function PostGameReport({ onClose, onPlayAgain, onStudyMode }: PostGameReportProps) {
+export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSelectMode }: PostGameReportProps) {
   const game = useGame();
   const [isNewHighScore, setIsNewHighScore] = useState(false);
   const [isNewBestTime, setIsNewBestTime] = useState(false);
   const [departmentStats, setDepartmentStats] = useState<Map<string, DepartmentStats>>(new Map());
+  const [showRecommendations, setShowRecommendations] = useState(true);
 
   // Calculate game statistics
   const gameStats = useMemo(() => {
-    const totalDepartments = colombiaDepartments.length;
-    const accuracy = ((totalDepartments / Math.max(game.attempts + totalDepartments, totalDepartments)) * 100).toFixed(1);
-    const avgTimePerDept = game.elapsedTime / totalDepartments;
-    const hintsPerDept = (3 - game.hints) / totalDepartments;
+    // Use active departments count, not all 33
+    const totalDepartments = game.activeDepartments.length;
+    const placedCorrectly = game.placedDepartments.size;
+    const accuracy = totalDepartments > 0 ?
+      ((placedCorrectly / Math.max(game.attempts + placedCorrectly, totalDepartments)) * 100).toFixed(1) : '0';
+    const avgTimePerDept = totalDepartments > 0 ? game.elapsedTime / totalDepartments : 0;
+    const hintsPerDept = totalDepartments > 0 ? (3 - game.hints) / totalDepartments : 0;
 
     return {
       finalScore: game.score,
@@ -44,8 +51,9 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode }: Po
       avgTimePerDept: avgTimePerDept.toFixed(1),
       hintsUsed: 3 - game.hints,
       hintsPerDept: hintsPerDept.toFixed(2),
-      perfectPlacements: totalDepartments - Math.min(game.attempts, totalDepartments),
+      perfectPlacements: placedCorrectly,
       mistakes: game.attempts,
+      totalDepartments
     };
   }, [game]);
 
@@ -253,6 +261,31 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode }: Po
               </p>
             )}
           </div>
+
+          {/* Next Challenge Recommendations */}
+          {showRecommendations && onSelectMode && (
+            <div className="mb-6">
+              <NextChallengeRecommender
+                currentMode={game.gameMode}
+                performance={{
+                  score: game.score,
+                  accuracy: gameStats.accuracy,
+                  timeInSeconds: game.elapsedTime,
+                  hintsUsed: gameStats.hintsUsed,
+                  attempts: game.attempts
+                }}
+                onSelectChallenge={(mode) => {
+                  game.setGameMode(mode);
+                  onSelectMode(mode);
+                  onClose();
+                }}
+                onViewProgress={() => {
+                  // TODO: Implement progress view
+                  setShowRecommendations(false);
+                }}
+              />
+            </div>
+          )}
 
           {/* Action Buttons */}
           <div className="flex justify-center gap-4">
