@@ -69,7 +69,7 @@ const DepartmentPath = memo(({
       opacity={isPlaced ? 0.9 : isOver ? 0.95 : 0.7}
       className="transition-all duration-200"
       style={{
-        cursor: 'default', // Departments are drop zones, not clickable elements
+        cursor: 'inherit', // Inherit the grab cursor from the SVG parent for consistent panning
         filter: isOver && isDragging ? 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.6))' : 'none'
       }}
     />
