@@ -19,7 +19,8 @@ interface GeoFeature {
 const regionColors: Record<string, string> = {
   'Andina': '#bef264', // Lime Green (brighter, more yellow-green)
   'Caribe': '#93c5fd', // Blue
-  'Pacífica': '#e9d5ff', // Light Purple (lighter for better border visibility)
+  'Pacífico': '#e9d5ff', // Light Purple (lighter for better border visibility) - matches data
+  'Pacífica': '#e9d5ff', // Also support alternate spelling
   'Orinoquía': '#fde047', // Yellow
   'Amazonía': '#86efac', // Forest Green (darker, more blue-green)
   'Insular': '#67e8f9', // Cyan
@@ -310,8 +311,8 @@ export default function OptimizedColombiaMap() {
                 <span>Caribe</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: regionColors['Pacífica'], opacity: 0.7 }}></div>
-                <span>Pacífica</span>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: regionColors['Pacífico'], opacity: 0.7 }}></div>
+                <span>Pacífico</span>
               </div>
               <div className="flex items-center gap-1">
                 <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: regionColors['Orinoquía'], opacity: 0.7 }}></div>

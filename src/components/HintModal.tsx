@@ -13,7 +13,8 @@ interface HintModalProps {
 const regionColors: Record<string, { bg: string; text: string; icon: string }> = {
   'Andina': { bg: 'from-lime-400 to-lime-600', text: 'text-lime-900', icon: '⛰️' },
   'Caribe': { bg: 'from-blue-400 to-blue-600', text: 'text-blue-900', icon: '🏖️' },
-  'Pacífica': { bg: 'from-purple-300 to-purple-500', text: 'text-purple-900', icon: '🌊' },
+  'Pacífico': { bg: 'from-purple-300 to-purple-500', text: 'text-purple-900', icon: '🌊' },
+  'Pacífica': { bg: 'from-purple-300 to-purple-500', text: 'text-purple-900', icon: '🌊' }, // Support both spellings
   'Orinoquía': { bg: 'from-yellow-400 to-yellow-600', text: 'text-yellow-900', icon: '🌾' },
   'Amazonía': { bg: 'from-green-400 to-green-600', text: 'text-green-900', icon: '🌳' },
   'Insular': { bg: 'from-cyan-400 to-cyan-600', text: 'text-cyan-900', icon: '🏝️' },
