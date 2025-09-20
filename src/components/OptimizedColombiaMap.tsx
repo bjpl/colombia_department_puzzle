@@ -37,7 +37,9 @@ const DepartmentPath = memo(({
   // Find the region for this department
   const department = colombiaDepartments.find(d =>
     normalizeId(d.name) === normalizeId(feature.properties.name) ||
-    d.id === feature.properties.id
+    d.id === feature.properties.id ||
+    // Special case for San Andrés
+    (d.id === 'san-andres' && normalizeId(feature.properties.name).includes('archipielago'))
   );
   const regionColor = department ? REGION_COLORS[department.region] : '#e5e7eb';
 
@@ -85,7 +87,9 @@ const DroppableDepartment = ({ feature, isDragging, children }: {
 }) => {
   // Use the actual department ID from properties, or find it from the department data
   const department = colombiaDepartments.find(d =>
-    normalizeId(d.name) === normalizeId(feature.properties.name)
+    normalizeId(d.name) === normalizeId(feature.properties.name) ||
+    // Special case for San Andrés
+    (d.id === 'san-andres' && normalizeId(feature.properties.name).includes('archipielago'))
   );
   const departmentId = department?.id || normalizeId(feature.properties.name);
 
@@ -418,7 +422,9 @@ export default function OptimizedColombiaMap() {
 
             // Find the actual department ID for this feature
             const department = colombiaDepartments.find(d =>
-              normalizeId(d.name) === normalizeId(feature.properties.name)
+              normalizeId(d.name) === normalizeId(feature.properties.name) ||
+              // Special case for San Andrés
+              (d.id === 'san-andres' && normalizeId(feature.properties.name).includes('archipielago'))
             );
             const departmentId = department?.id || normalizeId(feature.properties.name);
             const isPlaced = game.placedDepartments.has(departmentId);
