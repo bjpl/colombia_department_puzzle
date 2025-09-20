@@ -438,9 +438,9 @@ export default function OptimizedColombiaMap() {
           Colombia - Rompecabezas de Departamentos
         </text>
 
-        {/* Legend - Made smaller and repositioned */}
-        <g transform={`translate(${width - 120}, 40)`}>
-          <rect width="110" height="60" fill="white" opacity="0.85" rx="4" stroke="#e5e7eb" strokeWidth="0.5" />
+        {/* Legend - Positioned at bottom right */}
+        <g transform={`translate(${width - 130}, ${height - 80})`}>
+          <rect width="110" height="60" fill="white" opacity="0.9" rx="4" stroke="#e5e7eb" strokeWidth="0.5" />
           <text x="8" y="16" fontSize="10" fontWeight="600" fill="#374151">Leyenda:</text>
           <rect x="8" y="22" width="10" height="8" fill="#e5e7eb" />
           <text x="22" y="29" fontSize="9" fill="#6b7280">Por colocar</text>

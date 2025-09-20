@@ -10,6 +10,7 @@ import { useGame } from '../context/GameContext';
 import StudyMode from './StudyMode';
 import PostGameReport from './PostGameReport';
 import InteractiveTutorial from './InteractiveTutorial';
+import GameModeSelector from './GameModeSelector';
 import { normalizeId, departmentNameMap } from '../utils/nameNormalizer';
 import { storage } from '../services/storage';
 import { useModalManager } from '../hooks/useModalManager';
@@ -165,6 +166,10 @@ export default function GameContainer() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
       <div className="container mx-auto p-4 max-w-[1400px]">
         <GameHeader
+          onGameMode={() => {
+            game.clearCurrentDepartment(); // Clear any active drag
+            modal.openModal('gameMode');
+          }}
           onStudyMode={() => {
             game.clearCurrentDepartment(); // Clear any active drag
             modal.openModal('study');
@@ -225,6 +230,21 @@ export default function GameContainer() {
         <PlacementFeedback {...placementFeedback} />
 
         {/* Modals */}
+        {modal.isModalOpen('gameMode') && (
+          <GameModeSelector
+            onSelectMode={(mode) => {
+              game.setGameMode(mode);
+              modal.closeModal();
+              game.resetGame();
+            }}
+            onClose={() => modal.closeModal()}
+            userStats={{
+              unlockedRegions: new Set(['Insular', 'Pacífica']), // Start with some unlocked
+              regionProgress: game.regionProgress,
+              totalStars: game.totalStars
+            }}
+          />
+        )}
         {modal.isModalOpen('tutorial') && (
           <InteractiveTutorial
             onComplete={() => modal.closeModal()}

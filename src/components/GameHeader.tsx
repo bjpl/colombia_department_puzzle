@@ -3,9 +3,10 @@ import { useGame } from '../context/GameContext';
 interface GameHeaderProps {
   onStudyMode?: () => void;
   onTutorial?: () => void;
+  onGameMode?: () => void;
 }
 
-export default function GameHeader({ onStudyMode, onTutorial }: GameHeaderProps) {
+export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: GameHeaderProps) {
   const game = useGame();
 
   const formatTime = (seconds: number) => {
@@ -24,7 +25,17 @@ export default function GameHeader({ onStudyMode, onTutorial }: GameHeaderProps)
     }
   };
 
-  const progress = Math.round((game.placedDepartments.size / game.departments.length) * 100);
+  const progress = Math.round((game.placedDepartments.size / game.getFilteredDepartments().length) * 100);
+
+  const getModeDisplay = () => {
+    if (game.gameMode.type === 'full') return '🌎 Colombia Completa';
+    if (game.gameMode.type === 'progression') return '🎓 Modo Aprendizaje';
+    if (game.gameMode.type === 'region' && game.gameMode.selectedRegions) {
+      const regions = game.gameMode.selectedRegions.join(', ');
+      return `🗺️ ${regions}`;
+    }
+    return '🎮 Modo Personalizado';
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
@@ -33,8 +44,11 @@ export default function GameHeader({ onStudyMode, onTutorial }: GameHeaderProps)
           <h1 className="text-3xl font-bold text-gray-800">
             🇨🇴 Rompecabezas de Colombia
           </h1>
-          <p className="text-gray-600 mt-1">
-            Aprende los departamentos de Colombia
+          <p className="text-gray-600 mt-1 flex items-center gap-2">
+            <span>Aprende los departamentos de Colombia</span>
+            <span className="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
+              {getModeDisplay()}
+            </span>
           </p>
         </div>
 
@@ -80,6 +94,15 @@ export default function GameHeader({ onStudyMode, onTutorial }: GameHeaderProps)
         </div>
 
         <div className="flex gap-2">
+          {onGameMode && (
+            <button
+              onClick={onGameMode}
+              className="px-4 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg hover:from-green-600 hover:to-blue-600 transition-all shadow-lg flex items-center gap-2"
+              title="Cambiar modo de juego"
+            >
+              🎮 Modo
+            </button>
+          )}
           {onTutorial && (
             <button
               onClick={onTutorial}

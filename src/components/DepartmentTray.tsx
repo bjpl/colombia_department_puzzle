@@ -95,8 +95,11 @@ interface DepartmentTrayProps {
 export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTrayProps) {
   const game = useGame();
 
+  // Use filtered departments from game state (respects regional mode)
+  const activeDepartments = game.getFilteredDepartments();
+
   // Filter out already placed departments
-  const availableDepartments = game.departments.filter(
+  const availableDepartments = activeDepartments.filter(
     dept => !game.placedDepartments.has(dept.id)
   );
 
