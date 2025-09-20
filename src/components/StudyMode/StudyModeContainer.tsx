@@ -216,3 +216,5 @@ export const StudyModeContainer: React.FC<StudyModeContainerProps> = ({ classNam
     </div>
   );
 };
+
+export default StudyModeContainer;
