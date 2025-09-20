@@ -218,6 +218,12 @@ const geographicHints: Record<string, {
     position: 'Suroeste, entre Valle y Nariño',
     landmark: 'Popayán, ciudad blanca',
     size: 'Grande, desde el Pacífico hasta la Amazonía'
+  },
+  'Bogotá D.C.': {
+    neighbors: ['Cundinamarca'],
+    position: 'Centro del país, dentro de Cundinamarca',
+    landmark: 'Capital de Colombia, Distrito Capital',
+    size: 'Muy pequeño, completamente rodeado por Cundinamarca'
   }
 };
 
@@ -246,7 +252,7 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
   // Determine department characteristics for varied hints
   const isCoastal = ['La Guajira', 'Magdalena', 'Atlántico', 'Bolívar', 'Córdoba', 'Sucre', 'Chocó', 'Valle del Cauca', 'Cauca', 'Nariño'].includes(departmentName);
   const isBorder = ['La Guajira', 'Norte de Santander', 'Arauca', 'Vichada', 'Guainía', 'Vaupés', 'Amazonas', 'Putumayo', 'Nariño'].includes(departmentName);
-  const isSmall = ['Atlántico', 'Quindío', 'Risaralda', 'San Andrés y Providencia'].includes(departmentName);
+  const isSmall = ['Atlántico', 'Quindío', 'Risaralda', 'San Andrés y Providencia', 'Bogotá D.C.'].includes(departmentName);
   const isLarge = ['Amazonas', 'Vichada', 'Meta', 'Casanare', 'Caquetá', 'Antioquia'].includes(departmentName);
   const isCapitalRegion = ['Cundinamarca', 'Bogotá D.C.'].includes(departmentName);
   const isIsland = departmentName === 'San Andrés y Providencia';
@@ -586,7 +592,13 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
                     Costa Pacífica, departamento largo y delgado desde Panamá hacia el sur
                   </p>
                 )}
-                {!isIsland && !['Amazonas', 'La Guajira', 'Nariño', 'Chocó'].includes(departmentName) && geoHints.position && (
+                {departmentName === 'Bogotá D.C.' && (
+                  <p className="text-gray-700">
+                    Centro del país, pequeño punto dentro de Cundinamarca,
+                    busca el "hueco" en medio de Cundinamarca
+                  </p>
+                )}
+                {!isIsland && !['Amazonas', 'La Guajira', 'Nariño', 'Chocó', 'Bogotá D.C.'].includes(departmentName) && geoHints.position && (
                   <p className="text-gray-700">
                     {geoHints.position}
                   </p>
