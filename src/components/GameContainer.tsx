@@ -9,7 +9,7 @@ import PlacementFeedback from './PlacementFeedback';
 import ScreenReaderAnnouncements from './ScreenReaderAnnouncements';
 import { useGame } from '../context/GameContext';
 import StudyMode from './StudyMode';
-import { soundManager, useSoundEffect } from '../services/soundManager';
+import { useSoundEffect } from '../services/soundManager';
 import PostGameReport from './PostGameReport';
 import InteractiveTutorial from './InteractiveTutorial';
 import GameModeSelector, { GameModeConfig } from './GameModeSelector';
@@ -30,7 +30,7 @@ export default function GameContainer() {
   const modal = useModalManager();
   const timer = useGameTimer();
   const sound = useSoundEffect();
-  const keyboard = useKeyboardNavigation();
+  // const keyboard = useKeyboardNavigation(); // Unused for now
   const [placementFeedback, setPlacementFeedback] = useState({
     show: false,
     isCorrect: false,

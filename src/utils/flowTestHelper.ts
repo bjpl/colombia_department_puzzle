@@ -1,6 +1,7 @@
 /**
  * Flow Test Helper - Automated testing utilities for user flows
  * This helper simulates different user scenarios for testing
+ * Production version with console logging minimized
  */
 
 interface TestScenario {
@@ -148,56 +149,82 @@ export class FlowTestHelper {
     }
   ];
 
+  private isDevelopment = process.env.NODE_ENV === 'development';
+
+  private log(...args: any[]) {
+    if (this.isDevelopment) {
+      console.log(...args);
+    }
+  }
+
+  private logGroup(title: string) {
+    if (this.isDevelopment && console.group) {
+      console.group(title);
+    }
+  }
+
+  private logGroupEnd() {
+    if (this.isDevelopment && console.groupEnd) {
+      console.groupEnd();
+    }
+  }
+
+  private logError(...args: any[]) {
+    if (this.isDevelopment) {
+      console.error(...args);
+    }
+  }
+
   /**
    * Run a specific test scenario
    */
   runScenario(scenarioName: string): void {
     const scenario = this.scenarios.find(s => s.name === scenarioName);
     if (!scenario) {
-      console.error(`❌ Scenario '${scenarioName}' not found`);
+      this.logError(`❌ Scenario '${scenarioName}' not found`);
       return;
     }
 
-    console.group(`🧪 Testing: ${scenario.name}`);
-    console.log(`📝 ${scenario.description}`);
+    this.logGroup(`🧪 Testing: ${scenario.name}`);
+    this.log(`📝 ${scenario.description}`);
 
     // Setup the scenario
-    console.log('🔧 Setting up...');
+    this.log('🔧 Setting up...');
     scenario.setup();
 
     // Log expected behavior
-    console.log('✅ Expected behavior:');
+    this.log('✅ Expected behavior:');
     scenario.expectedBehavior.forEach(behavior => {
-      console.log(`  • ${behavior}`);
+      this.log(`  • ${behavior}`);
     });
 
     // Validate if provided
     if (scenario.validate) {
       const isValid = scenario.validate();
-      console.log(isValid ? '✅ Setup validated' : '❌ Setup validation failed');
+      this.log(isValid ? '✅ Setup validated' : '❌ Setup validation failed');
     }
 
-    console.log('🔄 Refresh the page to see the scenario in action');
-    console.groupEnd();
+    this.log('🔄 Refresh the page to see the scenario in action');
+    this.logGroupEnd();
   }
 
   /**
    * List all available test scenarios
    */
   listScenarios(): void {
-    console.group('📋 Available Test Scenarios');
+    this.logGroup('📋 Available Test Scenarios');
     this.scenarios.forEach(scenario => {
-      console.log(`• ${scenario.name}: ${scenario.description}`);
+      this.log(`• ${scenario.name}: ${scenario.description}`);
     });
-    console.groupEnd();
+    this.logGroupEnd();
   }
 
   /**
    * Run all scenarios sequentially (requires manual page refreshes)
    */
   runAll(): void {
-    console.log('🏃 Running all test scenarios...');
-    console.log('⚠️ You\'ll need to refresh the page between each scenario');
+    this.log('🏃 Running all test scenarios...');
+    this.log('⚠️ You\'ll need to refresh the page between each scenario');
 
     let currentIndex = 0;
 
@@ -207,11 +234,11 @@ export class FlowTestHelper {
         this.runScenario(scenario.name);
         currentIndex++;
 
-        console.log(`\n⏭️ After testing, run: flowTest.continueAll()`);
+        this.log(`\n⏭️ After testing, run: flowTest.continueAll()`);
         // Store state for continuation
         sessionStorage.setItem('flowTest_currentIndex', currentIndex.toString());
       } else {
-        console.log('✅ All scenarios completed!');
+        this.log('✅ All scenarios completed!');
         sessionStorage.removeItem('flowTest_currentIndex');
       }
     };
@@ -225,7 +252,7 @@ export class FlowTestHelper {
   continueAll(): void {
     const savedIndex = sessionStorage.getItem('flowTest_currentIndex');
     if (!savedIndex) {
-      console.log('ℹ️ No test in progress. Use runAll() to start');
+      this.log('ℹ️ No test in progress. Use runAll() to start');
       return;
     }
 
@@ -236,9 +263,9 @@ export class FlowTestHelper {
       sessionStorage.setItem('flowTest_currentIndex', (currentIndex + 1).toString());
 
       if (currentIndex + 1 < this.scenarios.length) {
-        console.log(`\n⏭️ After testing, run: flowTest.continueAll()`);
+        this.log(`\n⏭️ After testing, run: flowTest.continueAll()`);
       } else {
-        console.log('✅ All scenarios completed!');
+        this.log('✅ All scenarios completed!');
         sessionStorage.removeItem('flowTest_currentIndex');
       }
     }
@@ -248,39 +275,39 @@ export class FlowTestHelper {
    * Check current application state
    */
   checkState(): void {
-    console.group('🔍 Current Application State');
+    this.logGroup('🔍 Current Application State');
 
     // Check localStorage
     const settings = localStorage.getItem('colombiaPuzzle_settings');
     const profile = localStorage.getItem('colombiaPuzzle_activeProfile');
     const gameState = localStorage.getItem('colombiaPuzzle_gameState');
 
-    console.log('Settings:', settings ? JSON.parse(settings) : 'None');
-    console.log('Profile:', profile ? JSON.parse(profile) : 'None');
-    console.log('Game State:', gameState ? JSON.parse(gameState) : 'None');
+    this.log('Settings:', settings ? JSON.parse(settings) : 'None');
+    this.log('Profile:', profile ? JSON.parse(profile) : 'None');
+    this.log('Game State:', gameState ? JSON.parse(gameState) : 'None');
 
     // Check sessionStorage
     const testIndex = sessionStorage.getItem('flowTest_currentIndex');
     if (testIndex) {
-      console.log('Test in progress at index:', testIndex);
+      this.log('Test in progress at index:', testIndex);
     }
 
-    console.groupEnd();
+    this.logGroupEnd();
   }
 
   /**
    * Reset to clean state
    */
   reset(): void {
-    console.log('🧹 Clearing all data...');
+    this.log('🧹 Clearing all data...');
     localStorage.clear();
     sessionStorage.clear();
-    console.log('✅ Reset complete. Refresh the page to see clean state.');
+    this.log('✅ Reset complete. Refresh the page to see clean state.');
   }
 }
 
 // Create global instance for console access
 if (typeof window !== 'undefined') {
   (window as any).flowTest = new FlowTestHelper();
-  console.log('🧪 Flow Test Helper loaded! Use flowTest.listScenarios() to see available tests.');
+  // Flow Test Helper loaded! Use flowTest.listScenarios() to see available tests.
 }
