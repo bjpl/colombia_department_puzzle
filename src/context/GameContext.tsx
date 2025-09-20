@@ -19,6 +19,7 @@ interface GameState {
   // Actions
   placeDepartment: (departmentId: string, correct: boolean) => void;
   selectDepartment: (department: Department) => void;
+  clearCurrentDepartment: () => void;
   useHint: () => void;
   deductPoints: (points: number) => void;
   resetGame: () => void;
@@ -76,6 +77,12 @@ const useGameStore = create<GameState>((set, get) => ({
     }
     set({
       currentDepartment: department
+    });
+  },
+
+  clearCurrentDepartment: () => {
+    set({
+      currentDepartment: null
     });
   },
 

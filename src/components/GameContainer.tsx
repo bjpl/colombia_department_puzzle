@@ -56,6 +56,16 @@ export default function GameContainer() {
     }
   }, []);
 
+  // Clear drag state when window loses focus
+  useEffect(() => {
+    const handleBlur = () => {
+      game.clearCurrentDepartment();
+    };
+
+    window.addEventListener('blur', handleBlur);
+    return () => window.removeEventListener('blur', handleBlur);
+  }, []);
+
   // Show post-game report when game completes
   useEffect(() => {
     if (game.isGameComplete && !modal.isModalOpen('postGame')) {
@@ -103,20 +113,37 @@ export default function GameContainer() {
         // Incorrect placement
         game.placeDepartment(draggedId, false);
       }
+    } else {
+      // No target - user cancelled the drag or dropped in empty space
+      // Clear the current department to restore pan functionality
+      game.clearCurrentDepartment();
     }
+  };
+
+  const handleDragCancel = () => {
+    // User pressed ESC or drag was cancelled
+    // Clear the current department to restore pan functionality
+    game.clearCurrentDepartment();
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
       <div className="container mx-auto p-4 max-w-[1400px]">
         <GameHeader
-          onStudyMode={() => modal.openModal('study')}
-          onTutorial={() => modal.openModal('tutorial')}
+          onStudyMode={() => {
+            game.clearCurrentDepartment(); // Clear any active drag
+            modal.openModal('study');
+          }}
+          onTutorial={() => {
+            game.clearCurrentDepartment(); // Clear any active drag
+            modal.openModal('tutorial');
+          }}
         />
 
         <DndContext
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
+          onDragCancel={handleDragCancel}
           collisionDetection={rectIntersection}
           autoScroll={{
             enabled: true,
@@ -170,8 +197,12 @@ export default function GameContainer() {
         )}
         {modal.isModalOpen('study') && (
           <StudyMode
-            onClose={() => modal.closeModal()}
+            onClose={() => {
+              game.clearCurrentDepartment();
+              modal.closeModal();
+            }}
             onStartGame={() => {
+              game.clearCurrentDepartment();
               modal.closeModal();
               game.resetGame();
             }}
@@ -179,12 +210,17 @@ export default function GameContainer() {
         )}
         {modal.isModalOpen('postGame') && (
           <PostGameReport
-            onClose={() => modal.closeModal()}
+            onClose={() => {
+              game.clearCurrentDepartment();
+              modal.closeModal();
+            }}
             onPlayAgain={() => {
+              game.clearCurrentDepartment();
               modal.closeModal();
               game.resetGame();
             }}
             onStudyMode={() => {
+              game.clearCurrentDepartment();
               modal.closeModal();
               modal.openModal('study');
               game.resetGame();
