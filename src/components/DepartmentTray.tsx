@@ -14,14 +14,15 @@ function DraggableChip({ department }: { department: any }) {
     zIndex: 9999,
   } : undefined;
 
-  // Simplified region colors with lighter borders
+  // Region colors matching the map display
   const regionColors: { [key: string]: string } = {
-    'Andina': 'bg-green-100 border-green-300 hover:bg-green-200',
-    'Caribe': 'bg-blue-100 border-blue-300 hover:bg-blue-200',
-    'Pacífica': 'bg-purple-100 border-purple-300 hover:bg-purple-200',
-    'Orinoquía': 'bg-yellow-100 border-yellow-300 hover:bg-yellow-200',
-    'Amazonía': 'bg-emerald-100 border-emerald-300 hover:bg-emerald-200',
-    'Insular': 'bg-cyan-100 border-cyan-300 hover:bg-cyan-200',
+    'Andina': 'bg-lime-100 border-lime-400 hover:bg-lime-200 text-lime-900',
+    'Caribe': 'bg-blue-100 border-blue-400 hover:bg-blue-200 text-blue-900',
+    'Pacífico': 'bg-purple-100 border-purple-400 hover:bg-purple-200 text-purple-900',
+    'Pacífica': 'bg-purple-100 border-purple-400 hover:bg-purple-200 text-purple-900', // Support both spellings
+    'Orinoquía': 'bg-yellow-100 border-yellow-400 hover:bg-yellow-200 text-yellow-900',
+    'Amazonía': 'bg-green-100 border-green-400 hover:bg-green-200 text-green-900',
+    'Insular': 'bg-cyan-100 border-cyan-400 hover:bg-cyan-200 text-cyan-900',
   };
 
   const colorClass = regionColors[department.region] || 'bg-gray-100 border-gray-300 hover:bg-gray-200';
@@ -33,16 +34,16 @@ function DraggableChip({ department }: { department: any }) {
       {...listeners}
       {...attributes}
       className={`
-        inline-flex items-center px-2 py-0.5 rounded-md
+        inline-flex items-center px-2 py-1 rounded-md
         ${colorClass}
-        border cursor-move select-none
+        border-2 cursor-move select-none
         hover:shadow-md hover:scale-105
         transition-all duration-150
         ${isDragging ? 'opacity-50 shadow-xl ring-2 ring-blue-400' : ''}
       `}
-      title={`${department.name} - Capital: ${department.capital}`}
+      title={`${department.name} - Capital: ${department.capital} - Región: ${department.region}`}
     >
-      <span className="text-[10px] font-medium text-gray-700 truncate max-w-[80px]">
+      <span className="text-[11px] font-bold truncate max-w-[80px]">
         {department.name}
       </span>
     </div>
