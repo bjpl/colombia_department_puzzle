@@ -134,45 +134,40 @@ export default function GameContainer() {
     const { active, over } = event;
 
     if (over) {
-      // Get the normalized names for comparison
+      // Get the IDs directly - they should now match
       const draggedId = active.id as string;
       const targetId = over.id as string;
 
-      // Get the mapped name for the dragged department
-      const mappedDraggedName = departmentNameMap[draggedId] || normalizeId(draggedId);
-
-      // Also try normalizing the dragged department's display name
+      // Get the department data
       const draggedDepartment = active.data.current as any;
-      const normalizedDraggedName = draggedDepartment?.name ? normalizeId(draggedDepartment.name) : draggedId;
-      const mappedFromDisplayName = departmentNameMap[normalizedDraggedName] || normalizedDraggedName;
 
-      // Check if the placement is correct (try multiple matching strategies)
-      const isCorrect =
-        mappedDraggedName === targetId ||
-        draggedId === targetId ||
-        mappedFromDisplayName === targetId ||
-        normalizeId(draggedId) === normalizeId(targetId);
+      // Debug logging
+      console.log('🎯 Drag and Drop Debug:', {
+        draggedId,
+        targetId,
+        departmentName: draggedDepartment?.name,
+        isMatch: draggedId === targetId
+      });
+
+      // Check if the placement is correct - simple comparison now
+      const isCorrect = draggedId === targetId;
 
       // Show placement feedback
       const rect = (event.over as any)?.rect;
-      // Get the department object from the active draggable data
-      const draggedDeptData = active.data.current as any;
       setPlacementFeedback({
         show: true,
         isCorrect,
-        departmentName: isCorrect ? (draggedDeptData?.name || '') : '',
+        departmentName: isCorrect ? (draggedDepartment?.name || '') : '',
         position: rect ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 } : { x: window.innerWidth / 2, y: window.innerHeight / 2 }
       });
 
       if (isCorrect) {
-        // Correct placement - use the original department ID for game state
-        const originalDeptId = draggedDepartment?.id || draggedId;
-        game.placeDepartment(originalDeptId, true);
+        // Correct placement - use the department ID
+        game.placeDepartment(draggedId, true);
         sound.playSound('correct');
       } else {
         // Incorrect placement
-        const originalDeptId = draggedDepartment?.id || draggedId;
-        game.placeDepartment(originalDeptId, false);
+        game.placeDepartment(draggedId, false);
         sound.playSound('incorrect');
       }
     } else {

@@ -6,7 +6,7 @@ import { normalizeId } from '../utils/nameNormalizer';
 // Ultra-compact mini chip for maximum map space
 function DraggableChip({ department }: { department: any }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: normalizeId(department.name),
+    id: department.id,
     data: department,
   });
 
@@ -48,7 +48,7 @@ function DraggableChip({ department }: { department: any }) {
 // Legacy full-size component (kept for compatibility)
 function DraggableDepartment({ department, compact = false }: { department: any; compact?: boolean }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: normalizeId(department.name),
+    id: department.id,
     data: department,
   });
 

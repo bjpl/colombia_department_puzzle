@@ -83,11 +83,17 @@ const DroppableDepartment = ({ feature, isDragging, children }: {
   isDragging: boolean;
   children: (isOver: boolean) => React.ReactNode;
 }) => {
-  const departmentId = normalizeId(feature.properties.name);
+  // Use the actual department ID from properties, or find it from the department data
+  const department = colombiaDepartments.find(d =>
+    normalizeId(d.name) === normalizeId(feature.properties.name)
+  );
+  const departmentId = department?.id || normalizeId(feature.properties.name);
+
   const { setNodeRef, isOver } = useDroppable({
     id: departmentId,
     data: {
-      name: feature.properties.name
+      name: feature.properties.name,
+      originalId: departmentId
     }
   });
 
@@ -410,8 +416,12 @@ export default function OptimizedColombiaMap() {
 
             if (!pathString) return null;
 
-            const normalizedName = normalizeId(feature.properties.name);
-            const isPlaced = game.placedDepartments.has(normalizedName);
+            // Find the actual department ID for this feature
+            const department = colombiaDepartments.find(d =>
+              normalizeId(d.name) === normalizeId(feature.properties.name)
+            );
+            const departmentId = department?.id || normalizeId(feature.properties.name);
+            const isPlaced = game.placedDepartments.has(departmentId);
 
             return (
               <DroppableDepartment key={key} feature={feature} isDragging={isDragging}>
