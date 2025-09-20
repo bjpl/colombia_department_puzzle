@@ -38,7 +38,7 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
+    <header className="bg-white rounded-lg shadow-lg p-6" role="banner" aria-label="Panel de control del juego">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-800">
@@ -53,8 +53,8 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
         </div>
 
         <div className="flex gap-6 items-center">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">{game.score}</div>
+          <div className="text-center" role="status" aria-label="Puntuación">
+            <div className="text-2xl font-bold text-blue-600" aria-live="polite">{game.score}</div>
             <div className="text-sm text-gray-600">Puntos</div>
           </div>
 
@@ -68,11 +68,13 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
                     : 'bg-blue-100 hover:bg-blue-200 text-blue-700'
                 }`}
                 title={game.isPaused ? 'Reanudar' : 'Pausar'}
+                aria-label={game.isPaused ? 'Reanudar juego' : 'Pausar juego'}
+                aria-pressed={game.isPaused}
               >
                 {game.isPaused ? '▶️' : '⏸️'}
               </button>
-              <div>
-                <div className="text-2xl font-bold text-green-600">
+              <div role="timer" aria-label="Tiempo transcurrido">
+                <div className="text-2xl font-bold text-green-600" aria-live="off">
                   {formatTime(game.elapsedTime)}
                 </div>
                 <div className="text-sm text-gray-600">
@@ -82,13 +84,13 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
             </div>
           </div>
 
-          <div className="text-center">
-            <div className="text-2xl font-bold text-purple-600">{progress}%</div>
+          <div className="text-center" role="status" aria-label="Progreso del juego">
+            <div className="text-2xl font-bold text-purple-600" aria-live="polite" aria-valuemin="0" aria-valuemax="100" aria-valuenow={progress}>{progress}%</div>
             <div className="text-sm text-gray-600">Progreso</div>
           </div>
 
-          <div className="text-center">
-            <div className="text-2xl font-bold text-yellow-600">{game.hints}</div>
+          <div className="text-center" role="status" aria-label="Pistas disponibles">
+            <div className="text-2xl font-bold text-yellow-600" aria-live="polite">{game.hints}</div>
             <div className="text-sm text-gray-600">Pistas</div>
           </div>
         </div>
@@ -99,6 +101,7 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
               onClick={onGameMode}
               className="px-4 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg hover:from-green-600 hover:to-blue-600 transition-all shadow-lg flex items-center gap-2"
               title="Cambiar modo de juego"
+              aria-label="Cambiar modo de juego"
             >
               🎮 Modo
             </button>
@@ -108,6 +111,7 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
               onClick={onTutorial}
               className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors flex items-center gap-2"
               title="Ver tutorial interactivo"
+              aria-label="Ver tutorial interactivo"
             >
               ❓ Tutorial
             </button>
@@ -116,6 +120,7 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
             <button
               onClick={onStudyMode}
               className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors flex items-center gap-2"
+              aria-label="Abrir modo estudio"
             >
               📚 Estudiar
             </button>
@@ -123,6 +128,7 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
           <button
             onClick={game.resetGame}
             className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+            aria-label="Reiniciar el juego"
           >
             Reiniciar
           </button>
@@ -130,12 +136,12 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
       </div>
 
       {/* Progress bar */}
-      <div className="mt-4 w-full bg-gray-200 rounded-full h-2">
+      <div className="mt-4 w-full bg-gray-200 rounded-full h-2" role="progressbar" aria-label="Barra de progreso del juego" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100}>
         <div
           className="bg-gradient-to-r from-blue-400 to-green-400 h-2 rounded-full transition-all duration-500"
           style={{ width: `${progress}%` }}
         />
       </div>
-    </div>
+    </header>
   );
 }

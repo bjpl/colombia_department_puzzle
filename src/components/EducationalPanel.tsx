@@ -56,11 +56,11 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
         />
       )}
 
-      <div className="space-y-4">
+      <aside className="space-y-4" role="complementary" aria-label="Panel educativo">
       {/* Current department info */}
       {game.currentDepartment && (
-        <div className={`bg-white rounded-lg shadow-lg ${compact ? 'p-3' : 'p-6'}`}>
-          <h3 className={`${compact ? 'text-sm' : 'text-lg'} font-semibold mb-2`}>Departamento Seleccionado</h3>
+        <section className={`bg-white rounded-lg shadow-lg ${compact ? 'p-3' : 'p-6'}`} aria-labelledby="selected-dept-heading">
+          <h3 id="selected-dept-heading" className={`${compact ? 'text-sm' : 'text-lg'} font-semibold mb-2`}>Departamento Seleccionado</h3>
           <div className={`${compact ? 'space-y-1 text-xs' : 'space-y-2'}`}>
             <div>
               <span className="font-semibold">Nombre:</span> {game.currentDepartment.name}
@@ -92,17 +92,18 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
             <button
               onClick={handleUseHint}
               className={`${compact ? 'mt-2 px-2 py-1 text-xs' : 'mt-4 px-4 py-2'} w-full bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors`}
+              aria-label={`Usar una pista para ${game.currentDepartment.name}. Quedan ${game.hints} pistas`}
             >
               Usar Pista ({game.hints})
             </button>
           )}
-        </div>
+        </section>
       )}
 
       {/* Instructions */}
       {!game.currentDepartment && !compact && (
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <h3 className="text-lg font-semibold mb-3">Cómo Jugar</h3>
+        <section className="bg-white rounded-lg shadow-lg p-6" aria-labelledby="instructions-heading">
+          <h3 id="instructions-heading" className="text-lg font-semibold mb-3">Cómo Jugar</h3>
           <ol className="space-y-2 text-sm text-gray-700">
             <li>1. Selecciona un departamento de la izquierda</li>
             <li>2. Arrástralo hasta su ubicación en el mapa</li>
@@ -116,12 +117,12 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
               💡 <span className="font-semibold">Tip:</span> Los colores indican las regiones
             </p>
           </div>
-        </div>
+        </section>
       )}
 
       {/* Statistics */}
-      <div className={`bg-white rounded-lg shadow-lg ${compact ? 'p-3' : 'p-6'}`}>
-        <h3 className={`${compact ? 'text-sm' : 'text-lg'} font-semibold mb-2`}>Estadísticas</h3>
+      <section className={`bg-white rounded-lg shadow-lg ${compact ? 'p-3' : 'p-6'}`} aria-labelledby="stats-heading" role="status">
+        <h3 id="stats-heading" className={`${compact ? 'text-sm' : 'text-lg'} font-semibold mb-2`}>Estadísticas</h3>
         <div className={`${compact ? 'space-y-1 text-xs' : 'space-y-2 text-sm'}`}>
           <div className="flex justify-between">
             <span>Fallidos:</span>
@@ -142,19 +143,19 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
             </span>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Learning tips */}
       {!compact && (
-        <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-lg p-4">
-          <h3 className="text-sm font-semibold mb-2">Sabías que...</h3>
+        <section className="bg-gradient-to-br from-blue-50 to-green-50 rounded-lg p-4" aria-labelledby="tips-heading">
+          <h3 id="tips-heading" className="text-sm font-semibold mb-2">Sabías que...</h3>
           <p className="text-xs text-gray-700">
             Colombia tiene 32 departamentos y un distrito capital.
             Es el único país sudamericano con costas en dos océanos.
           </p>
-        </div>
+        </section>
       )}
-    </div>
+    </aside>
     </>
   );
 }

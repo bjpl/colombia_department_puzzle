@@ -264,7 +264,7 @@ export default function OptimizedColombiaMap() {
     <div className="relative w-full h-full flex items-center justify-center">
       {/* Pan Indicator */}
       {!isDragging && (
-        <div className="absolute top-16 left-4 z-20 bg-white/90 px-3 py-2 rounded-lg shadow-md border border-gray-300 pointer-events-none">
+        <div className="absolute top-16 left-4 z-20 bg-white/90 px-3 py-2 rounded-lg shadow-md border border-gray-300 pointer-events-none" aria-hidden="true">
           <div className="text-xs text-gray-600 flex items-center gap-2">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20" />
@@ -284,6 +284,8 @@ export default function OptimizedColombiaMap() {
               : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'
           }`}
           title="Mostrar/Ocultar colores de regiones"
+          aria-label={showRegionColors ? 'Ocultar colores de regiones' : 'Mostrar colores de regiones'}
+          aria-pressed={showRegionColors}
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M4 2a2 2 0 00-2 2v11a3 3 0 106 0V4a2 2 0 00-2-2H4zm1 14a1 1 0 100-2 1 1 0 000 2zm5-1.757l4.9-4.9a2 2 0 000-2.828L13.485 5.1a2 2 0 00-2.828 0L10 5.757v8.486zM16 18H9.071l6-6H16a2 2 0 012 2v2a2 2 0 01-2 2z" clipRule="evenodd" />
@@ -293,7 +295,7 @@ export default function OptimizedColombiaMap() {
           </span>
         </button>
         {showRegionColors && (
-          <div className="mt-2 bg-white/95 rounded-lg shadow-md p-3 border border-gray-300">
+          <div className="mt-2 bg-white/95 rounded-lg shadow-md p-3 border border-gray-300" role="region" aria-label="Leyenda de regiones">
             <p className="text-xs font-semibold text-gray-700 mb-2">Regiones de Colombia:</p>
             <div className="grid grid-cols-2 gap-1 text-xs">
               <div className="flex items-center gap-1">
@@ -331,6 +333,7 @@ export default function OptimizedColombiaMap() {
           onClick={() => setZoomLevel(Math.min(zoomLevel * 1.2, 4))}
           className="bg-white hover:bg-gray-100 text-gray-700 p-2 rounded-lg shadow-md border border-gray-300"
           title="Acercar (Zoom In)"
+          aria-label="Acercar el mapa"
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
@@ -341,6 +344,7 @@ export default function OptimizedColombiaMap() {
           onClick={() => setZoomLevel(Math.max(zoomLevel * 0.8, 0.5))}
           className="bg-white hover:bg-gray-100 text-gray-700 p-2 rounded-lg shadow-md border border-gray-300"
           title="Alejar (Zoom Out)"
+          aria-label="Alejar el mapa"
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
@@ -351,12 +355,13 @@ export default function OptimizedColombiaMap() {
           onClick={resetView}
           className="bg-white hover:bg-gray-100 text-gray-700 p-2 rounded-lg shadow-md border border-gray-300"
           title="Restablecer Vista"
+          aria-label="Restablecer vista del mapa a posición inicial"
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
           </svg>
         </button>
-        <div className="text-xs text-center bg-white px-2 py-1 rounded border border-gray-300">
+        <div className="text-xs text-center bg-white px-2 py-1 rounded border border-gray-300" role="status" aria-live="polite" aria-label="Nivel de zoom">
           {Math.round(zoomLevel * 100)}%
         </div>
       </div>
@@ -368,6 +373,8 @@ export default function OptimizedColombiaMap() {
         className="border border-gray-200 rounded-lg shadow-lg bg-gradient-to-br from-blue-50 via-white to-green-50"
         viewBox={`0 0 ${width} ${height}`}
         preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="Mapa interactivo de Colombia. Usa el ratón para hacer zoom y panear. Arrastra departamentos desde la bandeja izquierda para colocarlos."
         style={{
           width: '100%',
           height: '100%',
