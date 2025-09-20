@@ -588,9 +588,173 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
                     busca el "hueco" en medio de Cundinamarca
                   </p>
                 )}
-                {!isIsland && !['Amazonas', 'La Guajira', 'Nariño', 'Chocó', 'Bogotá D.C.'].includes(departmentName) && geoHints.position && (
+                {/* Specific directional guidance for ALL remaining departments */}
+                {departmentName === 'Antioquia' && (
                   <p className="text-gray-700">
-                    {geoHints.position}
+                    Noroeste del centro, departamento grande con forma irregular,
+                    entre Chocó y Santander, al norte de Caldas y Risaralda
+                  </p>
+                )}
+                {departmentName === 'Arauca' && (
+                  <p className="text-gray-700">
+                    Este del país, frontera con Venezuela,
+                    rectángulo horizontal en los Llanos, al norte de Casanare
+                  </p>
+                )}
+                {departmentName === 'Atlántico' && (
+                  <p className="text-gray-700">
+                    Costa norte, el más pequeño de la costa Caribe,
+                    donde el río Magdalena desemboca al mar, junto a Barranquilla
+                  </p>
+                )}
+                {departmentName === 'Bolívar' && (
+                  <p className="text-gray-700">
+                    Norte, departamento grande desde Cartagena hacia el interior,
+                    forma irregular que abraza a Atlántico
+                  </p>
+                )}
+                {departmentName === 'Boyacá' && (
+                  <p className="text-gray-700">
+                    Centro-este, forma alargada vertical,
+                    al este de Antioquia, entre Santander y Cundinamarca
+                  </p>
+                )}
+                {departmentName === 'Caldas' && (
+                  <p className="text-gray-700">
+                    Centro-oeste, pequeño en el Eje Cafetero,
+                    entre Antioquia y Tolima, al norte de Risaralda
+                  </p>
+                )}
+                {departmentName === 'Caquetá' && (
+                  <p className="text-gray-700">
+                    Sur del país, grande en forma de L invertida,
+                    entre Meta y Putumayo, al norte de Amazonas
+                  </p>
+                )}
+                {departmentName === 'Casanare' && (
+                  <p className="text-gray-700">
+                    Este, departamento grande de los Llanos,
+                    al sur de Arauca, forma irregular hacia el Orinoco
+                  </p>
+                )}
+                {departmentName === 'Cauca' && (
+                  <p className="text-gray-700">
+                    Suroeste, departamento grande del Pacífico al interior,
+                    entre Valle del Cauca y Nariño, con costa Pacífica
+                  </p>
+                )}
+                {departmentName === 'Cesar' && (
+                  <p className="text-gray-700">
+                    Norte interior, rectángulo vertical,
+                    entre La Guajira y Norte de Santander, sin costa
+                  </p>
+                )}
+                {departmentName === 'Córdoba' && (
+                  <p className="text-gray-700">
+                    Norte, costa Caribe occidental,
+                    al oeste de Bolívar y Sucre, forma triangular
+                  </p>
+                )}
+                {departmentName === 'Cundinamarca' && (
+                  <p className="text-gray-700">
+                    Centro del país, forma de C que rodea a Bogotá,
+                    entre Boyacá y Tolima, busca el "donut" con hueco
+                  </p>
+                )}
+                {departmentName === 'Guainía' && (
+                  <p className="text-gray-700">
+                    Extremo este, frontera con Venezuela y Brasil,
+                    forma triangular en la esquina oriental del país
+                  </p>
+                )}
+                {departmentName === 'Guaviare' && (
+                  <p className="text-gray-700">
+                    Centro-sur, transición Llanos-Amazonía,
+                    forma cuadrada entre Meta y Caquetá
+                  </p>
+                )}
+                {departmentName === 'Huila' && (
+                  <p className="text-gray-700">
+                    Centro-sur, forma de diamante,
+                    entre Tolima y Caquetá, donde nace el río Magdalena
+                  </p>
+                )}
+                {departmentName === 'Magdalena' && (
+                  <p className="text-gray-700">
+                    Costa norte, forma triangular hacia el mar,
+                    entre La Guajira y Atlántico, con Santa Marta
+                  </p>
+                )}
+                {departmentName === 'Meta' && (
+                  <p className="text-gray-700">
+                    Centro-este, departamento grande,
+                    puerta a los Llanos desde Bogotá, al sur de Casanare
+                  </p>
+                )}
+                {departmentName === 'Norte de Santander' && (
+                  <p className="text-gray-700">
+                    Noreste frontera con Venezuela,
+                    entre Cesar y Santander, donde está Cúcuta
+                  </p>
+                )}
+                {departmentName === 'Putumayo' && (
+                  <p className="text-gray-700">
+                    Sur extremo, frontera con Ecuador y Perú,
+                    franja horizontal entre Nariño y Amazonas
+                  </p>
+                )}
+                {departmentName === 'Quindío' && (
+                  <p className="text-gray-700">
+                    Centro-oeste, el más pequeño del interior,
+                    corazón del Eje Cafetero, entre Risaralda y Valle
+                  </p>
+                )}
+                {departmentName === 'Risaralda' && (
+                  <p className="text-gray-700">
+                    Centro-oeste, segundo más pequeño,
+                    en el Eje Cafetero entre Caldas y Valle del Cauca
+                  </p>
+                )}
+                {departmentName === 'San Andrés y Providencia' && (
+                  <p className="text-gray-700">
+                    Islas en el Mar Caribe, esquina superior izquierda del mapa,
+                    más cerca de Nicaragua que de Colombia continental
+                  </p>
+                )}
+                {departmentName === 'Santander' && (
+                  <p className="text-gray-700">
+                    Noreste interior, departamento largo vertical,
+                    entre Norte de Santander y Boyacá, con el Cañón del Chicamocha
+                  </p>
+                )}
+                {departmentName === 'Sucre' && (
+                  <p className="text-gray-700">
+                    Norte costa Caribe, pequeño entre Córdoba y Bolívar,
+                    con el Golfo de Morrosquillo
+                  </p>
+                )}
+                {departmentName === 'Tolima' && (
+                  <p className="text-gray-700">
+                    Centro del país, forma triangular,
+                    entre Cundinamarca y Huila, corazón de Colombia
+                  </p>
+                )}
+                {departmentName === 'Valle del Cauca' && (
+                  <p className="text-gray-700">
+                    Suroeste, desde la costa Pacífica (Buenaventura),
+                    entre Chocó y Cauca, donde está Cali
+                  </p>
+                )}
+                {departmentName === 'Vaupés' && (
+                  <p className="text-gray-700">
+                    Sureste, selva amazónica profunda,
+                    entre Guaviare y Amazonas, frontera con Brasil
+                  </p>
+                )}
+                {departmentName === 'Vichada' && (
+                  <p className="text-gray-700">
+                    Este, segundo departamento más grande,
+                    forma triangular en los Llanos, frontera con Venezuela
                   </p>
                 )}
               </div>
