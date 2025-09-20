@@ -302,27 +302,27 @@ export default function OptimizedColombiaMap() {
             <p className="text-xs font-semibold text-gray-700 mb-2">Regiones de Colombia:</p>
             <div className="grid grid-cols-2 gap-1 text-xs">
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded" style={{ backgroundColor: regionColors['Andina'] }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: regionColors['Andina'], opacity: 0.7 }}></div>
                 <span>Andina</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded" style={{ backgroundColor: regionColors['Caribe'] }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: regionColors['Caribe'], opacity: 0.7 }}></div>
                 <span>Caribe</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded" style={{ backgroundColor: regionColors['Pacífica'] }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: regionColors['Pacífica'], opacity: 0.7 }}></div>
                 <span>Pacífica</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded" style={{ backgroundColor: regionColors['Orinoquía'] }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: regionColors['Orinoquía'], opacity: 0.7 }}></div>
                 <span>Orinoquía</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded" style={{ backgroundColor: regionColors['Amazonía'] }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: regionColors['Amazonía'], opacity: 0.7 }}></div>
                 <span>Amazonía</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded" style={{ backgroundColor: regionColors['Insular'] }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: regionColors['Insular'], opacity: 0.7 }}></div>
                 <span>Insular</span>
               </div>
             </div>
