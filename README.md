@@ -128,8 +128,8 @@ Players will learn:
 
 ```
 colombia_puzzle_game/
-├── src/
-│   ├── components/          # React components
+├── src/                    # Source code
+│   ├── components/         # React components
 │   │   ├── GameContainer.tsx    # Main game orchestrator
 │   │   ├── OptimizedColombiaMap.tsx # GeoJSON map renderer
 │   │   ├── DepartmentTray.tsx   # Draggable department chips
@@ -137,26 +137,41 @@ colombia_puzzle_game/
 │   │   ├── PostGameReport.tsx   # Game completion analytics
 │   │   ├── GameModeSelector.tsx # Mode selection interface
 │   │   └── [Error boundaries]   # Robust error handling
-│   ├── context/            # State management
+│   ├── context/           # State management
 │   │   └── GameContext.tsx     # Zustand game state
-│   ├── data/              # Game data
+│   ├── data/             # Game data
 │   │   ├── colombiaDepartments.ts # Department definitions
 │   │   └── colombia.geojson    # Geographic boundaries
-│   ├── constants/         # Configuration
+│   ├── constants/        # Configuration
 │   │   ├── gameConstants.ts   # Game settings
 │   │   └── regionColors.ts    # Region styling
-│   ├── hooks/            # Custom React hooks
-│   ├── services/         # Business logic
+│   ├── hooks/           # Custom React hooks
+│   ├── services/        # Business logic
 │   │   ├── storage.ts         # Profile & progress
 │   │   └── soundManager.ts    # Audio system
-│   ├── utils/           # Utilities
+│   ├── utils/          # Utilities
 │   │   └── nameNormalizer.ts  # ID normalization
-│   └── App.tsx          # Application root
-├── docs/                # Documentation
-│   ├── architecture/   # System design
-│   └── SPARC_MAP_RENDERING.md # Technical specs
-└── public/             # Static assets
-    └── data/          # GeoJSON files
+│   └── App.tsx         # Application root
+├── docs/               # Documentation
+│   ├── architecture/   # System design docs
+│   ├── archive/        # Historical docs
+│   ├── README.md       # Documentation index
+│   ├── DEVELOPER_GUIDE.md    # Developer setup
+│   ├── COMPONENT_API.md      # API reference
+│   └── GAME_MECHANICS.md     # Game rules
+├── scripts/            # Utility scripts
+│   ├── test-*.js       # Test scripts
+│   └── flow-*.bat/sh   # Analysis scripts
+├── .claude/            # Claude Flow config
+│   ├── CLAUDE.md       # Claude instructions
+│   └── claude-flow.*   # Flow configurations
+├── public/            # Static assets
+│   └── data/         # GeoJSON files
+└── [Config files]     # Root configurations
+    ├── package.json
+    ├── vite.config.ts
+    ├── tsconfig.json
+    └── tailwind.config.js
 ```
 
 ### Contributing

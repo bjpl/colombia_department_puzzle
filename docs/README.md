@@ -14,7 +14,8 @@ Welcome to the comprehensive documentation for the Colombia Departments Puzzle G
 - [**Component API**](COMPONENT_API.md) - Detailed component reference
 - [**SPARC Map Rendering**](SPARC_MAP_RENDERING.md) - Map rendering specifications
 
-### Legacy Documentation
+### Archive
+- [**Archive Folder**](archive/) - Historical documentation and reports
 - [**System Design**](architecture/system_design.md) - Original architecture plans
 
 ## 🎮 Game Overview
