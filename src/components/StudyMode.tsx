@@ -373,27 +373,6 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                   </div>
                 </div>
 
-                {/* Quick Actions for this Department */}
-                <div className="bg-white p-3 rounded-lg shadow flex gap-2">
-                  <button
-                    onClick={() => {
-                      game.setGameMode({
-                        type: 'region',
-                        selectedRegions: [selectedDepartment.region]
-                      });
-                      onStartGame();
-                    }}
-                    className="flex-1 px-3 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600"
-                  >
-                    Practicar {selectedDepartment.region}
-                  </button>
-                  <button
-                    onClick={() => handleQuickQuiz(selectedDepartment)}
-                    className="px-3 py-2 bg-purple-500 text-white text-sm rounded-lg hover:bg-purple-600"
-                  >
-                    Quiz
-                  </button>
-                </div>
 
                 {/* Information Cards */}
                 <div className="bg-white p-4 rounded-lg shadow">
@@ -491,22 +470,6 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
             {/* Smart Action Footer */}
             <div className="bg-white border-t border-gray-200 p-4">
               <div className="flex gap-2">
-                {studyProgress < 30 && (
-                  <button
-                    onClick={() => setFlowState(prev => ({ ...prev, phase: 'explore' }))}
-                    className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-                  >
-                    Continuar Explorando
-                  </button>
-                )}
-                {studyProgress >= 30 && studyProgress < 60 && (
-                  <button
-                    onClick={handleStartPractice}
-                    className="flex-1 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
-                  >
-                    Practicar Región
-                  </button>
-                )}
                 {studyProgress >= 60 && (
                   <button
                     onClick={() => {
