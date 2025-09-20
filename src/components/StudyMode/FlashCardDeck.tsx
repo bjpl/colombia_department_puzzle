@@ -159,8 +159,8 @@ export const FlashCardDeck: React.FC<FlashCardDeckProps> = ({
     return (
       <div className={`flashcard-deck flex items-center justify-center ${className}`}>
         <div className="text-center">
-          <p className="text-gray-600 mb-4">No vocabulary data available</p>
-          <p className="text-sm text-gray-500">Select a region to load flashcards</p>
+          <p className="text-gray-600 mb-4">No hay datos de vocabulario disponibles</p>
+          <p className="text-sm text-gray-500">Selecciona un departamento para cargar las tarjetas</p>
         </div>
       </div>
     );
@@ -182,22 +182,22 @@ export const FlashCardDeck: React.FC<FlashCardDeckProps> = ({
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">Deck Complete!</h2>
-              <p className="text-gray-600">Great job studying the flashcards</p>
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">¡Mazo Completado!</h2>
+              <p className="text-gray-600">Excelente trabajo estudiando las tarjetas</p>
             </div>
 
             <div className="grid grid-cols-3 gap-4 mb-6">
               <div className="text-center">
                 <div className="text-2xl font-bold text-green-600">{sessionStats.known}</div>
-                <div className="text-sm text-gray-600">Known</div>
+                <div className="text-sm text-gray-600">Conocidas</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-red-600">{sessionStats.unknown}</div>
-                <div className="text-sm text-gray-600">Unknown</div>
+                <div className="text-sm text-gray-600">Desconocidas</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-blue-600">{accuracy}%</div>
-                <div className="text-sm text-gray-600">Accuracy</div>
+                <div className="text-sm text-gray-600">Precisión</div>
               </div>
             </div>
 
@@ -206,14 +206,14 @@ export const FlashCardDeck: React.FC<FlashCardDeckProps> = ({
                 onClick={resetDeck}
                 className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200"
               >
-                Study Again
+                Estudiar de Nuevo
               </button>
               {unknownCardsCount > 0 && (
                 <button
                   onClick={studyUnknownCards}
                   className="w-full px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors duration-200"
                 >
-                  Review Unknown Cards ({unknownCardsCount})
+                  Repasar Tarjetas Desconocidas ({unknownCardsCount})
                 </button>
               )}
             </div>
@@ -229,8 +229,8 @@ export const FlashCardDeck: React.FC<FlashCardDeckProps> = ({
         {/* Progress Bar */}
         <div className="mb-6">
           <div className="flex justify-between text-sm text-gray-600 mb-2">
-            <span>Card {currentCardIndex + 1} of {vocabularyData.length}</span>
-            <span>{deckProgress.completed}/{deckProgress.total} completed</span>
+            <span>Tarjeta {currentCardIndex + 1} de {vocabularyData.length}</span>
+            <span>{deckProgress.completed}/{deckProgress.total} completadas</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div 
@@ -251,7 +251,7 @@ export const FlashCardDeck: React.FC<FlashCardDeckProps> = ({
             {/* Front of card */}
             <div className="flashcard-face absolute inset-0 w-full h-full bg-white rounded-lg shadow-lg border-2 border-gray-200 backface-hidden flex flex-col justify-center items-center p-6">
               <div className="text-center">
-                <div className="text-sm text-gray-500 mb-2 uppercase tracking-wide">Word</div>
+                <div className="text-sm text-gray-500 mb-2 uppercase tracking-wide">Palabra</div>
                 <div className="text-3xl font-bold text-gray-800 mb-4">{currentCard?.word}</div>
                 <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
                   currentCard?.difficulty === 'easy' ? 'bg-green-100 text-green-800' :
@@ -261,13 +261,13 @@ export const FlashCardDeck: React.FC<FlashCardDeckProps> = ({
                   {currentCard?.difficulty}
                 </div>
               </div>
-              <div className="absolute bottom-4 text-xs text-gray-400">Click to flip</div>
+              <div className="absolute bottom-4 text-xs text-gray-400">Clic para voltear</div>
             </div>
 
             {/* Back of card */}
             <div className="flashcard-face absolute inset-0 w-full h-full bg-blue-50 rounded-lg shadow-lg border-2 border-blue-200 backface-hidden rotate-y-180 flex flex-col justify-center items-center p-6">
               <div className="text-center">
-                <div className="text-sm text-blue-600 mb-2 uppercase tracking-wide">Meaning</div>
+                <div className="text-sm text-blue-600 mb-2 uppercase tracking-wide">Significado</div>
                 <div className="text-2xl font-bold text-gray-800 mb-4">{currentCard?.meaning}</div>
                 {currentCard?.examples && currentCard.examples.length > 0 && (
                   <div className="text-sm text-gray-600 italic mb-4">
@@ -289,7 +289,7 @@ export const FlashCardDeck: React.FC<FlashCardDeckProps> = ({
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
-              <span>Don't Know</span>
+              <span>No Sé</span>
             </button>
             <button
               onClick={() => markCard(true)}
@@ -298,7 +298,7 @@ export const FlashCardDeck: React.FC<FlashCardDeckProps> = ({
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-              <span>I Know This</span>
+              <span>Sí Sé</span>
             </button>
           </div>
         )}
@@ -306,7 +306,7 @@ export const FlashCardDeck: React.FC<FlashCardDeckProps> = ({
         {/* Hint when card is not flipped */}
         {!currentCardState?.isFlipped && (
           <div className="text-center text-gray-500 text-sm">
-            Think about the meaning, then click the card to reveal the answer
+            Piensa en el significado, luego haz clic en la tarjeta para revelar la respuesta
           </div>
         )}
       </div>

@@ -1,1601 +1,750 @@
-// Regional Spanish Content Data
-// Comprehensive vocabulary, expressions, and cultural information for Spanish-speaking regions
+// Colombian Geography Content Data
+// Comprehensive geographic information about Colombian departments and regions
 
-export interface VocabularyItem {
-  word: string;
-  meaning: string;
-  pronunciation: string;
-  usage: string;
-  example: string;
+export interface GeographyFact {
+  id: string;
+  title: string;
+  description: string;
+  category: 'physical' | 'political' | 'cultural' | 'economic' | 'historical';
   difficulty: 'beginner' | 'intermediate' | 'advanced';
+  region: string;
+  relatedDepartments: string[];
+}
+
+export interface DepartmentCard {
+  departmentId: string;
+  departmentName: string;
+  capital: string;
+  region: string;
+  hint: string;
+  funFact: string;
+}
+
+export interface TriviaQuestion {
+  question: string;
+  correctAnswer: string;
+  wrongAnswers: string[];
+  explanation: string;
+  difficulty: 'easy' | 'medium' | 'hard';
   category: string;
 }
 
-export interface RegionalExpression {
-  expression: string;
-  meaning: string;
-  context: string;
-  example: string;
-  formality: 'informal' | 'formal' | 'neutral';
-}
-
-export interface CulturalNote {
-  topic: string;
-  description: string;
-  tip: string;
-}
-
-export interface DailyContent {
-  word: VocabularyItem;
-  expression: RegionalExpression;
-  culturalTip: string;
+export interface DailyGeography {
+  fact: GeographyFact;
+  flashcard: DepartmentCard;
+  trivia: TriviaQuestion;
   date: string;
 }
 
-export interface RegionalData {
-  country: string;
-  flag: string;
-  vocabulary: VocabularyItem[];
-  expressions: RegionalExpression[];
-  culturalNotes: CulturalNote[];
-  pronunciation: {
-    characteristics: string[];
-    audioTips: string[];
+export interface RegionData {
+  regionName: string;
+  departments: string[];
+  facts: GeographyFact[];
+  flashcards: DepartmentCard[];
+  trivia: TriviaQuestion[];
+  characteristics: {
+    climate: string[];
+    geography: string[];
+    economy: string[];
   };
 }
 
-// Spain - Peninsular Spanish
-const spainData: RegionalData = {
-  country: "España",
-  flag: "🇪🇸",
-  vocabulary: [
+// Andean Region - Colombian Highlands
+const andinaData: RegionData = {
+  regionName: "Andina",
+  departments: ["antioquia", "boyaca", "caldas", "cundinamarca", "huila", "norte-santander", "quindio", "risaralda", "santander", "tolima", "bogota"],
+  facts: [
     {
-      word: "ordenador",
-      meaning: "computer",
-      pronunciation: "or-de-na-DOR",
-      usage: "Common term for computer in Spain",
-      example: "Mi ordenador está en la oficina.",
-      difficulty: "beginner",
-      category: "technology"
-    },
-    {
-      word: "móvil",
-      meaning: "mobile phone",
-      pronunciation: "MO-vil",
-      usage: "Standard term for cell phone",
-      example: "He perdido mi móvil en el metro.",
-      difficulty: "beginner",
-      category: "technology"
-    },
-    {
-      word: "coche",
-      meaning: "car",
-      pronunciation: "KO-che",
-      usage: "Most common word for car in Spain",
-      example: "Voy al trabajo en coche.",
-      difficulty: "beginner",
-      category: "transportation"
-    },
-    {
-      word: "piso",
-      meaning: "apartment",
-      pronunciation: "PI-so",
-      usage: "Standard term for apartment",
-      example: "Vivimos en un piso céntrico.",
-      difficulty: "beginner",
-      category: "housing"
-    },
-    {
-      word: "zumo",
-      meaning: "juice",
-      pronunciation: "THU-mo",
-      usage: "Fruit juice, pronounced with theta sound",
-      example: "Quiero un zumo de naranja.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "patatas",
-      meaning: "potatoes",
-      pronunciation: "pa-TA-tas",
-      usage: "Standard term for potatoes",
-      example: "Las patatas bravas están riquísimas.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "gafas",
-      meaning: "glasses",
-      pronunciation: "GA-fas",
-      usage: "Eyeglasses",
-      example: "Necesito mis gafas para leer.",
-      difficulty: "beginner",
-      category: "accessories"
-    },
-    {
-      word: "jersey",
-      meaning: "sweater",
-      pronunciation: "yer-SEY",
-      usage: "Common term for sweater",
-      example: "Hace frío, ponte el jersey.",
-      difficulty: "beginner",
-      category: "clothing"
-    },
-    {
-      word: "conducir",
-      meaning: "to drive",
-      pronunciation: "kon-du-THIR",
-      usage: "To drive a vehicle",
-      example: "Aprendí a conducir a los 18 años.",
+      id: "andes-mountains",
+      title: "Cordillera de los Andes",
+      description: "The Andes mountain range splits into three cordilleras in Colombia: Oriental, Central, and Occidental",
+      category: "physical",
       difficulty: "intermediate",
-      category: "verbs"
+      region: "Andina",
+      relatedDepartments: ["boyaca", "cundinamarca", "santander"]
     },
     {
-      word: "aparcar",
-      meaning: "to park",
-      pronunciation: "a-par-KAR",
-      usage: "To park a vehicle",
-      example: "No puedo aparcar en esta calle.",
-      difficulty: "intermediate",
-      category: "verbs"
-    },
-    {
-      word: "fontanero",
-      meaning: "plumber",
-      pronunciation: "fon-ta-NE-ro",
-      usage: "Professional who fixes pipes",
-      example: "Llamé al fontanero para arreglar la tubería.",
-      difficulty: "intermediate",
-      category: "professions"
-    },
-    {
-      word: "ascensor",
-      meaning: "elevator",
-      pronunciation: "as-then-SOR",
-      usage: "Lift in buildings",
-      example: "El ascensor está averiado.",
-      difficulty: "intermediate",
-      category: "buildings"
-    },
-    {
-      word: "estanco",
-      meaning: "tobacco shop",
-      pronunciation: "es-TAN-ko",
-      usage: "Shop selling tobacco and stamps",
-      example: "Compra sellos en el estanco.",
-      difficulty: "advanced",
-      category: "shops"
-    },
-    {
-      word: "madrugada",
-      meaning: "early morning (1-6 AM)",
-      pronunciation: "ma-dru-GA-da",
-      usage: "Very early morning hours",
-      example: "Llegué a casa de madrugada.",
-      difficulty: "advanced",
-      category: "time"
-    },
-    {
-      word: "cachondeo",
-      meaning: "fun/joking around",
-      pronunciation: "ka-chon-DE-o",
-      usage: "Informal fun or teasing",
-      example: "¡Qué cachondeo tienen estos niños!",
-      difficulty: "advanced",
-      category: "slang"
-    },
-    {
-      word: "churros",
-      meaning: "fried dough pastry",
-      pronunciation: "CHU-rros",
-      usage: "Traditional Spanish pastry",
-      example: "Desayuné churros con chocolate.",
-      difficulty: "intermediate",
-      category: "food"
-    },
-    {
-      word: "tapas",
-      meaning: "small plates/appetizers",
-      pronunciation: "TA-pas",
-      usage: "Traditional Spanish dining style",
-      example: "Fuimos de tapas por el barrio.",
+      id: "coffee-triangle",
+      title: "Eje Cafetero",
+      description: "The Coffee Triangle includes Caldas, Quindío, and Risaralda, declared UNESCO World Heritage for its coffee cultural landscape",
+      category: "cultural",
       difficulty: "beginner",
-      category: "food"
+      region: "Andina",
+      relatedDepartments: ["caldas", "quindio", "risaralda"]
     },
     {
-      word: "siesta",
-      meaning: "afternoon nap",
-      pronunciation: "si-ES-ta",
-      usage: "Traditional afternoon rest",
-      example: "Después de comer echo la siesta.",
+      id: "magdalena-river",
+      title: "Río Magdalena",
+      description: "Colombia's principal river, flowing north through the Andean region to the Caribbean Sea",
+      category: "physical",
       difficulty: "beginner",
-      category: "culture"
+      region: "Andina",
+      relatedDepartments: ["huila", "tolima", "cundinamarca"]
     },
     {
-      word: "botellón",
-      meaning: "street drinking gathering",
-      pronunciation: "bo-te-LLON",
-      usage: "Youth gathering to drink outdoors",
-      example: "Los jóvenes hacen botellón en el parque.",
-      difficulty: "advanced",
-      category: "culture"
-    },
-    {
-      word: "puente",
-      meaning: "long weekend",
-      pronunciation: "PUEN-te",
-      usage: "Extended weekend with bridge day",
-      example: "Este puente nos vamos a la playa.",
+      id: "boyaca-independence",
+      title: "Batalla de Boyacá",
+      description: "The decisive battle for Colombian independence was fought in Boyacá on August 7, 1819",
+      category: "historical",
       difficulty: "intermediate",
-      category: "time"
+      region: "Andina",
+      relatedDepartments: ["boyaca"]
     },
     {
-      word: "tertulia",
-      meaning: "social gathering for conversation",
-      pronunciation: "ter-TU-lia",
-      usage: "Informal discussion group",
-      example: "Participé en una tertulia literaria.",
-      difficulty: "advanced",
-      category: "culture"
-    },
-    {
-      word: "bocadillo",
-      meaning: "sandwich",
-      pronunciation: "bo-ka-DI-llo",
-      usage: "Spanish-style sandwich",
-      example: "Me hice un bocadillo de jamón.",
-      difficulty: "beginner",
-      category: "food"
+      id: "paisa-culture",
+      title: "Cultura Paisa",
+      description: "Antioquia is the heart of Paisa culture, known for entrepreneurship, coffee, and distinctive accent",
+      category: "cultural",
+      difficulty: "intermediate",
+      region: "Andina",
+      relatedDepartments: ["antioquia"]
     }
   ],
-  expressions: [
+  flashcards: [
     {
-      expression: "¡Qué guay!",
-      meaning: "How cool!",
-      context: "Expressing excitement or approval",
-      example: "¡Qué guay tu camiseta nueva!",
-      formality: "informal"
+      departmentId: "antioquia",
+      departmentName: "Antioquia",
+      capital: "Medellín",
+      region: "Andina",
+      hint: "City of Eternal Spring, known for innovation",
+      funFact: "Second most populated department and birthplace of Paisa culture"
     },
     {
-      expression: "¡No me jodas!",
-      meaning: "No way! / You're kidding!",
-      context: "Expressing disbelief (vulgar)",
-      example: "¿Te han dado el trabajo? ¡No me jodas!",
-      formality: "informal"
+      departmentId: "boyaca",
+      departmentName: "Boyacá",
+      capital: "Tunja",
+      region: "Andina",
+      hint: "Birthplace of Colombian independence",
+      funFact: "Site of the decisive Battle of Boyacá in 1819"
     },
     {
-      expression: "Estar hasta los huevos",
-      meaning: "To be fed up",
-      context: "Being extremely annoyed (vulgar)",
-      example: "Estoy hasta los huevos del tráfico.",
-      formality: "informal"
+      departmentId: "caldas",
+      departmentName: "Caldas",
+      capital: "Manizales",
+      region: "Andina",
+      hint: "Part of the Coffee Triangle",
+      funFact: "UNESCO World Heritage site for its coffee cultural landscape"
     },
     {
-      expression: "¡Qué fuerte!",
-      meaning: "How intense! / Wow!",
-      context: "Expressing surprise or shock",
-      example: "¡Qué fuerte lo que me has contado!",
-      formality: "informal"
+      departmentId: "cundinamarca",
+      departmentName: "Cundinamarca",
+      capital: "Bogotá",
+      region: "Andina",
+      hint: "Surrounds the national capital",
+      funFact: "The department that surrounds Bogotá D.C."
     },
     {
-      expression: "Ir de marcha",
-      meaning: "To go out partying",
-      context: "Going out for nightlife",
-      example: "Este sábado vamos de marcha.",
-      formality: "informal"
+      departmentId: "huila",
+      departmentName: "Huila",
+      capital: "Neiva",
+      region: "Andina",
+      hint: "Home to the Tatacoa Desert",
+      funFact: "Contains both desert landscapes and archaeological sites like San Agustín"
     },
     {
-      expression: "Estar en las nubes",
-      meaning: "To be daydreaming",
-      context: "Being distracted or absent-minded",
-      example: "No me escuchas, estás en las nubes.",
-      formality: "neutral"
+      departmentId: "norte-santander",
+      departmentName: "Norte de Santander",
+      capital: "Cúcuta",
+      region: "Andina",
+      hint: "Border with Venezuela",
+      funFact: "Important frontier city and birthplace of Gran Colombia"
     },
     {
-      expression: "Ser un rollo",
-      meaning: "To be boring",
-      context: "Something tedious or uninteresting",
-      example: "Esta película es un rollo.",
-      formality: "informal"
+      departmentId: "quindio",
+      departmentName: "Quindío",
+      capital: "Armenia",
+      region: "Andina",
+      hint: "Smallest mainland department",
+      funFact: "The smallest department after San Andrés, heart of coffee culture"
     },
     {
-      expression: "¡Qué mono!",
-      meaning: "How cute!",
-      context: "Describing something adorable",
-      example: "¡Qué mono tu perrito!",
-      formality: "informal"
+      departmentId: "risaralda",
+      departmentName: "Risaralda",
+      capital: "Pereira",
+      region: "Andina",
+      hint: "Coffee Triangle's third corner",
+      funFact: "Home to the Coffee Theme Park (Parque del Café)"
     },
     {
-      expression: "Pasarse tres pueblos",
-      meaning: "To go too far",
-      context: "Exceeding limits or boundaries",
-      example: "Con esa broma te has pasado tres pueblos.",
-      formality: "informal"
+      departmentId: "santander",
+      departmentName: "Santander",
+      capital: "Bucaramanga",
+      region: "Andina",
+      hint: "Canyon and colonial town famous",
+      funFact: "Home to Chicamocha Canyon and beautiful Barichara"
     },
     {
-      expression: "Tener mala leche",
-      meaning: "To be in a bad mood",
-      context: "Being grumpy or irritable",
-      example: "Hoy mi jefe tiene mala leche.",
-      formality: "informal"
+      departmentId: "tolima",
+      departmentName: "Tolima",
+      capital: "Ibagué",
+      region: "Andina",
+      hint: "Musical capital of Colombia",
+      funFact: "Known as the musical capital and home to many festivals"
+    },
+    {
+      departmentId: "bogota",
+      departmentName: "Bogotá D.C.",
+      capital: "Bogotá",
+      region: "Andina",
+      hint: "National capital and highest major city",
+      funFact: "Third highest capital city in the world at 2,640 meters above sea level"
     }
   ],
-  culturalNotes: [
+  trivia: [
     {
-      topic: "Dining Times",
-      description: "Spanish meals are later than most countries: lunch at 2-3 PM, dinner at 9-10 PM",
-      tip: "Don't expect restaurants to serve dinner before 8 PM"
+      question: "Which three departments form the famous Coffee Triangle (Eje Cafetero)?",
+      correctAnswer: "Caldas, Quindío, and Risaralda",
+      wrongAnswers: ["Antioquia, Caldas, and Tolima", "Huila, Nariño, and Cauca", "Boyacá, Cundinamarca, and Santander"],
+      explanation: "The Coffee Triangle consists of Caldas, Quindío, and Risaralda, declared UNESCO World Heritage for its coffee cultural landscape.",
+      difficulty: "easy",
+      category: "cultural"
     },
     {
-      topic: "Siesta Culture",
-      description: "Many businesses close from 2-5 PM for siesta time",
-      tip: "Plan shopping and errands around siesta hours"
+      question: "In which department was the decisive battle for Colombian independence fought?",
+      correctAnswer: "Boyacá",
+      wrongAnswers: ["Cundinamarca", "Santander", "Norte de Santander"],
+      explanation: "The Battle of Boyacá was fought on August 7, 1819, securing Colombian independence from Spanish rule.",
+      difficulty: "medium",
+      category: "historical"
     },
     {
-      topic: "Tapas Tradition",
-      description: "Tapas were originally free snacks served with drinks",
-      tip: "Order drinks first, tapas often come automatically"
+      question: "What is the highest capital city in Colombia?",
+      correctAnswer: "Bogotá",
+      wrongAnswers: ["Tunja", "Manizales", "Popayán"],
+      explanation: "Bogotá sits at 2,640 meters above sea level, making it the third highest capital city in the world.",
+      difficulty: "easy",
+      category: "physical"
+    },
+    {
+      question: "Which river is known as Colombia's principal waterway?",
+      correctAnswer: "Río Magdalena",
+      wrongAnswers: ["Río Cauca", "Río Atrato", "Río Meta"],
+      explanation: "The Magdalena River flows northward through the heart of Colombia to the Caribbean Sea.",
+      difficulty: "easy",
+      category: "physical"
+    },
+    {
+      question: "Which department is known as the heart of Paisa culture?",
+      correctAnswer: "Antioquia",
+      wrongAnswers: ["Caldas", "Risaralda", "Quindío"],
+      explanation: "Antioquia, with its capital Medellín, is the birthplace and center of Paisa culture, known for entrepreneurship and distinctive traditions.",
+      difficulty: "medium",
+      category: "cultural"
     }
   ],
-  pronunciation: {
-    characteristics: [
-      "Theta sound (θ) for 'c' before 'e,i' and 'z'",
-      "Clear distinction between 'll' and 'y'",
-      "Strong 'rr' rolling",
-      "Final 's' clearly pronounced"
-    ],
-    audioTips: [
-      "Practice the 'th' sound in 'gracias'",
-      "Distinguish 'caza' (hunting) from 'casa' (house)",
-      "Roll your R's strongly in 'perro'"
-    ]
+  characteristics: {
+    climate: ["Temperate mountain climate", "Perpetual spring in some cities", "Cool temperatures due to altitude", "Distinct wet and dry seasons"],
+    geography: ["Three Andean mountain ranges", "High plateaus and valleys", "River valleys and basins", "Volcanic activity in some areas"],
+    economy: ["Coffee production", "Manufacturing and industry", "Financial services", "Mining (coal, emeralds)", "Agriculture and livestock"]
   }
 };
 
-// Mexico - Mexican Spanish
-const mexicoData: RegionalData = {
-  country: "México",
-  flag: "🇲🇽",
-  vocabulary: [
+// Caribbean Region - Northern Coast
+const caribeData: RegionData = {
+  regionName: "Caribe",
+  departments: ["atlantico", "bolivar", "cesar", "cordoba", "la-guajira", "magdalena", "sucre", "san-andres"],
+  facts: [
     {
-      word: "computadora",
-      meaning: "computer",
-      pronunciation: "kom-pu-ta-DO-ra",
-      usage: "Standard term for computer in Mexico",
-      example: "Mi computadora es muy lenta.",
+      id: "caribbean-coast",
+      title: "Costa Caribe",
+      description: "Colombia's Caribbean coast stretches over 1,600 kilometers along the Caribbean Sea",
+      category: "physical",
       difficulty: "beginner",
-      category: "technology"
+      region: "Caribe",
+      relatedDepartments: ["atlantico", "bolivar", "magdalena", "la-guajira"]
     },
     {
-      word: "celular",
-      meaning: "cell phone",
-      pronunciation: "se-lu-LAR",
-      usage: "Mobile phone in Mexico",
-      example: "¿Me pasas tu número de celular?",
+      id: "cartagena-heritage",
+      title: "Cartagena Heritage",
+      description: "Cartagena's walled city has been a UNESCO World Heritage Site since 1984",
+      category: "cultural",
       difficulty: "beginner",
-      category: "technology"
+      region: "Caribe",
+      relatedDepartments: ["bolivar"]
     },
     {
-      word: "carro",
-      meaning: "car",
-      pronunciation: "KA-rro",
-      usage: "Most common word for car",
-      example: "Voy a lavar el carro.",
-      difficulty: "beginner",
-      category: "transportation"
-    },
-    {
-      word: "departamento",
-      meaning: "apartment",
-      pronunciation: "de-par-ta-MEN-to",
-      usage: "Apartment or flat",
-      example: "Rento un departamento céntrico.",
-      difficulty: "beginner",
-      category: "housing"
-    },
-    {
-      word: "jugo",
-      meaning: "juice",
-      pronunciation: "HU-go",
-      usage: "Fruit juice",
-      example: "Quiero un jugo de naranja.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "papas",
-      meaning: "potatoes",
-      pronunciation: "PA-pas",
-      usage: "Standard term for potatoes",
-      example: "Las papas fritas están deliciosas.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "lentes",
-      meaning: "glasses",
-      pronunciation: "LEN-tes",
-      usage: "Eyeglasses",
-      example: "Necesito mis lentes para manejar.",
-      difficulty: "beginner",
-      category: "accessories"
-    },
-    {
-      word: "suéter",
-      meaning: "sweater",
-      pronunciation: "SWE-ter",
-      usage: "Warm clothing item",
-      example: "Ponte el suéter, hace frío.",
-      difficulty: "beginner",
-      category: "clothing"
-    },
-    {
-      word: "manejar",
-      meaning: "to drive",
-      pronunciation: "ma-ne-HAR",
-      usage: "To drive a vehicle",
-      example: "Aprendí a manejar a los 16 años.",
+      id: "barranquilla-carnival",
+      title: "Carnaval de Barranquilla",
+      description: "Barranquilla's Carnival is a UNESCO Masterpiece of Oral and Intangible Heritage of Humanity",
+      category: "cultural",
       difficulty: "intermediate",
-      category: "verbs"
+      region: "Caribe",
+      relatedDepartments: ["atlantico"]
     },
     {
-      word: "estacionar",
-      meaning: "to park",
-      pronunciation: "es-ta-sio-NAR",
-      usage: "To park a vehicle",
-      example: "No se puede estacionar aquí.",
+      id: "vallenato-music",
+      title: "Vallenato Music",
+      description: "Vallenato music originated in the Cesar department, particularly around Valledupar",
+      category: "cultural",
       difficulty: "intermediate",
-      category: "verbs"
+      region: "Caribe",
+      relatedDepartments: ["cesar"]
     },
     {
-      word: "plomero",
-      meaning: "plumber",
-      pronunciation: "plo-ME-ro",
-      usage: "Professional who fixes pipes",
-      example: "Llamé al plomero para la fuga.",
-      difficulty: "intermediate",
-      category: "professions"
-    },
-    {
-      word: "elevador",
-      meaning: "elevator",
-      pronunciation: "e-le-va-DOR",
-      usage: "Lift in buildings",
-      example: "El elevador está descompuesto.",
-      difficulty: "intermediate",
-      category: "buildings"
-    },
-    {
-      word: "tianguis",
-      meaning: "street market",
-      pronunciation: "tian-GUIS",
-      usage: "Traditional outdoor market",
-      example: "Voy al tianguis a comprar verduras.",
+      id: "punta-gallinas",
+      title: "Punta Gallinas",
+      description: "The northernmost point of South America is located in La Guajira department",
+      category: "physical",
       difficulty: "advanced",
-      category: "culture"
-    },
-    {
-      word: "alberca",
-      meaning: "swimming pool",
-      pronunciation: "al-BER-ka",
-      usage: "Pool for swimming",
-      example: "Los niños están en la alberca.",
-      difficulty: "intermediate",
-      category: "recreation"
-    },
-    {
-      word: "camión",
-      meaning: "bus",
-      pronunciation: "ka-MION",
-      usage: "Public transportation bus",
-      example: "Tomé el camión para ir al centro.",
-      difficulty: "intermediate",
-      category: "transportation"
-    },
-    {
-      word: "torta",
-      meaning: "sandwich (Mexican style)",
-      pronunciation: "TOR-ta",
-      usage: "Traditional Mexican sandwich",
-      example: "Me comí una torta de jamón.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "tacos",
-      meaning: "tacos",
-      pronunciation: "TA-kos",
-      usage: "Traditional Mexican dish",
-      example: "Cenamos tacos de pastor.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "chela",
-      meaning: "beer (slang)",
-      pronunciation: "CHE-la",
-      usage: "Informal term for beer",
-      example: "¿Nos tomamos una chela?",
-      difficulty: "advanced",
-      category: "slang"
-    },
-    {
-      word: "güey",
-      meaning: "dude/guy (slang)",
-      pronunciation: "GWEY",
-      usage: "Informal address, can be rude",
-      example: "¿Qué onda, güey?",
-      difficulty: "advanced",
-      category: "slang"
-    },
-    {
-      word: "chido",
-      meaning: "cool/awesome",
-      pronunciation: "CHI-do",
-      usage: "Something good or cool",
-      example: "Está muy chido tu carro.",
-      difficulty: "advanced",
-      category: "slang"
-    },
-    {
-      word: "órale",
-      meaning: "wow!/come on!",
-      pronunciation: "O-ra-le",
-      usage: "Exclamation of surprise or encouragement",
-      example: "¡Órale! ¿En serio ganaste?",
-      difficulty: "advanced",
-      category: "expressions"
-    },
-    {
-      word: "fresa",
-      meaning: "posh/snobby person",
-      pronunciation: "FRE-sa",
-      usage: "Person from upper class (sometimes derogatory)",
-      example: "No seas fresa, ven con nosotros.",
-      difficulty: "advanced",
-      category: "slang"
+      region: "Caribe",
+      relatedDepartments: ["la-guajira"]
     }
   ],
-  expressions: [
+  flashcards: [
     {
-      expression: "¡Qué padre!",
-      meaning: "How cool! / Awesome!",
-      context: "Expressing approval or excitement",
-      example: "¡Qué padre tu nueva casa!",
-      formality: "informal"
+      departmentId: "atlantico",
+      departmentName: "Atlántico",
+      capital: "Barranquilla",
+      region: "Caribe",
+      hint: "Home to UNESCO carnival",
+      funFact: "Barranquilla's Carnival is UNESCO Intangible Cultural Heritage"
     },
     {
-      expression: "No manches",
-      meaning: "No way! / You're kidding!",
-      context: "Expressing disbelief or surprise",
-      example: "¿Te casas? ¡No manches!",
-      formality: "informal"
+      departmentId: "bolivar",
+      departmentName: "Bolívar",
+      capital: "Cartagena de Indias",
+      region: "Caribe",
+      hint: "Walled colonial city",
+      funFact: "UNESCO World Heritage Site since 1984"
     },
     {
-      expression: "¿Qué onda?",
-      meaning: "What's up? / What's going on?",
-      context: "Casual greeting or inquiry",
-      example: "¡Hola! ¿Qué onda?",
-      formality: "informal"
+      departmentId: "cesar",
+      departmentName: "Cesar",
+      capital: "Valledupar",
+      region: "Caribe",
+      hint: "Birthplace of vallenato music",
+      funFact: "World capital of vallenato with annual festival"
     },
     {
-      expression: "Está padrísimo",
-      meaning: "It's really cool/awesome",
-      context: "High praise for something",
-      example: "El concierto está padrísimo.",
-      formality: "informal"
+      departmentId: "cordoba",
+      departmentName: "Córdoba",
+      capital: "Montería",
+      region: "Caribe",
+      hint: "Famous for cattle and handicrafts",
+      funFact: "Known for cattle ranching and the traditional sombrero vueltiao"
     },
     {
-      expression: "Andar de malas",
-      meaning: "To be in a bad mood",
-      context: "Having bad luck or feeling down",
-      example: "Hoy ando de malas, perdí la cartera.",
-      formality: "informal"
+      departmentId: "la-guajira",
+      departmentName: "La Guajira",
+      capital: "Riohacha",
+      region: "Caribe",
+      hint: "Northernmost point of South America",
+      funFact: "Contains Punta Gallinas, the continent's northernmost point"
     },
     {
-      expression: "Echar la hueva",
-      meaning: "To be lazy",
-      context: "Not wanting to do anything",
-      example: "Hoy solo quiero echar la hueva.",
-      formality: "informal"
+      departmentId: "magdalena",
+      departmentName: "Magdalena",
+      capital: "Santa Marta",
+      region: "Caribe",
+      hint: "Oldest city in Colombia",
+      funFact: "Santa Marta was founded in 1525, making it Colombia's oldest city"
     },
     {
-      expression: "Dar el gatazo",
-      meaning: "To disappoint",
-      context: "Something not meeting expectations",
-      example: "La película dio el gatazo.",
-      formality: "informal"
+      departmentId: "sucre",
+      departmentName: "Sucre",
+      capital: "Sincelejo",
+      region: "Caribe",
+      hint: "Known for handicrafts and corralejas",
+      funFact: "Famous for traditional crafts and the exciting corralejas festivals"
     },
     {
-      expression: "Estar hasta la madre",
-      meaning: "To be fed up",
-      context: "Being extremely annoyed (vulgar)",
-      example: "Estoy hasta la madre del tráfico.",
-      formality: "informal"
-    },
-    {
-      expression: "Ponerse las pilas",
-      meaning: "To get energized/focused",
-      context: "Need to work harder or pay attention",
-      example: "Ponte las pilas para el examen.",
-      formality: "informal"
-    },
-    {
-      expression: "¡A toda madre!",
-      meaning: "Awesome! / Excellent!",
-      context: "High praise (vulgar but common)",
-      example: "¡Está a toda madre tu carro nuevo!",
-      formality: "informal"
+      departmentId: "san-andres",
+      departmentName: "San Andrés y Providencia",
+      capital: "San Andrés",
+      region: "Insular",
+      hint: "Colombia's only island department",
+      funFact: "The smallest department and only insular territory of Colombia"
     }
   ],
-  culturalNotes: [
+  trivia: [
     {
-      topic: "Punctuality",
-      description: "Mexican time can be more flexible, especially for social events",
-      tip: "Arrive 15-30 minutes late to parties, but be on time for business"
+      question: "Which Colombian city hosts a UNESCO-recognized carnival?",
+      correctAnswer: "Barranquilla",
+      wrongAnswers: ["Cartagena", "Santa Marta", "Valledupar"],
+      explanation: "Barranquilla's Carnival is recognized by UNESCO as a Masterpiece of Oral and Intangible Heritage of Humanity.",
+      difficulty: "medium",
+      category: "cultural"
     },
     {
-      topic: "Formal Address",
-      description: "Use 'usted' with older people and in formal situations",
-      tip: "When in doubt, start with 'usted' until invited to use 'tú'"
+      question: "What is the northernmost point of South America?",
+      correctAnswer: "Punta Gallinas",
+      wrongAnswers: ["Cabo de la Vela", "Punta Espada", "Punta Arenas"],
+      explanation: "Punta Gallinas in La Guajira department is the northernmost point of the South American continent.",
+      difficulty: "hard",
+      category: "physical"
     },
     {
-      topic: "Family Importance",
-      description: "Family gatherings are central to Mexican culture",
-      tip: "Don't be surprised if family events take priority over other plans"
+      question: "Which is the oldest city in Colombia?",
+      correctAnswer: "Santa Marta",
+      wrongAnswers: ["Cartagena", "Barranquilla", "Riohacha"],
+      explanation: "Santa Marta was founded in 1525, making it the oldest surviving city in Colombia.",
+      difficulty: "medium",
+      category: "historical"
     }
   ],
-  pronunciation: {
-    characteristics: [
-      "Soft 's' sounds, often not pronounced at end of words",
-      "'x' in indigenous words pronounced as 'sh' (México = MEH-shi-ko)",
-      "Seseo: 'c' and 'z' pronounced as 's'",
-      "Aspirated 's' in many regions"
-    ],
-    audioTips: [
-      "Say 'México' with 'sh' sound, not 'x'",
-      "Practice dropping final 's' sounds",
-      "All 'c' and 'z' sounds like English 's'"
-    ]
+  characteristics: {
+    climate: ["Tropical hot climate", "High temperatures year-round", "Distinct wet and dry seasons", "Trade wind influence"],
+    geography: ["Extensive Caribbean coastline", "Coastal plains and deltas", "Sierra Nevada mountains", "Desert regions in La Guajira"],
+    economy: ["Tourism and hospitality", "Port activities and shipping", "Agriculture (bananas, palm oil)", "Mining (coal, salt)", "Cattle ranching"]
   }
 };
 
-// Argentina - Rioplatense Spanish
-const argentinaData: RegionalData = {
-  country: "Argentina",
-  flag: "🇦🇷",
-  vocabulary: [
+// Pacific Region - Western Coast
+const pacificoData: RegionData = {
+  regionName: "Pacífico",
+  departments: ["cauca", "choco", "narino", "valle-del-cauca"],
+  facts: [
     {
-      word: "computadora",
-      meaning: "computer",
-      pronunciation: "kom-pu-ta-DO-ra",
-      usage: "Standard term for computer",
-      example: "Mi computadora está rota.",
-      difficulty: "beginner",
-      category: "technology"
-    },
-    {
-      word: "celular",
-      meaning: "cell phone",
-      pronunciation: "se-lu-LAR",
-      usage: "Mobile phone",
-      example: "¿Tenés el celular?",
-      difficulty: "beginner",
-      category: "technology"
-    },
-    {
-      word: "auto",
-      meaning: "car",
-      pronunciation: "AU-to",
-      usage: "Most common word for car",
-      example: "Voy en auto al trabajo.",
-      difficulty: "beginner",
-      category: "transportation"
-    },
-    {
-      word: "departamento",
-      meaning: "apartment",
-      pronunciation: "de-par-ta-MEN-to",
-      usage: "Apartment or flat",
-      example: "Vivo en un departamento céntrico.",
-      difficulty: "beginner",
-      category: "housing"
-    },
-    {
-      word: "jugo",
-      meaning: "juice",
-      pronunciation: "HU-go",
-      usage: "Fruit juice",
-      example: "Quiero un jugo de naranja.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "papas",
-      meaning: "potatoes",
-      pronunciation: "PA-pas",
-      usage: "Standard term for potatoes",
-      example: "Las papas fritas están buenísimas.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "anteojos",
-      meaning: "glasses",
-      pronunciation: "an-te-O-hos",
-      usage: "Eyeglasses",
-      example: "¿Viste mis anteojos?",
-      difficulty: "beginner",
-      category: "accessories"
-    },
-    {
-      word: "pullover",
-      meaning: "sweater",
-      pronunciation: "PU-llo-ver",
-      usage: "Warm clothing item",
-      example: "Hace frío, poné el pullover.",
-      difficulty: "beginner",
-      category: "clothing"
-    },
-    {
-      word: "manejar",
-      meaning: "to drive",
-      pronunciation: "ma-ne-HAR",
-      usage: "To drive a vehicle",
-      example: "¿Sabés manejar?",
+      id: "pacific-biodiversity",
+      title: "Pacific Biodiversity",
+      description: "The Pacific region contains some of the world's most biodiverse rainforests",
+      category: "physical",
       difficulty: "intermediate",
-      category: "verbs"
+      region: "Pacífico",
+      relatedDepartments: ["choco", "cauca", "narino"]
     },
     {
-      word: "estacionar",
-      meaning: "to park",
-      pronunciation: "es-ta-sio-NAR",
-      usage: "To park a vehicle",
-      example: "No podés estacionar acá.",
-      difficulty: "intermediate",
-      category: "verbs"
-    },
-    {
-      word: "plomero",
-      meaning: "plumber",
-      pronunciation: "plo-ME-ro",
-      usage: "Professional who fixes pipes",
-      example: "Llamé al plomero por la pérdida.",
-      difficulty: "intermediate",
-      category: "professions"
-    },
-    {
-      word: "ascensor",
-      meaning: "elevator",
-      pronunciation: "as-sen-SOR",
-      usage: "Lift in buildings",
-      example: "El ascensor no funciona.",
-      difficulty: "intermediate",
-      category: "buildings"
-    },
-    {
-      word: "colectivo",
-      meaning: "bus",
-      pronunciation: "ko-lek-TI-vo",
-      usage: "Public transportation bus",
-      example: "Tomé el colectivo para venir.",
-      difficulty: "intermediate",
-      category: "transportation"
-    },
-    {
-      word: "subte",
-      meaning: "subway",
-      pronunciation: "SUB-te",
-      usage: "Underground train system",
-      example: "Prefiero viajar en subte.",
-      difficulty: "intermediate",
-      category: "transportation"
-    },
-    {
-      word: "pileta",
-      meaning: "swimming pool",
-      pronunciation: "pi-LE-ta",
-      usage: "Pool for swimming",
-      example: "Los chicos están en la pileta.",
-      difficulty: "intermediate",
-      category: "recreation"
-    },
-    {
-      word: "asado",
-      meaning: "barbecue",
-      pronunciation: "a-SA-do",
-      usage: "Traditional Argentine barbecue",
-      example: "Hagamos un asado el domingo.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "empanadas",
-      meaning: "meat pies",
-      pronunciation: "em-pa-NA-das",
-      usage: "Traditional Argentine pastries",
-      example: "Compré empanadas para la cena.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "mate",
-      meaning: "traditional tea drink",
-      pronunciation: "MA-te",
-      usage: "Traditional herbal drink",
-      example: "¿Querés un mate?",
-      difficulty: "intermediate",
-      category: "culture"
-    },
-    {
-      word: "che",
-      meaning: "hey/dude",
-      pronunciation: "CHE",
-      usage: "Informal address, very common",
-      example: "Che, ¿cómo andás?",
+      id: "choco-rainfall",
+      title: "Chocó Rainfall",
+      description: "Chocó is one of the rainiest places on Earth, with some areas receiving over 10 meters of rain annually",
+      category: "physical",
       difficulty: "advanced",
-      category: "expressions"
+      region: "Pacífico",
+      relatedDepartments: ["choco"]
     },
     {
-      word: "boludo",
-      meaning: "dude/idiot",
-      pronunciation: "bo-LU-do",
-      usage: "Very informal, can be friendly or insulting",
-      example: "¿Qué hacés, boludo?",
-      difficulty: "advanced",
-      category: "slang"
+      id: "cali-salsa",
+      title: "Cali Salsa Capital",
+      description: "Cali is recognized as the world capital of salsa music and dance",
+      category: "cultural",
+      difficulty: "beginner",
+      region: "Pacífico",
+      relatedDepartments: ["valle-del-cauca"]
     },
     {
-      word: "laburo",
-      meaning: "work/job",
-      pronunciation: "la-BU-ro",
-      usage: "Informal term for work",
-      example: "Mañana tengo mucho laburo.",
-      difficulty: "advanced",
-      category: "slang"
+      id: "santuario-lajas",
+      title: "Santuario de Las Lajas",
+      description: "The Las Lajas Sanctuary in Nariño is built into a canyon and is one of Colombia's most spectacular churches",
+      category: "cultural",
+      difficulty: "intermediate",
+      region: "Pacífico",
+      relatedDepartments: ["narino"]
     },
     {
-      word: "birra",
-      meaning: "beer",
-      pronunciation: "BI-rra",
-      usage: "Informal term for beer",
-      example: "¿Nos tomamos una birra?",
-      difficulty: "advanced",
-      category: "slang"
+      id: "popayan-holy-week",
+      title: "Popayán Holy Week",
+      description: "Popayán's Holy Week processions are UNESCO Intangible Cultural Heritage",
+      category: "cultural",
+      difficulty: "intermediate",
+      region: "Pacífico",
+      relatedDepartments: ["cauca"]
     }
   ],
-  expressions: [
+  flashcards: [
     {
-      expression: "¡Qué copado!",
-      meaning: "How cool! / Awesome!",
-      context: "Expressing approval or excitement",
-      example: "¡Qué copado tu nuevo trabajo!",
-      formality: "informal"
+      departmentId: "cauca",
+      departmentName: "Cauca",
+      capital: "Popayán",
+      region: "Pacífico",
+      hint: "The White City of Colombia",
+      funFact: "Known as the White City for its colonial architecture and Holy Week processions"
     },
     {
-      expression: "No da",
-      meaning: "It's not okay / It's not right",
-      context: "Something inappropriate or wrong",
-      example: "Llegar tarde a la cita no da.",
-      formality: "informal"
+      departmentId: "choco",
+      departmentName: "Chocó",
+      capital: "Quibdó",
+      region: "Pacífico",
+      hint: "One of the rainiest places on Earth",
+      funFact: "Receives over 10 meters of rainfall annually in some areas"
     },
     {
-      expression: "¿Cómo andás?",
-      meaning: "How are you doing?",
-      context: "Casual greeting using 'vos'",
-      example: "¡Hola! ¿Cómo andás?",
-      formality: "informal"
+      departmentId: "narino",
+      departmentName: "Nariño",
+      capital: "Pasto",
+      region: "Pacífico",
+      hint: "Home to Las Lajas Sanctuary",
+      funFact: "Features the spectacular Las Lajas Sanctuary and Carnival of Blacks and Whites"
     },
     {
-      expression: "Estar al pedo",
-      meaning: "To be doing nothing",
-      context: "Being bored or idle (vulgar)",
-      example: "Estoy al pedo, no tengo nada que hacer.",
-      formality: "informal"
-    },
-    {
-      expression: "Zafar",
-      meaning: "To manage / to get by",
-      context: "Getting through a difficult situation",
-      example: "Con este sueldo, apenas zafo.",
-      formality: "informal"
-    },
-    {
-      expression: "Estar en el horno",
-      meaning: "To be in trouble",
-      context: "Being in a difficult situation",
-      example: "Si no estudio, estoy en el horno.",
-      formality: "informal"
-    },
-    {
-      expression: "Flashear",
-      meaning: "To imagine / to think crazy thoughts",
-      context: "Having wild ideas or thoughts",
-      example: "Estás flasheando, eso es imposible.",
-      formality: "informal"
-    },
-    {
-      expression: "Bancar",
-      meaning: "To support / to put up with",
-      context: "Supporting someone or tolerating something",
-      example: "Te banco en esta decisión.",
-      formality: "informal"
-    },
-    {
-      expression: "Estar de más",
-      meaning: "To be unnecessary / out of place",
-      context: "Something or someone not needed",
-      example: "Ese comentario estaba de más.",
-      formality: "informal"
-    },
-    {
-      expression: "Quilombo",
-      meaning: "Mess / chaos",
-      context: "Complicated or messy situation",
-      example: "La reunión fue un quilombo total.",
-      formality: "informal"
+      departmentId: "valle-del-cauca",
+      departmentName: "Valle del Cauca",
+      capital: "Cali",
+      region: "Pacífico",
+      hint: "World capital of salsa",
+      funFact: "Cali is recognized worldwide as the capital of salsa music and dance"
     }
   ],
-  culturalNotes: [
+  trivia: [
     {
-      topic: "Voseo",
-      description: "Argentines use 'vos' instead of 'tú' with different verb conjugations",
-      tip: "Use 'tenés' instead of 'tienes', 'sos' instead of 'eres'"
+      question: "Which Colombian city is known as the world capital of salsa?",
+      correctAnswer: "Cali",
+      wrongAnswers: ["Medellín", "Barranquilla", "Cartagena"],
+      explanation: "Cali in Valle del Cauca is internationally recognized as the world capital of salsa music and dance.",
+      difficulty: "easy",
+      category: "cultural"
     },
     {
-      topic: "Mate Culture",
-      description: "Sharing mate is a social ritual and sign of friendship",
-      tip: "Don't touch the bombilla (straw) and pass it back to the same person"
+      question: "Which department is one of the rainiest places on Earth?",
+      correctAnswer: "Chocó",
+      wrongAnswers: ["Cauca", "Nariño", "Valle del Cauca"],
+      explanation: "Chocó receives some of the highest rainfall in the world, with over 10 meters annually in some areas.",
+      difficulty: "medium",
+      category: "physical"
     },
     {
-      topic: "Late Dining",
-      description: "Dinner is typically eaten after 9 PM, sometimes as late as 11 PM",
-      tip: "Don't expect restaurants to be busy before 9 PM"
+      question: "What is Popayán known as?",
+      correctAnswer: "The White City",
+      wrongAnswers: ["The Golden City", "The Emerald City", "The Pearl City"],
+      explanation: "Popayán is called the White City for its well-preserved colonial architecture with white buildings.",
+      difficulty: "medium",
+      category: "cultural"
     }
   ],
-  pronunciation: {
-    characteristics: [
-      "Yeísmo: 'll' and 'y' pronounced as 'sh' or 'zh'",
-      "Strong Italian influence in intonation",
-      "Final 's' often aspirated or dropped",
-      "Distinctive 'vos' conjugations"
-    ],
-    audioTips: [
-      "Say 'llamar' as 'shamar' or 'zhamar'",
-      "Practice vos conjugations: 'vos tenés', 'vos sos'",
-      "Note the musical, Italian-like intonation"
-    ]
+  characteristics: {
+    climate: ["Tropical rainforest climate", "High humidity year-round", "Heavy rainfall", "Consistently warm temperatures"],
+    geography: ["Pacific coastline", "Dense rainforests", "River systems and deltas", "Mountainous interior"],
+    economy: ["Agriculture (sugarcane, coffee)", "Mining", "Fishing and aquaculture", "Tourism", "Manufacturing in Valle del Cauca"]
   }
 };
 
-// Colombia - Colombian Spanish
-const colombiaData: RegionalData = {
-  country: "Colombia",
-  flag: "🇨🇴",
-  vocabulary: [
+// Orinoco Region - Eastern Plains
+const orinoquia: RegionData = {
+  regionName: "Orinoquía",
+  departments: ["arauca", "casanare", "meta", "vichada"],
+  facts: [
     {
-      word: "computador",
-      meaning: "computer",
-      pronunciation: "kom-pu-ta-DOR",
-      usage: "Standard term for computer",
-      example: "Mi computador está lento hoy.",
+      id: "llanos-plains",
+      title: "Los Llanos",
+      description: "The Orinoco plains are vast grasslands perfect for cattle ranching and oil production",
+      category: "physical",
       difficulty: "beginner",
-      category: "technology"
+      region: "Orinoquía",
+      relatedDepartments: ["meta", "casanare", "arauca", "vichada"]
     },
     {
-      word: "celular",
-      meaning: "cell phone",
-      pronunciation: "se-lu-LAR",
-      usage: "Mobile phone",
-      example: "¿Me prestás tu celular?",
-      difficulty: "beginner",
-      category: "technology"
-    },
-    {
-      word: "carro",
-      meaning: "car",
-      pronunciation: "KA-rro",
-      usage: "Most common word for car",
-      example: "Voy en carro al trabajo.",
-      difficulty: "beginner",
-      category: "transportation"
-    },
-    {
-      word: "apartamento",
-      meaning: "apartment",
-      pronunciation: "a-par-ta-MEN-to",
-      usage: "Apartment or flat",
-      example: "Vivo en un apartamento pequeño.",
-      difficulty: "beginner",
-      category: "housing"
-    },
-    {
-      word: "jugo",
-      meaning: "juice",
-      pronunciation: "HU-go",
-      usage: "Fruit juice",
-      example: "Me gusta el jugo de maracuyá.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "papas",
-      meaning: "potatoes",
-      pronunciation: "PA-pas",
-      usage: "Standard term for potatoes",
-      example: "Las papas rellenas están deliciosas.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "gafas",
-      meaning: "glasses",
-      pronunciation: "GA-fas",
-      usage: "Eyeglasses",
-      example: "Necesito mis gafas para leer.",
-      difficulty: "beginner",
-      category: "accessories"
-    },
-    {
-      word: "buzo",
-      meaning: "sweater",
-      pronunciation: "BU-so",
-      usage: "Warm clothing item",
-      example: "Hace frío, ponte el buzo.",
-      difficulty: "beginner",
-      category: "clothing"
-    },
-    {
-      word: "manejar",
-      meaning: "to drive",
-      pronunciation: "ma-ne-HAR",
-      usage: "To drive a vehicle",
-      example: "¿Sabés manejar moto?",
+      id: "llanero-culture",
+      title: "Llanero Culture",
+      description: "The cowboy culture of the plains with distinctive music, poetry, and horsemanship",
+      category: "cultural",
       difficulty: "intermediate",
-      category: "verbs"
+      region: "Orinoquía",
+      relatedDepartments: ["meta", "casanare", "arauca"]
     },
     {
-      word: "parquear",
-      meaning: "to park",
-      pronunciation: "par-ke-AR",
-      usage: "To park a vehicle",
-      example: "Voy a parquear en el centro comercial.",
+      id: "cano-cristales",
+      title: "Caño Cristales",
+      description: "Known as the River of Five Colors, located in Meta's Serranía de la Macarena",
+      category: "physical",
       difficulty: "intermediate",
-      category: "verbs"
+      region: "Orinoquía",
+      relatedDepartments: ["meta"]
     },
     {
-      word: "plomero",
-      meaning: "plumber",
-      pronunciation: "plo-ME-ro",
-      usage: "Professional who fixes pipes",
-      example: "El plomero viene mañana.",
+      id: "oil-production",
+      title: "Oil Production",
+      description: "Casanare and Arauca are major oil-producing regions of Colombia",
+      category: "economic",
       difficulty: "intermediate",
-      category: "professions"
-    },
-    {
-      word: "ascensor",
-      meaning: "elevator",
-      pronunciation: "as-sen-SOR",
-      usage: "Lift in buildings",
-      example: "Subamos por el ascensor.",
-      difficulty: "intermediate",
-      category: "buildings"
-    },
-    {
-      word: "bus",
-      meaning: "bus",
-      pronunciation: "BUS",
-      usage: "Public transportation",
-      example: "Tomé el bus para llegar acá.",
-      difficulty: "beginner",
-      category: "transportation"
-    },
-    {
-      word: "piscina",
-      meaning: "swimming pool",
-      pronunciation: "pis-SI-na",
-      usage: "Pool for swimming",
-      example: "Los niños están en la piscina.",
-      difficulty: "intermediate",
-      category: "recreation"
-    },
-    {
-      word: "tinto",
-      meaning: "black coffee",
-      pronunciation: "TIN-to",
-      usage: "Small cup of black coffee",
-      example: "¿Querés un tinto?",
-      difficulty: "intermediate",
-      category: "drinks"
-    },
-    {
-      word: "arepa",
-      meaning: "corn cake",
-      pronunciation: "a-RE-pa",
-      usage: "Traditional Colombian food",
-      example: "Desayuné arepa con queso.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "empanada",
-      meaning: "fried pastry",
-      pronunciation: "em-pa-NA-da",
-      usage: "Traditional fried pastry with filling",
-      example: "Compré empanadas de pollo.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "chévere",
-      meaning: "cool/great",
-      pronunciation: "CHE-ve-re",
-      usage: "Something good or positive",
-      example: "¡Qué chévere tu camiseta!",
-      difficulty: "advanced",
-      category: "slang"
-    },
-    {
-      word: "bacano",
-      meaning: "cool/awesome",
-      pronunciation: "ba-KA-no",
-      usage: "Something really good",
-      example: "Está muy bacano el concierto.",
-      difficulty: "advanced",
-      category: "slang"
-    },
-    {
-      word: "parcero",
-      meaning: "buddy/friend",
-      pronunciation: "par-SE-ro",
-      usage: "Informal term for friend",
-      example: "¿Qué tal, parcero?",
-      difficulty: "advanced",
-      category: "slang"
-    },
-    {
-      word: "plata",
-      meaning: "money",
-      pronunciation: "PLA-ta",
-      usage: "Informal term for money",
-      example: "No tengo plata para el cine.",
-      difficulty: "advanced",
-      category: "slang"
-    },
-    {
-      word: "chimba",
-      meaning: "awesome/cool",
-      pronunciation: "CHIM-ba",
-      usage: "Something excellent (can be vulgar)",
-      example: "¡Qué chimba de partido!",
-      difficulty: "advanced",
-      category: "slang"
+      region: "Orinoquía",
+      relatedDepartments: ["casanare", "arauca"]
     }
   ],
-  expressions: [
+  flashcards: [
     {
-      expression: "¡Qué chévere!",
-      meaning: "How cool! / How great!",
-      context: "Expressing approval or excitement",
-      example: "¡Qué chévere que viniste!",
-      formality: "informal"
+      departmentId: "arauca",
+      departmentName: "Arauca",
+      capital: "Arauca",
+      region: "Orinoquía",
+      hint: "Border with Venezuela, llanero culture",
+      funFact: "Known for llanero culture and the international José Antonio Páez bridge"
     },
     {
-      expression: "¡Uy, no!",
-      meaning: "Oh no! / No way!",
-      context: "Expressing surprise or disagreement",
-      example: "¿Llueve otra vez? ¡Uy, no!",
-      formality: "informal"
+      departmentId: "casanare",
+      departmentName: "Casanare",
+      capital: "Yopal",
+      region: "Orinoquía",
+      hint: "Important oil producer",
+      funFact: "Major oil production and extensive cattle ranching"
     },
     {
-      expression: "¿Qué más?",
-      meaning: "What's up? / How's it going?",
-      context: "Casual greeting",
-      example: "¡Hola! ¿Qué más?",
-      formality: "informal"
+      departmentId: "meta",
+      departmentName: "Meta",
+      capital: "Villavicencio",
+      region: "Orinoquía",
+      hint: "Gateway to the plains, River of Five Colors",
+      funFact: "Gateway to the Llanos and home to Caño Cristales river"
     },
     {
-      expression: "Estar mamado",
-      meaning: "To be tired/fed up",
-      context: "Being exhausted or annoyed",
-      example: "Estoy mamado del trabajo.",
-      formality: "informal"
-    },
-    {
-      expression: "Dar papaya",
-      meaning: "To give opportunity for trouble",
-      context: "Making oneself vulnerable",
-      example: "No des papaya con el celular.",
-      formality: "informal"
-    },
-    {
-      expression: "Echar los perros",
-      meaning: "To flirt",
-      context: "Trying to court someone",
-      example: "Le está echando los perros a María.",
-      formality: "informal"
-    },
-    {
-      expression: "Estar enguayabado",
-      meaning: "To be hungover",
-      context: "Feeling bad after drinking",
-      example: "Estoy muy enguayabado hoy.",
-      formality: "informal"
-    },
-    {
-      expression: "¡Qué pena!",
-      meaning: "How embarrassing! / What a shame!",
-      context: "Expressing embarrassment or regret",
-      example: "¡Qué pena llegar tarde!",
-      formality: "neutral"
-    },
-    {
-      expression: "Pilas",
-      meaning: "Be careful / Pay attention",
-      context: "Warning or advice",
-      example: "Pilas con el tráfico.",
-      formality: "informal"
-    },
-    {
-      expression: "¡Listo!",
-      meaning: "Ready! / Done! / Okay!",
-      context: "Confirming completion or agreement",
-      example: "¿Nos vemos a las 8? ¡Listo!",
-      formality: "neutral"
+      departmentId: "vichada",
+      departmentName: "Vichada",
+      capital: "Puerto Carreño",
+      region: "Orinoquía",
+      hint: "Second largest department",
+      funFact: "Second most extensive department of Colombia"
     }
   ],
-  culturalNotes: [
+  trivia: [
     {
-      topic: "Courtesy",
-      description: "Colombians are very polite and use formal greetings frequently",
-      tip: "Always greet people when entering a room or elevator"
+      question: "Which river is known as the River of Five Colors?",
+      correctAnswer: "Caño Cristales",
+      wrongAnswers: ["Río Meta", "Río Casanare", "Río Arauca"],
+      explanation: "Caño Cristales in Meta is famous for its spectacular colors created by aquatic plants.",
+      difficulty: "medium",
+      category: "physical"
     },
     {
-      topic: "Coffee Culture",
-      description: "Coffee is central to Colombian culture, often offered to guests",
-      tip: "Accept coffee when offered, it's a sign of hospitality"
-    },
-    {
-      topic: "Regional Variations",
-      description: "Each region has distinct accents and vocabulary",
-      tip: "Coastal Spanish differs significantly from Andean Spanish"
+      question: "What is the traditional culture of the Orinoco plains called?",
+      correctAnswer: "Llanero",
+      wrongAnswers: ["Paisa", "Costeño", "Santandereano"],
+      explanation: "Llanero culture is the distinctive cowboy culture of the Colombian plains, with its own music and traditions.",
+      difficulty: "easy",
+      category: "cultural"
     }
   ],
-  pronunciation: {
-    characteristics: [
-      "Clear pronunciation of all vowels",
-      "Softer 's' sounds in coastal regions",
-      "Strong 'rr' rolling",
-      "Distinctive intonation patterns by region"
-    ],
-    audioTips: [
-      "Practice clear vowel sounds",
-      "Coast vs mountains have different rhythms",
-      "Roll your R's clearly in 'carro'"
-    ]
+  characteristics: {
+    climate: ["Tropical savanna climate", "Distinct wet and dry seasons", "Hot temperatures", "Seasonal flooding"],
+    geography: ["Vast grassland plains", "River systems", "Seasonal wetlands", "Few hills or mountains"],
+    economy: ["Cattle ranching", "Oil production", "Agriculture", "Natural gas", "Rice cultivation"]
   }
 };
 
-// Peru - Peruvian Spanish
-const peruData: RegionalData = {
-  country: "Perú",
-  flag: "🇵🇪",
-  vocabulary: [
+// Amazon Region - Southern Rainforest
+const amazoniaData: RegionData = {
+  regionName: "Amazonía",
+  departments: ["amazonas", "caqueta", "guainia", "guaviare", "putumayo", "vaupes"],
+  facts: [
     {
-      word: "computadora",
-      meaning: "computer",
-      pronunciation: "kom-pu-ta-DO-ra",
-      usage: "Standard term for computer",
-      example: "Mi computadora es nueva.",
+      id: "amazon-rainforest",
+      title: "Amazon Rainforest",
+      description: "Colombia contains about 10% of the Amazon rainforest, the world's largest tropical rainforest",
+      category: "physical",
       difficulty: "beginner",
-      category: "technology"
+      region: "Amazonía",
+      relatedDepartments: ["amazonas", "caqueta", "guainia", "guaviare", "putumayo", "vaupes"]
     },
     {
-      word: "celular",
-      meaning: "cell phone",
-      pronunciation: "se-lu-LAR",
-      usage: "Mobile phone",
-      example: "¿Tienes tu celular?",
-      difficulty: "beginner",
-      category: "technology"
-    },
-    {
-      word: "carro",
-      meaning: "car",
-      pronunciation: "KA-rro",
-      usage: "Most common word for car",
-      example: "Voy en carro a trabajar.",
-      difficulty: "beginner",
-      category: "transportation"
-    },
-    {
-      word: "departamento",
-      meaning: "apartment",
-      pronunciation: "de-par-ta-MEN-to",
-      usage: "Apartment or flat",
-      example: "Alquilo un departamento céntrico.",
-      difficulty: "beginner",
-      category: "housing"
-    },
-    {
-      word: "jugo",
-      meaning: "juice",
-      pronunciation: "HU-go",
-      usage: "Fruit juice",
-      example: "Quiero jugo de papaya.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "papas",
-      meaning: "potatoes",
-      pronunciation: "PA-pas",
-      usage: "Peru has hundreds of potato varieties",
-      example: "Las papas rellenas son típicas.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "lentes",
-      meaning: "glasses",
-      pronunciation: "LEN-tes",
-      usage: "Eyeglasses",
-      example: "Perdí mis lentes de sol.",
-      difficulty: "beginner",
-      category: "accessories"
-    },
-    {
-      word: "chompa",
-      meaning: "sweater",
-      pronunciation: "CHOM-pa",
-      usage: "Warm clothing item",
-      example: "Hace frío, ponte la chompa.",
-      difficulty: "beginner",
-      category: "clothing"
-    },
-    {
-      word: "manejar",
-      meaning: "to drive",
-      pronunciation: "ma-ne-HAR",
-      usage: "To drive a vehicle",
-      example: "¿Sabes manejar?",
-      difficulty: "intermediate",
-      category: "verbs"
-    },
-    {
-      word: "estacionar",
-      meaning: "to park",
-      pronunciation: "es-ta-sio-NAR",
-      usage: "To park a vehicle",
-      example: "Voy a estacionar en la esquina.",
-      difficulty: "intermediate",
-      category: "verbs"
-    },
-    {
-      word: "gasfitero",
-      meaning: "plumber",
-      pronunciation: "gas-fi-TE-ro",
-      usage: "Professional who fixes pipes",
-      example: "Llamé al gasfitero por la fuga.",
-      difficulty: "intermediate",
-      category: "professions"
-    },
-    {
-      word: "ascensor",
-      meaning: "elevator",
-      pronunciation: "as-sen-SOR",
-      usage: "Lift in buildings",
-      example: "Subimos en el ascensor.",
-      difficulty: "intermediate",
-      category: "buildings"
-    },
-    {
-      word: "micro",
-      meaning: "bus",
-      pronunciation: "MI-kro",
-      usage: "Public transportation bus",
-      example: "Tomé el micro para llegar.",
-      difficulty: "intermediate",
-      category: "transportation"
-    },
-    {
-      word: "combi",
-      meaning: "minibus",
-      pronunciation: "KOM-bi",
-      usage: "Small public transport vehicle",
-      example: "La combi va llena de gente.",
-      difficulty: "intermediate",
-      category: "transportation"
-    },
-    {
-      word: "piscina",
-      meaning: "swimming pool",
-      pronunciation: "pis-SI-na",
-      usage: "Pool for swimming",
-      example: "Los niños juegan en la piscina.",
-      difficulty: "intermediate",
-      category: "recreation"
-    },
-    {
-      word: "ceviche",
-      meaning: "raw fish dish",
-      pronunciation: "se-VI-che",
-      usage: "Traditional Peruvian dish",
-      example: "El ceviche está fresco.",
-      difficulty: "beginner",
-      category: "food"
-    },
-    {
-      word: "pisco",
-      meaning: "grape brandy",
-      pronunciation: "PIS-ko",
-      usage: "Traditional Peruvian alcoholic drink",
-      example: "Preparamos pisco sour.",
-      difficulty: "intermediate",
-      category: "drinks"
-    },
-    {
-      word: "chifa",
-      meaning: "Chinese-Peruvian food",
-      pronunciation: "CHI-fa",
-      usage: "Chinese-Peruvian fusion cuisine",
-      example: "Vamos al chifa a almorzar.",
+      id: "indigenous-diversity",
+      title: "Indigenous Diversity",
+      description: "The Amazon region is home to over 27 different indigenous peoples, especially in Vaupés",
+      category: "cultural",
       difficulty: "advanced",
-      category: "food"
+      region: "Amazonía",
+      relatedDepartments: ["vaupes", "amazonas", "guainia"]
     },
     {
-      word: "pata",
-      meaning: "friend/buddy",
-      pronunciation: "PA-ta",
-      usage: "Informal term for friend",
-      example: "¿Qué tal, pata?",
+      id: "chiribiquete",
+      title: "Serranía del Chiribiquete",
+      description: "UNESCO World Heritage site with ancient rock paintings and unique biodiversity",
+      category: "cultural",
       difficulty: "advanced",
-      category: "slang"
+      region: "Amazonía",
+      relatedDepartments: ["guaviare", "caqueta"]
     },
     {
-      word: "jato",
-      meaning: "house/home",
-      pronunciation: "HA-to",
-      usage: "Informal term for home",
-      example: "Vamos a mi jato.",
+      id: "estrella-fluvial",
+      title: "Estrella Fluvial del Oriente",
+      description: "Guainía is famous for the Eastern River Star where multiple rivers converge",
+      category: "physical",
       difficulty: "advanced",
-      category: "slang"
-    },
-    {
-      word: "chamba",
-      meaning: "work/job",
-      pronunciation: "CHAM-ba",
-      usage: "Informal term for work",
-      example: "Tengo mucha chamba hoy.",
-      difficulty: "advanced",
-      category: "slang"
-    },
-    {
-      word: "huachafo",
-      meaning: "tacky/cheap",
-      pronunciation: "wa-CHA-fo",
-      usage: "Something in bad taste",
-      example: "Esa decoración está huachafa.",
-      difficulty: "advanced",
-      category: "slang"
+      region: "Amazonía",
+      relatedDepartments: ["guainia"]
     }
   ],
-  expressions: [
+  flashcards: [
     {
-      expression: "¡Qué tal raza!",
-      meaning: "What's up, people!",
-      context: "Casual group greeting",
-      example: "¡Hola! ¡Qué tal raza!",
-      formality: "informal"
+      departmentId: "amazonas",
+      departmentName: "Amazonas",
+      capital: "Leticia",
+      region: "Amazonía",
+      hint: "Largest department, 9.6% of national territory",
+      funFact: "Colombia's largest department covering 9.6% of the national territory"
     },
     {
-      expression: "¡Qué bestia!",
-      meaning: "How awesome! / Incredible!",
-      context: "Expressing amazement",
-      example: "¡Qué bestia tu nuevo carro!",
-      formality: "informal"
+      departmentId: "caqueta",
+      departmentName: "Caquetá",
+      capital: "Florencia",
+      region: "Amazonía",
+      hint: "Gateway to the Colombian Amazon",
+      funFact: "Known as the gateway to the Colombian Amazon"
     },
     {
-      expression: "Está con su toque",
-      meaning: "It's really good/special",
-      context: "Something has a special quality",
-      example: "Tu comida está con su toque.",
-      formality: "informal"
+      departmentId: "guainia",
+      departmentName: "Guainía",
+      capital: "Inírida",
+      region: "Amazonía",
+      hint: "Eastern River Star phenomenon",
+      funFact: "Famous for the Eastern River Star where rivers converge"
     },
     {
-      expression: "¡Asu mare!",
-      meaning: "Oh my! / Wow!",
-      context: "Expressing surprise (mild vulgar)",
-      example: "¡Asu mare, qué carro tan bonito!",
-      formality: "informal"
+      departmentId: "guaviare",
+      departmentName: "Guaviare",
+      capital: "San José del Guaviare",
+      region: "Amazonía",
+      hint: "Ancient rock paintings of Chiribiquete",
+      funFact: "Home to the ancient rock paintings of Serranía del Chiribiquete"
     },
     {
-      expression: "Estar jodido",
-      meaning: "To be in trouble/broke",
-      context: "Bad situation (vulgar)",
-      example: "Estoy jodido sin trabajo.",
-      formality: "informal"
+      departmentId: "putumayo",
+      departmentName: "Putumayo",
+      capital: "Mocoa",
+      region: "Amazonía",
+      hint: "Sibundoy Valley and ethnic diversity",
+      funFact: "Known for the Sibundoy Valley and remarkable ethnic diversity"
     },
     {
-      expression: "¡Ya pe!",
-      meaning: "Come on! / Enough!",
-      context: "Showing impatience or agreement",
-      example: "¡Ya pe, vámonos!",
-      formality: "informal"
-    },
-    {
-      expression: "Ser una mosca muerta",
-      meaning: "To be very quiet/shy",
-      context: "Someone who appears innocent",
-      example: "No te dejes engañar, es una mosca muerta.",
-      formality: "informal"
-    },
-    {
-      expression: "Estar en la huacas",
-      meaning: "To be far away",
-      context: "Somewhere very distant",
-      example: "Su casa está en las huacas.",
-      formality: "informal"
-    },
-    {
-      expression: "¡Qué roche!",
-      meaning: "How embarrassing!",
-      context: "Feeling shame or embarrassment",
-      example: "¡Qué roche llegar tarde!",
-      formality: "informal"
-    },
-    {
-      expression: "Estar yuca",
-      meaning: "To be difficult/tough",
-      context: "Something challenging",
-      example: "El examen está yuca.",
-      formality: "informal"
+      departmentId: "vaupes",
+      departmentName: "Vaupés",
+      capital: "Mitú",
+      region: "Amazonía",
+      hint: "27+ indigenous peoples",
+      funFact: "Rich ethnic diversity with more than 27 indigenous peoples"
     }
   ],
-  culturalNotes: [
+  trivia: [
     {
-      topic: "Indigenous Influence",
-      description: "Many Quechua and other indigenous words are used in daily Spanish",
-      tip: "Words like 'cancha' (popcorn) come from Quechua"
+      question: "Which is Colombia's largest department by area?",
+      correctAnswer: "Amazonas",
+      wrongAnswers: ["Vichada", "Caquetá", "Meta"],
+      explanation: "Amazonas covers 109,665 km², representing 9.6% of Colombia's total territory.",
+      difficulty: "medium",
+      category: "physical"
     },
     {
-      topic: "Food Culture",
-      description: "Peru has incredibly diverse cuisine, considered among world's best",
-      tip: "Try different regional specialties, each area has unique dishes"
+      question: "Which department has the highest indigenous diversity in Colombia?",
+      correctAnswer: "Vaupés",
+      wrongAnswers: ["Amazonas", "Guainía", "Putumayo"],
+      explanation: "Vaupés is home to more than 27 different indigenous peoples, the highest diversity in the country.",
+      difficulty: "hard",
+      category: "cultural"
     },
     {
-      topic: "Formality",
-      description: "Peruvians can be quite formal in business and with elders",
-      tip: "Use 'usted' until invited to use 'tú'"
+      question: "What UNESCO site is famous for ancient rock paintings?",
+      correctAnswer: "Serranía del Chiribiquete",
+      wrongAnswers: ["Sierra Nevada de Santa Marta", "Los Katíos National Park", "Malpelo Island"],
+      explanation: "Serranía del Chiribiquete is a UNESCO World Heritage site known for its ancient indigenous rock art.",
+      difficulty: "hard",
+      category: "cultural"
     }
   ],
-  pronunciation: {
-    characteristics: [
-      "Clear pronunciation influenced by Quechua",
-      "Some indigenous sounds in local words",
-      "Softer 's' in Lima and coast",
-      "Distinctive Andean rhythm in mountains"
-    ],
-    audioTips: [
-      "Practice Quechua-origin words with original sounds",
-      "Coastal accent is softer, mountain accent stronger",
-      "Pay attention to indigenous place names"
-    ]
+  characteristics: {
+    climate: ["Tropical rainforest climate", "High humidity and temperature", "Heavy rainfall year-round", "Little seasonal variation"],
+    geography: ["Dense Amazon rainforest", "River systems and tributaries", "Low-lying flood plains", "Ancient geological formations"],
+    economy: ["Sustainable forestry", "Ecotourism", "Indigenous crafts", "Research and conservation", "Limited agriculture"]
   }
 };
 
 // Regional data collection
-export const regionalData: Record<string, RegionalData> = {
-  spain: spainData,
-  mexico: mexicoData,
-  argentina: argentinaData,
-  colombia: colombiaData,
-  peru: peruData
+export const regionData: Record<string, RegionData> = {
+  andina: andinaData,
+  caribe: caribeData,
+  pacifico: pacificoData,
+  orinoquia: orinoquia,
+  amazonia: amazoniaData
 };
 
 // Daily content generation
-const generateDailyContent = (region: string): DailyContent => {
-  const data = regionalData[region];
+const generateDailyGeography = (region: string): DailyGeography => {
+  const data = regionData[region];
   if (!data) {
     throw new Error(`Region ${region} not found`);
   }
@@ -1604,118 +753,147 @@ const generateDailyContent = (region: string): DailyContent => {
   const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000);
 
   // Use day of year to select consistent daily content
-  const vocabIndex = dayOfYear % data.vocabulary.length;
-  const exprIndex = dayOfYear % data.expressions.length;
-  const noteIndex = dayOfYear % data.culturalNotes.length;
+  const factIndex = dayOfYear % data.facts.length;
+  const cardIndex = dayOfYear % data.flashcards.length;
+  const triviaIndex = dayOfYear % data.trivia.length;
 
   return {
-    word: data.vocabulary[vocabIndex],
-    expression: data.expressions[exprIndex],
-    culturalTip: data.culturalNotes[noteIndex].description,
+    fact: data.facts[factIndex],
+    flashcard: data.flashcards[cardIndex],
+    trivia: data.trivia[triviaIndex],
     date: today.toISOString().split('T')[0]
   };
 };
 
 // Export functions
-export const getRegionalVocabulary = (region: string, category?: string): VocabularyItem[] => {
-  const data = regionalData[region];
+export const getRegionFacts = (region: string, category?: string): GeographyFact[] => {
+  const data = regionData[region];
   if (!data) {
     throw new Error(`Region ${region} not found`);
   }
 
   if (category) {
-    return data.vocabulary.filter(item => item.category === category);
+    return data.facts.filter(fact => fact.category === category);
   }
 
-  return data.vocabulary;
+  return data.facts;
 };
 
-export const getDailyContent = (region: string): DailyContent => {
-  return generateDailyContent(region);
+export const getDailyGeography = (region: string): DailyGeography => {
+  return generateDailyGeography(region);
 };
 
-export const getExpressions = (region: string, formality?: 'informal' | 'formal' | 'neutral'): RegionalExpression[] => {
-  const data = regionalData[region];
+export const getFlashcards = (region: string): DepartmentCard[] => {
+  const data = regionData[region];
   if (!data) {
     throw new Error(`Region ${region} not found`);
   }
 
-  if (formality) {
-    return data.expressions.filter(expr => expr.formality === formality);
-  }
-
-  return data.expressions;
+  return data.flashcards;
 };
 
-export const getCulturalNotes = (region: string): CulturalNote[] => {
-  const data = regionalData[region];
+export const getTrivia = (region: string, difficulty?: 'easy' | 'medium' | 'hard'): TriviaQuestion[] => {
+  const data = regionData[region];
   if (!data) {
     throw new Error(`Region ${region} not found`);
   }
 
-  return data.culturalNotes;
+  if (difficulty) {
+    return data.trivia.filter(question => question.difficulty === difficulty);
+  }
+
+  return data.trivia;
 };
 
-export const getPronunciationGuide = (region: string) => {
-  const data = regionalData[region];
+export const getRegionCharacteristics = (region: string) => {
+  const data = regionData[region];
   if (!data) {
     throw new Error(`Region ${region} not found`);
   }
 
-  return data.pronunciation;
+  return data.characteristics;
 };
 
-export const getRandomVocabulary = (region: string, count: number = 5): VocabularyItem[] => {
-  const vocabulary = getRegionalVocabulary(region);
-  const shuffled = [...vocabulary].sort(() => Math.random() - 0.5);
+export const getRandomFacts = (region: string, count: number = 3): GeographyFact[] => {
+  const facts = getRegionFacts(region);
+  const shuffled = [...facts].sort(() => Math.random() - 0.5);
   return shuffled.slice(0, count);
 };
 
-export const searchVocabulary = (region: string, searchTerm: string): VocabularyItem[] => {
-  const vocabulary = getRegionalVocabulary(region);
+export const searchFacts = (region: string, searchTerm: string): GeographyFact[] => {
+  const facts = getRegionFacts(region);
   const term = searchTerm.toLowerCase();
 
-  return vocabulary.filter(item =>
-    item.word.toLowerCase().includes(term) ||
-    item.meaning.toLowerCase().includes(term) ||
-    item.usage.toLowerCase().includes(term)
+  return facts.filter(fact =>
+    fact.title.toLowerCase().includes(term) ||
+    fact.description.toLowerCase().includes(term)
   );
 };
 
-export const getVocabularyByDifficulty = (region: string, difficulty: 'beginner' | 'intermediate' | 'advanced'): VocabularyItem[] => {
-  const vocabulary = getRegionalVocabulary(region);
-  return vocabulary.filter(item => item.difficulty === difficulty);
+export const getFactsByDifficulty = (region: string, difficulty: 'beginner' | 'intermediate' | 'advanced'): GeographyFact[] => {
+  const facts = getRegionFacts(region);
+  return facts.filter(fact => fact.difficulty === difficulty);
 };
 
 export const getAvailableRegions = (): string[] => {
-  return Object.keys(regionalData);
+  return Object.keys(regionData);
 };
 
 export const getRegionInfo = (region: string) => {
-  const data = regionalData[region];
+  const data = regionData[region];
   if (!data) {
     throw new Error(`Region ${region} not found`);
   }
 
   return {
-    country: data.country,
-    flag: data.flag,
-    vocabularyCount: data.vocabulary.length,
-    expressionsCount: data.expressions.length,
-    culturalNotesCount: data.culturalNotes.length
+    regionName: data.regionName,
+    departmentCount: data.departments.length,
+    factsCount: data.facts.length,
+    flashcardsCount: data.flashcards.length,
+    triviaCount: data.trivia.length
   };
 };
 
-// Word of the day functionality
-export const getWordOfTheDay = (region: string): VocabularyItem => {
-  const dailyContent = getDailyContent(region);
-  return dailyContent.word;
+// Fact of the day functionality
+export const getFactOfTheDay = (region: string): GeographyFact => {
+  const dailyContent = getDailyGeography(region);
+  return dailyContent.fact;
 };
 
-// Expression of the day functionality
-export const getExpressionOfTheDay = (region: string): RegionalExpression => {
-  const dailyContent = getDailyContent(region);
-  return dailyContent.expression;
+// Flashcard of the day functionality
+export const getFlashcardOfTheDay = (region: string): DepartmentCard => {
+  const dailyContent = getDailyGeography(region);
+  return dailyContent.flashcard;
 };
 
-export default regionalData;
+// Trivia of the day functionality
+export const getTriviaOfTheDay = (region: string): TriviaQuestion => {
+  const dailyContent = getDailyGeography(region);
+  return dailyContent.trivia;
+};
+
+// Get all flashcards for learning mode
+export const getAllFlashcards = (): DepartmentCard[] => {
+  const allCards: DepartmentCard[] = [];
+  Object.values(regionData).forEach(region => {
+    allCards.push(...region.flashcards);
+  });
+  return allCards;
+};
+
+// Get all trivia questions for quiz mode
+export const getAllTrivia = (): TriviaQuestion[] => {
+  const allTrivia: TriviaQuestion[] = [];
+  Object.values(regionData).forEach(region => {
+    allTrivia.push(...region.trivia);
+  });
+  return allTrivia;
+};
+
+// Get department by ID
+export const getDepartmentCard = (departmentId: string): DepartmentCard | undefined => {
+  const allCards = getAllFlashcards();
+  return allCards.find(card => card.departmentId === departmentId);
+};
+
+export default regionData;

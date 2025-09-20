@@ -58,19 +58,19 @@ export const StudyModeContainer: React.FC<StudyModeContainerProps> = ({ classNam
       const mockData: VocabularyItem[] = [
         {
           id: '1',
-          word: 'lift',
-          meaning: 'elevator',
+          word: 'parce',
+          meaning: 'amigo, compañero',
           region: region,
           difficulty: 'easy',
-          examples: ['Take the lift to the third floor', 'The lift is out of order']
+          examples: ['¡Ey parce, ¿cómo estás?', 'Mi parce me ayudó con la tarea']
         },
         {
           id: '2',
-          word: 'lorry',
-          meaning: 'truck',
+          word: 'chimba',
+          meaning: 'excelente, genial',
           region: region,
           difficulty: 'medium',
-          examples: ['The lorry delivered goods to the warehouse', 'A large lorry blocked the road']
+          examples: ['Esa película estuvo chimba', 'Qué chimba de carro tienes']
         }
       ];
       setVocabularyData(mockData);
@@ -105,8 +105,8 @@ export const StudyModeContainer: React.FC<StudyModeContainerProps> = ({ classNam
     <div className={`study-mode-container bg-white rounded-lg shadow-lg p-6 ${className}`}>
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Language Study Mode</h1>
-        <p className="text-gray-600">Practice regional vocabulary and phrases</p>
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">Modo de Estudio de Geografía</h1>
+        <p className="text-gray-600">Aprende sobre los departamentos, capitales y regiones de Colombia</p>
       </div>
 
       {/* Region Selection */}
@@ -140,7 +140,7 @@ export const StudyModeContainer: React.FC<StudyModeContainerProps> = ({ classNam
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
-              Practice
+              Práctica
             </button>
             <button
               onClick={() => setStudyMode('flashcards')}
@@ -150,7 +150,7 @@ export const StudyModeContainer: React.FC<StudyModeContainerProps> = ({ classNam
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
-              Flashcards
+              Tarjetas
             </button>
             <button
               onClick={() => setStudyMode('vocabulary')}
@@ -160,7 +160,7 @@ export const StudyModeContainer: React.FC<StudyModeContainerProps> = ({ classNam
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
-              Vocabulary
+              Vocabulario
             </button>
           </div>
 
@@ -209,8 +209,8 @@ export const StudyModeContainer: React.FC<StudyModeContainerProps> = ({ classNam
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
             </svg>
           </div>
-          <h3 className="text-xl font-semibold text-gray-600 mb-2">Select a Region to Begin</h3>
-          <p className="text-gray-500">Choose a regional variety to start practicing vocabulary and phrases</p>
+          <h3 className="text-xl font-semibold text-gray-600 mb-2">Selecciona un Departamento para Comenzar</h3>
+          <p className="text-gray-500">Elige un departamento colombiano para aprender sobre su capital, región y datos importantes</p>
         </div>
       )}
     </div>

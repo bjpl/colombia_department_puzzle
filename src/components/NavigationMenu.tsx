@@ -11,9 +11,9 @@ const NavigationMenu: React.FC = () => {
   const isActive = (path: string) => location.pathname === path;
 
   const navItems = [
-    { path: '/', label: 'Home', icon: Home },
-    { path: '/puzzle', label: 'Puzzle Game', icon: Gamepad2 },
-    { path: '/study', label: 'Study Mode', icon: BookOpen },
+    { path: '/', label: 'Inicio', icon: Home },
+    { path: '/puzzle', label: 'Juego de Rompecabezas', icon: Gamepad2 },
+    { path: '/study', label: 'Modo de Estudio', icon: BookOpen },
   ];
 
   return (
@@ -58,7 +58,7 @@ const NavigationMenu: React.FC = () => {
               className="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white transition-colors"
               aria-expanded="false"
             >
-              <span className="sr-only">Open main menu</span>
+              <span className="sr-only">Abrir menú principal</span>
               {isOpen ? (
                 <X className="block h-6 w-6" aria-hidden="true" />
               ) : (

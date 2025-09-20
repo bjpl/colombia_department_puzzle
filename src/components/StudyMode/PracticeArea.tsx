@@ -52,9 +52,9 @@ export const PracticeArea: React.FC<PracticeAreaProps> = ({
         return {
           id: `def-${item.id}-${Date.now()}`,
           type: 'definition',
-          question: `What does "${item.word}" mean in ${region}?`,
+          question: `¿Qué significa "${item.word}" en ${region}?`,
           correctAnswer: item.meaning.toLowerCase(),
-          hint: `Think about regional vocabulary differences`,
+          hint: `Piensa en las diferencias de vocabulario regional`,
           vocabularyItem: item
         };
 
@@ -64,9 +64,9 @@ export const PracticeArea: React.FC<PracticeAreaProps> = ({
         return {
           id: `usage-${item.id}-${Date.now()}`,
           type: 'usage',
-          question: `Fill in the blank: ${blankedExample}`,
+          question: `Completa la frase: ${blankedExample}`,
           correctAnswer: item.word.toLowerCase(),
-          hint: `This word means "${item.meaning}"`,
+          hint: `Esta palabra significa "${item.meaning}"`,
           vocabularyItem: item
         };
 
@@ -77,7 +77,7 @@ export const PracticeArea: React.FC<PracticeAreaProps> = ({
         return {
           id: `mc-${item.id}-${Date.now()}`,
           type: 'multiple-choice',
-          question: `What is the meaning of "${item.word}" in ${region}?`,
+          question: `¿Cuál es el significado de "${item.word}" en ${region}?`,
           correctAnswer: item.meaning.toLowerCase(),
           options,
           vocabularyItem: item
@@ -135,9 +135,9 @@ export const PracticeArea: React.FC<PracticeAreaProps> = ({
     setFeedback({
       show: true,
       correct: isCorrect,
-      message: isCorrect 
-        ? '✅ Correct! Well done!' 
-        : `❌ Not quite. The correct answer is "${currentQuestion.correctAnswer}"`
+      message: isCorrect
+        ? '✅ ¡Correcto! ¡Bien hecho!'
+        : `❌ No exactamente. La respuesta correcta es "${currentQuestion.correctAnswer}"`
     });
 
     onAnswerSubmit(isCorrect);
@@ -166,7 +166,7 @@ export const PracticeArea: React.FC<PracticeAreaProps> = ({
       <div className={`practice-area flex items-center justify-center ${className}`}>
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading practice questions...</p>
+          <p className="text-gray-600">Cargando preguntas de práctica...</p>
         </div>
       </div>
     );
@@ -224,7 +224,7 @@ export const PracticeArea: React.FC<PracticeAreaProps> = ({
                 onChange={(e) => setUserAnswer(e.target.value)}
                 onKeyPress={handleKeyPress}
                 disabled={feedback.show}
-                placeholder="Type your answer here..."
+                placeholder="Escribe tu respuesta aquí..."
                 className={`w-full px-4 py-3 text-lg border-2 rounded-lg focus:outline-none focus:ring-2 transition-all duration-200 ${
                   feedback.show
                     ? feedback.correct
@@ -248,7 +248,7 @@ export const PracticeArea: React.FC<PracticeAreaProps> = ({
                 disabled={!userAnswer.trim()}
                 className="mt-3 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
               >
-                Submit Answer
+                Enviar Respuesta
               </button>
             )}
           </div>
@@ -265,7 +265,7 @@ export const PracticeArea: React.FC<PracticeAreaProps> = ({
             )}
             {feedback.correct && currentQuestion.vocabularyItem.examples.length > 0 && (
               <div className="mt-3">
-                <p className="text-sm font-medium text-gray-700 mb-1">Example usage:</p>
+                <p className="text-sm font-medium text-gray-700 mb-1">Ejemplo de uso:</p>
                 <p className="text-sm text-gray-600 italic">
                   "{currentQuestion.vocabularyItem.examples[0]}"
                 </p>
@@ -280,7 +280,7 @@ export const PracticeArea: React.FC<PracticeAreaProps> = ({
             onClick={loadNewQuestion}
             className="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200"
           >
-            Skip Question
+            Saltar Pregunta
           </button>
           
           {currentQuestion.hint && !feedback.show && (
@@ -288,11 +288,11 @@ export const PracticeArea: React.FC<PracticeAreaProps> = ({
               onClick={() => setFeedback({
                 show: true,
                 correct: false,
-                message: `💡 Hint: ${currentQuestion.hint}`
+                message: `💡 Pista: ${currentQuestion.hint}`
               })}
               className="px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors duration-200"
             >
-              Show Hint
+              Mostrar Pista
             </button>
           )}
         </div>

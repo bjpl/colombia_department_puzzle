@@ -16,45 +16,45 @@ interface RegionSelectorProps {
 
 const AVAILABLE_REGIONS: Region[] = [
   {
-    id: 'uk',
-    name: 'United Kingdom',
-    flag: '🇬🇧',
-    description: 'British English vocabulary and expressions',
+    id: 'antioquia',
+    name: 'Antioquia',
+    flag: '🏔️',
+    description: 'Paisa expressions and vocabulary from Medellín region',
     difficulty: 'beginner'
   },
   {
-    id: 'aus',
-    name: 'Australia',
-    flag: '🇦🇺',
-    description: 'Australian English slang and terminology',
-    difficulty: 'intermediate'
-  },
-  {
-    id: 'usa',
-    name: 'United States',
-    flag: '🇺🇸',
-    description: 'American English vocabulary and idioms',
+    id: 'cundinamarca',
+    name: 'Cundinamarca',
+    flag: '🏛️',
+    description: 'Bogotá and central Colombian vocabulary',
     difficulty: 'beginner'
   },
   {
-    id: 'canada',
-    name: 'Canada',
-    flag: '🇨🇦',
-    description: 'Canadian English expressions and terms',
+    id: 'valle-del-cauca',
+    name: 'Valle del Cauca',
+    flag: '🌴',
+    description: 'Caleño slang and Pacific coast expressions',
     difficulty: 'intermediate'
   },
   {
-    id: 'south-africa',
-    name: 'South Africa',
-    flag: '🇿🇦',
-    description: 'South African English vocabulary',
+    id: 'atlantico',
+    name: 'Atlántico',
+    flag: '🏖️',
+    description: 'Caribbean coast vocabulary from Barranquilla',
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'santander',
+    name: 'Santander',
+    flag: '⛰️',
+    description: 'Northeastern Colombian mountain expressions',
     difficulty: 'advanced'
   },
   {
-    id: 'new-zealand',
-    name: 'New Zealand',
-    flag: '🇳🇿',
-    description: 'New Zealand English expressions',
+    id: 'bolivar',
+    name: 'Bolívar',
+    flag: '🏰',
+    description: 'Cartagena and Caribbean coastal vocabulary',
     difficulty: 'intermediate'
   }
 ];
@@ -82,7 +82,7 @@ export const RegionSelector: React.FC<RegionSelectorProps> = ({
   return (
     <div className={`region-selector ${className}`}>
       <label htmlFor="region-select" className="block text-sm font-medium text-gray-700 mb-2">
-        Select Study Region
+        Selecciona Departamento de Estudio
       </label>
       
       <div className="relative">
@@ -92,7 +92,7 @@ export const RegionSelector: React.FC<RegionSelectorProps> = ({
           onChange={(e) => onRegionChange(e.target.value)}
           className="block w-full px-4 py-3 pr-10 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm appearance-none cursor-pointer transition-all duration-200 hover:border-gray-400"
         >
-          <option value="">Choose a region...</option>
+          <option value="">Elige un departamento...</option>
           {AVAILABLE_REGIONS.map((region) => (
             <option key={region.id} value={region.id}>
               {region.flag} {region.name}
@@ -119,7 +119,7 @@ export const RegionSelector: React.FC<RegionSelectorProps> = ({
               </h3>
               <p className="text-gray-600 text-sm mb-2">{selectedRegionData.description}</p>
               <div className="flex items-center space-x-2">
-                <span className="text-xs font-medium text-gray-500">Difficulty:</span>
+                <span className="text-xs font-medium text-gray-500">Dificultad:</span>
                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${getDifficultyColor(selectedRegionData.difficulty)}`}>
                   {selectedRegionData.difficulty}
                 </span>
@@ -131,7 +131,7 @@ export const RegionSelector: React.FC<RegionSelectorProps> = ({
 
       {/* Region Grid (Alternative Display) */}
       <div className="mt-6">
-        <h4 className="text-sm font-medium text-gray-700 mb-3">Quick Select</h4>
+        <h4 className="text-sm font-medium text-gray-700 mb-3">Selección Rápida</h4>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {AVAILABLE_REGIONS.map((region) => (
             <button

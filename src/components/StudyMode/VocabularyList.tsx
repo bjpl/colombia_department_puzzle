@@ -99,7 +99,7 @@ export const VocabularyList: React.FC<VocabularyListProps> = ({
       <div className="mb-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold text-gray-800">
-            {region.charAt(0).toUpperCase() + region.slice(1)} Vocabulary
+            Vocabulario de {region.charAt(0).toUpperCase() + region.slice(1)}
           </h2>
           <div className="flex items-center space-x-2">
             <button
@@ -129,19 +129,19 @@ export const VocabularyList: React.FC<VocabularyListProps> = ({
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
           <div className="bg-blue-50 p-3 rounded-lg text-center">
             <div className="text-2xl font-bold text-blue-600">{vocabularyData.length}</div>
-            <div className="text-sm text-gray-600">Total Words</div>
+            <div className="text-sm text-gray-600">Total Palabras</div>
           </div>
           <div className="bg-green-50 p-3 rounded-lg text-center">
             <div className="text-2xl font-bold text-green-600">{difficultyStats.easy || 0}</div>
-            <div className="text-sm text-gray-600">Easy</div>
+            <div className="text-sm text-gray-600">Fácil</div>
           </div>
           <div className="bg-yellow-50 p-3 rounded-lg text-center">
             <div className="text-2xl font-bold text-yellow-600">{difficultyStats.medium || 0}</div>
-            <div className="text-sm text-gray-600">Medium</div>
+            <div className="text-sm text-gray-600">Medio</div>
           </div>
           <div className="bg-red-50 p-3 rounded-lg text-center">
             <div className="text-2xl font-bold text-red-600">{difficultyStats.hard || 0}</div>
-            <div className="text-sm text-gray-600">Hard</div>
+            <div className="text-sm text-gray-600">Difícil</div>
           </div>
         </div>
       </div>
@@ -157,7 +157,7 @@ export const VocabularyList: React.FC<VocabularyListProps> = ({
           </div>
           <input
             type="text"
-            placeholder="Search words, meanings, or examples..."
+            placeholder="Buscar palabras, significados o ejemplos..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -167,29 +167,29 @@ export const VocabularyList: React.FC<VocabularyListProps> = ({
         {/* Filters and Sort */}
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
-            <label className="text-sm font-medium text-gray-700">Filter:</label>
+            <label className="text-sm font-medium text-gray-700">Filtrar:</label>
             <select
               value={filterBy}
               onChange={(e) => setFilterBy(e.target.value as FilterOption)}
               className="border border-gray-300 rounded-lg px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="all">All Levels</option>
-              <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
+              <option value="all">Todos los Niveles</option>
+              <option value="easy">Fácil</option>
+              <option value="medium">Medio</option>
+              <option value="hard">Difícil</option>
             </select>
           </div>
           
           <div className="flex items-center space-x-2">
-            <label className="text-sm font-medium text-gray-700">Sort by:</label>
+            <label className="text-sm font-medium text-gray-700">Ordenar por:</label>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as SortOption)}
               className="border border-gray-300 rounded-lg px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="word">Word</option>
-              <option value="meaning">Meaning</option>
-              <option value="difficulty">Difficulty</option>
+              <option value="word">Palabra</option>
+              <option value="meaning">Significado</option>
+              <option value="difficulty">Dificultad</option>
             </select>
           </div>
         </div>
@@ -198,9 +198,9 @@ export const VocabularyList: React.FC<VocabularyListProps> = ({
       {/* Results Summary */}
       {(searchTerm || filterBy !== 'all') && (
         <div className="mb-4 text-sm text-gray-600">
-          Showing {filteredAndSortedData.length} of {vocabularyData.length} words
-          {searchTerm && <span> matching "{searchTerm}"</span>}
-          {filterBy !== 'all' && <span> filtered by {filterBy} difficulty</span>}
+          Mostrando {filteredAndSortedData.length} de {vocabularyData.length} palabras
+          {searchTerm && <span> que coinciden con "{searchTerm}"</span>}
+          {filterBy !== 'all' && <span> filtradas por dificultad {filterBy}</span>}
         </div>
       )}
 
@@ -212,9 +212,9 @@ export const VocabularyList: React.FC<VocabularyListProps> = ({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.453.692-6.258 1.882C5.274 16.645 5.866 17 6.5 17h11c.634 0 1.226-.355.758-.118z" />
             </svg>
           </div>
-          <h3 className="text-xl font-semibold text-gray-600 mb-2">No Vocabulary Found</h3>
+          <h3 className="text-xl font-semibold text-gray-600 mb-2">No se Encontró Vocabulario</h3>
           <p className="text-gray-500">
-            {searchTerm ? 'Try adjusting your search terms' : 'No vocabulary data available for this region'}
+            {searchTerm ? 'Intenta ajustar los términos de búsqueda' : 'No hay datos de vocabulario disponibles para este departamento'}
           </p>
         </div>
       ) : (
@@ -244,7 +244,7 @@ export const VocabularyList: React.FC<VocabularyListProps> = ({
                     <button
                       onClick={() => copyToClipboard(`${item.word}: ${item.meaning}`)}
                       className="text-gray-400 hover:text-gray-600 transition-colors"
-                      title="Copy to clipboard"
+                      title="Copiar al portapapeles"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -276,7 +276,7 @@ export const VocabularyList: React.FC<VocabularyListProps> = ({
                           onClick={() => toggleCard(item.id)}
                           className="text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors"
                         >
-                          {isExpanded ? 'Show Less' : `Show ${item.examples.length - 1} More Examples`}
+                          {isExpanded ? 'Mostrar Menos' : `Mostrar ${item.examples.length - 1} Ejemplos Más`}
                         </button>
                       </>
                     )}
@@ -285,13 +285,13 @@ export const VocabularyList: React.FC<VocabularyListProps> = ({
 
                 {/* Actions */}
                 <div className="flex items-center justify-between pt-2 border-t border-gray-100">
-                  <span className="text-xs text-gray-500">Regional: {region}</span>
+                  <span className="text-xs text-gray-500">Departamental: {region}</span>
                   <div className="flex items-center space-x-2">
                     <button className="text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors">
-                      Practice
+                      Practicar
                     </button>
                     <button className="text-green-600 hover:text-green-800 text-sm font-medium transition-colors">
-                      Flashcard
+                      Tarjeta
                     </button>
                   </div>
                 </div>

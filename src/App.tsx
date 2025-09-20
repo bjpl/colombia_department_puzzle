@@ -10,16 +10,16 @@ function HomePage() {
   return (
     <div className="max-w-6xl mx-auto p-8">
       <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
-        🇨🇴 Colombia Learning Hub
+        🇨🇴 Centro de Aprendizaje de Colombia
       </h1>
       <div className="grid md:grid-cols-2 gap-8">
         <a href="/puzzle" className="block p-8 bg-blue-100 rounded-lg hover:bg-blue-200 transition">
-          <h2 className="text-2xl font-bold mb-4">🧩 Puzzle Game</h2>
-          <p className="text-gray-700">Learn Colombian departments through an interactive drag-and-drop puzzle game.</p>
+          <h2 className="text-2xl font-bold mb-4">🧩 Juego de Rompecabezas</h2>
+          <p className="text-gray-700">Aprende los departamentos colombianos a través de un juego interactivo de arrastrar y soltar.</p>
         </a>
         <a href="/study" className="block p-8 bg-green-100 rounded-lg hover:bg-green-200 transition">
-          <h2 className="text-2xl font-bold mb-4">📚 Study Mode</h2>
-          <p className="text-gray-700">Master regional Spanish vocabulary with flashcards and practice exercises.</p>
+          <h2 className="text-2xl font-bold mb-4">📚 Modo de Estudio</h2>
+          <p className="text-gray-700">Aprende las capitales y datos geográficos de los departamentos colombianos con tarjetas didácticas.</p>
         </a>
       </div>
     </div>
