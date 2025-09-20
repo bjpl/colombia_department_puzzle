@@ -107,14 +107,8 @@
           }
         ]
       }
-    ],
-    "post-task": [
-      "npx claude-flow@alpha internal track-tokens --session-id {{session_id}} --tokens {{token_usage}}"
     ]
   },
   "includeCoAuthoredBy": true,
-  "enabledMcpjsonServers": [
-    "claude-flow",
-    "ruv-swarm"
-  ]
+  "enabledMcpjsonServers": ["claude-flow", "ruv-swarm"]
 }
