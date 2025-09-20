@@ -11,6 +11,12 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
-    minify: 'terser'
-  }
+    minify: 'terser',
+    rollupOptions: {
+      output: {
+        assetFileNames: 'assets/[name]-[hash][extname]'
+      }
+    }
+  },
+  publicDir: 'public'
 });
