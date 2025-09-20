@@ -52,7 +52,7 @@ const DepartmentPath = memo(({
     if (isPlaced) return '#10b981'; // Green for placed
     if (isOver && isDragging) return '#fbbf24'; // Yellow/gold when hovering
     if (showRegionColors) return regionColor; // Show region color
-    return '#e5e7eb'; // Default gray for unplaced
+    return '#f3f4f6'; // Light gray for unplaced (much lighter for better border visibility)
   }, [isPlaced, isOver, isDragging, showRegionColors, regionColor]);
 
   const strokeColor = useMemo(() => {
@@ -73,7 +73,7 @@ const DepartmentPath = memo(({
       fill={departmentColor}
       stroke={strokeColor}
       strokeWidth={strokeWidth}
-      opacity={isPlaced ? 0.8 : isOver ? 0.9 : 0.6}
+      opacity={isPlaced ? 0.9 : isOver ? 0.95 : 0.7}
       className="transition-all duration-200"
       style={{
         cursor: isDragging ? 'grabbing' : 'pointer',
