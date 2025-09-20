@@ -70,7 +70,8 @@ const DepartmentPath = memo(({
       className="transition-all duration-200"
       style={{
         cursor: 'inherit', // Inherit the grab cursor from the SVG parent for consistent panning
-        filter: isOver && isDragging ? 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.6))' : 'none'
+        filter: isOver && isDragging ? 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.6))' : 'none',
+        pointerEvents: isDragging ? 'auto' : 'none' // Allow panning when not dragging
       }}
     />
   );
@@ -261,7 +262,7 @@ export default function OptimizedColombiaMap() {
   };
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center">
+    <div className="relative w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-100 via-sky-50 to-green-100">
       {/* Pan Indicator */}
       {!isDragging && (
         <div className="absolute top-16 left-4 z-20 bg-white/90 px-3 py-2 rounded-lg shadow-md border border-gray-300 pointer-events-none" aria-hidden="true">
@@ -370,7 +371,7 @@ export default function OptimizedColombiaMap() {
         ref={svgRef}
         width="100%"
         height="100%"
-        className="border border-gray-200 rounded-lg shadow-lg bg-gradient-to-br from-blue-50 via-white to-green-50"
+        className="rounded-lg"
         viewBox={`0 0 ${width} ${height}`}
         preserveAspectRatio="xMidYMid meet"
         role="img"
@@ -388,16 +389,17 @@ export default function OptimizedColombiaMap() {
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
       >
-        {/* Ocean gradient */}
+        {/* Ocean gradient - More vibrant Colombian colors */}
         <defs>
-          <linearGradient id="ocean" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style={{ stopColor: '#dbeafe', stopOpacity: 0.5 }} />
-            <stop offset="100%" style={{ stopColor: '#bbf7d0', stopOpacity: 0.3 }} />
-          </linearGradient>
+          <radialGradient id="ocean" cx="50%" cy="50%" r="80%">
+            <stop offset="0%" style={{ stopColor: '#bfdbfe', stopOpacity: 1 }} />
+            <stop offset="50%" style={{ stopColor: '#dbeafe', stopOpacity: 1 }} />
+            <stop offset="100%" style={{ stopColor: '#bbf7d0', stopOpacity: 1 }} />
+          </radialGradient>
         </defs>
 
-        {/* Background */}
-        <rect className="ocean-gradient" width={width} height={height} fill="url(#ocean)" />
+        {/* Background - Full coverage */}
+        <rect className="ocean-gradient" x="-10%" y="-10%" width="120%" height="120%" fill="url(#ocean)" />
 
         {/* Render departments with zoom and pan transform */}
         <g transform={`translate(${width / 2 + panOffset.x}, ${height / 2 + panOffset.y}) scale(${zoomLevel}) translate(${-width / 2}, ${-height / 2})`}>

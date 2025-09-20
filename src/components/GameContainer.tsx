@@ -16,6 +16,9 @@ import GameModeSelector, { GameModeConfig } from './GameModeSelector';
 // Removed QuickStartFlow - using InteractiveTutorial for simplicity
 import ModeTransition from './ModeTransition';
 import KeyboardHelp from './KeyboardHelp';
+import MapErrorBoundary from './MapErrorBoundary';
+import GameLogicErrorBoundary from './GameLogicErrorBoundary';
+import ComponentErrorBoundary from './ComponentErrorBoundary';
 import { normalizeId, departmentNameMap } from '../utils/nameNormalizer';
 import { storage } from '../services/storage';
 import { useModalManager } from '../hooks/useModalManager';
@@ -187,8 +190,9 @@ export default function GameContainer() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
-      <div className="container mx-auto p-4 max-w-[1400px]">
+    <GameLogicErrorBoundary>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
+        <div className="container mx-auto p-4 max-w-[1400px]">
         <GameHeader
           onGameMode={() => {
             game.clearCurrentDepartment(); // Clear any active drag
@@ -223,27 +227,33 @@ export default function GameContainer() {
           <div className="mt-4 flex gap-3" style={{ height: 'calc(100vh - 140px)' }}>
 
             {/* Left Sidebar - Ultra-Compact Department Chips */}
-            <div className="w-52 bg-white/90 rounded-lg shadow p-2 overflow-y-auto">
-              <h3 className="text-xs font-bold mb-2 sticky top-0 bg-white z-10 pb-1 border-b flex items-center justify-between">
-                <span>🧩 Departamentos</span>
-                <span className="text-xs bg-blue-100 px-1.5 py-0.5 rounded-full">
-                  {game.departments.filter(d => !game.placedDepartments.has(d.id)).length}
-                </span>
-              </h3>
-              <div className="space-y-1">
-                <DepartmentTray layout="ultra-compact" />
+            <ComponentErrorBoundary componentName="Department Tray">
+              <div className="w-52 bg-white/90 rounded-lg shadow p-2 overflow-y-auto">
+                <h3 className="text-xs font-bold mb-2 sticky top-0 bg-white z-10 pb-1 border-b flex items-center justify-between">
+                  <span>🧩 Departamentos</span>
+                  <span className="text-xs bg-blue-100 px-1.5 py-0.5 rounded-full">
+                    {game.departments.filter(d => !game.placedDepartments.has(d.id)).length}
+                  </span>
+                </h3>
+                <div className="space-y-1">
+                  <DepartmentTray layout="ultra-compact" />
+                </div>
               </div>
-            </div>
+            </ComponentErrorBoundary>
 
             {/* Center - MAXIMIZED Map Canvas */}
-            <div className="flex-1 bg-white rounded-lg shadow-lg p-2 flex items-center justify-center" style={{ minHeight: '600px' }}>
-              <MapCanvas />
-            </div>
+            <MapErrorBoundary>
+              <div className="flex-1 bg-white rounded-lg shadow-lg p-2 flex items-center justify-center" style={{ minHeight: '600px' }}>
+                <MapCanvas />
+              </div>
+            </MapErrorBoundary>
 
             {/* Right Sidebar - Ultra-Minimal Educational Panel */}
-            <div className="w-52 bg-white/90 rounded-lg shadow p-2 overflow-y-auto">
-              <EducationalPanel compact={true} />
-            </div>
+            <ComponentErrorBoundary componentName="Educational Panel">
+              <div className="w-52 bg-white/90 rounded-lg shadow p-2 overflow-y-auto">
+                <EducationalPanel compact={true} />
+              </div>
+            </ComponentErrorBoundary>
           </div>
 
           {/* Drag Overlay for visual feedback */}
@@ -365,5 +375,6 @@ export default function GameContainer() {
         )}
       </div>
     </div>
+    </GameLogicErrorBoundary>
   );
 }
