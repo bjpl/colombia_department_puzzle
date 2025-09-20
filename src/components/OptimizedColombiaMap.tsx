@@ -4,6 +4,7 @@ import { useDroppable } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
 import { normalizeId } from '../utils/nameNormalizer';
 import { colombiaDepartments } from '../data/colombiaDepartments';
+import { REGION_COLORS } from '../constants/regionColors';
 
 interface GeoFeature {
   type: string;
