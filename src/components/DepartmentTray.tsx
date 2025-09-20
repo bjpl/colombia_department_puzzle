@@ -1,6 +1,6 @@
-import React from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
+import { REGION_TAILWIND_CLASSES } from '../constants/regionColors';
 
 // Ultra-compact mini chip for maximum map space
 function DraggableChip({ department }: { department: any }) {
@@ -14,18 +14,7 @@ function DraggableChip({ department }: { department: any }) {
     zIndex: 9999,
   } : undefined;
 
-  // Region colors matching the map display
-  const regionColors: { [key: string]: string } = {
-    'Andina': 'bg-lime-100 border-lime-400 hover:bg-lime-200 text-lime-900',
-    'Caribe': 'bg-blue-100 border-blue-400 hover:bg-blue-200 text-blue-900',
-    'Pacífico': 'bg-purple-100 border-purple-400 hover:bg-purple-200 text-purple-900',
-    'Pacífica': 'bg-purple-100 border-purple-400 hover:bg-purple-200 text-purple-900', // Support both spellings
-    'Orinoquía': 'bg-yellow-100 border-yellow-400 hover:bg-yellow-200 text-yellow-900',
-    'Amazonía': 'bg-green-100 border-green-400 hover:bg-green-200 text-green-900',
-    'Insular': 'bg-cyan-100 border-cyan-400 hover:bg-cyan-200 text-cyan-900',
-  };
-
-  const colorClass = regionColors[department.region] || 'bg-gray-100 border-gray-300 hover:bg-gray-200';
+  const colorClass = REGION_TAILWIND_CLASSES[department.region] || 'bg-gray-100 border-gray-300 hover:bg-gray-200';
 
   return (
     <div
@@ -42,6 +31,10 @@ function DraggableChip({ department }: { department: any }) {
         ${isDragging ? 'opacity-50 shadow-xl ring-2 ring-blue-400' : ''}
       `}
       title={`${department.name} - Capital: ${department.capital} - Región: ${department.region}`}
+      role="button"
+      tabIndex={0}
+      aria-label={`Arrastra ${department.name} al mapa. Capital: ${department.capital}, Región: ${department.region}`}
+      aria-grabbed={isDragging}
     >
       <span className="text-[11px] font-bold truncate max-w-[80px]">
         {department.name}

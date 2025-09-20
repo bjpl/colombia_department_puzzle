@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { colombiaDepartments } from '../data/colombiaDepartments';
 
 interface HintModalProps {
@@ -7,7 +7,6 @@ interface HintModalProps {
   departmentName: string;
   region: string;
   hintLevel: number; // 1, 2, or 3 - progressive hints
-  attempts?: number; // How many times they've tried this department
 }
 
 const regionColors: Record<string, { bg: string; text: string; icon: string }> = {
@@ -227,7 +226,7 @@ const geographicHints: Record<string, {
   }
 };
 
-export default function HintModal({ isOpen, onClose, departmentName, region, hintLevel = 1, attempts = 0 }: HintModalProps) {
+export default function HintModal({ isOpen, onClose, departmentName, region, hintLevel = 1 }: HintModalProps) {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -254,7 +253,6 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
   const isBorder = ['La Guajira', 'Norte de Santander', 'Arauca', 'Vichada', 'Guainía', 'Vaupés', 'Amazonas', 'Putumayo', 'Nariño'].includes(departmentName);
   const isSmall = ['Atlántico', 'Quindío', 'Risaralda', 'San Andrés y Providencia', 'Bogotá D.C.'].includes(departmentName);
   const isLarge = ['Amazonas', 'Vichada', 'Meta', 'Casanare', 'Caquetá', 'Antioquia'].includes(departmentName);
-  const isCapitalRegion = ['Cundinamarca', 'Bogotá D.C.'].includes(departmentName);
   const isIsland = departmentName === 'San Andrés y Providencia';
 
   const getHintContent = () => {
@@ -513,14 +511,14 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
                     {hasFew ? '🎯 Vecinos clave:' : '🔗 Limita con:'}
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {geoHints.neighbors.slice(0, hasFew ? 3 : 5).map(neighbor => (
+                    {(geoHints.neighbors || []).slice(0, hasFew ? 3 : 5).map(neighbor => (
                       <span key={neighbor} className={`px-3 py-1 rounded-full text-sm font-medium shadow-sm ${
                         hasFew ? 'bg-green-100 text-green-800' : 'bg-white text-gray-700'
                       }`}>
                         {neighbor}
                       </span>
                     ))}
-                    {geoHints.neighbors.length > 5 && (
+                    {geoHints.neighbors && geoHints.neighbors.length > 5 && (
                       <span className="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-500">
                         +{geoHints.neighbors.length - 5} más
                       </span>

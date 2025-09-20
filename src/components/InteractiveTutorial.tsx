@@ -343,7 +343,7 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
       </div>
 
       {/* CSS for custom animations */}
-      <style jsx>{`
+      <style>{`
         @keyframes ping {
           75%, 100% {
             transform: scale(2);

@@ -1,4 +1,3 @@
-import React from 'react';
 import OptimizedColombiaMap from './OptimizedColombiaMap';
 
 export default function MapCanvas() {

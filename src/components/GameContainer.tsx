@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { DndContext, DragEndEvent, DragStartEvent, pointerWithin, rectIntersection } from '@dnd-kit/core';
+import { useEffect, useState } from 'react';
+import { DndContext, DragEndEvent, DragStartEvent, rectIntersection } from '@dnd-kit/core';
 import MapCanvas from './MapCanvas';
 import DepartmentTray from './DepartmentTray';
 import GameHeader from './GameHeader';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useGame } from '../context/GameContext';
 import HintModal from './HintModal';
 
@@ -45,7 +45,6 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
           departmentName={game.currentDepartment.name}
           region={game.currentDepartment.region}
           hintLevel={currentHintLevel}
-          attempts={departmentAttempts[game.currentDepartment.name] || 0}
         />
       )}
 

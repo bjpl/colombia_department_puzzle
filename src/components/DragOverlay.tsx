@@ -1,4 +1,3 @@
-import React from 'react';
 import { DragOverlay as DndDragOverlay } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
 

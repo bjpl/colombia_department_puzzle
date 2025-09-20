@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo, memo, useCallback } from 'react';
+import React, { useEffect, useState, useRef, useMemo, memo } from 'react';
 import { geoMercator, geoPath } from 'd3-geo';
 import { useDroppable } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
@@ -16,15 +16,6 @@ interface GeoFeature {
 }
 
 // Region color mapping
-const regionColors: Record<string, string> = {
-  'Andina': '#bef264', // Lime Green (brighter, more yellow-green)
-  'Caribe': '#93c5fd', // Blue
-  'Pacífico': '#e9d5ff', // Light Purple (lighter for better border visibility) - matches data
-  'Pacífica': '#e9d5ff', // Also support alternate spelling
-  'Orinoquía': '#fde047', // Yellow
-  'Amazonía': '#86efac', // Forest Green (darker, more blue-green)
-  'Insular': '#67e8f9', // Cyan
-};
 
 // Memoized department component to prevent unnecessary re-renders
 const DepartmentPath = memo(({
@@ -47,7 +38,7 @@ const DepartmentPath = memo(({
     normalizeId(d.name) === normalizeId(feature.properties.name) ||
     d.id === feature.properties.id
   );
-  const regionColor = department ? regionColors[department.region] : '#e5e7eb';
+  const regionColor = department ? REGION_COLORS[department.region] : '#e5e7eb';
 
   const departmentColor = useMemo(() => {
     if (isPlaced) return '#10b981'; // Green for placed
@@ -303,27 +294,27 @@ export default function OptimizedColombiaMap() {
             <p className="text-xs font-semibold text-gray-700 mb-2">Regiones de Colombia:</p>
             <div className="grid grid-cols-2 gap-1 text-xs">
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: regionColors['Andina'], opacity: 0.7 }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: REGION_COLORS['Andina'], opacity: 0.7 }}></div>
                 <span>Andina</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: regionColors['Caribe'], opacity: 0.7 }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: REGION_COLORS['Caribe'], opacity: 0.7 }}></div>
                 <span>Caribe</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: regionColors['Pacífico'], opacity: 0.7 }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: REGION_COLORS['Pacífico'], opacity: 0.7 }}></div>
                 <span>Pacífico</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: regionColors['Orinoquía'], opacity: 0.7 }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: REGION_COLORS['Orinoquía'], opacity: 0.7 }}></div>
                 <span>Orinoquía</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: regionColors['Amazonía'], opacity: 0.7 }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: REGION_COLORS['Amazonía'], opacity: 0.7 }}></div>
                 <span>Amazonía</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: regionColors['Insular'], opacity: 0.7 }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: REGION_COLORS['Insular'], opacity: 0.7 }}></div>
                 <span>Insular</span>
               </div>
             </div>

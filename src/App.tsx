@@ -1,4 +1,3 @@
-import React from 'react';
 import GameContainer from './components/GameContainer';
 import { GameProvider } from './context/GameContext';
 import ErrorBoundary from './components/ErrorBoundary';
