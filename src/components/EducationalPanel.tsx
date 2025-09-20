@@ -27,7 +27,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
       // Progressive hints: start with level 1, increase based on the NEW attempt count
       let hintLevel = 1;
       if (newAttempts >= 2) hintLevel = 2;
-      if (newAttempts >= 4) hintLevel = 3;
+      if (newAttempts >= 3) hintLevel = 3;
 
       setCurrentHintLevel(hintLevel);
       game.useHint();
