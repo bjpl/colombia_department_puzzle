@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { DndContext, DragEndEvent, DragStartEvent, rectIntersection } from '@dnd-kit/core';
+import { useEffect, useState, useRef } from 'react';
+import { DndContext, DragEndEvent, DragStartEvent, DragMoveEvent, rectIntersection } from '@dnd-kit/core';
 import MapCanvas from './MapCanvas';
 import DepartmentTray from './DepartmentTray';
 import GameHeader from './GameHeader';
@@ -25,6 +25,8 @@ export default function GameContainer() {
     departmentName: '',
     position: { x: 0, y: 0 }
   });
+  const [hasDraggedDistance, setHasDraggedDistance] = useState(false);
+  const dragStartPos = useRef<{ x: number; y: number } | null>(null);
 
   // Sync timer with game state
   useEffect(() => {
@@ -79,6 +81,27 @@ export default function GameContainer() {
     if (department) {
       game.selectDepartment(department);
     }
+    // Store initial position to track if actual dragging occurs
+    dragStartPos.current = {
+      x: event.active.rect.current.translated?.left || 0,
+      y: event.active.rect.current.translated?.top || 0
+    };
+    setHasDraggedDistance(false);
+  };
+
+  const handleDragMove = (event: DragMoveEvent) => {
+    // Check if user has dragged more than 5 pixels (threshold for actual drag)
+    if (!hasDraggedDistance && dragStartPos.current) {
+      const currentX = event.active.rect.current.translated?.left || 0;
+      const currentY = event.active.rect.current.translated?.top || 0;
+      const distance = Math.sqrt(
+        Math.pow(currentX - dragStartPos.current.x, 2) +
+        Math.pow(currentY - dragStartPos.current.y, 2)
+      );
+      if (distance > 5) {
+        setHasDraggedDistance(true);
+      }
+    }
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -115,15 +138,27 @@ export default function GameContainer() {
       }
     } else {
       // No target - user cancelled the drag or dropped in empty space
-      // Clear the current department to restore pan functionality
-      game.clearCurrentDepartment();
+      // Only clear if user actually dragged (not just clicked)
+      if (hasDraggedDistance) {
+        game.clearCurrentDepartment();
+      }
+      // If just clicked without dragging, keep the department selected
     }
+
+    // Reset drag tracking
+    setHasDraggedDistance(false);
+    dragStartPos.current = null;
   };
 
   const handleDragCancel = () => {
     // User pressed ESC or drag was cancelled
-    // Clear the current department to restore pan functionality
-    game.clearCurrentDepartment();
+    // Only clear if actually dragged
+    if (hasDraggedDistance) {
+      game.clearCurrentDepartment();
+    }
+    // Reset drag tracking
+    setHasDraggedDistance(false);
+    dragStartPos.current = null;
   };
 
   return (
@@ -142,6 +177,7 @@ export default function GameContainer() {
 
         <DndContext
           onDragStart={handleDragStart}
+          onDragMove={handleDragMove}
           onDragEnd={handleDragEnd}
           onDragCancel={handleDragCancel}
           collisionDetection={rectIntersection}
