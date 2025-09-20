@@ -230,7 +230,11 @@ export default function OptimizedColombiaMap() {
 
   // Handle pan start
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (e.button === 0 && !isDragging && zoomLevel > 1) { // Only pan when zoomed in
+    // Check if the click is on the SVG background (not on a department path)
+    const target = e.target as Element;
+    const isBackgroundClick = target.tagName === 'svg' || target.classList.contains('ocean-gradient');
+
+    if (e.button === 0 && isBackgroundClick && zoomLevel > 1) { // Only pan when zoomed in and clicking background
       setIsPanning(true);
       setPanStart({ x: e.clientX - panOffset.x, y: e.clientY - panOffset.y });
       e.preventDefault();
@@ -239,7 +243,7 @@ export default function OptimizedColombiaMap() {
 
   // Handle pan move
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (isPanning && !isDragging) {
+    if (isPanning) {
       setPanOffset({
         x: e.clientX - panStart.x,
         y: e.clientY - panStart.y
@@ -388,7 +392,7 @@ export default function OptimizedColombiaMap() {
         </defs>
 
         {/* Background */}
-        <rect width={width} height={height} fill="url(#ocean)" />
+        <rect className="ocean-gradient" width={width} height={height} fill="url(#ocean)" />
 
         {/* Render departments with zoom and pan transform */}
         <g transform={`translate(${width / 2 + panOffset.x}, ${height / 2 + panOffset.y}) scale(${zoomLevel}) translate(${-width / 2}, ${-height / 2})`}>
