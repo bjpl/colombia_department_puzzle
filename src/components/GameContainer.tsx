@@ -305,7 +305,7 @@ export default function GameContainer() {
             }}
             onClose={() => modal.closeModal()}
             userStats={{
-              unlockedRegions: new Set(['Insular', 'Pacífica']), // Start with some unlocked
+              unlockedRegions: new Set(['Insular', 'Pacífica', 'Orinoquía', 'Amazonía', 'Caribe', 'Andina']), // All regions unlocked
               regionProgress: game.regionProgress,
               totalStars: game.totalStars
             }}

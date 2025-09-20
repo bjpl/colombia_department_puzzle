@@ -35,8 +35,8 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
   const getTotalStars = () => userStats?.totalStars || 0;
 
   const isRegionUnlocked = (region: typeof REGIONS[0]) => {
-    if (!userStats) return region.unlockRequirement === 0;
-    return getTotalStars() >= region.unlockRequirement;
+    // All regions are now unlocked for free practice
+    return true;
   };
 
   const handleModeSelect = (mode: 'full' | 'region' | 'study') => {
@@ -169,15 +169,12 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                   return (
                     <button
                       key={region.id}
-                      onClick={() => isUnlocked && toggleRegionSelection(region.id)}
-                      disabled={!isUnlocked}
+                      onClick={() => toggleRegionSelection(region.id)}
                       className={`
                         relative rounded-xl p-4 border-2 transition-all transform
-                        ${isUnlocked
-                          ? isSelected
-                            ? 'border-blue-500 bg-blue-50 scale-105'
-                            : 'border-gray-200 hover:border-gray-400 bg-white hover:scale-105'
-                          : 'border-gray-100 bg-gray-50 opacity-60 cursor-not-allowed'
+                        ${isSelected
+                          ? 'border-blue-500 bg-blue-50 scale-105'
+                          : 'border-gray-200 hover:border-gray-400 bg-white hover:scale-105'
                         }
                       `}
                     >
@@ -188,11 +185,6 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
 
                       <div className="flex justify-between items-start mb-2">
                         <h3 className="font-bold text-lg">{region.name}</h3>
-                        {!isUnlocked && (
-                          <div className="text-xs bg-gray-200 px-2 py-1 rounded-full">
-                            🔒 {region.unlockRequirement} ⭐
-                          </div>
-                        )}
                       </div>
 
                       <div className="text-sm text-gray-600 mb-3">
