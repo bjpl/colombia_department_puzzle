@@ -19,7 +19,7 @@ interface GeoFeature {
 const regionColors: Record<string, string> = {
   'Andina': '#86efac', // Green
   'Caribe': '#93c5fd', // Blue
-  'Pacífica': '#d8b4fe', // Purple
+  'Pacífica': '#e9d5ff', // Light Purple (lighter for better border visibility)
   'Orinoquía': '#fde047', // Yellow
   'Amazonía': '#6ee7b7', // Emerald
   'Insular': '#67e8f9', // Cyan
