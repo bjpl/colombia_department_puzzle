@@ -69,7 +69,7 @@ const DepartmentPath = memo(({
       opacity={isPlaced ? 0.9 : isOver ? 0.95 : 0.7}
       className="transition-all duration-200"
       style={{
-        cursor: isDragging ? 'grabbing' : 'pointer',
+        cursor: 'default', // Departments are drop zones, not clickable elements
         filter: isOver && isDragging ? 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.6))' : 'none'
       }}
     />
@@ -234,7 +234,7 @@ export default function OptimizedColombiaMap() {
     const target = e.target as Element;
     const isBackgroundClick = target.tagName === 'svg' || target.classList.contains('ocean-gradient');
 
-    if (e.button === 0 && isBackgroundClick && zoomLevel > 1) { // Only pan when zoomed in and clicking background
+    if (e.button === 0 && isBackgroundClick) { // Allow pan on background click at any zoom level
       setIsPanning(true);
       setPanStart({ x: e.clientX - panOffset.x, y: e.clientY - panOffset.y });
       e.preventDefault();
@@ -265,7 +265,7 @@ export default function OptimizedColombiaMap() {
   return (
     <div className="relative w-full h-full flex items-center justify-center">
       {/* Pan Indicator */}
-      {zoomLevel > 1 && !isDragging && (
+      {!isDragging && (
         <div className="absolute top-16 left-4 z-20 bg-white/90 px-3 py-2 rounded-lg shadow-md border border-gray-300 pointer-events-none">
           <div className="text-xs text-gray-600 flex items-center gap-2">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -374,7 +374,7 @@ export default function OptimizedColombiaMap() {
           width: '100%',
           height: '100%',
           minHeight: '550px',
-          cursor: isDragging ? 'default' : (isPanning ? 'grabbing' : (zoomLevel > 1 ? 'grab' : 'default')),
+          cursor: isPanning ? 'grabbing' : 'grab', // Show grab cursor to indicate pan is available
           pointerEvents: 'all'
         }}
         onWheel={handleWheel}
