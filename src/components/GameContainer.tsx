@@ -156,11 +156,11 @@ export default function GameContainer() {
       // Show placement feedback
       const rect = (event.over as any)?.rect;
       // Get the department object from the active draggable data
-      const draggedDepartment = active.data.current as any;
+      const draggedDeptData = active.data.current as any;
       setPlacementFeedback({
         show: true,
         isCorrect,
-        departmentName: isCorrect ? (draggedDepartment?.name || '') : '',
+        departmentName: isCorrect ? (draggedDeptData?.name || '') : '',
         position: rect ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 } : { x: window.innerWidth / 2, y: window.innerHeight / 2 }
       });
 

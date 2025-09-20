@@ -1,0 +1,412 @@
+/* Study Mode Custom Utilities and Animations */
+
+/* Flashcard flip animations */
+@keyframes flip-to-back {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(-90deg);
+  }
+  100% {
+    transform: rotateY(-180deg);
+  }
+}
+
+@keyframes flip-to-front {
+  0% {
+    transform: rotateY(-180deg);
+  }
+  50% {
+    transform: rotateY(-90deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out-left {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes progress-fill {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: var(--progress-width);
+  }
+}
+
+@keyframes pulse-success {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+@keyframes pulse-error {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-2px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(2px);
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Custom Tailwind utility classes */
+@layer utilities {
+  /* Flashcard styles */
+  .flashcard-container {
+    @apply relative w-full h-64 md:h-80 perspective-1000;
+  }
+  
+  .flashcard {
+    @apply absolute inset-0 w-full h-full transition-transform duration-700 transform-style-preserve-3d cursor-pointer;
+  }
+  
+  .flashcard.flipped {
+    @apply rotate-y-180;
+  }
+  
+  .flashcard-face {
+    @apply absolute inset-0 w-full h-full backface-hidden rounded-lg shadow-lg p-6 flex items-center justify-center text-center;
+  }
+  
+  .flashcard-front {
+    @apply bg-white border-2 border-gray-200 text-gray-800;
+  }
+  
+  .flashcard-back {
+    @apply bg-blue-50 border-2 border-blue-200 text-blue-800 rotate-y-180;
+  }
+  
+  /* Study mode layouts */
+  .study-container {
+    @apply min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 p-4;
+  }
+  
+  .study-card {
+    @apply bg-white rounded-xl shadow-lg border border-gray-100 p-6 transition-all duration-300 hover:shadow-xl;
+  }
+  
+  .study-header {
+    @apply text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center;
+  }
+  
+  /* Progress indicators */
+  .progress-container {
+    @apply w-full bg-gray-200 rounded-full h-3 mb-6 overflow-hidden;
+  }
+  
+  .progress-bar {
+    @apply h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-500 ease-out;
+    animation: progress-fill 0.8s ease-out;
+  }
+  
+  .progress-text {
+    @apply text-sm font-medium text-gray-600 mt-2 text-center;
+  }
+  
+  /* Button styles */
+  .study-btn {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  
+  .study-btn-primary {
+    @apply study-btn bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
+  }
+  
+  .study-btn-secondary {
+    @apply study-btn bg-gray-200 text-gray-700 hover:bg-gray-300 focus:ring-gray-500;
+  }
+  
+  .study-btn-success {
+    @apply study-btn bg-green-600 text-white hover:bg-green-700 focus:ring-green-500;
+  }
+  
+  .study-btn-error {
+    @apply study-btn bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+  }
+  
+  /* State indicators */
+  .success-state {
+    @apply border-green-300 bg-green-50;
+    animation: pulse-success 1s;
+  }
+  
+  .error-state {
+    @apply border-red-300 bg-red-50;
+    animation: pulse-error 1s, shake 0.5s;
+  }
+  
+  .correct-answer {
+    @apply bg-green-100 border-green-400 text-green-800 p-3 rounded-lg;
+  }
+  
+  .incorrect-answer {
+    @apply bg-red-100 border-red-400 text-red-800 p-3 rounded-lg;
+  }
+  
+  /* Quiz specific styles */
+  .quiz-option {
+    @apply w-full p-4 text-left border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-all duration-200 cursor-pointer;
+  }
+  
+  .quiz-option:hover {
+    @apply transform translate-y-[-1px] shadow-md;
+  }
+  
+  .quiz-option.selected {
+    @apply border-blue-500 bg-blue-100;
+  }
+  
+  .quiz-option.correct {
+    @apply border-green-500 bg-green-100 text-green-800;
+  }
+  
+  .quiz-option.incorrect {
+    @apply border-red-500 bg-red-100 text-red-800;
+  }
+  
+  /* Navigation controls */
+  .study-nav {
+    @apply flex justify-between items-center mt-8 gap-4;
+  }
+  
+  .study-nav-mobile {
+    @apply flex flex-col gap-3 mt-6;
+  }
+  
+  /* Statistics display */
+  .stats-grid {
+    @apply grid grid-cols-2 md:grid-cols-4 gap-4 mb-6;
+  }
+  
+  .stat-card {
+    @apply bg-gray-50 rounded-lg p-4 text-center;
+  }
+  
+  .stat-value {
+    @apply text-2xl font-bold text-gray-800;
+  }
+  
+  .stat-label {
+    @apply text-sm text-gray-600 mt-1;
+  }
+  
+  /* Animations */
+  .animate-flip-to-back {
+    animation: flip-to-back 0.7s ease-in-out;
+  }
+  
+  .animate-flip-to-front {
+    animation: flip-to-front 0.7s ease-in-out;
+  }
+  
+  .animate-slide-in-right {
+    animation: slide-in-right 0.5s ease-out;
+  }
+  
+  .animate-slide-out-left {
+    animation: slide-out-left 0.5s ease-in;
+  }
+  
+  .animate-bounce-in {
+    animation: bounce-in 0.6s ease-out;
+  }
+  
+  /* Mobile responsive overrides */
+  @media (max-width: 640px) {
+    .flashcard-container {
+      @apply h-56;
+    }
+    
+    .flashcard-face {
+      @apply p-4 text-sm;
+    }
+    
+    .study-header {
+      @apply text-xl mb-4;
+    }
+    
+    .study-btn {
+      @apply px-4 py-2 text-sm;
+    }
+    
+    .quiz-option {
+      @apply p-3 text-sm;
+    }
+    
+    .stats-grid {
+      @apply grid-cols-2 gap-2;
+    }
+    
+    .stat-card {
+      @apply p-3;
+    }
+    
+    .stat-value {
+      @apply text-lg;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .study-container {
+      @apply p-2;
+    }
+    
+    .study-card {
+      @apply p-4;
+    }
+    
+    .flashcard-container {
+      @apply h-48;
+    }
+  }
+}
+
+/* CSS custom properties for dynamic values */
+:root {
+  --progress-width: 0%;
+}
+
+/* Perspective utility for 3D transforms */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Study mode specific color palette */
+.study-primary {
+  @apply text-blue-600;
+}
+
+.study-secondary {
+  @apply text-purple-600;
+}
+
+.study-accent {
+  @apply text-indigo-600;
+}
+
+.study-success {
+  @apply text-green-600;
+}
+
+.study-warning {
+  @apply text-yellow-600;
+}
+
+.study-error {
+  @apply text-red-600;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .study-container {
+    @apply bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900;
+  }
+  
+  .study-card {
+    @apply bg-gray-800 border-gray-700;
+  }
+  
+  .study-header {
+    @apply text-gray-100;
+  }
+  
+  .flashcard-front {
+    @apply bg-gray-800 border-gray-600 text-gray-100;
+  }
+  
+  .flashcard-back {
+    @apply bg-blue-900 border-blue-700 text-blue-100;
+  }
+  
+  .quiz-option {
+    @apply border-gray-600 text-gray-100;
+  }
+  
+  .quiz-option:hover {
+    @apply border-blue-400 bg-blue-900;
+  }
+  
+  .stat-card {
+    @apply bg-gray-700;
+  }
+  
+  .stat-value {
+    @apply text-gray-100;
+  }
+  
+  .stat-label {
+    @apply text-gray-300;
+  }
+}
