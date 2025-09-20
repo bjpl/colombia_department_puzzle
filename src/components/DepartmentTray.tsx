@@ -1,11 +1,12 @@
 import { useDraggable } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
 import { REGION_TAILWIND_CLASSES } from '../constants/regionColors';
+import { normalizeId } from '../utils/nameNormalizer';
 
 // Ultra-compact mini chip for maximum map space
 function DraggableChip({ department }: { department: any }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: department.id,
+    id: normalizeId(department.name),
     data: department,
   });
 
@@ -47,7 +48,7 @@ function DraggableChip({ department }: { department: any }) {
 // Legacy full-size component (kept for compatibility)
 function DraggableDepartment({ department, compact = false }: { department: any; compact?: boolean }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: department.id,
+    id: normalizeId(department.name),
     data: department,
   });
 

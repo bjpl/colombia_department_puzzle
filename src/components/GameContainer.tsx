@@ -165,12 +165,14 @@ export default function GameContainer() {
       });
 
       if (isCorrect) {
-        // Correct placement
-        game.placeDepartment(targetId, true);
+        // Correct placement - use the original department ID for game state
+        const originalDeptId = draggedDepartment?.id || draggedId;
+        game.placeDepartment(originalDeptId, true);
         sound.playSound('correct');
       } else {
         // Incorrect placement
-        game.placeDepartment(draggedId, false);
+        const originalDeptId = draggedDepartment?.id || draggedId;
+        game.placeDepartment(originalDeptId, false);
         sound.playSound('incorrect');
       }
     } else {
