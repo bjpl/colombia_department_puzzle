@@ -6,6 +6,7 @@ import GameHeader from './GameHeader';
 import EducationalPanel from './EducationalPanel';
 import DragOverlay from './DragOverlay';
 import PlacementFeedback from './PlacementFeedback';
+import ScreenReaderAnnouncements from './ScreenReaderAnnouncements';
 import { useGame } from '../context/GameContext';
 import StudyMode from './StudyMode';
 import PostGameReport from './PostGameReport';
@@ -237,6 +238,9 @@ export default function GameContainer() {
 
         {/* Placement Feedback */}
         <PlacementFeedback {...placementFeedback} />
+
+        {/* Screen Reader Announcements */}
+        <ScreenReaderAnnouncements />
 
         {/* Mode Transition Animation */}
         {showTransition && transitionConfig && (

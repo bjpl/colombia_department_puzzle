@@ -69,6 +69,11 @@ function DraggableDepartment({ department, compact = false }: { department: any;
         ${isDragging ? 'opacity-50 z-50 shadow-2xl ring-4 ring-blue-400' : ''}
         ${compact ? 'p-2' : 'p-3'}
       `}
+      role="button"
+      tabIndex={0}
+      aria-label={`Departamento ${department.name}. Capital: ${department.capital}. Región: ${department.region}. Presiona Enter para seleccionar, luego usa las flechas para mover`}
+      aria-grabbed={isDragging}
+      aria-describedby={`hint-${department.id}`}
     >
       {/* Drag indicator */}
       <div className="absolute top-1 right-1 opacity-30 group-hover:opacity-70 transition-opacity">
@@ -84,6 +89,9 @@ function DraggableDepartment({ department, compact = false }: { department: any;
           <div className="text-xs text-blue-600 mt-1 font-medium">{department.region}</div>
         </>
       )}
+      <span id={`hint-${department.id}`} className="sr-only">
+        Arrastra este departamento al mapa para colocarlo en su ubicación correcta
+      </span>
     </div>
   );
 }
@@ -105,10 +113,11 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
 
   if (availableDepartments.length === 0) {
     return (
-      <div className="text-center py-4 text-gray-500">
-        <div className="text-xl mb-1">🎉</div>
+      <div className="text-center py-4 text-gray-500" role="status" aria-live="polite">
+        <div className="text-xl mb-1" aria-hidden="true">🎉</div>
         <div className="text-sm">¡Completado!</div>
         <div className="text-xs mt-1 text-green-600 font-semibold">¡Excelente!</div>
+        <span className="sr-only">Todos los departamentos han sido colocados correctamente</span>
       </div>
     );
   }
@@ -130,14 +139,14 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
   // Compact chip layout for minimal space usage
   if (layout === 'compact') {
     return (
-      <div className="space-y-3">
+      <div className="space-y-3" role="region" aria-label="Departamentos disponibles para colocar">
         {/* Region groups with compact chips */}
         {Object.entries(regionGroups).map(([region, depts]) => (
           <div key={region} className="space-y-1.5">
-            <h4 className="text-xs font-semibold text-gray-600 uppercase tracking-wide px-1">
+            <h4 className="text-xs font-semibold text-gray-600 uppercase tracking-wide px-1" id={`region-${region}`}>
               {region} ({depts.length})
             </h4>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1.5" role="group" aria-labelledby={`region-${region}`}>
               {depts.map(department => (
                 <DraggableChip
                   key={department.id}
@@ -154,14 +163,14 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
   // Ultra-compact layout for maximum map space
   if (layout === 'ultra-compact') {
     return (
-      <div className="space-y-2">
+      <div className="space-y-2" role="region" aria-label="Departamentos disponibles para colocar">
         {/* Tiny chips grouped by region */}
         {Object.entries(regionGroups).map(([region, depts]) => (
           <div key={region} className="space-y-1">
-            <h4 className="text-[10px] font-semibold text-gray-500 uppercase px-0.5">
+            <h4 className="text-[10px] font-semibold text-gray-500 uppercase px-0.5" id={`ultra-region-${region}`}>
               {region}
             </h4>
-            <div className="flex flex-wrap gap-1">
+            <div className="flex flex-wrap gap-1" role="group" aria-labelledby={`ultra-region-${region}`}>
               {depts.map(department => (
                 <DraggableChip
                   key={department.id}
@@ -178,22 +187,23 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
   // Vertical layout for sidebar
   if (layout === 'vertical') {
     return (
-      <div className="space-y-4">
+      <div className="space-y-4" role="region" aria-label="Panel de departamentos">
         {/* Quick stats */}
-        <div className="bg-blue-50 rounded-lg p-3 text-center">
-          <div className="text-2xl font-bold text-blue-600">
+        <div className="bg-blue-50 rounded-lg p-3 text-center" role="status" aria-live="polite" aria-atomic="true">
+          <div className="text-2xl font-bold text-blue-600" aria-hidden="true">
             {availableDepartments.length}
           </div>
           <div className="text-xs text-gray-600">Departamentos restantes</div>
+          <span className="sr-only">{availableDepartments.length} departamentos restantes por colocar</span>
         </div>
 
         {/* Departments by region */}
         {Object.entries(regionGroups).map(([region, depts]) => (
           <div key={region} className="space-y-2">
-            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide" id={`vert-region-${region}`}>
               {region}
             </h4>
-            <div className="space-y-2">
+            <div className="space-y-2" role="group" aria-labelledby={`vert-region-${region}`}>
               {depts.map(department => (
                 <DraggableDepartment
                   key={department.id}
@@ -210,7 +220,11 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
 
   // Horizontal layout (original)
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+    <div
+      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3"
+      role="region"
+      aria-label={`${availableDepartments.length} departamentos disponibles para colocar en el mapa`}
+    >
       {sortedDepartments.map(department => (
         <DraggableDepartment key={department.id} department={department} />
       ))}

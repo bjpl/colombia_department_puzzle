@@ -230,11 +230,9 @@ export default function OptimizedColombiaMap() {
 
   // Handle pan start
   const handleMouseDown = (e: React.MouseEvent) => {
-    // Check if the click is on the SVG background (not on a department path)
-    const target = e.target as Element;
-    const isBackgroundClick = target.tagName === 'svg' || target.classList.contains('ocean-gradient');
-
-    if (e.button === 0 && isBackgroundClick) { // Allow pan on background click at any zoom level
+    // Allow panning from anywhere on the map (including department paths)
+    // But don't pan if we're currently dragging a department piece
+    if (e.button === 0 && !isDragging) { // Left mouse button and not dragging
       setIsPanning(true);
       setPanStart({ x: e.clientX - panOffset.x, y: e.clientY - panOffset.y });
       e.preventDefault();
