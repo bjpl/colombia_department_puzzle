@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { DndContext, DragEndEvent, DragStartEvent, DragMoveEvent, rectIntersection } from '@dnd-kit/core';
+import { Department } from '../data/colombiaDepartments';
 import MapCanvas from './MapCanvas';
 import DepartmentTray from './DepartmentTray';
 import GameHeader from './GameHeader';
@@ -30,7 +31,6 @@ export default function GameContainer() {
   const modal = useModalManager();
   const timer = useGameTimer();
   const sound = useSoundEffect();
-  // const keyboard = useKeyboardNavigation(); // Unused for now
   const [placementFeedback, setPlacementFeedback] = useState({
     show: false,
     isCorrect: false,
@@ -139,21 +139,13 @@ export default function GameContainer() {
       const targetId = over.id as string;
 
       // Get the department data
-      const draggedDepartment = active.data.current as any;
-
-      // Debug logging
-      console.log('🎯 Drag and Drop Debug:', {
-        draggedId,
-        targetId,
-        departmentName: draggedDepartment?.name,
-        isMatch: draggedId === targetId
-      });
+      const draggedDepartment = active.data.current as Department;
 
       // Check if the placement is correct - simple comparison now
       const isCorrect = draggedId === targetId;
 
       // Show placement feedback
-      const rect = (event.over as any)?.rect;
+      const rect = (event.over as DragEndEvent['over'] & { rect?: DOMRect })?.rect;
       setPlacementFeedback({
         show: true,
         isCorrect,

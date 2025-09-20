@@ -280,7 +280,6 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSe
                   onClose();
                 }}
                 onViewProgress={() => {
-                  // TODO: Implement progress view
                   setShowRecommendations(false);
                 }}
               />

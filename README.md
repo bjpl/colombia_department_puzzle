@@ -1,15 +1,34 @@
 # 🇨🇴 Colombia Departments Puzzle Game
 
-An interactive educational puzzle game to learn the 32 departments of Colombia through engaging drag-and-drop gameplay.
+An interactive educational puzzle game to learn all 33 departments of Colombia (32 departments + Bogotá D.C.) through engaging drag-and-drop gameplay with multiple game modes and difficulty levels.
 
 ## 🎮 Features
 
-- **Interactive Drag & Drop**: Intuitive gameplay where users drag department pieces onto the map
-- **Educational Content**: Learn about each department's capital, area, population, and interesting facts
-- **Progress Tracking**: Real-time score, timer, and completion percentage
-- **Hint System**: Get helpful hints when stuck (with score penalties)
-- **Responsive Design**: Works on desktop, tablet, and mobile devices
-- **Beautiful UI**: Modern, clean interface with smooth animations
+### Core Gameplay
+- **Interactive Drag & Drop**: Smooth, intuitive drag-and-drop mechanics using @dnd-kit
+- **Multiple Game Modes**:
+  - Complete Colombia (all 33 departments)
+  - Regional Practice (focus on specific regions)
+  - Time Challenge Mode
+  - Progression Mode (unlock regions as you improve)
+- **Educational Content**: Learn capitals, regions, and interesting facts about each department
+- **Real GeoJSON Map**: Accurate geographic boundaries using official Colombia GeoJSON data
+
+### Learning Tools
+- **Study Mode**: Interactive exploration of departments without time pressure
+- **Progressive Hint System**:
+  - Level 1: Show region
+  - Level 2: Highlight first letter
+  - Level 3: Flash location on map
+- **Post-Game Reports**: Detailed performance analytics and recommendations
+- **Achievement System**: Earn badges for speed, accuracy, and persistence
+
+### User Experience
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Accessibility**: Screen reader support and keyboard navigation
+- **Sound Effects**: Optional audio feedback for actions
+- **Multiple Layouts**: Compact, ultra-compact, horizontal, and vertical department trays
+- **Error Recovery**: Robust error boundaries for uninterrupted gameplay
 
 ## 🚀 Getting Started
 
@@ -36,7 +55,7 @@ npm install
 npm run dev
 ```
 
-4. Open your browser and navigate to `http://localhost:3000`
+4. Open your browser and navigate to `http://localhost:5173`
 
 ### Building for Production
 
@@ -68,42 +87,76 @@ This project uses the **SPARC methodology** with **Claude Flow** and **ruv-swarm
 ## 🎯 Learning Objectives
 
 Players will learn:
-- Names and locations of all 32 Colombian departments
+- Names and locations of all 33 Colombian departments (including Bogotá D.C.)
 - Capital cities of each department
-- Regional geography (Andina, Caribe, Pacífico, Orinoquía, Amazonía)
-- Interesting facts about each department
-- Spatial relationships between departments
+- Six geographic regions:
+  - **Andina**: Central mountainous region
+  - **Caribe**: Northern coastal region
+  - **Pacífica**: Western coastal region
+  - **Orinoquía**: Eastern plains
+  - **Amazonía**: Southern rainforest
+  - **Insular**: Island territories (San Andrés y Providencia)
+- Spatial relationships and borders between departments
+- Cultural and geographic diversity of Colombia
 
 ## 📊 Game Mechanics
 
-1. **Drag**: Select a department from the tray
-2. **Drop**: Place it in the correct location on the map
-3. **Score**: Earn points for correct placements
-4. **Learn**: Read educational content about each department
-5. **Complete**: Place all 32 departments to win!
+### Basic Gameplay
+1. **Select**: Choose a department from the organized tray
+2. **Drag**: Move the department piece across the screen
+3. **Drop**: Release on the correct location on the map
+4. **Feedback**: Instant visual and audio confirmation
+5. **Learn**: View educational info about placed departments
+6. **Complete**: Place all departments to finish the game
 
 ### Scoring System
-
-- Correct placement: +100 points (minus 10 for each failed attempt)
-- Using hints: -50 points
-- Time bonus: Faster completion yields higher scores
+- **Base Score**: 100 points per correct placement
+- **Attempt Penalty**: -10 points per incorrect attempt
+- **Minimum Score**: 10 points per department
+- **Hint Costs**:
+  - Region hint: -10 points
+  - Letter hint: -20 points
+  - Location flash: -50 points
+- **Achievement Bonuses**:
+  - Perfect game (no mistakes): +500 points
+  - Speed run (<5 minutes): +300 points
+  - No hints used: +200 points
 
 ## 🛠️ Development
 
 ### Project Structure
 
 ```
-colombia_departments_puzzle/
+colombia_puzzle_game/
 ├── src/
-│   ├── components/     # React components
-│   ├── context/        # Game state management
-│   ├── data/          # Department data and GeoJSON
-│   ├── utils/         # Helper functions
-│   └── App.tsx        # Main application
-├── docs/              # SPARC documentation
-│   ├── architecture/  # System design docs
-│   └── pseudocode/    # Algorithm designs
-└── public/           # Static assets
+│   ├── components/          # React components
+│   │   ├── GameContainer.tsx    # Main game orchestrator
+│   │   ├── OptimizedColombiaMap.tsx # GeoJSON map renderer
+│   │   ├── DepartmentTray.tsx   # Draggable department chips
+│   │   ├── StudyMode.tsx        # Study mode interface
+│   │   ├── PostGameReport.tsx   # Game completion analytics
+│   │   ├── GameModeSelector.tsx # Mode selection interface
+│   │   └── [Error boundaries]   # Robust error handling
+│   ├── context/            # State management
+│   │   └── GameContext.tsx     # Zustand game state
+│   ├── data/              # Game data
+│   │   ├── colombiaDepartments.ts # Department definitions
+│   │   └── colombia.geojson    # Geographic boundaries
+│   ├── constants/         # Configuration
+│   │   ├── gameConstants.ts   # Game settings
+│   │   └── regionColors.ts    # Region styling
+│   ├── hooks/            # Custom React hooks
+│   ├── services/         # Business logic
+│   │   ├── storage.ts         # Profile & progress
+│   │   └── soundManager.ts    # Audio system
+│   ├── utils/           # Utilities
+│   │   └── nameNormalizer.ts  # ID normalization
+│   └── App.tsx          # Application root
+├── docs/                # Documentation
+│   ├── architecture/   # System design
+│   └── SPARC_MAP_RENDERING.md # Technical specs
+└── public/             # Static assets
+    └── data/          # GeoJSON files
 ```
 
 ### Contributing
@@ -117,22 +170,41 @@ Contributions are welcome! Please follow the SPARC methodology for new features:
 
 ## 📈 Performance Optimizations
 
-- **WebGL acceleration** for complex map rendering
-- **SIMD optimizations** via ruv-swarm for computational tasks
-- **Lazy loading** for department data and images
-- **Service Worker** for offline gameplay
-- **Code splitting** for optimal bundle sizes
+### Current Optimizations
+- **Optimized SVG Rendering**: Efficient path rendering with D3-geo
+- **Memoized Components**: React.memo for expensive renders
+- **Debounced Interactions**: Smooth drag operations
+- **Lazy State Updates**: Batched Zustand updates
+- **Error Boundaries**: Isolated component failures
+- **Responsive Scaling**: Adaptive viewport calculations
 
-## 🌟 Future Enhancements
+### Bundle Optimizations
+- **Tree Shaking**: Removed unused dependencies
+- **Code Splitting**: Dynamic imports for modals
+- **Asset Optimization**: Compressed GeoJSON data
+- **Production Build**: Minified and optimized output
 
-- [ ] Actual GeoJSON map with accurate boundaries
-- [ ] Multiple difficulty levels
+## 🌟 Implemented Features
+
+- [x] Actual GeoJSON map with accurate boundaries
+- [x] Multiple difficulty levels (regions, time challenges)
+- [x] Achievement system with badges
+- [x] Sound effects for interactions
+- [x] Study mode for learning
+- [x] Progress tracking and analytics
+- [x] Post-game performance reports
+- [x] Regional practice modes
+
+## 🚀 Future Enhancements
+
 - [ ] Multiplayer competition mode
-- [ ] Achievement system
-- [ ] Sound effects and music
-- [ ] Additional educational mini-games
+- [ ] Background music tracks
+- [ ] Additional mini-games (capitals quiz, flag matching)
 - [ ] Historical timeline mode
-- [ ] Export learning progress
+- [ ] Export/share progress reports
+- [ ] Leaderboards and social features
+- [ ] Mobile app versions (iOS/Android)
+- [ ] Voice pronunciation guide
 
 ## 📄 License
 
@@ -144,10 +216,39 @@ MIT License - feel free to use this project for educational purposes!
 - Built with the power of Claude Flow and ruv-swarm symbiotic architecture
 - Inspired by educational gaming best practices
 
-## 🤝 Contact
+## 🧪 Testing
 
-For questions or suggestions, please open an issue on GitHub.
+```bash
+# Run tests (when implemented)
+npm run test
+
+# Type checking
+npm run typecheck
+
+# Linting
+npm run lint
+```
+
+## 🚢 Deployment
+
+The game is configured for GitHub Pages deployment:
+
+```bash
+# Build and deploy to GitHub Pages
+npm run deploy
+```
+
+The game will be available at: https://bjpl.github.io/colombia_department_puzzle
+
+## 🤝 Support
+
+For questions, bug reports, or feature requests:
+- Open an issue on [GitHub](https://github.com/bjpl/colombia_department_puzzle/issues)
+- Check existing issues for solutions
+- Provide detailed reproduction steps for bugs
 
 ---
 
 **Made with ❤️ for learning Colombian geography**
+
+*Version 1.0.0 - Stable Release*
