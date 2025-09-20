@@ -17,6 +17,7 @@ export const departmentNameMap: Record<string, string> = {
   'antioquia': 'antioquia',
   'arauca': 'arauca',
   'san-andres': 'archipielago-de-san-andres-providencia-y-santa-catalina',
+  'san-andres-y-providencia': 'archipielago-de-san-andres-providencia-y-santa-catalina', // Alternative name
   'atlantico': 'atlantico',
   'bogota': 'bogota-d-c',
   'bolivar': 'bolivar',

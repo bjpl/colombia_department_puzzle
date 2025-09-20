@@ -141,8 +141,17 @@ export default function GameContainer() {
       // Get the mapped name for the dragged department
       const mappedDraggedName = departmentNameMap[draggedId] || normalizeId(draggedId);
 
-      // Check if the placement is correct
-      const isCorrect = mappedDraggedName === targetId || draggedId === targetId;
+      // Also try normalizing the dragged department's display name
+      const draggedDepartment = active.data.current as any;
+      const normalizedDraggedName = draggedDepartment?.name ? normalizeId(draggedDepartment.name) : draggedId;
+      const mappedFromDisplayName = departmentNameMap[normalizedDraggedName] || normalizedDraggedName;
+
+      // Check if the placement is correct (try multiple matching strategies)
+      const isCorrect =
+        mappedDraggedName === targetId ||
+        draggedId === targetId ||
+        mappedFromDisplayName === targetId ||
+        normalizeId(draggedId) === normalizeId(targetId);
 
       // Show placement feedback
       const rect = (event.over as any)?.rect;
