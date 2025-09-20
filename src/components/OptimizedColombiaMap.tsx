@@ -17,11 +17,11 @@ interface GeoFeature {
 
 // Region color mapping
 const regionColors: Record<string, string> = {
-  'Andina': '#86efac', // Green
+  'Andina': '#bef264', // Lime Green (brighter, more yellow-green)
   'Caribe': '#93c5fd', // Blue
   'Pacífica': '#e9d5ff', // Light Purple (lighter for better border visibility)
   'Orinoquía': '#fde047', // Yellow
-  'Amazonía': '#6ee7b7', // Emerald
+  'Amazonía': '#86efac', // Forest Green (darker, more blue-green)
   'Insular': '#67e8f9', // Cyan
 };
 
