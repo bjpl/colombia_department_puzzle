@@ -109,7 +109,7 @@ export default function ScreenReaderAnnouncements() {
       >
         {game.currentDepartment && (
           <span>
-            Arrastrando {game.currentDepartment}. Suelta sobre la ubicación correcta en el mapa.
+            Arrastrando {game.currentDepartment.name}. Suelta sobre la ubicación correcta en el mapa.
           </span>
         )}
       </div>
