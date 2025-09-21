@@ -11,16 +11,23 @@ function DraggableChip({ department }: { department: Department }) {
     id: department.id,
     data: department,
   });
-  const { getRegionColor, highContrast } = useAccessibility();
+  const { getRegionColor, highContrast, colorMode } = useAccessibility();
+
+  // Dynamic background color based on accessibility settings
+  const backgroundColor = getRegionColor(department.region);
 
   const style = transform ? {
     transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
     zIndex: 9999,
-  } : undefined;
+  } : {
+    backgroundColor: backgroundColor,
+  };
 
-  const backgroundColor = getRegionColor(department.region);
+  // Use dynamic color or fallback to Tailwind classes
   const colorClass = highContrast
-    ? 'bg-black text-white border-white hover:bg-gray-800'
+    ? 'text-white border-white hover:bg-gray-800'
+    : colorMode !== 'normal'
+    ? 'text-white border-gray-300 hover:opacity-90'
     : REGION_TAILWIND_CLASSES[department.region] || 'bg-gray-100 border-gray-300 hover:bg-gray-200';
 
   return (
@@ -31,7 +38,9 @@ function DraggableChip({ department }: { department: Department }) {
       {...attributes}
       className={`
         inline-flex items-center px-2 py-1 rounded-md
-        ${colorClass}
+        ${colorMode === 'normal' && !highContrast ? colorClass : ''}
+        ${highContrast ? 'bg-black text-white border-white' : ''}
+        ${colorMode !== 'normal' && !highContrast ? 'border-gray-300' : ''}
         border-2 cursor-move select-none
         hover:shadow-md hover:scale-105
         transition-all duration-150

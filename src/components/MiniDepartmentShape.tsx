@@ -18,7 +18,7 @@ export default function MiniDepartmentShape({
   className = ''
 }: MiniDepartmentShapeProps) {
   const [geoData, setGeoData] = useState<any>(null);
-  const { getRegionColor, highContrast } = useAccessibility();
+  const { getRegionColor, highContrast, colorMode } = useAccessibility();
 
   useEffect(() => {
     // Load the optimized GeoJSON data (which has actual shapes, not just bounding boxes)
@@ -78,11 +78,13 @@ export default function MiniDepartmentShape({
   }, [geoData, departmentName, width, height]);
 
   // Get the region color from our department data
-  const department = colombiaDepartments.find(d =>
-    normalizeId(d.name) === normalizeId(departmentName)
-  );
-  const region = department?.region || '';
-  const fillColor = region ? getRegionColor(region) : '#e5e7eb';
+  const fillColor = useMemo(() => {
+    const department = colombiaDepartments.find(d =>
+      normalizeId(d.name) === normalizeId(departmentName)
+    );
+    const region = department?.region || '';
+    return region ? getRegionColor(region) : '#e5e7eb';
+  }, [departmentName, getRegionColor, colorMode]);
 
   // Show loading or error state
   if (!pathData) {

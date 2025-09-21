@@ -34,7 +34,7 @@ const DepartmentPath = memo(({
   isDragging: boolean;
   showRegionColors: boolean;
 }) => {
-  const { getRegionColor, highContrast } = useAccessibility();
+  const { getRegionColor, highContrast, colorMode } = useAccessibility();
 
   // Find the region for this department
   const department = colombiaDepartments.find(d =>
@@ -43,14 +43,18 @@ const DepartmentPath = memo(({
     // Special case for San Andrés
     (d.id === 'san-andres' && normalizeId(feature.properties.name).includes('archipielago'))
   );
-  const regionColor = department ? getRegionColor(department.region) : '#e5e7eb';
+
+  // Recalculate color when colorMode changes
+  const regionColor = useMemo(() => {
+    return department ? getRegionColor(department.region) : '#e5e7eb';
+  }, [department, getRegionColor, colorMode]);
 
   const departmentColor = useMemo(() => {
     if (isPlaced) return '#10b981'; // Green for placed
     if (isOver && isDragging) return '#fbbf24'; // Yellow/gold when hovering
     if (showRegionColors) return regionColor; // Show region color
     return '#f3f4f6'; // Light gray for unplaced (much lighter for better border visibility)
-  }, [isPlaced, isOver, isDragging, showRegionColors, regionColor]);
+  }, [isPlaced, isOver, isDragging, showRegionColors, regionColor, colorMode]);
 
   const strokeColor = useMemo(() => {
     if (highContrast) return '#000'; // Black border in high contrast
