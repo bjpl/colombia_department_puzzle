@@ -185,62 +185,129 @@ export default function StudyModeMap({
 
           return (
             <g key={dept.id}>
-              {/* Connection lines for selected department */}
+              {/* Multiple selection indicators for selected department */}
               {isSelected && (
-                <circle
-                  cx={pos[0]}
-                  cy={pos[1]}
-                  r="20"
-                  fill="none"
-                  stroke={getRegionColor(dept.region, true, false)}
-                  strokeWidth="2"
-                  strokeDasharray="5,5"
-                  className="animate-pulse"
-                />
+                <>
+                  {/* Outer glow effect */}
+                  <circle
+                    cx={pos[0]}
+                    cy={pos[1]}
+                    r="30"
+                    fill="none"
+                    stroke={getRegionColor(dept.region, true, false)}
+                    strokeWidth="1"
+                    opacity="0.3"
+                    className="animate-ping"
+                  />
+                  {/* Middle ring */}
+                  <circle
+                    cx={pos[0]}
+                    cy={pos[1]}
+                    r="22"
+                    fill="none"
+                    stroke={getRegionColor(dept.region, true, false)}
+                    strokeWidth="2"
+                    strokeDasharray="5,5"
+                    className="animate-pulse"
+                  />
+                  {/* Inner glow */}
+                  <circle
+                    cx={pos[0]}
+                    cy={pos[1]}
+                    r="18"
+                    fill={getRegionColor(dept.region, true, false)}
+                    opacity="0.2"
+                  />
+                </>
               )}
 
-              {/* Department circle */}
+              {/* Department circle with enhanced selection */}
               <circle
                 cx={pos[0]}
                 cy={pos[1]}
-                r={isSelected ? "15" : "12"}
+                r={isSelected ? "16" : "12"}
                 fill={getRegionColor(dept.region, isSelected, isStudied)}
                 stroke={isSelected ? '#fff' : 'rgba(255,255,255,0.5)'}
-                strokeWidth={isSelected ? "2" : "1"}
-                className={`cursor-pointer transition-all duration-300 ${
-                  isSelected ? 'animate-pulse' : ''
+                strokeWidth={isSelected ? "3" : "1"}
+                className={`cursor-pointer transition-all duration-300 hover:opacity-90 ${
+                  isSelected ? 'drop-shadow-lg' : 'hover:drop-shadow-md'
                 }`}
                 onClick={() => onDepartmentClick(dept)}
-                style={{ transform: isSelected ? 'scale(1.2)' : 'scale(1)', transformOrigin: `${pos[0]}px ${pos[1]}px` }}
+                style={{
+                  transform: isSelected ? 'scale(1.3)' : 'scale(1)',
+                  transformOrigin: `${pos[0]}px ${pos[1]}px`,
+                  filter: isSelected ? 'drop-shadow(0 0 8px rgba(255,255,255,0.8))' : 'none'
+                }}
               >
                 <title>{dept.name} - {dept.capital}</title>
               </circle>
 
-              {/* Department name (first 3 letters) */}
+              {/* Department name with enhanced visibility when selected */}
               <text
                 x={pos[0]}
                 y={pos[1]}
                 textAnchor="middle"
                 dominantBaseline="central"
-                fill="white"
-                fontSize={isSelected ? "10" : "8"}
+                fill={isSelected ? '#000' : 'white'}
+                fontSize={isSelected ? "11" : "8"}
                 fontWeight={isSelected ? "bold" : "normal"}
                 className="pointer-events-none"
-                style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.5)' }}
+                style={{
+                  textShadow: isSelected
+                    ? '0 0 4px rgba(255,255,255,0.9), 1px 1px 2px rgba(255,255,255,0.7)'
+                    : '1px 1px 2px rgba(0,0,0,0.5)'
+                }}
               >
                 {dept.name.substring(0, 3).toUpperCase()}
               </text>
 
-              {/* Checkmark for studied departments */}
+              {/* Status indicators */}
               {isStudied && !isSelected && (
-                <text
-                  x={pos[0] + 10}
-                  y={pos[1] - 10}
-                  fontSize="12"
-                  className="pointer-events-none"
-                >
-                  ✓
-                </text>
+                <g className="pointer-events-none">
+                  <circle
+                    cx={pos[0] + 10}
+                    cy={pos[1] - 10}
+                    r="6"
+                    fill="#10b981"
+                    stroke="white"
+                    strokeWidth="1"
+                  />
+                  <text
+                    x={pos[0] + 10}
+                    y={pos[1] - 10}
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    fontSize="10"
+                    fill="white"
+                    fontWeight="bold"
+                  >
+                    ✓
+                  </text>
+                </g>
+              )}
+              {isSelected && (
+                <g className="pointer-events-none">
+                  <rect
+                    x={pos[0] - 20}
+                    y={pos[1] - 35}
+                    width="40"
+                    height="16"
+                    rx="8"
+                    fill="#1f2937"
+                    opacity="0.9"
+                  />
+                  <text
+                    x={pos[0]}
+                    y={pos[1] - 27}
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    fontSize="9"
+                    fill="white"
+                    fontWeight="bold"
+                  >
+                    SELECTED
+                  </text>
+                </g>
               )}
             </g>
           );
