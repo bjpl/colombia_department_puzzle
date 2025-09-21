@@ -6,6 +6,8 @@ import StudyModeMap from './StudyModeMap';
 import { storage } from '../services/storage';
 import { REGION_COLORS } from '../constants/regionColors';
 import { getMemoryAid } from '../data/memoryAids';
+import { getDepartmentEducation } from '../data/departmentEducation';
+import { getRegionalNarrative } from '../data/regionalNarratives';
 import MiniDepartmentShape from './MiniDepartmentShape';
 
 interface StudyModeProps {
@@ -416,6 +418,137 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                     {selectedDepartment.trivia}
                   </p>
                 </div>
+
+                {/* Historia y Contexto Section */}
+                {(() => {
+                  const education = getDepartmentEducation(selectedDepartment.id);
+                  if (education) {
+                    return (
+                      <>
+                        <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-4 rounded-lg shadow">
+                          <h4 className="font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                            <span className="text-xl">📜</span> Historia y Contexto
+                          </h4>
+                          <p className="text-sm text-gray-700 leading-relaxed">
+                            {education.historiaContexto}
+                          </p>
+                        </div>
+
+                        {/* Importancia Económica Section */}
+                        <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-lg shadow">
+                          <h4 className="font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                            <span className="text-xl">💰</span> Importancia Económica
+                          </h4>
+                          <p className="text-sm text-gray-700 leading-relaxed">
+                            {education.importanciaEconomica}
+                          </p>
+                        </div>
+
+                        {/* Características Únicas Section */}
+                        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg shadow">
+                          <h4 className="font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                            <span className="text-xl">⭐</span> Características Únicas
+                          </h4>
+                          <p className="text-sm text-gray-700 leading-relaxed">
+                            {education.caracteristicasUnicas}
+                          </p>
+                        </div>
+
+                        {/* Patrimonio Cultural Section */}
+                        <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-lg shadow">
+                          <h4 className="font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                            <span className="text-xl">🎭</span> Patrimonio Cultural
+                          </h4>
+                          <p className="text-sm text-gray-700 leading-relaxed">
+                            {education.patrimonioCultural}
+                          </p>
+                        </div>
+
+                        {/* Datos Específicos */}
+                        {education.datosEspecificos && (
+                          <div className="bg-white p-4 rounded-lg shadow border-l-4 border-blue-500">
+                            <h4 className="font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                              <span className="text-xl">📊</span> Datos Específicos
+                            </h4>
+                            <div className="grid grid-cols-1 gap-3 text-sm">
+                              {education.datosEspecificos.fechaCreacion && (
+                                <div className="flex justify-between py-1 border-b border-gray-100">
+                                  <dt className="text-gray-600 font-medium">Fecha de Creación:</dt>
+                                  <dd className="font-semibold text-blue-700">{education.datosEspecificos.fechaCreacion}</dd>
+                                </div>
+                              )}
+                              {education.datosEspecificos.poblacionIndigena && (
+                                <div className="flex justify-between py-1 border-b border-gray-100">
+                                  <dt className="text-gray-600 font-medium">Población Indígena:</dt>
+                                  <dd className="font-semibold text-green-700">{education.datosEspecificos.poblacionIndigena}</dd>
+                                </div>
+                              )}
+                              {education.datosEspecificos.clima && (
+                                <div className="flex justify-between py-1 border-b border-gray-100">
+                                  <dt className="text-gray-600 font-medium">Clima:</dt>
+                                  <dd className="font-semibold text-orange-700">{education.datosEspecificos.clima}</dd>
+                                </div>
+                              )}
+                              {education.datosEspecificos.altitud && (
+                                <div className="flex justify-between py-1 border-b border-gray-100">
+                                  <dt className="text-gray-600 font-medium">Altitud:</dt>
+                                  <dd className="font-semibold text-purple-700">{education.datosEspecificos.altitud}</dd>
+                                </div>
+                              )}
+                              {education.datosEspecificos.patrimonioUNESCO && education.datosEspecificos.patrimonioUNESCO.length > 0 && (
+                                <div className="py-1">
+                                  <dt className="text-gray-600 font-medium mb-1">Patrimonio UNESCO:</dt>
+                                  <dd className="space-y-1">
+                                    {education.datosEspecificos.patrimonioUNESCO.map((item, index) => (
+                                      <div key={index} className="bg-yellow-100 px-2 py-1 rounded text-xs font-semibold text-yellow-800">
+                                        🏆 {item}
+                                      </div>
+                                    ))}
+                                  </dd>
+                                </div>
+                              )}
+                              {education.datosEspecificos.industrias && education.datosEspecificos.industrias.length > 0 && (
+                                <div className="py-1">
+                                  <dt className="text-gray-600 font-medium mb-1">Principales Industrias:</dt>
+                                  <dd className="flex flex-wrap gap-1">
+                                    {education.datosEspecificos.industrias.map((industry, index) => (
+                                      <span key={index} className="bg-blue-100 px-2 py-1 rounded text-xs font-semibold text-blue-800">
+                                        {industry}
+                                      </span>
+                                    ))}
+                                  </dd>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Regional Context */}
+                        {(() => {
+                          const regionalNarrative = getRegionalNarrative(selectedDepartment.region);
+                          if (regionalNarrative) {
+                            return (
+                              <div className="bg-gradient-to-br from-slate-50 to-gray-50 p-4 rounded-lg shadow">
+                                <h4 className="font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                                  <span className="text-xl">🌍</span> Contexto Regional: {selectedDepartment.region}
+                                </h4>
+                                <p className="text-sm text-gray-700 leading-relaxed mb-3">
+                                  {regionalNarrative.introduction}
+                                </p>
+                                <div className="bg-white p-3 rounded border-l-4 border-indigo-400">
+                                  <h5 className="font-semibold text-indigo-800 text-sm mb-1">Identidad Cultural Regional:</h5>
+                                  <p className="text-xs text-indigo-700">{regionalNarrative.culturalIdentity}</p>
+                                </div>
+                              </div>
+                            );
+                          }
+                          return null;
+                        })()}
+                      </>
+                    );
+                  }
+                  return null;
+                })()}
 
                 {/* Enhanced Memory Aids */}
                 <div className="bg-white p-4 rounded-lg shadow">
