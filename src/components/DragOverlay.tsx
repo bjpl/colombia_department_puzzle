@@ -26,17 +26,17 @@ export default function DragOverlay() {
     : colorMode !== 'normal' ? 'text-white' : 'text-gray-800';
 
   return (
-    <DndDragOverlay>
+    <DndDragOverlay dropAnimation={null}>
       {/* Compact chip-style overlay matching the original chip with accessibility colors */}
       <div
         className={`
           inline-flex items-center px-3 py-1 rounded-md
           ${borderClass} ${borderWidth} ${textClass}
           shadow-2xl cursor-grabbing
-          transform scale-110
         `}
         style={{
           backgroundColor: backgroundColor,
+          transform: 'scale(1.1)',
         }}
       >
         <span className="text-xs font-bold">

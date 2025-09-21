@@ -241,21 +241,14 @@ export default function GameContainer() {
           onDragEnd={handleDragEnd}
           onDragCancel={handleDragCancel}
           collisionDetection={rectIntersection}
-          autoScroll={{
-            enabled: true,
-            interval: 5,
-            threshold: {
-              x: 0.2,
-              y: 0.2,
-            },
-          }}
+          autoScroll={false}
         >
           {/* MAXIMIZED Layout: Full-screen map with minimal sidebars */}
-          <div className="mt-4 flex gap-3" style={{ height: 'calc(100vh - 140px)' }}>
+          <div className="mt-4 flex gap-3 px-4" style={{ height: 'calc(100vh - 140px)', maxWidth: '100vw' }}>
 
             {/* Left Sidebar - Ultra-Compact Department Chips */}
             <ComponentErrorBoundary componentName="Department Tray">
-              <div className="w-52 bg-white/90 rounded-lg shadow p-2 overflow-y-auto">
+              <div className="w-52 bg-white/90 rounded-lg shadow p-2 overflow-y-auto flex-shrink-0">
                 <h3 className="text-xs font-bold mb-2 sticky top-0 bg-white z-10 pb-1 border-b flex items-center justify-between">
                   <span>🧩 Departamentos</span>
                   <span className="text-xs bg-blue-100 px-1.5 py-0.5 rounded-full">
@@ -277,7 +270,7 @@ export default function GameContainer() {
 
             {/* Right Sidebar - Ultra-Minimal Educational Panel */}
             <ComponentErrorBoundary componentName="Educational Panel">
-              <div className="w-52 bg-white/90 rounded-lg shadow p-2 overflow-y-auto">
+              <div className="w-52 bg-white/90 rounded-lg shadow p-2 overflow-y-auto flex-shrink-0">
                 <EducationalPanel compact={true} />
               </div>
             </ComponentErrorBoundary>
