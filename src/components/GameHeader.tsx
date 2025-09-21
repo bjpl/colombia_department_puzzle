@@ -177,7 +177,7 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
             {onStudyMode && (
               <button
                 onClick={onStudyMode}
-                className="p-2.5 bg-blue-100 text-blue-700 rounded-xl hover:bg-blue-200 transition-all transform hover:scale-105 active:scale-95"
+                className="p-2.5 bg-gradient-to-r from-sky-100 to-sky-200 text-sky-700 rounded-xl hover:from-sky-200 hover:to-sky-300 transition-all transform hover:scale-105 active:scale-95 shadow-md shadow-sky-500/20"
                 title="Modo de estudio"
                 aria-label="Abrir modo de estudio"
               >
@@ -188,7 +188,7 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
             {onGameMode && (
               <button
                 onClick={onGameMode}
-                className="p-2.5 bg-purple-100 text-purple-700 rounded-xl hover:bg-purple-200 transition-all transform hover:scale-105 active:scale-95"
+                className="p-2.5 bg-gradient-to-r from-purple-100 to-purple-200 text-purple-700 rounded-xl hover:from-purple-200 hover:to-purple-300 transition-all transform hover:scale-105 active:scale-95 shadow-md shadow-purple-500/20"
                 title="Cambiar modo de juego"
                 aria-label="Cambiar modo de juego"
               >
@@ -199,7 +199,7 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
             {onTutorial && (
               <button
                 onClick={onTutorial}
-                className="p-2.5 bg-indigo-100 text-indigo-700 rounded-xl hover:bg-indigo-200 transition-all transform hover:scale-105 active:scale-95"
+                className="p-2.5 bg-gradient-to-r from-indigo-100 to-indigo-200 text-indigo-700 rounded-xl hover:from-indigo-200 hover:to-indigo-300 transition-all transform hover:scale-105 active:scale-95 shadow-md shadow-indigo-500/20"
                 title="Tutorial"
                 aria-label="Ver tutorial interactivo"
               >
@@ -210,7 +210,7 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
             {/* Reset Button */}
             <button
               onClick={game.resetGame}
-              className="p-2.5 bg-red-100 text-red-700 rounded-xl hover:bg-red-200 transition-all transform hover:scale-105 active:scale-95"
+              className="p-2.5 bg-gradient-to-r from-red-100 to-red-200 text-red-700 rounded-xl hover:from-red-200 hover:to-red-300 transition-all transform hover:scale-105 active:scale-95 shadow-md shadow-red-500/20"
               title="Reiniciar juego"
               aria-label="Reiniciar el juego"
             >
@@ -231,8 +231,8 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
 
               {/* Score */}
               <div className="flex items-center gap-2">
-                <div className="flex items-center justify-center w-8 h-8 bg-blue-100 rounded-lg">
-                  <span className="text-sm font-bold text-blue-700">{game.score}</span>
+                <div className="flex items-center justify-center w-8 h-8 bg-gradient-to-br from-sky-100 to-sky-200 rounded-lg shadow-sm">
+                  <span className="text-sm font-bold text-sky-700">{game.score}</span>
                 </div>
                 <span className="text-xs text-gray-600 font-medium">Puntos</span>
               </div>
@@ -241,10 +241,10 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
               <div className="flex items-center gap-2">
                 <button
                   onClick={handlePausePlay}
-                  className={`p-1.5 rounded-lg transition-all transform hover:scale-110 active:scale-95 ${
+                  className={`p-1.5 rounded-lg transition-all transform hover:scale-110 active:scale-95 shadow-sm ${
                     game.isPaused
-                      ? 'bg-green-100 hover:bg-green-200 text-green-700'
-                      : 'bg-orange-100 hover:bg-orange-200 text-orange-700'
+                      ? 'bg-gradient-to-br from-emerald-100 to-emerald-200 hover:from-emerald-200 hover:to-emerald-300 text-emerald-700'
+                      : 'bg-gradient-to-br from-orange-100 to-orange-200 hover:from-orange-200 hover:to-orange-300 text-orange-700'
                   }`}
                   title={game.isPaused ? 'Reanudar' : 'Pausar'}
                   aria-label={game.isPaused ? 'Reanudar juego' : 'Pausar juego'}
@@ -252,7 +252,7 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
                 >
                   {game.isPaused ? <PlayIcon /> : <PauseIcon />}
                 </button>
-                <div className="flex items-center justify-center px-3 py-1 bg-purple-100 rounded-lg">
+                <div className="flex items-center justify-center px-3 py-1 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg shadow-sm">
                   <span className="text-sm font-bold text-purple-700 tabular-nums">
                     {formatTime(game.elapsedTime)}
                   </span>
@@ -265,8 +265,8 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
               {/* Progress Text */}
               <div className="flex items-center gap-2">
                 <span className="text-xs text-gray-600 font-medium">Progreso</span>
-                <div className="flex items-center justify-center px-3 py-1 bg-green-100 rounded-lg">
-                  <span className="text-sm font-bold text-green-700">
+                <div className="flex items-center justify-center px-3 py-1 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-lg shadow-sm">
+                  <span className="text-sm font-bold text-emerald-700">
                     {game.placedDepartments.size}/{game.getFilteredDepartments().length}
                   </span>
                 </div>
@@ -275,7 +275,7 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
               {/* Attempts/Errors */}
               <div className="flex items-center gap-2">
                 <span className="text-xs text-gray-600 font-medium">Intentos</span>
-                <div className="flex items-center justify-center px-3 py-1 bg-red-100 rounded-lg">
+                <div className="flex items-center justify-center px-3 py-1 bg-gradient-to-br from-red-100 to-red-200 rounded-lg shadow-sm">
                   <span className="text-sm font-bold text-red-700">
                     {game.attempts}
                   </span>
@@ -286,8 +286,8 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
             {/* Progress Percentage Badge */}
             <div className="flex items-center gap-2">
               <span className="text-xs text-gray-600 font-medium">Completado</span>
-              <div className="flex items-center justify-center px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg">
-                <span className="text-sm font-bold text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
+              <div className="flex items-center justify-center px-3 py-1 bg-gradient-to-r from-emerald-100 via-sky-100 to-purple-100 rounded-lg shadow-sm">
+                <span className="text-sm font-bold text-transparent bg-gradient-to-r from-emerald-600 via-sky-600 to-purple-600 bg-clip-text">
                   {progress}%
                 </span>
               </div>
@@ -296,9 +296,9 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
         </div>
 
         {/* Progress Bar */}
-        <div className="h-1 bg-gray-200 relative overflow-hidden">
+        <div className="h-1.5 bg-gray-200 relative overflow-hidden">
           <div
-            className="absolute inset-y-0 left-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 transition-all duration-700 ease-out"
+            className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-500 via-sky-500 to-purple-500 transition-all duration-700 ease-out shadow-lg"
             style={{ width: `${progress}%` }}
           >
             {/* Animated shimmer effect */}

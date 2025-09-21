@@ -84,15 +84,15 @@ export default function StudyModeMap({
   };
 
   const getRegionColor = (region: string, isSelected: boolean, isStudied: boolean) => {
-    const opacity = isSelected ? '1' : isStudied ? '0.8' : '0.9';
-    // Using accessible colors from WCAG AAA compliant palette
+    const opacity = isSelected ? '1' : isStudied ? '0.85' : '0.95';
+    // Using modern beautiful colors from the updated palette
     const colors: Record<string, string> = {
-      'Andina': `rgba(13, 95, 58, ${opacity})`,     // #0D5F3A - Deep forest green
-      'Caribe': `rgba(0, 86, 179, ${opacity})`,     // #0056B3 - Strong blue
-      'Pacífica': `rgba(91, 33, 182, ${opacity})`,   // #5B21B6 - Deep purple
-      'Orinoquía': `rgba(180, 83, 9, ${opacity})`,   // #B45309 - Burnt orange
-      'Amazonía': `rgba(4, 120, 87, ${opacity})`,    // #047857 - Teal green
-      'Insular': `rgba(14, 116, 144, ${opacity})`,  // #0E7490 - Ocean teal
+      'Andina': `rgba(5, 150, 105, ${opacity})`,     // #059669 - Emerald 600
+      'Caribe': `rgba(14, 165, 233, ${opacity})`,    // #0EA5E9 - Sky 500
+      'Pacífica': `rgba(168, 85, 247, ${opacity})`,   // #A855F7 - Purple 500
+      'Orinoquía': `rgba(249, 115, 22, ${opacity})`,  // #F97316 - Orange 500
+      'Amazonía': `rgba(20, 184, 166, ${opacity})`,   // #14B8A6 - Teal 500
+      'Insular': `rgba(6, 182, 212, ${opacity})`,    // #06B6D4 - Cyan 500
     };
     return colors[region] || `rgba(156, 163, 175, ${opacity})`;
   };
@@ -320,15 +320,15 @@ export default function StudyModeMap({
           <rect x="0" y="0" width="560" height="60" fill="rgba(255,255,255,0.95)" rx="5" stroke="#374151" strokeWidth="1" />
           <text x="10" y="20" fontSize="12" fontWeight="bold" fill="#111827">Regiones:</text>
           {Object.entries({
-            'Andina': '#0D5F3A',     // Deep forest green
-            'Caribe': '#0056B3',     // Strong blue
-            'Pacífica': '#5B21B6',   // Deep purple
-            'Orinoquía': '#B45309',   // Burnt orange
-            'Amazonía': '#047857',    // Teal green
-            'Insular': '#0E7490',    // Ocean teal
+            'Andina': '#059669',     // Emerald 600
+            'Caribe': '#0EA5E9',     // Sky 500
+            'Pacífica': '#A855F7',   // Purple 500
+            'Orinoquía': '#F97316',   // Orange 500
+            'Amazonía': '#14B8A6',    // Teal 500
+            'Insular': '#06B6D4',    // Cyan 500
           }).map(([region, color], index) => (
             <g key={region} transform={`translate(${90 + index * 80}, 10)`}>
-              <circle cx="10" cy="10" r="8" fill={color} stroke="white" strokeWidth="1.5" />
+              <circle cx="10" cy="10" r="8" fill={color} stroke="white" strokeWidth="1.5" className="drop-shadow-sm" />
               <text x="25" y="14" fontSize="11" fill="#111827" fontWeight="500">{region}</text>
             </g>
           ))}
