@@ -1,5 +1,6 @@
 import { useDraggable } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
+import { useAccessibility } from '../context/AccessibilityContext';
 import { REGION_TAILWIND_CLASSES } from '../constants/regionColors';
 import { normalizeId } from '../utils/nameNormalizer';
 import { Department } from '../data/colombiaDepartments';
@@ -10,13 +11,17 @@ function DraggableChip({ department }: { department: Department }) {
     id: department.id,
     data: department,
   });
+  const { getRegionColor, highContrast } = useAccessibility();
 
   const style = transform ? {
     transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
     zIndex: 9999,
   } : undefined;
 
-  const colorClass = REGION_TAILWIND_CLASSES[department.region] || 'bg-gray-100 border-gray-300 hover:bg-gray-200';
+  const backgroundColor = getRegionColor(department.region);
+  const colorClass = highContrast
+    ? 'bg-black text-white border-white hover:bg-gray-800'
+    : REGION_TAILWIND_CLASSES[department.region] || 'bg-gray-100 border-gray-300 hover:bg-gray-200';
 
   return (
     <div

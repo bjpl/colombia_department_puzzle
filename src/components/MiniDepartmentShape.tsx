@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { geoMercator, geoPath } from 'd3-geo';
 import { normalizeId } from '../utils/nameNormalizer';
-import { REGION_COLORS } from '../constants/regionColors';
+import { useAccessibility } from '../context/AccessibilityContext';
 import { colombiaDepartments } from '../data/colombiaDepartments';
 
 interface MiniDepartmentShapeProps {
@@ -18,6 +18,7 @@ export default function MiniDepartmentShape({
   className = ''
 }: MiniDepartmentShapeProps) {
   const [geoData, setGeoData] = useState<any>(null);
+  const { getRegionColor, highContrast } = useAccessibility();
 
   useEffect(() => {
     // Load the optimized GeoJSON data (which has actual shapes, not just bounding boxes)
@@ -81,7 +82,7 @@ export default function MiniDepartmentShape({
     normalizeId(d.name) === normalizeId(departmentName)
   );
   const region = department?.region || '';
-  const fillColor = REGION_COLORS[region] || '#e5e7eb';
+  const fillColor = region ? getRegionColor(region) : '#e5e7eb';
 
   // Show loading or error state
   if (!pathData) {
@@ -137,8 +138,8 @@ export default function MiniDepartmentShape({
         <path
           d={pathData}
           fill={fillColor}
-          stroke="#374151"
-          strokeWidth="0.5"
+          stroke={highContrast ? "#000" : "#374151"}
+          strokeWidth={highContrast ? "1" : "0.5"}
           opacity="0.8"
         />
       </svg>

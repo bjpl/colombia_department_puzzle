@@ -2,9 +2,9 @@ import React, { useEffect, useState, useRef, useMemo, memo } from 'react';
 import { geoMercator, geoPath } from 'd3-geo';
 import { useDroppable } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
+import { useAccessibility } from '../context/AccessibilityContext';
 import { normalizeId } from '../utils/nameNormalizer';
 import { colombiaDepartments } from '../data/colombiaDepartments';
-import { REGION_COLORS } from '../constants/regionColors';
 
 interface GeoFeature {
   type: string;
@@ -34,6 +34,8 @@ const DepartmentPath = memo(({
   isDragging: boolean;
   showRegionColors: boolean;
 }) => {
+  const { getRegionColor, highContrast } = useAccessibility();
+
   // Find the region for this department
   const department = colombiaDepartments.find(d =>
     normalizeId(d.name) === normalizeId(feature.properties.name) ||
@@ -41,7 +43,7 @@ const DepartmentPath = memo(({
     // Special case for San Andrés
     (d.id === 'san-andres' && normalizeId(feature.properties.name).includes('archipielago'))
   );
-  const regionColor = department ? REGION_COLORS[department.region] : '#e5e7eb';
+  const regionColor = department ? getRegionColor(department.region) : '#e5e7eb';
 
   const departmentColor = useMemo(() => {
     if (isPlaced) return '#10b981'; // Green for placed
@@ -51,16 +53,18 @@ const DepartmentPath = memo(({
   }, [isPlaced, isOver, isDragging, showRegionColors, regionColor]);
 
   const strokeColor = useMemo(() => {
+    if (highContrast) return '#000'; // Black border in high contrast
     if (isOver && isDragging) return '#f59e0b'; // Orange border when drop target
     if (isOver) return '#3b82f6'; // Blue border on hover
     return '#374151'; // Default dark gray
-  }, [isOver, isDragging]);
+  }, [isOver, isDragging, highContrast]);
 
   const strokeWidth = useMemo(() => {
+    if (highContrast) return '2.5'; // Thicker border in high contrast
     if (isOver && isDragging) return '3'; // Thick border when drop target
     if (isOver) return '2'; // Medium border on hover
     return '1'; // Default thin border
-  }, [isOver, isDragging]);
+  }, [isOver, isDragging, highContrast]);
 
   return (
     <path
