@@ -38,12 +38,14 @@ function DraggableChip({ department }: { department: Department }) {
     ? needsLightText(backgroundColor) ? 'text-white' : 'text-black'
     : colorMode !== 'normal' ? 'text-white' : 'text-gray-800';
 
-  // Prevent keyboard events from triggering drag
+  // Handle keyboard events properly
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    // Don't let Enter/Space trigger drag
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.stopPropagation();
+    // For keyboard navigation, we want Tab + Enter to work
+    // Only prevent default space scrolling
+    if (e.key === ' ') {
+      e.preventDefault(); // Prevent page scroll
     }
+    // Don't block Enter - let it trigger either keyboard nav or drag
   };
 
   return (
@@ -86,11 +88,12 @@ function DraggableDepartment({ department, compact = false }: { department: Depa
     zIndex: 9999,
   } : undefined;
 
-  // Prevent keyboard events from triggering drag
+  // Handle keyboard events properly
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.stopPropagation();
+    if (e.key === ' ') {
+      e.preventDefault(); // Prevent page scroll
     }
+    // Don't block Enter - let it work for selection
   };
 
   return (

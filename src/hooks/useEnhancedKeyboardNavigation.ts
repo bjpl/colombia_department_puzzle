@@ -90,30 +90,20 @@ export function useEnhancedKeyboardNavigation() {
 
       const { key, shiftKey, ctrlKey } = e;
 
-      // Tab navigation through departments
-      if (key === 'Tab' && navState.mode === 'idle') {
-        e.preventDefault();
-        const departments = availableDepartmentsRef.current;
-        if (departments.length === 0) return;
-
-        // If no index set yet, start at 0 (first department)
-        const currentIndex = navState.focusedIndex === -1 ? -1 : navState.focusedIndex;
-        const newIndex = shiftKey
-          ? currentIndex <= 0 ? departments.length - 1 : currentIndex - 1
-          : currentIndex >= departments.length - 1 ? 0 : currentIndex + 1;
-
-        setNavState(prev => ({ ...prev, focusedIndex: newIndex, mode: 'selecting' }));
-
-        // Focus the department element
-        const element = document.querySelector(`[data-department-id="${departments[newIndex].id}"]`) as HTMLElement;
-        element?.focus();
-        announceToScreenReader(`${departments[newIndex].name} seleccionado. Presione Enter para mover.`);
+      // Tab navigation through departments - let browser handle it naturally
+      if (key === 'Tab') {
+        // Don't prevent default - let Tab work normally for focus navigation
+        // Just track the focused element
+        setNavState(prev => ({ ...prev, mode: 'selecting' }));
         return;
       }
 
       // Enter/Space to pick up or place
       if ((key === 'Enter' || key === ' ') && e.target instanceof HTMLElement) {
-        e.preventDefault();
+        // Prevent default for space to avoid page scroll
+        if (key === ' ') {
+          e.preventDefault();
+        }
 
         if (navState.mode === 'selecting' || navState.mode === 'idle') {
           // Pick up department

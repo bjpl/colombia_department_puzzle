@@ -17,6 +17,7 @@ import GameModeSelector, { GameModeConfig } from './GameModeSelector';
 // Removed QuickStartFlow - using InteractiveTutorial for simplicity
 import ModeTransition from './ModeTransition';
 import KeyboardHelp from './KeyboardHelp';
+import ScrollIndicator from './ScrollIndicator';
 import MapErrorBoundary from './MapErrorBoundary';
 import GameLogicErrorBoundary from './GameLogicErrorBoundary';
 import ComponentErrorBoundary from './ComponentErrorBoundary';
@@ -257,15 +258,42 @@ export default function GameContainer() {
 
             {/* Left Sidebar - Ultra-Compact Department Chips */}
             <ComponentErrorBoundary componentName="Department Tray">
-              <div className="bg-white/90 rounded-lg shadow p-2 flex-shrink-0" style={{ width: '208px', maxHeight: '100%' }}>
-                <h3 className="text-xs font-bold mb-2 bg-white z-10 pb-1 border-b flex items-center justify-between">
+              <div className="bg-white/90 rounded-lg shadow p-2 flex-shrink-0 relative" style={{ width: '208px', maxHeight: '100%' }}>
+                <h3 className="text-xs font-bold mb-2 bg-white z-10 pb-1 border-b flex items-center justify-between sticky top-0">
                   <span>🧩 Departamentos</span>
                   <span className="text-xs bg-blue-100 px-1.5 py-0.5 rounded-full">
                     {game.departments.filter(d => !game.placedDepartments.has(d.id)).length}
                   </span>
                 </h3>
-                <div className="overflow-y-auto" style={{ maxHeight: 'calc(100vh - 200px)', overflowX: 'hidden' }}>
+                <div
+                  className="overflow-y-auto scroll-smooth"
+                  style={{ maxHeight: 'calc(100vh - 200px)', overflowX: 'hidden' }}
+                  id="department-scroll-container"
+                  onKeyDown={(e) => {
+                    // Arrow keys for scrolling within the container
+                    if (e.key === 'ArrowUp') {
+                      e.preventDefault();
+                      e.currentTarget.scrollTop -= 50;
+                    } else if (e.key === 'ArrowDown') {
+                      e.preventDefault();
+                      e.currentTarget.scrollTop += 50;
+                    } else if (e.key === 'Home') {
+                      e.preventDefault();
+                      e.currentTarget.scrollTop = 0;
+                    } else if (e.key === 'End') {
+                      e.preventDefault();
+                      e.currentTarget.scrollTop = e.currentTarget.scrollHeight;
+                    }
+                  }}
+                  tabIndex={-1}
+                  aria-label="Lista de departamentos. Use las flechas arriba/abajo para desplazarse"
+                >
                   <DepartmentTray layout="ultra-compact" />
+
+                  {/* Scroll hint at bottom */}
+                  <div className="text-center py-2 text-[10px] text-gray-400">
+                    ↑↓ Flechas para scroll
+                  </div>
                 </div>
               </div>
             </ComponentErrorBoundary>
