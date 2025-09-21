@@ -12,8 +12,18 @@ export default function DragOverlay() {
 
   // Use dynamic colors from accessibility context
   const backgroundColor = getRegionColor(game.currentDepartment.region);
-  const borderClass = highContrast ? 'border-white' : 'border-gray-600';
-  const textClass = highContrast || colorMode !== 'normal' ? 'text-white' : 'text-gray-800';
+
+  // Determine text color based on background for proper contrast (matching DepartmentTray)
+  const needsLightText = (color: string): boolean => {
+    const darkColors = ['#000000', '#0000FF', '#800080', '#008000', '#008B8B'];
+    return darkColors.includes(color.toUpperCase());
+  };
+
+  const borderClass = highContrast ? 'border-black' : 'border-gray-600';
+  const borderWidth = highContrast ? 'border-4' : 'border-2';
+  const textClass = highContrast
+    ? needsLightText(backgroundColor) ? 'text-white' : 'text-black'
+    : colorMode !== 'normal' ? 'text-white' : 'text-gray-800';
 
   return (
     <DndDragOverlay>
@@ -21,13 +31,12 @@ export default function DragOverlay() {
       <div
         className={`
           inline-flex items-center px-3 py-1 rounded-md
-          ${borderClass} ${textClass}
-          border-2 shadow-2xl cursor-grabbing
+          ${borderClass} ${borderWidth} ${textClass}
+          shadow-2xl cursor-grabbing
           transform scale-110
         `}
         style={{
           backgroundColor: backgroundColor,
-          opacity: 0.95,
         }}
       >
         <span className="text-xs font-bold">

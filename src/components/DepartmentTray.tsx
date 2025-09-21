@@ -49,7 +49,7 @@ function DraggableChip({ department }: { department: Department }) {
         ${borderClass} ${borderWidth} ${textClass}
         cursor-move select-none
         transition-all duration-150
-        ${isDragging ? 'opacity-90' : 'hover:shadow-md hover:scale-105'}
+        ${isDragging ? 'opacity-0' : 'hover:shadow-md hover:scale-105'}
       `}
       title={`${department.name} - Capital: ${department.capital} - Región: ${department.region}`}
       role="button"
