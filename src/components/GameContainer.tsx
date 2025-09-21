@@ -46,7 +46,22 @@ export default function GameContainer() {
 
   // Initialize sound system on first user interaction
   useEffect(() => {
-    sound.initSound();
+    const initSoundOnInteraction = () => {
+      sound.initSound();
+      // Remove listener after first interaction
+      document.removeEventListener('click', initSoundOnInteraction);
+      document.removeEventListener('touchstart', initSoundOnInteraction);
+    };
+
+    // Add listeners for first user interaction
+    document.addEventListener('click', initSoundOnInteraction);
+    document.addEventListener('touchstart', initSoundOnInteraction);
+
+    // Cleanup
+    return () => {
+      document.removeEventListener('click', initSoundOnInteraction);
+      document.removeEventListener('touchstart', initSoundOnInteraction);
+    };
   }, []);
 
   // Sync timer with game state

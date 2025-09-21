@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import { useGame } from '../context/GameContext';
+import { useSoundEffect } from '../services/soundManager';
 
 interface GameHeaderProps {
   onStudyMode?: () => void;
@@ -8,11 +10,29 @@ interface GameHeaderProps {
 
 export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: GameHeaderProps) {
   const game = useGame();
+  const sound = useSoundEffect();
+  const [soundEnabled, setSoundEnabled] = useState(true);
+
+  // Initialize sound state from storage
+  useEffect(() => {
+    const settings = sound.settings;
+    setSoundEnabled(settings.enabled);
+  }, []);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const toggleSound = () => {
+    const newState = !soundEnabled;
+    setSoundEnabled(newState);
+    sound.setEnabled(newState);
+    // Play a test sound when enabling
+    if (newState) {
+      sound.playSound('pickup', 0.3);
+    }
   };
 
   const handlePausePlay = () => {
@@ -96,6 +116,24 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
         </div>
 
         <div className="flex gap-2">
+          {/* Sound Toggle Button */}
+          <button
+            onClick={toggleSound}
+            className={`px-3 py-2 rounded-lg transition-all flex items-center gap-1 shadow-md ${
+              soundEnabled
+                ? 'bg-green-500 text-white hover:bg-green-600 hover:shadow-lg'
+                : 'bg-gray-400 text-gray-700 hover:bg-gray-500 hover:text-white'
+            }`}
+            title={soundEnabled ? 'Silenciar sonidos' : 'Activar sonidos'}
+            aria-label={soundEnabled ? 'Silenciar efectos de sonido' : 'Activar efectos de sonido'}
+            aria-pressed={soundEnabled}
+          >
+            <span className="text-lg">{soundEnabled ? '🔊' : '🔇'}</span>
+            <span className="hidden lg:inline text-sm font-medium">
+              {soundEnabled ? 'Sonido' : 'Mudo'}
+            </span>
+          </button>
+
           {onGameMode && (
             <button
               onClick={onGameMode}
