@@ -292,7 +292,7 @@ export const departmentEducationData: DepartmentEducation[] = [
     }
   },
   {
-    departmentId: 'la_guajira',
+    departmentId: 'la-guajira',
     historiaContexto: 'La Guajira es territorio ancestral del pueblo Wayuu, la etnia indígena más numerosa de Colombia con más de 270,000 habitantes. Esta región permaneció relativamente aislada durante la colonia española debido a su geografía desértica y la resistencia indígena. Riohacha fue fundada en 1545 por Nicolás de Federmann como puerto para el comercio de perlas. En el siglo XX, el descubrimiento de las minas de sal en Manaure y más tarde el carbón en El Cerrejón transformaron la economía regional.',
     importanciaEconomica: 'La Guajira es el principal productor de sal marina de Colombia, concentrando más del 70% de la producción nacional en las salinas de Manaure. El Cerrejón es una de las minas de carbón a cielo abierto más grandes del mundo, exportando principalmente a Europa y Estados Unidos. La ganadería caprina adaptada al clima árido es tradicional entre los Wayuu. El turismo étnico y ecológico está creciendo, especialmente hacia Cabo de la Vela y Punta Gallinas.',
     caracteristicasUnicas: 'Punta Gallinas es el punto más septentrional de Sudamérica, ofreciendo paisajes únicos donde el desierto se encuentra con el mar Caribe. La Guajira es el único departamento de Colombia con clima desértico, recibiendo menos de 300mm de lluvia anual. Los flamencos rosados habitan las lagunas costeras, creando un espectáculo natural único. Los vientos alisios constantes han convertido la región en ideal para la generación de energía eólica.',
@@ -356,7 +356,7 @@ export const departmentEducationData: DepartmentEducation[] = [
     }
   },
   {
-    departmentId: 'norte_de_santander',
+    departmentId: 'norte-de-santander',
     historiaContexto: 'Norte de Santander fue territorio de los indígenas Chitareros antes de la conquista española. Cúcuta fue fundada en 1733 por Juana Rangel de Cuéllar. La región fue escenario crucial de las guerras de independencia, donde ocurrieron batallas decisivas como la de Cúcuta en 1813. El departamento se separó de Santander en 1910. Su posición fronteriza con Venezuela ha marcado su desarrollo histórico, especialmente durante los períodos de migración e intercambio comercial.',
     importanciaEconomica: 'Norte de Santander basa su economía en el comercio fronterizo con Venezuela, especialmente a través de Cúcuta. La agricultura incluye café, cacao, arroz, y palma africana. La industria manufacturera produce calzado, textiles, y productos alimenticios. Los servicios financieros y comerciales son importantes debido al intercambio fronterizo. El carbón de la región de Zulia contribuye a las exportaciones nacionales.',
     caracteristicasUnicas: 'Cúcuta es conocida como la "Puerta de Colombia" por ser el principal paso fronterizo con Venezuela. El Puente Internacional Simón Bolívar es uno de los cruces fronterizos más transitados de América Latina. La región tiene microclimas únicos que permiten el cultivo de café de alta calidad en las zonas montañosas. El área metropolitana de Cúcuta forma una conurbación binacional con San Antonio del Táchira en Venezuela.',
@@ -452,7 +452,7 @@ export const departmentEducationData: DepartmentEducation[] = [
     }
   },
   {
-    departmentId: 'valle_del_cauca',
+    departmentId: 'valle-del-cauca',
     historiaContexto: 'Valle del Cauca fue habitado por los pueblos indígenas Quimbaya, reconocidos por su orfebrería excepcional. Santiago de Cali fue fundada en 1536 por Sebastián de Belalcázar. Durante la colonia se desarrolló la cultura de la caña de azúcar con base en el trabajo esclavo africano, creando una importante población afrocolombiana. El departamento se convirtió en centro industrial y puerta del Pacífico para Colombia.',
     importanciaEconomica: 'Valle del Cauca produce el 75% del azúcar de Colombia y es líder en agroindustria azucarera. El puerto de Buenaventura maneja el 60% del comercio marítimo nacional, siendo la principal puerta del Pacífico. Cali es el tercer centro industrial del país con industrias químicas, farmacéuticas, y alimentarias. El departamento contribuye significativamente al PIB nacional y es centro de servicios para el suroccidente colombiano.',
     caracteristicasUnicas: 'Cali es reconocida mundialmente como la "Capital de la Salsa" con una vibrante escena musical y de baile que atrae turistas internacionales. El valle geográfico del río Cauca es una de las regiones más fértiles de Colombia, ideal para la agricultura intensiva. Buenaventura es el puerto más importante del Pacífico colombiano, conectando el país con Asia y la cuenca del Pacífico. La región fue designada por la UNESCO como "Ciudad de la Gastronomía" en 2017.',
@@ -500,7 +500,7 @@ export const departmentEducationData: DepartmentEducation[] = [
     }
   },
   {
-    departmentId: 'san_andres_y_providencia',
+    departmentId: 'san-andres-providencia',
     historiaContexto: 'El archipiélago fue habitado inicialmente por pueblos indígenas antes de la colonización europea. Los puritanos ingleses establecieron asentamientos en 1630, trayendo esclavos africanos para trabajar en plantaciones de algodón y coco. La población raizal (afrocaribeña) desarrolló una cultura única mezclando elementos africanos, ingleses, y caribeños. Colombia asumió soberanía definitiva en 1822, pero la población mantuvo sus tradiciones culturales distintivas.',
     importanciaEconomica: 'La economía se basa principalmente en turismo, aprovechando las playas caribeñas, arrecifes coralinos, y la condición de puerto libre. El comercio duty-free atrae compradores de todo el Caribe y Colombia continental. La pesca artesanal y la agricultura de coco y frutas tropicales son tradicionales. Los servicios turísticos incluyen hoteles, restaurantes, y actividades acuáticas. El transporte aéreo y marítimo conecta el archipiélago con el continente y otros países caribeños.',
     caracteristicasUnicas: 'San Andrés y Providencia es el único departamento de Colombia completamente insular y el más pequeño del país. La población raizal habla inglés, español, y creole (inglés criollo). La Reserva de Biosfera Seaflower protege el tercer arrecife de barrera coralina más grande del mundo. El departamento está más cerca de Nicaragua que de Colombia continental. Las tradiciones arquitectónicas incluyen casas de madera estilo caribeño sobre pilotes.',
@@ -532,7 +532,7 @@ export const departmentEducationData: DepartmentEducation[] = [
     }
   },
   {
-    departmentId: 'bogota_dc',
+    departmentId: 'bogota-dc',
     historiaContexto: 'Bogotá fue fundada en 1538 por Gonzalo Jiménez de Quesada en territorio del pueblo Muisca, especialmente el cacicazgo de Bacatá. Como Santa Fe de Bogotá, fue la capital del Virreinato de Nueva Granada desde 1717. La ciudad fue epicentro de los movimientos independentistas, siendo escenario del Grito de Independencia el 20 de julio de 1810. En 1991 se constituyó como Distrito Capital, consolidando su estatus como centro político, económico, y cultural de Colombia.',
     importanciaEconomica: 'Bogotá D.C. concentra aproximadamente el 25% del PIB nacional, siendo el principal centro económico de Colombia. La ciudad alberga las sedes de las principales empresas nacionales e internacionales, bancos, y entidades financieras. Los sectores de servicios, comercio, industria manufacturera, y tecnología son los motores económicos principales. Como centro de telecomunicaciones y transporte, conecta todo el territorio nacional. El sector educativo superior contribuye significativamente con universidades de prestigio internacional.',
     caracteristicasUnicas: 'Bogotá es la tercera capital más alta del mundo a 2,640 metros sobre el nivel del mar, ubicada en la sabana cundiboyacense. Es la ciudad más poblada de Colombia con más de 8 millones de habitantes en su área metropolitana. El sistema TransMilenio fue pionero en Latinoamérica en transporte masivo BRT. La ciclovía dominical es una de las más extensas del mundo con más de 120 kilómetros. El centro histórico La Candelaria preserva arquitectura colonial y republicana.',
