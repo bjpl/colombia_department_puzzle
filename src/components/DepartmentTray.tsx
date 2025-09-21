@@ -186,11 +186,11 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
   // Ultra-compact layout for maximum map space
   if (layout === 'ultra-compact') {
     return (
-      <div className="space-y-2" role="region" aria-label="Departamentos disponibles para colocar">
+      <div className="p-1" role="region" aria-label="Departamentos disponibles para colocar">
         {/* Tiny chips grouped by region */}
-        {Object.entries(regionGroups).map(([region, depts]) => (
-          <div key={region} className="space-y-1">
-            <h4 className="text-[10px] font-semibold text-gray-500 uppercase px-0.5" id={`ultra-region-${region}`}>
+        {Object.entries(regionGroups).map(([region, depts], index) => (
+          <div key={region} className={index > 0 ? "mt-2" : ""}>
+            <h4 className="text-[10px] font-semibold text-gray-500 uppercase px-0.5 mb-1" id={`ultra-region-${region}`}>
               {region}
             </h4>
             <div className="flex flex-wrap gap-1" role="group" aria-labelledby={`ultra-region-${region}`}>

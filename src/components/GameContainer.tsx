@@ -248,14 +248,14 @@ export default function GameContainer() {
 
             {/* Left Sidebar - Ultra-Compact Department Chips */}
             <ComponentErrorBoundary componentName="Department Tray">
-              <div className="w-52 bg-white/90 rounded-lg shadow p-2 overflow-y-auto flex-shrink-0">
-                <h3 className="text-xs font-bold mb-2 sticky top-0 bg-white z-10 pb-1 border-b flex items-center justify-between">
+              <div className="w-52 bg-white/90 rounded-lg shadow p-2 flex-shrink-0 flex flex-col h-full">
+                <h3 className="text-xs font-bold mb-2 bg-white z-10 pb-1 border-b flex items-center justify-between">
                   <span>🧩 Departamentos</span>
                   <span className="text-xs bg-blue-100 px-1.5 py-0.5 rounded-full">
                     {game.departments.filter(d => !game.placedDepartments.has(d.id)).length}
                   </span>
                 </h3>
-                <div className="space-y-1">
+                <div className="flex-1 overflow-y-auto overflow-x-hidden min-h-0">
                   <DepartmentTray layout="ultra-compact" />
                 </div>
               </div>
@@ -270,8 +270,10 @@ export default function GameContainer() {
 
             {/* Right Sidebar - Ultra-Minimal Educational Panel */}
             <ComponentErrorBoundary componentName="Educational Panel">
-              <div className="w-52 bg-white/90 rounded-lg shadow p-2 overflow-y-auto flex-shrink-0">
-                <EducationalPanel compact={true} />
+              <div className="w-52 bg-white/90 rounded-lg shadow p-2 flex-shrink-0 flex flex-col h-full">
+                <div className="flex-1 overflow-y-auto overflow-x-hidden min-h-0">
+                  <EducationalPanel compact={true} />
+                </div>
               </div>
             </ComponentErrorBoundary>
           </div>
