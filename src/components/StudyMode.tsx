@@ -5,6 +5,7 @@ import { GameModeConfig } from './GameModeSelector';
 import StudyModeMap from './StudyModeMap';
 import { storage } from '../services/storage';
 import { REGION_COLORS } from '../constants/regionColors';
+import { getMemoryAid } from '../data/memoryAids';
 
 interface StudyModeProps {
   onClose: () => void;
@@ -415,31 +416,75 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                   </p>
                 </div>
 
-                {/* Memory Aids */}
+                {/* Enhanced Memory Aids */}
                 <div className="bg-white p-4 rounded-lg shadow">
                   <h4 className="font-semibold text-gray-700 mb-3 flex items-center gap-2">
                     <span className="text-xl">🧠</span> Trucos para Recordar
                   </h4>
-                  <ul className="text-sm text-gray-600 space-y-2">
-                    <li className="flex items-start gap-2">
-                      <span className="text-blue-500">•</span>
-                      <span>Primera letra: <span className="font-bold text-lg">{selectedDepartment.name[0]}</span></span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-blue-500">•</span>
-                      <span>Región: <span className="font-semibold">{selectedDepartment.region}</span></span>
-                    </li>
-                    {selectedDepartment.name.includes(' ') && (
-                      <li className="flex items-start gap-2">
-                        <span className="text-blue-500">•</span>
-                        <span>Es un nombre compuesto</span>
-                      </li>
-                    )}
-                    <li className="flex items-start gap-2">
-                      <span className="text-blue-500">•</span>
-                      <span>Capital empieza con: <span className="font-bold">{selectedDepartment.capital[0]}</span></span>
-                    </li>
-                  </ul>
+                  {(() => {
+                    const memoryAid = getMemoryAid(selectedDepartment.name);
+                    if (memoryAid) {
+                      return (
+                        <div className="space-y-3">
+                          {/* Visual Association */}
+                          <div className="bg-blue-50 p-3 rounded-lg">
+                            <h5 className="font-semibold text-blue-800 text-sm mb-1">Asociación Visual:</h5>
+                            <p className="text-sm text-blue-700">{memoryAid.visualAssociation}</p>
+                          </div>
+
+                          {/* Geographic Trick */}
+                          <div className="bg-green-50 p-3 rounded-lg">
+                            <h5 className="font-semibold text-green-800 text-sm mb-1">Ubicación Geográfica:</h5>
+                            <p className="text-sm text-green-700">{memoryAid.geographicTrick}</p>
+                          </div>
+
+                          {/* Cultural Fact */}
+                          <div className="bg-purple-50 p-3 rounded-lg">
+                            <h5 className="font-semibold text-purple-800 text-sm mb-1">Dato Cultural Memorable:</h5>
+                            <p className="text-sm text-purple-700">{memoryAid.culturalFact}</p>
+                          </div>
+
+                          {/* Mnemonic */}
+                          <div className="bg-orange-50 p-3 rounded-lg">
+                            <h5 className="font-semibold text-orange-800 text-sm mb-1">Mnemotécnica:</h5>
+                            <p className="text-sm text-orange-700 font-mono">{memoryAid.mnemonic}</p>
+                          </div>
+
+                          {/* Rhyme if available */}
+                          {memoryAid.rhyme && (
+                            <div className="bg-pink-50 p-3 rounded-lg">
+                              <h5 className="font-semibold text-pink-800 text-sm mb-1">Rima:</h5>
+                              <p className="text-sm text-pink-700 italic">"{memoryAid.rhyme}"</p>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    }
+
+                    // Fallback to basic memory aids if no enhanced aid is available
+                    return (
+                      <ul className="text-sm text-gray-600 space-y-2">
+                        <li className="flex items-start gap-2">
+                          <span className="text-blue-500">•</span>
+                          <span>Primera letra: <span className="font-bold text-lg">{selectedDepartment.name[0]}</span></span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-blue-500">•</span>
+                          <span>Región: <span className="font-semibold">{selectedDepartment.region}</span></span>
+                        </li>
+                        {selectedDepartment.name.includes(' ') && (
+                          <li className="flex items-start gap-2">
+                            <span className="text-blue-500">•</span>
+                            <span>Es un nombre compuesto</span>
+                          </li>
+                        )}
+                        <li className="flex items-start gap-2">
+                          <span className="text-blue-500">•</span>
+                          <span>Capital empieza con: <span className="font-bold">{selectedDepartment.capital[0]}</span></span>
+                        </li>
+                      </ul>
+                    );
+                  })()}
                 </div>
               </div>
             ) : (
