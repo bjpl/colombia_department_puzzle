@@ -180,6 +180,59 @@ export const HIGH_CONTRAST_COLORS = {
 // Colorblind simulation modes
 export type ColorblindMode = 'normal' | 'protanopia' | 'deuteranopia' | 'tritanopia' | 'monochrome';
 
+// Colorblind-safe palettes for different vision types
+export const COLORBLIND_PALETTES: Record<ColorblindMode, Record<string, string>> = {
+  normal: {
+    'Andina': '#059669',      // Emerald
+    'Caribe': '#0EA5E9',      // Sky blue
+    'Pacífica': '#A855F7',    // Purple
+    'Orinoquía': '#F97316',   // Orange
+    'Amazonía': '#14B8A6',    // Teal
+    'Insular': '#06B6D4',     // Cyan
+    'default': '#6B7280'       // Gray
+  },
+  protanopia: {
+    // Red-blind palette (avoids red-green confusion)
+    'Andina': '#0284C7',      // Blue
+    'Caribe': '#0EA5E9',      // Sky blue
+    'Pacífica': '#7C3AED',    // Violet
+    'Orinoquía': '#F59E0B',   // Amber
+    'Amazonía': '#14B8A6',    // Teal
+    'Insular': '#06B6D4',     // Cyan
+    'default': '#6B7280'       // Gray
+  },
+  deuteranopia: {
+    // Green-blind palette (avoids red-green confusion)
+    'Andina': '#2563EB',      // Blue
+    'Caribe': '#0EA5E9',      // Sky blue
+    'Pacífica': '#9333EA',    // Purple
+    'Orinoquía': '#F59E0B',   // Amber
+    'Amazonía': '#06B6D4',    // Cyan
+    'Insular': '#3B82F6',     // Blue
+    'default': '#6B7280'       // Gray
+  },
+  tritanopia: {
+    // Blue-blind palette (avoids blue-yellow confusion)
+    'Andina': '#DC2626',      // Red
+    'Caribe': '#059669',      // Green
+    'Pacífica': '#DB2777',    // Pink
+    'Orinoquía': '#EA580C',   // Orange
+    'Amazonía': '#059669',    // Green
+    'Insular': '#0D9488',     // Teal
+    'default': '#6B7280'       // Gray
+  },
+  monochrome: {
+    // Grayscale for complete color-blindness
+    'Andina': '#2D2D2D',
+    'Caribe': '#4A4A4A',
+    'Pacífica': '#666666',
+    'Orinoquía': '#808080',
+    'Amazonía': '#999999',
+    'Insular': '#B3B3B3',
+    'default': '#6B7280'
+  }
+};
+
 // Helper function to get appropriate colors based on mode
 export function getRegionColor(region: string, mode: ColorblindMode = 'normal'): ColorScheme {
   if (mode === 'monochrome') {
