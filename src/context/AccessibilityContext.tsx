@@ -77,8 +77,8 @@ export function AccessibilityProvider({ children }: AccessibilityProviderProps) 
     let color: string;
 
     if (highContrast) {
-      // Use high contrast colors
-      color = HIGH_CONTRAST_COLORS[region] || HIGH_CONTRAST_COLORS.default;
+      // Use high contrast colors - note the nested structure
+      color = HIGH_CONTRAST_COLORS.regions[region] || HIGH_CONTRAST_COLORS.regions['Andina'] || '#000000';
     } else if (colorMode !== 'normal') {
       // Use colorblind-safe palette
       const palette = COLORBLIND_PALETTES[colorMode];

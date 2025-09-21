@@ -164,6 +164,7 @@ export const HIGH_CONTRAST_COLORS = {
     'Andina': '#000000',      // Black
     'Caribe': '#FFFFFF',      // White with black border
     'Pacífica': '#000080',    // Navy
+    'Pacífico': '#000080',    // Navy (alias for consistency)
     'Orinoquía': '#FFD700',   // Gold with black text
     'Amazonía': '#008000',    // Green
     'Insular': '#00FFFF'      // Cyan with black text

@@ -16,14 +16,13 @@ function DraggableChip({ department }: { department: Department }) {
   // Dynamic background color based on accessibility settings
   const backgroundColor = getRegionColor(department.region);
 
-  // Simplified style - always apply background color
-  const style = {
+  // Style for dragging and normal state
+  const style = transform ? {
+    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+    zIndex: 9999,
     backgroundColor: backgroundColor,
-    ...(transform ? {
-      transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-      zIndex: 9999,
-      position: 'fixed' as const,
-    } : {})
+  } : {
+    backgroundColor: backgroundColor,
   };
 
   // Simplified color classes to avoid conflicts
