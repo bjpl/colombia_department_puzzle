@@ -38,6 +38,14 @@ function DraggableChip({ department }: { department: Department }) {
     ? needsLightText(backgroundColor) ? 'text-white' : 'text-black'
     : colorMode !== 'normal' ? 'text-white' : 'text-gray-800';
 
+  // Prevent keyboard events from triggering drag
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    // Don't let Enter/Space trigger drag
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.stopPropagation();
+    }
+  };
+
   return (
     <div
       ref={setNodeRef}
@@ -57,8 +65,9 @@ function DraggableChip({ department }: { department: Department }) {
       aria-label={`Arrastra ${department.name} al mapa. Capital: ${department.capital}, Región: ${department.region}`}
       aria-grabbed={isDragging}
       data-department-id={department.id}
+      onKeyDown={handleKeyDown}
     >
-      <span className="text-[11px] font-bold truncate max-w-[80px]">
+      <span className="text-[11px] font-bold truncate" style={{ maxWidth: '75px' }}>
         {department.name}
       </span>
     </div>
@@ -76,6 +85,13 @@ function DraggableDepartment({ department, compact = false }: { department: Depa
     transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
     zIndex: 9999,
   } : undefined;
+
+  // Prevent keyboard events from triggering drag
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.stopPropagation();
+    }
+  };
 
   return (
     <div
@@ -97,6 +113,7 @@ function DraggableDepartment({ department, compact = false }: { department: Depa
       aria-grabbed={isDragging}
       aria-describedby={`hint-${department.id}`}
       data-department-id={department.id}
+      onKeyDown={handleKeyDown}
     >
       {/* Drag indicator */}
       <div className="absolute top-1 right-1 opacity-30 group-hover:opacity-70 transition-opacity">
@@ -186,14 +203,14 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
   // Ultra-compact layout for maximum map space
   if (layout === 'ultra-compact') {
     return (
-      <div className="p-1" role="region" aria-label="Departamentos disponibles para colocar">
+      <div role="region" aria-label="Departamentos disponibles para colocar">
         {/* Tiny chips grouped by region */}
         {Object.entries(regionGroups).map(([region, depts], index) => (
           <div key={region} className={index > 0 ? "mt-2" : ""}>
-            <h4 className="text-[10px] font-semibold text-gray-500 uppercase px-0.5 mb-1" id={`ultra-region-${region}`}>
+            <h4 className="text-[10px] font-semibold text-gray-500 uppercase px-1 mb-1" id={`ultra-region-${region}`}>
               {region}
             </h4>
-            <div className="flex flex-wrap gap-1" role="group" aria-labelledby={`ultra-region-${region}`}>
+            <div className="flex flex-wrap gap-1 px-1" role="group" aria-labelledby={`ultra-region-${region}`}>
               {depts.map(department => (
                 <DraggableChip
                   key={department.id}
