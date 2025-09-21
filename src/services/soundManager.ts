@@ -28,6 +28,7 @@ class SoundManager {
   private gainNode: GainNode | null = null;
   private enabled: boolean = true;
   private masterVolume: number = 0.5;
+  private initialized: boolean = false;
 
   private constructor() {
     // Initialize from localStorage settings
@@ -51,7 +52,8 @@ class SoundManager {
    * Must be called after user interaction due to browser autoplay policies
    */
   public async init(): Promise<void> {
-    if (this.audioContext) return;
+    if (this.audioContext || this.initialized) return;
+    this.initialized = true;
 
     try {
       this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -64,7 +66,55 @@ class SoundManager {
     } catch (error) {
       console.warn('Audio initialization failed:', error);
       this.enabled = false;
+      this.initialized = false;
     }
+  }
+
+  /**
+   * Check if sound is enabled
+   */
+  public isEnabled(): boolean {
+    return this.enabled;
+  }
+
+  /**
+   * Enable or disable sound
+   */
+  public setEnabled(enabled: boolean): void {
+    this.enabled = enabled;
+    this.saveSettings();
+    if (enabled && !this.initialized) {
+      this.init();
+    }
+  }
+
+  /**
+   * Get master volume level
+   */
+  public getMasterVolume(): number {
+    return this.masterVolume;
+  }
+
+  /**
+   * Set master volume level
+   */
+  public setMasterVolume(volume: number): void {
+    this.masterVolume = Math.max(0, Math.min(1, volume));
+    if (this.gainNode) {
+      this.gainNode.gain.value = this.masterVolume;
+    }
+    this.saveSettings();
+  }
+
+  /**
+   * Save sound settings to localStorage
+   */
+  private saveSettings(): void {
+    const settings = {
+      enabled: this.enabled,
+      volume: this.masterVolume
+    };
+    localStorage.setItem('soundSettings', JSON.stringify(settings));
   }
 
   /**
