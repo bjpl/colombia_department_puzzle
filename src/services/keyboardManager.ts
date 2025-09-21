@@ -104,6 +104,9 @@ class KeyboardManager {
         e.preventDefault();
       }
 
+      // Log for debugging
+      console.log(`Keyboard shortcut triggered: ${shortcut.action} (${shortcut.key})`);
+
       // Dispatch action
       window.dispatchEvent(new CustomEvent('keyboard-action', {
         detail: { action: shortcut.action, key: e.key, event: e }

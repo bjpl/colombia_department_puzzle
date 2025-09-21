@@ -25,12 +25,16 @@ import { storage } from '../services/storage';
 import { useModalManager } from '../hooks/useModalManager';
 import { useGameTimer } from '../hooks/useGameTimer';
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
+import { keyboardManager } from '../services/keyboardManager';
 
 export default function GameContainer() {
   const game = useGame();
   const modal = useModalManager();
   const timer = useGameTimer();
   const sound = useSoundEffect();
+
+  // Initialize keyboard navigation - THIS IS CRITICAL!
+  const keyboardNav = useKeyboardNavigation();
   const [placementFeedback, setPlacementFeedback] = useState({
     show: false,
     isCorrect: false,

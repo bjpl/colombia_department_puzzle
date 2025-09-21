@@ -1,11 +1,19 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
 import GameContainer from './components/GameContainer';
 import { GameProvider } from './context/GameContext';
 import { AccessibilityProvider } from './context/AccessibilityContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import MobileBanner from './components/MobileBanner';
+import { keyboardManager } from './services/keyboardManager';
 
 function App() {
+  useEffect(() => {
+    // Initialize keyboard manager - singleton ensures it's only done once
+    keyboardManager.setEnabled(true);
+    console.log('Keyboard shortcuts initialized');
+  }, []);
+
   return (
     <ErrorBoundary>
       <BrowserRouter basename="/colombia_department_puzzle">
