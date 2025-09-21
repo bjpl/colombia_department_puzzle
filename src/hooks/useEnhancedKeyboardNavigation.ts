@@ -29,7 +29,7 @@ export function useEnhancedKeyboardNavigation() {
   });
 
   const availableDepartmentsRef = useRef<Department[]>([]);
-  const moveSpeed = useRef({ normal: 15, fast: 40, precision: 5 });
+  const moveSpeed = { normal: 15, fast: 40, precision: 5 }; // No need for ref, constant values
   const animationFrameRef = useRef<number | null>(null);
 
   // Update available departments
@@ -88,6 +88,37 @@ export function useEnhancedKeyboardNavigation() {
         return;
       }
 
+      // PRIORITY: If we're in moving mode and using arrow keys, handle it here first
+      if (navState.mode === 'moving' && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation(); // Stop ALL other handlers
+
+        const { shiftKey, ctrlKey } = e;
+        const speed = ctrlKey
+          ? moveSpeed.precision
+          : shiftKey
+            ? moveSpeed.fast
+            : moveSpeed.normal;
+
+        let newX = navState.cursorPosition.x;
+        let newY = navState.cursorPosition.y;
+
+        switch (e.key) {
+          case 'ArrowUp': newY -= speed; break;
+          case 'ArrowDown': newY += speed; break;
+          case 'ArrowLeft': newX -= speed; break;
+          case 'ArrowRight': newX += speed; break;
+        }
+
+        // Constrain to viewport
+        newX = Math.max(50, Math.min(window.innerWidth - 50, newX));
+        newY = Math.max(50, Math.min(window.innerHeight - 50, newY));
+
+        animateMovement(newX, newY);
+        return; // Exit early - we've handled this
+      }
+
       const { key, shiftKey, ctrlKey } = e;
 
       // Tab navigation through departments - let browser handle it naturally
@@ -126,8 +157,8 @@ export function useEnhancedKeyboardNavigation() {
                 lastMousePosition: { x: 0, y: 0 }
               });
 
-              // Don't call game.selectDepartment as it triggers drag-and-drop
-              // We're handling keyboard navigation separately
+              // Set the current department in game context for proper placement
+              game.selectDepartment(department);
               announceToScreenReader(`${department.name} levantado. Use las flechas para mover. Enter para colocar.`);
             }
           }
@@ -177,32 +208,7 @@ export function useEnhancedKeyboardNavigation() {
         return;
       }
 
-      // Arrow key movement
-      if (navState.mode === 'moving' && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(key)) {
-        e.preventDefault();
-
-        const speed = ctrlKey
-          ? moveSpeed.current.precision
-          : shiftKey
-            ? moveSpeed.current.fast
-            : moveSpeed.current.normal;
-
-        let newX = navState.cursorPosition.x;
-        let newY = navState.cursorPosition.y;
-
-        switch (key) {
-          case 'ArrowUp': newY -= speed; break;
-          case 'ArrowDown': newY += speed; break;
-          case 'ArrowLeft': newX -= speed; break;
-          case 'ArrowRight': newX += speed; break;
-        }
-
-        // Constrain to viewport
-        newX = Math.max(50, Math.min(window.innerWidth - 50, newX));
-        newY = Math.max(50, Math.min(window.innerHeight - 50, newY));
-
-        animateMovement(newX, newY);
-      }
+      // Arrow key movement is now handled at the top of the function for priority
 
       // Number keys for quick region focus
       if (/^[1-6]$/.test(key) && navState.mode !== 'moving') {
@@ -248,11 +254,12 @@ export function useEnhancedKeyboardNavigation() {
       }));
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    // Use capture phase for arrow keys to intercept before any bubbling handlers
+    window.addEventListener('keydown', handleKeyDown, true); // true = capture phase
     window.addEventListener('mousemove', handleMouseMove);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown, true); // Match capture phase
       window.removeEventListener('mousemove', handleMouseMove);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
