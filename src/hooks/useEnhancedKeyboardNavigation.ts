@@ -22,7 +22,7 @@ export function useEnhancedKeyboardNavigation() {
   const [navState, setNavState] = useState<NavigationState>({
     mode: 'idle',
     selectedDepartment: null,
-    focusedIndex: 0,
+    focusedIndex: -1, // Start with -1 so first Tab goes to index 0
     cursorPosition: { x: window.innerWidth / 2, y: window.innerHeight / 2 },
     targetZone: null,
     lastMousePosition: { x: 0, y: 0 }
@@ -96,9 +96,11 @@ export function useEnhancedKeyboardNavigation() {
         const departments = availableDepartmentsRef.current;
         if (departments.length === 0) return;
 
+        // If no index set yet, start at 0 (first department)
+        const currentIndex = navState.focusedIndex === -1 ? -1 : navState.focusedIndex;
         const newIndex = shiftKey
-          ? (navState.focusedIndex - 1 + departments.length) % departments.length
-          : (navState.focusedIndex + 1) % departments.length;
+          ? currentIndex <= 0 ? departments.length - 1 : currentIndex - 1
+          : currentIndex >= departments.length - 1 ? 0 : currentIndex + 1;
 
         setNavState(prev => ({ ...prev, focusedIndex: newIndex, mode: 'selecting' }));
 

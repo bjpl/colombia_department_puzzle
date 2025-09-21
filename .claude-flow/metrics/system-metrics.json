@@ -1,77 +1,5 @@
 [
   {
-    "timestamp": 1758411114943,
-    "memoryTotal": 68125028352,
-    "memoryUsed": 25085095936,
-    "memoryFree": 43039932416,
-    "memoryUsagePercent": 36.822143847612146,
-    "memoryEfficiency": 63.177856152387854,
-    "cpuCount": 22,
-    "cpuLoad": 0,
-    "platform": "win32",
-    "uptime": 92955.031
-  },
-  {
-    "timestamp": 1758411144957,
-    "memoryTotal": 68125028352,
-    "memoryUsed": 25049849856,
-    "memoryFree": 43075178496,
-    "memoryUsagePercent": 36.77040650400638,
-    "memoryEfficiency": 63.22959349599362,
-    "cpuCount": 22,
-    "cpuLoad": 0,
-    "platform": "win32",
-    "uptime": 92985.046
-  },
-  {
-    "timestamp": 1758411174959,
-    "memoryTotal": 68125028352,
-    "memoryUsed": 25038655488,
-    "memoryFree": 43086372864,
-    "memoryUsagePercent": 36.75397441102851,
-    "memoryEfficiency": 63.24602558897149,
-    "cpuCount": 22,
-    "cpuLoad": 0,
-    "platform": "win32",
-    "uptime": 93015.046
-  },
-  {
-    "timestamp": 1758411204960,
-    "memoryTotal": 68125028352,
-    "memoryUsed": 24959139840,
-    "memoryFree": 43165888512,
-    "memoryUsagePercent": 36.63725424235696,
-    "memoryEfficiency": 63.36274575764304,
-    "cpuCount": 22,
-    "cpuLoad": 0,
-    "platform": "win32",
-    "uptime": 93045.046
-  },
-  {
-    "timestamp": 1758411234959,
-    "memoryTotal": 68125028352,
-    "memoryUsed": 24987328512,
-    "memoryFree": 43137699840,
-    "memoryUsagePercent": 36.678632092292446,
-    "memoryEfficiency": 63.321367907707554,
-    "cpuCount": 22,
-    "cpuLoad": 0,
-    "platform": "win32",
-    "uptime": 93075.046
-  },
-  {
-    "timestamp": 1758411264967,
-    "memoryTotal": 68125028352,
-    "memoryUsed": 25111658496,
-    "memoryFree": 43013369856,
-    "memoryUsagePercent": 36.861134745146536,
-    "memoryEfficiency": 63.138865254853464,
-    "cpuCount": 22,
-    "cpuLoad": 0,
-    "platform": "win32",
-    "uptime": 93105.046
-  },
-  {
     "timestamp": 1758411294969,
     "memoryTotal": 68125028352,
     "memoryUsed": 24967897088,
@@ -15790,5 +15718,77 @@
     "cpuLoad": 0,
     "platform": "win32",
     "uptime": 179329.734
+  },
+  {
+    "timestamp": 1758497519664,
+    "memoryTotal": 68125028352,
+    "memoryUsed": 31956881408,
+    "memoryFree": 36168146944,
+    "memoryUsagePercent": 46.90916419568993,
+    "memoryEfficiency": 53.09083580431007,
+    "cpuCount": 22,
+    "cpuLoad": 0,
+    "platform": "win32",
+    "uptime": 179359.75
+  },
+  {
+    "timestamp": 1758497549665,
+    "memoryTotal": 68125028352,
+    "memoryUsed": 31880876032,
+    "memoryFree": 36244152320,
+    "memoryUsagePercent": 46.79759671771799,
+    "memoryEfficiency": 53.20240328228201,
+    "cpuCount": 22,
+    "cpuLoad": 0,
+    "platform": "win32",
+    "uptime": 179389.75
+  },
+  {
+    "timestamp": 1758497579680,
+    "memoryTotal": 68125028352,
+    "memoryUsed": 32205885440,
+    "memoryFree": 35919142912,
+    "memoryUsagePercent": 47.27467454926131,
+    "memoryEfficiency": 52.72532545073869,
+    "cpuCount": 22,
+    "cpuLoad": 0,
+    "platform": "win32",
+    "uptime": 179419.765
+  },
+  {
+    "timestamp": 1758497609692,
+    "memoryTotal": 68125028352,
+    "memoryUsed": 31931318272,
+    "memoryFree": 36193710080,
+    "memoryUsagePercent": 46.87164034194867,
+    "memoryEfficiency": 53.12835965805133,
+    "cpuCount": 22,
+    "cpuLoad": 0,
+    "platform": "win32",
+    "uptime": 179449.781
+  },
+  {
+    "timestamp": 1758497639699,
+    "memoryTotal": 68125028352,
+    "memoryUsed": 32166400000,
+    "memoryFree": 35958628352,
+    "memoryUsagePercent": 47.21671429448391,
+    "memoryEfficiency": 52.78328570551609,
+    "cpuCount": 22,
+    "cpuLoad": 0,
+    "platform": "win32",
+    "uptime": 179479.781
+  },
+  {
+    "timestamp": 1758497669713,
+    "memoryTotal": 68125028352,
+    "memoryUsed": 32125046784,
+    "memoryFree": 35999981568,
+    "memoryUsagePercent": 47.156012351306245,
+    "memoryEfficiency": 52.843987648693755,
+    "cpuCount": 22,
+    "cpuLoad": 0,
+    "platform": "win32",
+    "uptime": 179509.796
   }
 ]

@@ -176,12 +176,26 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
     regionGroups[dept.region].push(dept);
   });
 
+  // Define logical region order (alphabetical)
+  const regionOrder = ['Amazonía', 'Andina', 'Caribe', 'Insular', 'Orinoquía', 'Pacífico'];
+
+  // Sort regions according to defined order
+  const sortedRegionEntries = Object.entries(regionGroups).sort((a, b) => {
+    const indexA = regionOrder.indexOf(a[0]);
+    const indexB = regionOrder.indexOf(b[0]);
+    // If not in order list, sort alphabetically
+    if (indexA === -1 && indexB === -1) return a[0].localeCompare(b[0]);
+    if (indexA === -1) return 1;
+    if (indexB === -1) return -1;
+    return indexA - indexB;
+  });
+
   // Compact chip layout for minimal space usage
   if (layout === 'compact') {
     return (
       <div className="space-y-3" role="region" aria-label="Departamentos disponibles para colocar">
         {/* Region groups with compact chips */}
-        {Object.entries(regionGroups).map(([region, depts]) => (
+        {sortedRegionEntries.map(([region, depts]) => (
           <div key={region} className="space-y-1.5">
             <h4 className="text-xs font-semibold text-gray-600 uppercase tracking-wide px-1" id={`region-${region}`}>
               {region} ({depts.length})
@@ -205,7 +219,7 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
     return (
       <div role="region" aria-label="Departamentos disponibles para colocar">
         {/* Tiny chips grouped by region */}
-        {Object.entries(regionGroups).map(([region, depts], index) => (
+        {sortedRegionEntries.map(([region, depts], index) => (
           <div key={region} className={index > 0 ? "mt-2" : ""}>
             <h4 className="text-[10px] font-semibold text-gray-500 uppercase px-1 mb-1" id={`ultra-region-${region}`}>
               {region}
@@ -238,7 +252,7 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
         </div>
 
         {/* Departments by region */}
-        {Object.entries(regionGroups).map(([region, depts]) => (
+        {sortedRegionEntries.map(([region, depts]) => (
           <div key={region} className="space-y-2">
             <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide" id={`vert-region-${region}`}>
               {region}
