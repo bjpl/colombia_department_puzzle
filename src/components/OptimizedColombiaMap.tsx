@@ -120,7 +120,7 @@ export default function OptimizedColombiaMap() {
   const [showRegionColors, setShowRegionColors] = useState(false); // New state for region colors
   const svgRef = useRef<SVGSVGElement>(null);
   const game = useGame();
-  const isDragging = game.currentDepartment !== null;
+  const isDragging = game.isDraggingDepartment; // Use the actual dragging state
 
   useEffect(() => {
     loadGeoDataProgressive();

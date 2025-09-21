@@ -43,12 +43,9 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
           isOpen={showHintModal}
           onClose={() => {
             setShowHintModal(false);
-            // Clear current department when closing hint modal to restore pan functionality
+            // Always clear current department when closing hint modal to restore pan functionality
             // This ensures the map doesn't think we're still dragging
-            if (currentHintLevel >= 3) {
-              // After viewing all 3 hints, clear selection to enable panning
-              game.clearCurrentDepartment();
-            }
+            game.clearCurrentDepartment();
           }}
           departmentName={game.currentDepartment.name}
           region={game.currentDepartment.region}

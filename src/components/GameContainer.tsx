@@ -105,6 +105,7 @@ export default function GameContainer() {
     const department = game.departments.find(d => d.id === departmentId);
     if (department) {
       game.selectDepartment(department);
+      game.setIsDragging(true); // Set dragging state to true
       sound.playSound('pickup', 0.5);
     }
     // Store initial position to track if actual dragging occurs
@@ -132,6 +133,9 @@ export default function GameContainer() {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
+
+    // Always clear dragging state when drag ends
+    game.setIsDragging(false);
 
     if (over) {
       // Get the IDs directly - they should now match
@@ -178,7 +182,9 @@ export default function GameContainer() {
 
   const handleDragCancel = () => {
     // User pressed ESC or drag was cancelled
-    // Only clear if actually dragged
+    // Always clear dragging state
+    game.setIsDragging(false);
+    // Only clear selection if actually dragged
     if (hasDraggedDistance) {
       game.clearCurrentDepartment();
     }

@@ -16,6 +16,7 @@ interface GameState {
   departments: Department[];
   placedDepartments: Set<string>;
   currentDepartment: Department | null;
+  isDraggingDepartment: boolean;
   score: number;
   attempts: number;
   hints: number;
@@ -35,6 +36,7 @@ interface GameState {
   placeDepartment: (departmentId: string, correct: boolean) => void;
   selectDepartment: (department: Department) => void;
   clearCurrentDepartment: () => void;
+  setIsDragging: (isDragging: boolean) => void;
   useHint: () => void;
   deductPoints: (points: number) => void;
   resetGame: () => void;
@@ -53,6 +55,7 @@ const useGameStore = create<GameState>((set, get) => ({
   departments: colombiaDepartments,
   placedDepartments: new Set(),
   currentDepartment: null,
+  isDraggingDepartment: false,
   score: 0,
   attempts: 0,
   hints: 3,
@@ -109,7 +112,14 @@ const useGameStore = create<GameState>((set, get) => ({
 
   clearCurrentDepartment: () => {
     set({
-      currentDepartment: null
+      currentDepartment: null,
+      isDraggingDepartment: false
+    });
+  },
+
+  setIsDragging: (isDragging: boolean) => {
+    set({
+      isDraggingDepartment: isDragging
     });
   },
 
@@ -134,6 +144,7 @@ const useGameStore = create<GameState>((set, get) => ({
     set({
       placedDepartments: new Set(),
       currentDepartment: null,
+      isDraggingDepartment: false,
       score: 0,
       attempts: 0,
       hints: safeMode.type === 'progression' ? 5 : 3,
