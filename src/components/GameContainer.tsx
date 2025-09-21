@@ -25,7 +25,9 @@ import { storage } from '../services/storage';
 import { useModalManager } from '../hooks/useModalManager';
 import { useGameTimer } from '../hooks/useGameTimer';
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
+import { useEnhancedKeyboardNavigation } from '../hooks/useEnhancedKeyboardNavigation';
 import { keyboardManager } from '../services/keyboardManager';
+import KeyboardCursor from './KeyboardCursor';
 
 export default function GameContainer() {
   const game = useGame();
@@ -35,6 +37,9 @@ export default function GameContainer() {
 
   // Initialize keyboard navigation - THIS IS CRITICAL!
   const keyboardNav = useKeyboardNavigation();
+
+  // Enhanced keyboard navigation for drag & drop
+  const enhancedNav = useEnhancedKeyboardNavigation();
   const [placementFeedback, setPlacementFeedback] = useState({
     show: false,
     isCorrect: false,
@@ -294,6 +299,14 @@ export default function GameContainer() {
 
         {/* Keyboard Help Overlay */}
         <KeyboardHelp />
+
+        {/* Visual keyboard cursor */}
+        <KeyboardCursor
+          position={enhancedNav.cursorPosition}
+          selectedDepartment={enhancedNav.selectedDepartment}
+          isActive={enhancedNav.isKeyboardMode}
+          targetZone={enhancedNav.targetZone}
+        />
 
         {/* Mode Transition Animation */}
         {showTransition && transitionConfig && (
