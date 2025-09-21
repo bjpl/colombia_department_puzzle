@@ -1,6 +1,5 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { geoMercator, geoPath } from 'd3-geo';
-import colombiaGeoJson from '../data/colombia.geo.json';
 import { normalizeId } from '../utils/nameNormalizer';
 import { REGION_COLORS } from '../constants/regionColors';
 
@@ -17,15 +16,27 @@ export default function MiniDepartmentShape({
   height = 60,
   className = ''
 }: MiniDepartmentShapeProps) {
+  const [geoData, setGeoData] = useState<any>(null);
+
+  useEffect(() => {
+    // Load the GeoJSON data
+    fetch(`${import.meta.env.BASE_URL}data/colombia-departments-ultralight.json`)
+      .then(response => response.json())
+      .then(data => setGeoData(data))
+      .catch(error => console.error('Error loading GeoJSON:', error));
+  }, []);
+
   const departmentFeature = useMemo(() => {
+    if (!geoData) return null;
+
     // Find the feature for this department
     const normalizedSearchName = normalizeId(departmentName);
 
-    return (colombiaGeoJson as any).features.find((feature: any) => {
+    return geoData.features.find((feature: any) => {
       const featureId = normalizeId(feature.properties.NOMBRE_DPT || '');
       return featureId === normalizedSearchName;
     });
-  }, [departmentName]);
+  }, [departmentName, geoData]);
 
   const pathData = useMemo(() => {
     if (!departmentFeature) return null;
