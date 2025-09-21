@@ -1,13 +1,12 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { useGame } from '../context/GameContext';
 import { Department } from '../types/game';
 import { keyboardManager } from '../services/keyboardManager';
-import { SoundManager } from '../services/soundManager';
 
 /**
- * CONCEPT: Advanced Keyboard Navigation System
- * WHY: Essential for accessibility and power users - full keyboard control
- * PATTERN: Integration with centralized keyboard manager for consistent handling
+ * CONCEPT: Keyboard Navigation for Accessibility
+ * WHY: Essential for users who cannot use a mouse
+ * PATTERN: Simple keyboard event handling for game controls
  */
 
 interface KeyboardNavigationState {
@@ -19,7 +18,6 @@ interface KeyboardNavigationState {
 
 export function useKeyboardNavigation() {
   const game = useGame();
-  const sound = SoundManager.getInstance();
   const [navState, setNavState] = useState<KeyboardNavigationState>({
     selectedDepartment: null,
     isMoving: false,
@@ -27,18 +25,14 @@ export function useKeyboardNavigation() {
     targetZone: null,
   });
 
-  const undoStack = useRef<Department[]>([]);
-  const redoStack = useRef<Department[]>([]);
-
   const moveStep = 10; // Pixels to move per arrow key press
   const fastMoveStep = 50; // Pixels to move with Shift+Arrow
-  const precisionMoveStep = 2; // Pixels for precision mode (Ctrl+Arrow)
 
-  // Handle movement actions
-  const handleMovement = useCallback((direction: string, fast: boolean = false, precision: boolean = false) => {
+  // Handle movement
+  const handleMovement = (direction: string, fast: boolean = false) => {
     if (!navState.isMoving || !navState.selectedDepartment) return;
 
-    const step = precision ? precisionMoveStep : (fast ? fastMoveStep : moveStep);
+    const step = fast ? fastMoveStep : moveStep;
     const newPosition = { ...navState.position };
 
     switch (direction) {
@@ -71,47 +65,15 @@ export function useKeyboardNavigation() {
     if (targetZone) {
       announceToScreenReader(`Sobre zona de ${targetZone}`);
     }
-  }, [navState]);
-
-  // Handle undo/redo
-  const handleUndo = useCallback(() => {
-    if (undoStack.current.length > 0) {
-      const lastDepartment = undoStack.current.pop();
-      if (lastDepartment) {
-        redoStack.current.push(lastDepartment);
-        // Remove from placed departments
-        game.placedDepartments.delete(lastDepartment.id);
-        sound.playSound('hint', 0.3);
-        announceToScreenReader(`Acción deshecha: ${lastDepartment.name} removido`);
-      }
-    }
-  }, [game, sound]);
-
-  const handleRedo = useCallback(() => {
-    if (redoStack.current.length > 0) {
-      const department = redoStack.current.pop();
-      if (department) {
-        undoStack.current.push(department);
-        game.placeDepartment(department.id, true);
-        sound.playSound('hint', 0.3);
-        announceToScreenReader(`Acción rehecha: ${department.name} colocado`);
-      }
-    }
-  }, [game, sound]);
+  };
 
   useEffect(() => {
-    // Set keyboard context
-    keyboardManager.setContext(navState.isMoving ? 'game' : 'menu');
-
-    // Register custom handlers for keyboard actions
+    // Handle keyboard actions from the keyboard manager
     const handleKeyboardAction = (e: CustomEvent) => {
       const { action, event } = e.detail;
 
       switch (action) {
-        case 'select':
-        case 'select-alt': {
-          event.preventDefault();
-
+        case 'select': {
           // Check if we're focused on a department in the tray
           const focusedElement = document.activeElement;
           if (focusedElement?.hasAttribute('data-department-id')) {
@@ -127,7 +89,6 @@ export function useKeyboardNavigation() {
                 targetZone: null,
               });
               game.selectDepartment(department);
-              sound.playSound('pickup', 0.5);
               announceToScreenReader(`${department.name} seleccionado. Use las flechas para mover, Enter para colocar, Escape para cancelar.`);
             }
           } else if (navState.isMoving && navState.targetZone) {
@@ -135,11 +96,6 @@ export function useKeyboardNavigation() {
             const isCorrect = navState.selectedDepartment?.id === navState.targetZone;
             if (navState.targetZone && navState.selectedDepartment) {
               game.placeDepartment(navState.targetZone, isCorrect);
-              sound.playSound(isCorrect ? 'correct' : 'incorrect');
-              if (isCorrect) {
-                undoStack.current.push(navState.selectedDepartment);
-                redoStack.current = [];
-              }
               announceToScreenReader(
                 isCorrect
                   ? `¡Correcto! ${navState.selectedDepartment.name} colocado correctamente.`
@@ -159,7 +115,6 @@ export function useKeyboardNavigation() {
 
         case 'cancel': {
           if (navState.isMoving) {
-            event.preventDefault();
             game.clearCurrentDepartment();
             setNavState({
               selectedDepartment: null,
@@ -167,7 +122,6 @@ export function useKeyboardNavigation() {
               position: { x: 0, y: 0 },
               targetZone: null,
             });
-            sound.playSound('drop', 0.3);
             announceToScreenReader('Selección cancelada');
           }
           break;
@@ -175,63 +129,48 @@ export function useKeyboardNavigation() {
 
         // Movement actions
         case 'move-up':
+          handleMovement('up', false);
+          break;
         case 'move-up-fast':
-        case 'move-up-vi':
-        case 'move-up-wasd':
-          handleMovement('up', action.includes('fast'), event.ctrlKey);
+          handleMovement('up', true);
           break;
         case 'move-down':
+          handleMovement('down', false);
+          break;
         case 'move-down-fast':
-        case 'move-down-vi':
-        case 'move-down-wasd':
-          handleMovement('down', action.includes('fast'), event.ctrlKey);
+          handleMovement('down', true);
           break;
         case 'move-left':
+          handleMovement('left', false);
+          break;
         case 'move-left-fast':
-        case 'move-left-vi':
-        case 'move-left-wasd':
-          handleMovement('left', action.includes('fast'), event.ctrlKey);
+          handleMovement('left', true);
           break;
         case 'move-right':
+          handleMovement('right', false);
+          break;
         case 'move-right-fast':
-        case 'move-right-vi':
-        case 'move-right-wasd':
-          handleMovement('right', action.includes('fast'), event.ctrlKey);
+          handleMovement('right', true);
           break;
 
         // Game actions
         case 'hint': {
           if (game.hints > 0 && game.currentDepartment) {
-            event.preventDefault();
             game.useHint();
-            sound.playSound('hint');
             announceToScreenReader(`Pista usada. ${game.hints} pistas restantes.`);
           }
           break;
         }
 
         case 'restart': {
-          event.preventDefault();
           if (confirm('¿Estás seguro de que quieres reiniciar el juego?')) {
-            undoStack.current = [];
-            redoStack.current = [];
             game.resetGame();
-            sound.playSound('star', 0.5);
             announceToScreenReader('Juego reiniciado');
           }
           break;
         }
 
-        case 'undo':
-          handleUndo();
-          break;
-
-        case 'redo':
-          handleRedo();
-          break;
-
         case 'pause': {
-          event.preventDefault();
           if (game.isPaused) {
             game.resumeGame();
             announceToScreenReader('Juego resumido');
@@ -266,25 +205,13 @@ export function useKeyboardNavigation() {
           break;
         }
 
-        // Sound controls
-        case 'mute-toggle': {
-          const newEnabled = !sound.isEnabled();
-          sound.setEnabled(newEnabled);
-          announceToScreenReader(newEnabled ? 'Sonido activado' : 'Sonido desactivado');
-          break;
-        }
-
-        case 'volume-up': {
-          const newVolume = Math.min(1, sound.getMasterVolume() + 0.1);
-          sound.setMasterVolume(newVolume);
-          announceToScreenReader(`Volumen: ${Math.round(newVolume * 100)}%`);
-          break;
-        }
-
-        case 'volume-down': {
-          const newVolume = Math.max(0, sound.getMasterVolume() - 0.1);
-          sound.setMasterVolume(newVolume);
-          announceToScreenReader(`Volumen: ${Math.round(newVolume * 100)}%`);
+        // Sound control
+        case 'mute': {
+          // Toggle mute in sound settings
+          const soundSettings = JSON.parse(localStorage.getItem('soundSettings') || '{}');
+          soundSettings.enabled = !soundSettings.enabled;
+          localStorage.setItem('soundSettings', JSON.stringify(soundSettings));
+          announceToScreenReader(soundSettings.enabled ? 'Sonido activado' : 'Sonido desactivado');
           break;
         }
       }
@@ -294,7 +221,7 @@ export function useKeyboardNavigation() {
     return () => {
       window.removeEventListener('keyboard-action', handleKeyboardAction as EventListener);
     };
-  }, [game, navState, handleMovement, handleUndo, handleRedo, sound]);
+  }, [game, navState]);
 
   // Visual indicator for keyboard navigation mode
   useEffect(() => {

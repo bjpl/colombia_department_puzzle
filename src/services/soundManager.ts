@@ -325,14 +325,6 @@ class SoundManager {
   }
 
   /**
-   * Toggle sound on/off
-   */
-  public setEnabled(enabled: boolean): void {
-    this.enabled = enabled;
-    this.saveSettings();
-  }
-
-  /**
    * Get current sound settings
    */
   public getSettings(): { enabled: boolean; volume: number } {
@@ -340,16 +332,6 @@ class SoundManager {
       enabled: this.enabled,
       volume: this.masterVolume,
     };
-  }
-
-  /**
-   * Save settings to localStorage
-   */
-  private saveSettings(): void {
-    localStorage.setItem('soundSettings', JSON.stringify({
-      enabled: this.enabled,
-      volume: this.masterVolume,
-    }));
   }
 }
 
