@@ -45,44 +45,20 @@ export default function KeyboardCursor({
       }}
       aria-hidden="true"
     >
-      {/* Compact cursor */}
-      <div className="relative">
-        {/* Small animated ring */}
-        <div className="absolute inset-0 -m-4">
-          <div className="w-12 h-12 border-2 border-blue-400 rounded-full animate-ping opacity-30" />
-        </div>
-
-        {/* Target indicator when over a zone - smaller */}
-        {targetZone && (
-          <div className="absolute inset-0 -m-6">
-            <div className={`w-16 h-16 border-2 ${
-              targetZone === selectedDepartment.id
-                ? 'border-green-500'
-                : 'border-red-400'
-            } rounded-full ${showPulse ? 'animate-pulse' : ''}`} />
-          </div>
-        )}
-
-        {/* Minimal department pill */}
-        <div className={`
-          bg-white shadow-lg rounded-md px-2 py-1 border-2
-          ${targetZone === selectedDepartment.id
-            ? 'border-green-500'
-            : targetZone
-              ? 'border-red-400'
-              : 'border-blue-500'
-          }
-          transition-all duration-200
-        `}>
-          <div className="flex items-center gap-1">
-            <span className="text-sm">📍</span>
-            <span className="font-semibold text-xs">{selectedDepartment.name}</span>
-          </div>
-        </div>
-
-        {/* Small crosshair dot */}
-        <div className="absolute" style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
-          <div className="w-2 h-2 bg-blue-600 rounded-full" />
+      {/* Simple floating pill only */}
+      <div className={`
+        bg-white shadow-lg rounded-md px-2 py-1 border-2
+        ${targetZone === selectedDepartment.id
+          ? 'border-green-500'
+          : targetZone
+            ? 'border-red-400'
+            : 'border-blue-500'
+        }
+        transition-all duration-200
+      `}>
+        <div className="flex items-center gap-1">
+          <span className="text-sm">📍</span>
+          <span className="font-semibold text-xs">{selectedDepartment.name}</span>
         </div>
       </div>
 
