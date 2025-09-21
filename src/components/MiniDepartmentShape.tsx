@@ -27,52 +27,64 @@ export default function MiniDepartmentShape({
       .catch(error => console.error('Error loading GeoJSON:', error));
   }, []);
 
-  const departmentFeature = useMemo(() => {
-    if (!geoData) return null;
+  const { pathData, debugInfo } = useMemo(() => {
+    if (!geoData) return { pathData: null, debugInfo: 'No GeoJSON data' };
 
     // Find the feature for this department
     const normalizedSearchName = normalizeId(departmentName);
 
-    return geoData.features.find((feature: any) => {
+    const departmentFeature = geoData.features.find((feature: any) => {
       // The optimized GeoJSON uses "name" property
       const featureName = normalizeId(feature.properties.name || feature.properties.NOMBRE_DPT || '');
       return featureName === normalizedSearchName;
     });
-  }, [departmentName, geoData]);
 
-  const pathData = useMemo(() => {
-    if (!departmentFeature) return null;
+    if (!departmentFeature) {
+      return { pathData: null, debugInfo: `No feature found for ${departmentName}` };
+    }
 
-    // Create a projection centered on this specific department
-    const bounds = getBounds(departmentFeature.geometry);
-    const centerLon = (bounds.minLon + bounds.maxLon) / 2;
-    const centerLat = (bounds.minLat + bounds.maxLat) / 2;
+    try {
+      // Add padding
+      const padding = 5;
+      const effectiveWidth = width - (padding * 2);
+      const effectiveHeight = height - (padding * 2);
 
-    // Calculate scale to fit the department in the small box
-    const lonRange = bounds.maxLon - bounds.minLon;
-    const latRange = bounds.maxLat - bounds.minLat;
+      // Create a projection and fit it to the bounds
+      const projection = geoMercator()
+        .fitSize([effectiveWidth, effectiveHeight], departmentFeature);
 
-    // Add padding
-    const padding = 5;
-    const effectiveWidth = width - (padding * 2);
-    const effectiveHeight = height - (padding * 2);
+      // Adjust translate to account for padding
+      const currentTranslate = projection.translate();
+      projection.translate([
+        currentTranslate[0] + padding,
+        currentTranslate[1] + padding
+      ]);
 
-    // Calculate scale based on the aspect ratio
-    const scale = Math.min(
-      effectiveWidth / lonRange * 100,
-      effectiveHeight / latRange * 100
-    );
+      // Create path generator
+      const pathGenerator = geoPath().projection(projection);
 
-    const projection = geoMercator()
-      .center([centerLon, centerLat])
-      .scale(scale)
-      .translate([width / 2, height / 2]);
+      // Generate the path
+      const path = pathGenerator(departmentFeature);
 
-    const pathGenerator = geoPath().projection(projection);
-    return pathGenerator(departmentFeature);
-  }, [departmentFeature, width, height]);
+      return {
+        pathData: path,
+        debugInfo: `${departmentFeature.properties.name}`
+      };
+    } catch (error) {
+      console.error('Error generating path for', departmentName, error);
+      return { pathData: null, debugInfo: `Error: ${error}` };
+    }
+  }, [geoData, departmentName, width, height]);
 
-  if (!departmentFeature || !pathData) {
+  // Get the region color from our department data
+  const department = colombiaDepartments.find(d =>
+    normalizeId(d.name) === normalizeId(departmentName)
+  );
+  const region = department?.region || '';
+  const fillColor = REGION_COLORS[region] || '#e5e7eb';
+
+  // Show loading or error state
+  if (!pathData) {
     return (
       <div className={`inline-block ${className}`} style={{ width, height }}>
         <svg width={width} height={height}>
@@ -94,22 +106,15 @@ export default function MiniDepartmentShape({
             fontSize="10"
             fill="#9ca3af"
           >
-            ?
+            {!geoData ? '...' : '?'}
           </text>
         </svg>
       </div>
     );
   }
 
-  // Get the region color from our department data
-  const department = colombiaDepartments.find(d =>
-    normalizeId(d.name) === normalizeId(departmentName)
-  );
-  const region = department?.region || '';
-  const fillColor = REGION_COLORS[region] || '#e5e7eb';
-
   return (
-    <div className={`inline-block ${className}`} style={{ width, height }}>
+    <div className={`inline-block ${className}`} style={{ width, height }} title={debugInfo}>
       <svg
         width={width}
         height={height}
@@ -139,36 +144,4 @@ export default function MiniDepartmentShape({
       </svg>
     </div>
   );
-}
-
-// Helper function to get bounds of a geometry
-function getBounds(geometry: any): { minLon: number, maxLon: number, minLat: number, maxLat: number } {
-  let minLon = Infinity;
-  let maxLon = -Infinity;
-  let minLat = Infinity;
-  let maxLat = -Infinity;
-
-  const processCoordinates = (coords: any[]): void => {
-    if (Array.isArray(coords[0]) && typeof coords[0][0] === 'number') {
-      // It's a coordinate pair [lon, lat]
-      const [lon, lat] = coords;
-      minLon = Math.min(minLon, lon);
-      maxLon = Math.max(maxLon, lon);
-      minLat = Math.min(minLat, lat);
-      maxLat = Math.max(maxLat, lat);
-    } else {
-      // It's nested arrays, recurse
-      coords.forEach(processCoordinates);
-    }
-  };
-
-  if (geometry.type === 'Polygon') {
-    geometry.coordinates.forEach(processCoordinates);
-  } else if (geometry.type === 'MultiPolygon') {
-    geometry.coordinates.forEach((polygon: any[]) => {
-      polygon.forEach(processCoordinates);
-    });
-  }
-
-  return { minLon, maxLon, minLat, maxLat };
 }
