@@ -16,19 +16,19 @@ function DraggableChip({ department }: { department: Department }) {
   // Dynamic background color based on accessibility settings
   const backgroundColor = getRegionColor(department.region);
 
-  const style = transform ? {
-    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-    zIndex: 9999,
-  } : {
+  // Simplified style - always apply background color
+  const style = {
     backgroundColor: backgroundColor,
+    ...(transform ? {
+      transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+      zIndex: 9999,
+      position: 'fixed' as const,
+    } : {})
   };
 
-  // Use dynamic color or fallback to Tailwind classes
-  const colorClass = highContrast
-    ? 'text-white border-white hover:bg-gray-800'
-    : colorMode !== 'normal'
-    ? 'text-white border-gray-300 hover:opacity-90'
-    : REGION_TAILWIND_CLASSES[department.region] || 'bg-gray-100 border-gray-300 hover:bg-gray-200';
+  // Simplified color classes to avoid conflicts
+  const borderClass = highContrast ? 'border-white' : 'border-gray-600';
+  const textClass = highContrast || colorMode !== 'normal' ? 'text-white' : 'text-gray-800';
 
   return (
     <div
@@ -38,13 +38,10 @@ function DraggableChip({ department }: { department: Department }) {
       {...attributes}
       className={`
         inline-flex items-center px-2 py-1 rounded-md
-        ${colorMode === 'normal' && !highContrast ? colorClass : ''}
-        ${highContrast ? 'bg-black text-white border-white' : ''}
-        ${colorMode !== 'normal' && !highContrast ? 'border-gray-300' : ''}
+        ${borderClass} ${textClass}
         border-2 cursor-move select-none
-        hover:shadow-md hover:scale-105
         transition-all duration-150
-        ${isDragging ? 'opacity-50 shadow-xl ring-2 ring-blue-400' : ''}
+        ${isDragging ? 'opacity-90' : 'hover:shadow-md hover:scale-105'}
       `}
       title={`${department.name} - Capital: ${department.capital} - Región: ${department.region}`}
       role="button"

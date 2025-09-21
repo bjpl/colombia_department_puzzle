@@ -1,35 +1,36 @@
 import { DragOverlay as DndDragOverlay } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
+import { useAccessibility } from '../context/AccessibilityContext';
 
 export default function DragOverlay() {
   const game = useGame();
+  const { getRegionColor, highContrast, colorMode } = useAccessibility();
 
   if (!game.currentDepartment) {
     return null;
   }
 
-  // Get region color to match the chip being dragged
-  const regionColors: { [key: string]: string } = {
-    'Andina': 'bg-green-100 border-green-400',
-    'Caribe': 'bg-blue-100 border-blue-400',
-    'Pacífica': 'bg-purple-100 border-purple-400',
-    'Orinoquía': 'bg-yellow-100 border-yellow-400',
-    'Amazonía': 'bg-emerald-100 border-emerald-400',
-    'Insular': 'bg-cyan-100 border-cyan-400',
-  };
-
-  const colorClass = regionColors[game.currentDepartment.region] || 'bg-gray-100 border-gray-400';
+  // Use dynamic colors from accessibility context
+  const backgroundColor = getRegionColor(game.currentDepartment.region);
+  const borderClass = highContrast ? 'border-white' : 'border-gray-600';
+  const textClass = highContrast || colorMode !== 'normal' ? 'text-white' : 'text-gray-800';
 
   return (
     <DndDragOverlay>
-      {/* Compact chip-style overlay matching the original chip */}
-      <div className={`
-        inline-flex items-center px-3 py-1 rounded-md
-        ${colorClass}
-        border-2 shadow-2xl cursor-grabbing
-        transform scale-125 opacity-90
-      `}>
-        <span className="text-xs font-semibold text-gray-800">
+      {/* Compact chip-style overlay matching the original chip with accessibility colors */}
+      <div
+        className={`
+          inline-flex items-center px-3 py-1 rounded-md
+          ${borderClass} ${textClass}
+          border-2 shadow-2xl cursor-grabbing
+          transform scale-110
+        `}
+        style={{
+          backgroundColor: backgroundColor,
+          opacity: 0.95,
+        }}
+      >
+        <span className="text-xs font-bold">
           {game.currentDepartment.name}
         </span>
       </div>

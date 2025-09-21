@@ -5,6 +5,7 @@ import { useGame } from '../context/GameContext';
 import { useAccessibility } from '../context/AccessibilityContext';
 import { normalizeId } from '../utils/nameNormalizer';
 import { colombiaDepartments } from '../data/colombiaDepartments';
+import { MODERN_REGION_COLORS } from '../constants/accessibleColors';
 
 interface GeoFeature {
   type: string;
@@ -44,10 +45,11 @@ const DepartmentPath = memo(({
     (d.id === 'san-andres' && normalizeId(feature.properties.name).includes('archipielago'))
   );
 
-  // Recalculate color when colorMode changes
+  // Recalculate color when colorMode changes - avoid passing function as dependency
   const regionColor = useMemo(() => {
-    return department ? getRegionColor(department.region) : '#e5e7eb';
-  }, [department, getRegionColor, colorMode]);
+    if (!department) return '#e5e7eb';
+    return getRegionColor(department.region);
+  }, [department, colorMode, highContrast]); // Use primitive values as dependencies, not the function
 
   const departmentColor = useMemo(() => {
     if (isPlaced) return '#10b981'; // Green for placed
@@ -128,6 +130,7 @@ export default function OptimizedColombiaMap() {
   const [showRegionColors, setShowRegionColors] = useState(false); // New state for region colors
   const svgRef = useRef<SVGSVGElement>(null);
   const game = useGame();
+  const { getRegionColor, colorMode } = useAccessibility(); // Get accessibility context
   const isDragging = game.isDraggingDepartment; // Use the actual dragging state
 
   useEffect(() => {
@@ -319,27 +322,27 @@ export default function OptimizedColombiaMap() {
             <p className="text-xs font-semibold text-gray-700 mb-2">Regiones de Colombia:</p>
             <div className="grid grid-cols-2 gap-1 text-xs">
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: REGION_COLORS['Andina'], opacity: 0.7 }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: getRegionColor('Andina', 0.7) }}></div>
                 <span>Andina</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: REGION_COLORS['Caribe'], opacity: 0.7 }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: getRegionColor('Caribe', 0.7) }}></div>
                 <span>Caribe</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: REGION_COLORS['Pacífico'], opacity: 0.7 }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: getRegionColor('Pacífico', 0.7) }}></div>
                 <span>Pacífico</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: REGION_COLORS['Orinoquía'], opacity: 0.7 }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: getRegionColor('Orinoquía', 0.7) }}></div>
                 <span>Orinoquía</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: REGION_COLORS['Amazonía'], opacity: 0.7 }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: getRegionColor('Amazonía', 0.7) }}></div>
                 <span>Amazonía</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: REGION_COLORS['Insular'], opacity: 0.7 }}></div>
+                <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: getRegionColor('Insular', 0.7) }}></div>
                 <span>Insular</span>
               </div>
             </div>
