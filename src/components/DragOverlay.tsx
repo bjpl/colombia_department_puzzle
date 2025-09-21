@@ -6,7 +6,8 @@ export default function DragOverlay() {
   const game = useGame();
   const { getRegionColor, highContrast, colorMode } = useAccessibility();
 
-  if (!game.currentDepartment) {
+  // Only show for mouse dragging, not keyboard navigation
+  if (!game.currentDepartment || !game.isDraggingDepartment) {
     return null;
   }
 

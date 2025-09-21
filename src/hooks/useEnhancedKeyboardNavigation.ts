@@ -143,10 +143,13 @@ export function useEnhancedKeyboardNavigation() {
             const department = game.departments.find(d => d.id === deptId);
             if (department && !game.placedDepartments.has(department.id)) {
 
-              // Calculate initial position near the element
-              const rect = e.target.getBoundingClientRect();
-              const startX = rect.left + rect.width / 2;
-              const startY = rect.top + rect.height / 2;
+              // Start cursor closer to the map center, not at the department
+              // Map is roughly in the center of the viewport
+              const mapCenterX = window.innerWidth / 2;
+              const mapCenterY = window.innerHeight / 2;
+              // Start slightly to the left of center for better visibility
+              const startX = mapCenterX - 100;
+              const startY = mapCenterY;
 
               setNavState({
                 mode: 'moving',
@@ -157,8 +160,8 @@ export function useEnhancedKeyboardNavigation() {
                 lastMousePosition: { x: 0, y: 0 }
               });
 
-              // Set the current department in game context for proper placement
-              game.selectDepartment(department);
+              // Don't use game.selectDepartment as it sets isDragging
+              // We'll handle placement directly when Enter is pressed
               announceToScreenReader(`${department.name} levantado. Use las flechas para mover. Enter para colocar.`);
             }
           }
@@ -167,7 +170,9 @@ export function useEnhancedKeyboardNavigation() {
           const isCorrect = navState.targetZone === navState.selectedDepartment.id;
 
           if (navState.targetZone) {
-            // Pass the selected department's ID, not the target zone
+            // Set current department right before placement
+            game.selectDepartment(navState.selectedDepartment);
+            // Pass the selected department's ID
             game.placeDepartment(navState.selectedDepartment.id, isCorrect);
 
             if (isCorrect) {
