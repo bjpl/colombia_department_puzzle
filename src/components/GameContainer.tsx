@@ -86,6 +86,14 @@ export default function GameContainer() {
     }
   }, [timer.elapsedTime]);
 
+  // Reset timer when game is reset
+  useEffect(() => {
+    // If game elapsed time is 0 but timer is still running or has time, reset the timer
+    if (game.elapsedTime === 0 && !game.isGameStarted && (timer.isRunning || timer.elapsedTime > 0)) {
+      timer.resetTimer();
+    }
+  }, [game.elapsedTime, game.isGameStarted]);
+
   // Check for first-time player and show tutorial
   useEffect(() => {
     const settings = storage.getSettings();
