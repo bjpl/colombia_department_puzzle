@@ -257,14 +257,14 @@ export default function GameContainer() {
 
             {/* Left Sidebar - Ultra-Compact Department Chips */}
             <ComponentErrorBoundary componentName="Department Tray">
-              <div className="w-52 bg-white/90 rounded-lg shadow p-2 flex-shrink-0 flex flex-col h-full">
+              <div className="w-52 bg-white/90 rounded-lg shadow p-2 flex-shrink-0 flex flex-col" style={{ height: 'fit-content', maxHeight: '100%' }}>
                 <h3 className="text-xs font-bold mb-2 bg-white z-10 pb-1 border-b flex items-center justify-between">
                   <span>🧩 Departamentos</span>
                   <span className="text-xs bg-blue-100 px-1.5 py-0.5 rounded-full">
                     {game.departments.filter(d => !game.placedDepartments.has(d.id)).length}
                   </span>
                 </h3>
-                <div className="flex-1 overflow-y-auto overflow-x-hidden min-h-0">
+                <div className="overflow-y-auto overflow-x-hidden" style={{ maxHeight: 'calc(100% - 40px)' }}>
                   <DepartmentTray layout="ultra-compact" />
                 </div>
               </div>

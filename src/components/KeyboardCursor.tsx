@@ -30,6 +30,7 @@ export default function KeyboardCursor({
     }
   }, [targetZone]);
 
+  // Only show cursor for keyboard navigation, not mouse drag
   if (!isActive || !selectedDepartment) {
     return null;
   }

@@ -134,7 +134,8 @@ export function useEnhancedKeyboardNavigation() {
                 lastMousePosition: { x: 0, y: 0 }
               });
 
-              game.selectDepartment(department);
+              // Don't call game.selectDepartment as it triggers drag-and-drop
+              // We're handling keyboard navigation separately
               announceToScreenReader(`${department.name} levantado. Use las flechas para mover. Enter para colocar.`);
             }
           }
@@ -161,7 +162,7 @@ export function useEnhancedKeyboardNavigation() {
             selectedDepartment: null,
             targetZone: null
           }));
-          game.clearCurrentDepartment();
+          // Don't call clearCurrentDepartment as we're not using drag state
         }
         return;
       }
@@ -175,7 +176,7 @@ export function useEnhancedKeyboardNavigation() {
           selectedDepartment: null,
           targetZone: null
         }));
-        game.clearCurrentDepartment();
+        // Don't call clearCurrentDepartment as we're not using drag state
         announceToScreenReader('Selección cancelada');
         return;
       }
