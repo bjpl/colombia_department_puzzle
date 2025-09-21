@@ -2,6 +2,7 @@ import React, { useMemo, useState, useRef } from 'react';
 import * as d3 from 'd3-geo';
 import { Department } from '../data/colombiaDepartments';
 import { normalizeId } from '../utils/nameNormalizer';
+import { useAccessibility } from '../context/AccessibilityContext';
 
 interface StudyModeMapProps {
   selectedDepartment: Department | null;
@@ -23,6 +24,9 @@ export default function StudyModeMap({
   const [isPanning, setIsPanning] = useState(false);
   const [panStart, setPanStart] = useState({ x: 0, y: 0 });
   const svgRef = useRef<SVGSVGElement>(null);
+
+  // Use accessibility context
+  const { getRegionColor, highContrast, reducedMotion } = useAccessibility();
 
   // Simplified Colombia bounds
   const colombiaBounds = {
@@ -83,18 +87,9 @@ export default function StudyModeMap({
     return projection(pos);
   };
 
-  const getRegionColor = (region: string, isSelected: boolean, isStudied: boolean) => {
-    const opacity = isSelected ? '1' : isStudied ? '0.85' : '0.95';
-    // Using modern beautiful colors from the updated palette
-    const colors: Record<string, string> = {
-      'Andina': `rgba(5, 150, 105, ${opacity})`,     // #059669 - Emerald 600
-      'Caribe': `rgba(14, 165, 233, ${opacity})`,    // #0EA5E9 - Sky 500
-      'Pacífica': `rgba(168, 85, 247, ${opacity})`,   // #A855F7 - Purple 500
-      'Orinoquía': `rgba(249, 115, 22, ${opacity})`,  // #F97316 - Orange 500
-      'Amazonía': `rgba(20, 184, 166, ${opacity})`,   // #14B8A6 - Teal 500
-      'Insular': `rgba(6, 182, 212, ${opacity})`,    // #06B6D4 - Cyan 500
-    };
-    return colors[region] || `rgba(156, 163, 175, ${opacity})`;
+  const getDepartmentColor = (region: string, isSelected: boolean, isStudied: boolean) => {
+    const opacity = isSelected ? 1 : isStudied ? 0.85 : 0.95;
+    return getRegionColor(region, opacity);
   };
 
   // Handle zoom with mouse wheel
@@ -195,10 +190,10 @@ export default function StudyModeMap({
                     cy={pos[1]}
                     r="30"
                     fill="none"
-                    stroke={getRegionColor(dept.region, true, false)}
-                    strokeWidth="1"
-                    opacity="0.3"
-                    className="animate-ping"
+                    stroke={getDepartmentColor(dept.region, true, false)}
+                    strokeWidth={highContrast ? "2" : "1"}
+                    opacity={highContrast ? "0.5" : "0.3"}
+                    className={reducedMotion ? '' : 'animate-ping'}
                   />
                   {/* Middle ring */}
                   <circle
@@ -206,17 +201,17 @@ export default function StudyModeMap({
                     cy={pos[1]}
                     r="22"
                     fill="none"
-                    stroke={getRegionColor(dept.region, true, false)}
-                    strokeWidth="2"
+                    stroke={getDepartmentColor(dept.region, true, false)}
+                    strokeWidth={highContrast ? "3" : "2"}
                     strokeDasharray="5,5"
-                    className="animate-pulse"
+                    className={reducedMotion ? '' : 'animate-pulse'}
                   />
                   {/* Inner glow */}
                   <circle
                     cx={pos[0]}
                     cy={pos[1]}
                     r="18"
-                    fill={getRegionColor(dept.region, true, false)}
+                    fill={getDepartmentColor(dept.region, true, false)}
                     opacity="0.2"
                   />
                 </>
@@ -227,17 +222,17 @@ export default function StudyModeMap({
                 cx={pos[0]}
                 cy={pos[1]}
                 r={isSelected ? "16" : "12"}
-                fill={getRegionColor(dept.region, isSelected, isStudied)}
-                stroke={isSelected ? '#fff' : 'rgba(255,255,255,0.5)'}
-                strokeWidth={isSelected ? "3" : "1"}
-                className={`cursor-pointer transition-all duration-300 hover:opacity-90 ${
+                fill={getDepartmentColor(dept.region, isSelected, isStudied)}
+                stroke={highContrast ? '#000' : isSelected ? '#fff' : 'rgba(255,255,255,0.5)'}
+                strokeWidth={highContrast ? "2" : isSelected ? "3" : "1"}
+                className={`cursor-pointer ${reducedMotion ? '' : 'transition-all duration-300'} hover:opacity-90 ${
                   isSelected ? 'drop-shadow-lg' : 'hover:drop-shadow-md'
                 }`}
                 onClick={() => onDepartmentClick(dept)}
                 style={{
                   transform: isSelected ? 'scale(1.3)' : 'scale(1)',
                   transformOrigin: `${pos[0]}px ${pos[1]}px`,
-                  filter: isSelected ? 'drop-shadow(0 0 8px rgba(255,255,255,0.8))' : 'none'
+                  filter: isSelected && !highContrast ? 'drop-shadow(0 0 8px rgba(255,255,255,0.8))' : 'none'
                 }}
               >
                 <title>{dept.name} - {dept.capital}</title>
@@ -249,12 +244,14 @@ export default function StudyModeMap({
                 y={pos[1]}
                 textAnchor="middle"
                 dominantBaseline="central"
-                fill={isSelected ? '#000' : 'white'}
+                fill={highContrast ? '#000' : isSelected ? '#000' : 'white'}
                 fontSize={isSelected ? "11" : "8"}
-                fontWeight={isSelected ? "bold" : "normal"}
+                fontWeight={isSelected || highContrast ? "bold" : "normal"}
                 className="pointer-events-none"
                 style={{
-                  textShadow: isSelected
+                  textShadow: highContrast
+                    ? 'none'
+                    : isSelected
                     ? '0 0 4px rgba(255,255,255,0.9), 1px 1px 2px rgba(255,255,255,0.7)'
                     : '1px 1px 2px rgba(0,0,0,0.5)'
                 }}
@@ -269,8 +266,8 @@ export default function StudyModeMap({
                     cx={pos[0] + 10}
                     cy={pos[1] - 10}
                     r="6"
-                    fill="#10b981"
-                    stroke="white"
+                    fill={highContrast ? '#000' : '#10b981'}
+                    stroke={highContrast ? '#fff' : 'white'}
                     strokeWidth="1"
                   />
                   <text
@@ -279,7 +276,7 @@ export default function StudyModeMap({
                     textAnchor="middle"
                     dominantBaseline="central"
                     fontSize="10"
-                    fill="white"
+                    fill={highContrast ? '#fff' : 'white'}
                     fontWeight="bold"
                   >
                     ✓
@@ -294,8 +291,8 @@ export default function StudyModeMap({
                     width="40"
                     height="16"
                     rx="8"
-                    fill="#1f2937"
-                    opacity="0.9"
+                    fill={highContrast ? '#000' : '#1f2937'}
+                    opacity={highContrast ? '1' : '0.9'}
                   />
                   <text
                     x={pos[0]}
@@ -317,19 +314,45 @@ export default function StudyModeMap({
 
         {/* Legend - outside of transform so it stays in place */}
         <g transform="translate(20, 420)">
-          <rect x="0" y="0" width="560" height="60" fill="rgba(255,255,255,0.95)" rx="5" stroke="#374151" strokeWidth="1" />
-          <text x="10" y="20" fontSize="12" fontWeight="bold" fill="#111827">Regiones:</text>
-          {Object.entries({
-            'Andina': '#059669',     // Emerald 600
-            'Caribe': '#0EA5E9',     // Sky 500
-            'Pacífica': '#A855F7',   // Purple 500
-            'Orinoquía': '#F97316',   // Orange 500
-            'Amazonía': '#14B8A6',    // Teal 500
-            'Insular': '#06B6D4',    // Cyan 500
-          }).map(([region, color], index) => (
+          <rect
+            x="0"
+            y="0"
+            width="560"
+            height="60"
+            fill={highContrast ? '#000' : 'rgba(255,255,255,0.95)'}
+            rx="5"
+            stroke={highContrast ? '#fff' : '#374151'}
+            strokeWidth={highContrast ? '2' : '1'}
+          />
+          <text
+            x="10"
+            y="20"
+            fontSize="12"
+            fontWeight="bold"
+            fill={highContrast ? '#fff' : '#111827'}
+          >
+            Regiones:
+          </text>
+          {['Andina', 'Caribe', 'Pacífica', 'Orinoquía', 'Amazonía', 'Insular'].map((region, index) => (
             <g key={region} transform={`translate(${90 + index * 80}, 10)`}>
-              <circle cx="10" cy="10" r="8" fill={color} stroke="white" strokeWidth="1.5" className="drop-shadow-sm" />
-              <text x="25" y="14" fontSize="11" fill="#111827" fontWeight="500">{region}</text>
+              <circle
+                cx="10"
+                cy="10"
+                r="8"
+                fill={getRegionColor(region)}
+                stroke={highContrast ? '#000' : 'white'}
+                strokeWidth="1.5"
+                className="drop-shadow-sm"
+              />
+              <text
+                x="25"
+                y="14"
+                fontSize="11"
+                fill={highContrast ? '#fff' : '#111827'}
+                fontWeight="500"
+              >
+                {region}
+              </text>
             </g>
           ))}
         </g>
@@ -373,14 +396,14 @@ export default function StudyModeMap({
 
       {/* Zoom indicator */}
       {zoomLevel > 1 && (
-        <div className="absolute top-2 right-2 bg-white px-2 py-1 rounded shadow text-xs">
+        <div className={`absolute top-2 right-2 ${highContrast ? 'bg-black text-white' : 'bg-white'} px-2 py-1 rounded shadow text-xs`}>
           Zoom: {Math.round(zoomLevel * 100)}%
         </div>
       )}
 
       {/* Pan hint */}
       {zoomLevel > 1 && (
-        <div className="absolute bottom-2 left-2 bg-white px-2 py-1 rounded shadow text-xs">
+        <div className={`absolute bottom-2 left-2 ${highContrast ? 'bg-black text-white' : 'bg-white'} px-2 py-1 rounded shadow text-xs`}>
           🖱️ Arrastra para mover el mapa
         </div>
       )}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { ColorblindMode, HIGH_CONTRAST_COLORS } from '../constants/accessibleColors';
+import { ColorblindMode } from '../constants/accessibleColors';
+import { useAccessibility } from '../context/AccessibilityContext';
 
 interface AccessibilitySettingsProps {
   onColorModeChange?: (mode: ColorblindMode) => void;
@@ -14,30 +15,21 @@ export default function AccessibilitySettings({
   onReducedMotionToggle
 }: AccessibilitySettingsProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [colorMode, setColorMode] = useState<ColorblindMode>('normal');
-  const [highContrast, setHighContrast] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
   const [panelPosition, setPanelPosition] = useState({ top: 0, left: 0 });
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
-  // Load saved preferences
-  useEffect(() => {
-    const saved = localStorage.getItem('accessibilitySettings');
-    if (saved) {
-      const settings = JSON.parse(saved);
-      setColorMode(settings.colorMode || 'normal');
-      setHighContrast(settings.highContrast || false);
-      setReducedMotion(settings.reducedMotion || false);
-    }
+  // Use the accessibility context
+  const {
+    colorMode,
+    highContrast,
+    reducedMotion,
+    setColorMode: updateColorMode,
+    setHighContrast: updateHighContrast,
+    setReducedMotion: updateReducedMotion
+  } = useAccessibility();
 
-    // Check system preferences
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const prefersHighContrast = window.matchMedia('(prefers-contrast: high)').matches;
-
-    if (prefersReducedMotion) setReducedMotion(true);
-    if (prefersHighContrast) setHighContrast(true);
-  }, []);
+  // Settings are now managed by the context, no need to load here
 
   // Calculate panel position to avoid viewport edges
   useEffect(() => {
@@ -104,43 +96,22 @@ export default function AccessibilitySettings({
     }
   }, [isOpen]);
 
-  // Save preferences
-  const saveSettings = (settings: any) => {
-    localStorage.setItem('accessibilitySettings', JSON.stringify(settings));
-  };
 
   const handleColorModeChange = (mode: ColorblindMode) => {
-    setColorMode(mode);
-    saveSettings({ colorMode: mode, highContrast, reducedMotion });
+    updateColorMode(mode);
     onColorModeChange?.(mode);
   };
 
   const handleHighContrastToggle = () => {
     const newValue = !highContrast;
-    setHighContrast(newValue);
-    saveSettings({ colorMode, highContrast: newValue, reducedMotion });
+    updateHighContrast(newValue);
     onHighContrastToggle?.(newValue);
-
-    // Apply high contrast styles to document
-    if (newValue) {
-      document.documentElement.classList.add('high-contrast');
-    } else {
-      document.documentElement.classList.remove('high-contrast');
-    }
   };
 
   const handleReducedMotionToggle = () => {
     const newValue = !reducedMotion;
-    setReducedMotion(newValue);
-    saveSettings({ colorMode, highContrast, reducedMotion: newValue });
+    updateReducedMotion(newValue);
     onReducedMotionToggle?.(newValue);
-
-    // Apply reduced motion styles to document
-    if (newValue) {
-      document.documentElement.classList.add('reduce-motion');
-    } else {
-      document.documentElement.classList.remove('reduce-motion');
-    }
   };
 
   return (
