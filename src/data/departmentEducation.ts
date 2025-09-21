@@ -514,6 +514,38 @@ export const departmentEducationData: DepartmentEducation[] = [
       clima: 'Tropical seco caribeño, 27°C promedio, vientos alisios',
       altitud: 'San Andrés: 2 metros sobre el nivel del mar'
     }
+  },
+  {
+    departmentId: 'quindio',
+    historiaContexto: 'Quindío fue territorio de los indígenas Quimbaya, reconocidos por su excepcional orfebrería precolombina que hoy forma parte del Museo del Oro. La colonización antioqueña del siglo XIX transformó esta región con la fundación de Armenia en 1889 por Jesús María Ocampo. El departamento se separó de Caldas en 1966, consolidándose como el corazón de la región cafetera. La influencia paisa marcó profundamente la cultura, arquitectura, y tradiciones de la región.',
+    importanciaEconomica: 'Quindío es reconocido mundialmente por la producción de café suave colombiano de alta calidad, siendo parte del Paisaje Cultural Cafetero declarado Patrimonio de la Humanidad por UNESCO. El turismo cafetero genera importantes ingresos, con fincas que ofrecen experiencias de agroturismo y educación sobre el proceso del café. La agroindustria incluye también plátano, cítricos, y aguacate. Los parques temáticos como el Parque Nacional del Café atraen turismo nacional e internacional.',
+    caracteristicasUnicas: 'Armenia es conocida como la "Ciudad Milagro" por su rápida reconstrucción después del terremoto de 1999 que devastó la región. Quindío es el departamento más pequeño de la región andina, pero uno de los más densamente poblados y productivos. El Valle de Cocora alberga las palmas de cera más altas del mundo, símbolo nacional de Colombia, que pueden alcanzar hasta 70 metros de altura. La arquitectura paisa con sus casas de bahareque y corredores es característica de la región.',
+    patrimonioCultural: 'El Paisaje Cultural Cafetero de Quindío representa una tradición centenaria de cultivo del café que combina técnicas ancestrales con sostenibilidad ambiental. La cultura paisa se expresa en festividades como la Fiesta Nacional del Café y tradiciones gastronómicas que incluyen la bandeja paisa, arepas, y dulces típicos. Los arrieros y la tradición del café han creado un patrimonio intangible único. Las ferias equinas y festivales culturales mantienen vivas las tradiciones regionales.',
+    datosEspecificos: {
+      fechaCreacion: '1966',
+      poblacionIndigena: '0.5% (2,500 personas aprox.)',
+      patrimonioUNESCO: ['Paisaje Cultural Cafetero (2011)'],
+      atraccionesPrincipales: ['Valle de Cocora', 'Parque Nacional del Café', 'Filandia', 'Salento', 'Panaca'],
+      industrias: ['Café', 'Turismo', 'Agroindustria', 'Servicios', 'Manufactura'],
+      clima: 'Tropical de montaña, 19-24°C promedio',
+      altitud: 'Armenia: 1,483 metros sobre el nivel del mar'
+    }
+  },
+  {
+    departmentId: 'bogota_dc',
+    historiaContexto: 'Bogotá fue fundada en 1538 por Gonzalo Jiménez de Quesada en territorio del pueblo Muisca, especialmente el cacicazgo de Bacatá. Como Santa Fe de Bogotá, fue la capital del Virreinato de Nueva Granada desde 1717. La ciudad fue epicentro de los movimientos independentistas, siendo escenario del Grito de Independencia el 20 de julio de 1810. En 1991 se constituyó como Distrito Capital, consolidando su estatus como centro político, económico, y cultural de Colombia.',
+    importanciaEconomica: 'Bogotá D.C. concentra aproximadamente el 25% del PIB nacional, siendo el principal centro económico de Colombia. La ciudad alberga las sedes de las principales empresas nacionales e internacionales, bancos, y entidades financieras. Los sectores de servicios, comercio, industria manufacturera, y tecnología son los motores económicos principales. Como centro de telecomunicaciones y transporte, conecta todo el territorio nacional. El sector educativo superior contribuye significativamente con universidades de prestigio internacional.',
+    caracteristicasUnicas: 'Bogotá es la tercera capital más alta del mundo a 2,640 metros sobre el nivel del mar, ubicada en la sabana cundiboyacense. Es la ciudad más poblada de Colombia con más de 8 millones de habitantes en su área metropolitana. El sistema TransMilenio fue pionero en Latinoamérica en transporte masivo BRT. La ciclovía dominical es una de las más extensas del mundo con más de 120 kilómetros. El centro histórico La Candelaria preserva arquitectura colonial y republicana.',
+    patrimonioCultural: 'El centro histórico de La Candelaria alberga la mayor concentración de patrimonio colonial de Colombia, con museos como el Museo del Oro y la Casa de Moneda. Bogotá es reconocida como "Ciudad de la Música" por UNESCO, con una vibrante escena cultural que incluye rock, salsa, vallenato, y música académica. La Biblioteca Luis Ángel Arango es una de las más visitadas del mundo. Los festivales como Rock al Parque y el Festival Iberoamericano de Teatro posicionan la ciudad internacionalmente.',
+    datosEspecificos: {
+      fechaCreacion: '1538 (fundación), 1991 (Distrito Capital)',
+      poblacionIndigena: '1.2% (100,000 personas aprox.)',
+      patrimonioUNESCO: ['Candidato: Centro Histórico La Candelaria'],
+      atraccionesPrincipales: ['Monserrate', 'La Candelaria', 'Museo del Oro', 'Plaza Bolívar', 'Zona Rosa'],
+      industrias: ['Servicios financieros', 'Tecnología', 'Manufactura', 'Comercio', 'Educación'],
+      clima: 'Tropical de altura, 14°C promedio, dos temporadas de lluvia',
+      altitud: '2,640 metros sobre el nivel del mar'
+    }
   }
 ];
 
