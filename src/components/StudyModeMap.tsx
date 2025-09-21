@@ -84,14 +84,15 @@ export default function StudyModeMap({
   };
 
   const getRegionColor = (region: string, isSelected: boolean, isStudied: boolean) => {
-    const opacity = isSelected ? '1' : isStudied ? '0.7' : '0.9';
+    const opacity = isSelected ? '1' : isStudied ? '0.8' : '0.9';
+    // Using accessible colors from WCAG AAA compliant palette
     const colors: Record<string, string> = {
-      'Andina': `rgba(34, 197, 94, ${opacity})`,
-      'Caribe': `rgba(59, 130, 246, ${opacity})`,
-      'Pacífica': `rgba(147, 51, 234, ${opacity})`,
-      'Orinoquía': `rgba(250, 204, 21, ${opacity})`,
-      'Amazonía': `rgba(16, 185, 129, ${opacity})`,
-      'Insular': `rgba(6, 182, 212, ${opacity})`,
+      'Andina': `rgba(13, 95, 58, ${opacity})`,     // #0D5F3A - Deep forest green
+      'Caribe': `rgba(0, 86, 179, ${opacity})`,     // #0056B3 - Strong blue
+      'Pacífica': `rgba(91, 33, 182, ${opacity})`,   // #5B21B6 - Deep purple
+      'Orinoquía': `rgba(180, 83, 9, ${opacity})`,   // #B45309 - Burnt orange
+      'Amazonía': `rgba(4, 120, 87, ${opacity})`,    // #047857 - Teal green
+      'Insular': `rgba(14, 116, 144, ${opacity})`,  // #0E7490 - Ocean teal
     };
     return colors[region] || `rgba(156, 163, 175, ${opacity})`;
   };
@@ -316,19 +317,19 @@ export default function StudyModeMap({
 
         {/* Legend - outside of transform so it stays in place */}
         <g transform="translate(20, 420)">
-          <rect x="0" y="0" width="560" height="60" fill="rgba(255,255,255,0.9)" rx="5" />
-          <text x="10" y="20" fontSize="12" fontWeight="bold" fill="#333">Regiones:</text>
+          <rect x="0" y="0" width="560" height="60" fill="rgba(255,255,255,0.95)" rx="5" stroke="#374151" strokeWidth="1" />
+          <text x="10" y="20" fontSize="12" fontWeight="bold" fill="#111827">Regiones:</text>
           {Object.entries({
-            'Andina': 'rgba(34, 197, 94, 1)',
-            'Caribe': 'rgba(59, 130, 246, 1)',
-            'Pacífica': 'rgba(147, 51, 234, 1)',
-            'Orinoquía': 'rgba(250, 204, 21, 1)',
-            'Amazonía': 'rgba(16, 185, 129, 1)',
-            'Insular': 'rgba(6, 182, 212, 1)',
+            'Andina': '#0D5F3A',     // Deep forest green
+            'Caribe': '#0056B3',     // Strong blue
+            'Pacífica': '#5B21B6',   // Deep purple
+            'Orinoquía': '#B45309',   // Burnt orange
+            'Amazonía': '#047857',    // Teal green
+            'Insular': '#0E7490',    // Ocean teal
           }).map(([region, color], index) => (
             <g key={region} transform={`translate(${90 + index * 80}, 10)`}>
-              <circle cx="10" cy="10" r="8" fill={color} />
-              <text x="25" y="14" fontSize="11" fill="#333">{region}</text>
+              <circle cx="10" cy="10" r="8" fill={color} stroke="white" strokeWidth="1.5" />
+              <text x="25" y="14" fontSize="11" fill="#111827" fontWeight="500">{region}</text>
             </g>
           ))}
         </g>

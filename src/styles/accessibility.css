@@ -1,0 +1,215 @@
+/* Accessibility Styles for Colombia Puzzle Game */
+
+/* High Contrast Mode */
+.high-contrast {
+  /* Increase contrast for all elements */
+  filter: contrast(1.2);
+}
+
+.high-contrast * {
+  /* Remove shadows for clarity */
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.high-contrast button,
+.high-contrast a,
+.high-contrast [role="button"] {
+  /* Strong borders for interactive elements */
+  border: 2px solid currentColor !important;
+  outline-offset: 2px;
+}
+
+.high-contrast button:focus,
+.high-contrast a:focus,
+.high-contrast [role="button"]:focus {
+  /* Enhanced focus indicators */
+  outline: 3px solid #FFD700 !important;
+  outline-offset: 3px !important;
+}
+
+/* Reduced Motion Mode */
+.reduce-motion * {
+  /* Disable all animations */
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+.reduce-motion .animate-pulse,
+.reduce-motion .animate-ping,
+.reduce-motion .animate-bounce,
+.reduce-motion .animate-spin {
+  animation: none !important;
+}
+
+/* Focus Indicators - Always visible */
+*:focus {
+  outline: 2px solid #0056B3;
+  outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 3px solid #0056B3;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.25);
+}
+
+/* Skip Links */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #0056B3;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
+  border-radius: 0 0 4px 0;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Keyboard Navigation Indicators */
+[tabindex]:focus {
+  outline: 2px solid #0056B3;
+  outline-offset: 2px;
+}
+
+/* Interactive Elements - Minimum Touch Target */
+button,
+a,
+[role="button"],
+[role="link"],
+input,
+select,
+textarea {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Color Contrast Enhancement */
+.text-low-contrast {
+  /* Add text shadow for better readability */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Screen Reader Only Content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus trap for modals */
+[data-focus-lock] {
+  position: relative;
+}
+
+/* Ensure interactive elements are distinguishable */
+button:not(:disabled),
+a,
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
+button:disabled,
+[role="button"][aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* High contrast borders for form elements */
+input,
+select,
+textarea {
+  border: 2px solid #71717A;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #0056B3;
+  box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.25);
+}
+
+/* Error states with icons */
+.error {
+  border-color: #B91C1C !important;
+  background-color: #FEE2E2;
+}
+
+.error::before {
+  content: "⚠️ ";
+}
+
+/* Success states with icons */
+.success {
+  border-color: #047857 !important;
+  background-color: #D1FAE5;
+}
+
+.success::before {
+  content: "✓ ";
+}
+
+/* Loading states */
+[aria-busy="true"] {
+  cursor: wait;
+}
+
+[aria-busy="true"]::after {
+  content: " (Cargando...)";
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Print styles for accessibility */
+@media print {
+  * {
+    background: white !important;
+    color: black !important;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #18181B;
+    --text-primary: #FAFAFA;
+    --border-color: #52525B;
+  }
+}
+
+/* Forced colors mode (Windows High Contrast) */
+@media (prefers-contrast: high) {
+  * {
+    forced-color-adjust: none;
+  }
+
+  button,
+  a,
+  [role="button"] {
+    border: 2px solid ButtonText;
+  }
+}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useGame } from '../context/GameContext';
 import { useSoundEffect } from '../services/soundManager';
+import AccessibilitySettings from './AccessibilitySettings';
 
 interface GameHeaderProps {
   onStudyMode?: () => void;
@@ -215,6 +216,9 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
             >
               <ResetIcon />
             </button>
+
+            {/* Accessibility Settings */}
+            <AccessibilitySettings />
           </div>
         </div>
 
