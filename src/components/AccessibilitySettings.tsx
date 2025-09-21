@@ -265,7 +265,7 @@ export default function AccessibilitySettings({
       )}
 
       {/* Animation styles */}
-      <style jsx>{`
+      <style>{`
         @keyframes fadeInScale {
           from {
             opacity: 0;

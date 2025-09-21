@@ -308,7 +308,7 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
       </header>
 
       {/* Add shimmer animation to styles */}
-      <style jsx>{`
+      <style>{`
         @keyframes shimmer {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(200%); }
