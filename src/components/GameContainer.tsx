@@ -270,6 +270,11 @@ export default function GameContainer() {
                   style={{ maxHeight: 'calc(100vh - 200px)', overflowX: 'hidden' }}
                   id="department-scroll-container"
                   onKeyDown={(e) => {
+                    // Only allow scrolling if not in keyboard navigation mode (moving a department)
+                    if (enhancedNav.isKeyboardMode) {
+                      return; // Don't scroll when moving a department with arrow keys
+                    }
+
                     // Arrow keys for scrolling within the container
                     if (e.key === 'ArrowUp') {
                       e.preventDefault();

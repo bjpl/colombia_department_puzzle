@@ -136,7 +136,8 @@ export function useEnhancedKeyboardNavigation() {
           const isCorrect = navState.targetZone === navState.selectedDepartment.id;
 
           if (navState.targetZone) {
-            game.placeDepartment(navState.targetZone, isCorrect);
+            // Pass the selected department's ID, not the target zone
+            game.placeDepartment(navState.selectedDepartment.id, isCorrect);
 
             if (isCorrect) {
               announceToScreenReader(`¡Correcto! ${navState.selectedDepartment.name} colocado.`);
@@ -145,6 +146,9 @@ export function useEnhancedKeyboardNavigation() {
               announceToScreenReader(`Incorrecto. ${navState.selectedDepartment.name} no va ahí.`);
               createErrorAnimation(navState.cursorPosition);
             }
+          } else {
+            // No target zone - just announce
+            announceToScreenReader(`No hay zona de destino. Mueva el cursor sobre el mapa.`);
           }
 
           // Reset to selection mode
