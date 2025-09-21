@@ -19,7 +19,7 @@ export const departmentMemoryAids: Record<string, MemoryAid> = {
   },
   'Antioquia': {
     mnemonic: 'ANTIOQUIA = Área Notable, Tierra Industrial, Oro Quimbaya, Urbe Industrial Avanzada',
-    visualAssociation: '⛰️ Forma de mariposa en el noroeste con Medellín en el centro',
+    visualAssociation: '⛰️ Forma irregular compleja en el noroeste - Medellín al centro',
     geographicTrick: 'NOROESTE - El segundo más grande - Entre Chocó y Santander',
     culturalFact: 'Paisas, café y flores - La tierra de Pablo Escobar y Fernando Botero',
     rhyme: 'Antioquia paisa y cafetera, en el noroeste te espera'
@@ -47,14 +47,14 @@ export const departmentMemoryAids: Record<string, MemoryAid> = {
   },
   'Boyacá': {
     mnemonic: 'BOYACÁ = Batalla Original Y Ácida Contra el Agresor',
-    visualAssociation: '🎨 Forma de Y invertida en el centro-este - Altiplano',
+    visualAssociation: '🎨 Forma alargada irregular en el centro-este - Altiplano',
     geographicTrick: 'CENTRO-ESTE en la cordillera - Encima de Cundinamarca - Tunja está muy alto',
     culturalFact: 'Puente de Boyacá - Aquí nació la libertad - Tierra de ciclistas campeones',
     rhyme: 'Boyacá libertadora en las alturas, con Tunja y sus mil aventuras'
   },
   'Caldas': {
     mnemonic: 'CALDAS = Café Abundante, Laderas Doradas, Agricultura Sobresaliente',
-    visualAssociation: '☕ Pequeño rombo en el Eje Cafetero - Centro del café',
+    visualAssociation: '☕ Pequeña forma irregular en el Eje Cafetero - Centro del café',
     geographicTrick: 'EJE CAFETERO central - Entre Antioquia y Tolima - Manizales en la montaña',
     culturalFact: 'Corazón del Eje Cafetero - Feria de Manizales - Nevado del Ruiz vigila',
     rhyme: 'Caldas cafetero por excelencia, Manizales es su presencia'
@@ -68,21 +68,21 @@ export const departmentMemoryAids: Record<string, MemoryAid> = {
   },
   'Casanare': {
     mnemonic: 'CASANARE = Con Arauca Sur, A Nuestros Aires Rodea Este',
-    visualAssociation: '🦌 Forma de bota acostada en los llanos orientales',
+    visualAssociation: '🦌 Forma alargada irregular en los llanos orientales',
     geographicTrick: 'LLANOS orientales - Debajo de Arauca - Yopal petrolero',
     culturalFact: 'Llano infinito - Coleo y joropo - El petróleo transformó Yopal',
     rhyme: 'Casanare llanero sin igual, con Yopal y su festival'
   },
   'Cauca': {
     mnemonic: 'CAUCA = Costa Amplia Une Cordilleras Ancestrales',
-    visualAssociation: '🏔️ Forma de L grande en el suroeste tocando el Pacífico',
+    visualAssociation: '🏔️ Forma alargada vertical en el suroeste tocando el Pacífico',
     geographicTrick: 'SUROESTE con mar - Entre Valle y Nariño - Popayán la ciudad blanca',
     culturalFact: 'Popayán ciudad blanca - Semana Santa famosa - Tierra indígena ancestral',
     rhyme: 'Cauca con Popayán colonial, del Pacífico al oriental'
   },
   'Cesar': {
     mnemonic: 'CESAR = Con Este Sur Arauca Regional',
-    visualAssociation: '🎵 Rectángulo al noreste - Tierra del vallenato',
+    visualAssociation: '🎵 Forma irregular al noreste - Tierra del vallenato',
     geographicTrick: 'NORESTE - Entre La Guajira y Santander - Valledupar vallenata',
     culturalFact: 'Cuna del vallenato - Festival de la Leyenda Vallenata - Diomedes Díaz',
     rhyme: 'Cesar vallenato de corazón, Valledupar es la canción'
@@ -96,7 +96,7 @@ export const departmentMemoryAids: Record<string, MemoryAid> = {
   },
   'Córdoba': {
     mnemonic: 'CÓRDOBA = Con Ó-ptima Región, Domina Oro, Buen Agro',
-    visualAssociation: '🐮 Forma de hacha al norte - Ganadería extensiva',
+    visualAssociation: '🐮 Forma irregular alargada al norte - Ganadería extensiva',
     geographicTrick: 'NORTE con costa corta - Al oeste de Sucre - Montería del Sinú',
     culturalFact: 'Sombrero vueltiao - Tierra ganadera - Porro y fandango',
     rhyme: 'Córdoba ganadera sin cesar, con Montería junto al Sinú está'
@@ -110,7 +110,7 @@ export const departmentMemoryAids: Record<string, MemoryAid> = {
   },
   'Guainía': {
     mnemonic: 'GUAINÍA = Gran Área Indígena, Natural Í-ntegra Amazónica',
-    visualAssociation: '🦜 Forma de pájaro en el extremo este amazónico',
+    visualAssociation: '🦜 Forma irregular en el extremo este amazónico',
     geographicTrick: 'EXTREMO ESTE - Frontera triple - Inírida de los ríos',
     culturalFact: 'Cerros de Mavicure - Estrella fluvial del oriente - Tierra de ríos negros',
     rhyme: 'Guainía al este profundo, de ríos negros, otro mundo'
@@ -124,7 +124,7 @@ export const departmentMemoryAids: Record<string, MemoryAid> = {
   },
   'Huila': {
     mnemonic: 'HUILA = Hacia Una Inmensa Ladera Andina',
-    visualAssociation: '🏔️ Forma de reloj de arena en el sur andino',
+    visualAssociation: '🏔️ Forma alargada diagonal en el sur andino',
     geographicTrick: 'SUR andino - Nace el Magdalena - Neiva en el valle',
     culturalFact: 'Desierto de la Tatacoa - San Agustín arqueológico - Nevado del Huila',
     rhyme: 'Huila donde el Magdalena nace, con Neiva que el calor abraza'
@@ -138,7 +138,7 @@ export const departmentMemoryAids: Record<string, MemoryAid> = {
   },
   'Magdalena': {
     mnemonic: 'MAGDALENA = Mar Azul, Gran Delta, Abundante Litoral, Enorme Natural Área',
-    visualAssociation: '🌴 Triángulo costero al norte - Entre río y mar',
+    visualAssociation: '🌴 Forma irregular costero al norte - Entre río y mar',
     geographicTrick: 'NORTE caribeño - Entre río y mar - Santa Marta la más antigua',
     culturalFact: 'Santa Marta ciudad más antigua - Sierra Nevada sagrada - Tayrona ancestral',
     rhyme: 'Magdalena con Santa Marta antigua, donde la Sierra Nevada se distingue'
@@ -194,42 +194,42 @@ export const departmentMemoryAids: Record<string, MemoryAid> = {
   },
   'Santander': {
     mnemonic: 'SANTANDER = Siempre Activo, Notable Tierra Andina, Natural Destino Económico Regional',
-    visualAssociation: '⚡ Forma de rayo al noreste andino',
+    visualAssociation: '⚡ Forma alargada vertical al noreste andino',
     geographicTrick: 'NORESTE andino - Cañón del Chicamocha - Bucaramanga bonita',
     culturalFact: 'Bucaramanga ciudad bonita - Hormiga culona - Parque Chicamocha',
     rhyme: 'Santander de cañones profundos, Bucaramanga de parques rotundos'
   },
   'Sucre': {
     mnemonic: 'SUCRE = Sur Unido Caribe, Regional Economía',
-    visualAssociation: '🎺 Forma triangular al norte - Costa sabanera',
+    visualAssociation: '🎺 Forma irregular al norte - Costa sabanera',
     geographicTrick: 'NORTE costero - Entre Córdoba y Bolívar - Sincelejo sabanero',
     culturalFact: 'Sincelejo de las corralejas - Fiestas del 20 de enero - Morroa artesanal',
     rhyme: 'Sucre sabanero y costero, con Sincelejo corralejero'
   },
   'Tolima': {
     mnemonic: 'TOLIMA = Tierra Original, Libertadora, Ilustre Musical Andina',
-    visualAssociation: '🎸 Forma de guitarra en el centro andino',
+    visualAssociation: '🎸 Forma diagonal irregular en el centro andino',
     geographicTrick: 'CENTRO andino - Corazón de Colombia - Ibagué musical',
     culturalFact: 'Ibagué ciudad musical - Festival Folclórico - Nevado del Tolima',
     rhyme: 'Tolima musical del centro, con Ibagué su epicentro'
   },
   'Valle del Cauca': {
     mnemonic: 'VALLE DEL CAUCA = Verdadera Área Llanera, Linda Economía / Desarrollo Ejemplar, Logros / Centro Azucarero, Único Caleño Avance',
-    visualAssociation: '💃 Rectángulo vertical al oeste - Valle entre cordilleras',
+    visualAssociation: '💃 Forma irregular alargada al oeste como una bota - Valle entre cordilleras',
     geographicTrick: 'OESTE con Pacífico - Valle del río Cauca - Cali salsa capital',
     culturalFact: 'Cali capital de la salsa - Feria de Cali - Industria azucarera inmensa',
     rhyme: 'Valle del Cauca con Cali salsera, industria y baile a su manera'
   },
   'Vaupés': {
     mnemonic: 'VAUPÉS = Verde Área Única, Poblada Étnicamente Selvática',
-    visualAssociation: '🦋 Forma de mariposa en el sureste amazónico',
+    visualAssociation: '🦋 Forma irregular en el sureste amazónico',
     geographicTrick: 'SURESTE amazónico - Entre Guaviare y Amazonas - Mitú remoto',
     culturalFact: 'Mitú de los indígenas - Yuruparí sagrado - Selva prístina intacta',
     rhyme: 'Vaupés amazónico ancestral, con Mitú su capital cultural'
   },
   'Vichada': {
     mnemonic: 'VICHADA = Verde Inmensa, Costa Hídrica, Agreste Destino Ambiental',
-    visualAssociation: '🦓 El segundo más grande - Forma de caballo al este',
+    visualAssociation: '🦓 El segundo más grande - Forma irregular extensa al este',
     geographicTrick: 'ESTE puro - Segundo más grande - Puerto Carreño en el Orinoco',
     culturalFact: 'Puerto Carreño triple frontera - Sabanas infinitas - El Tuparro majestuoso',
     rhyme: 'Vichada inmenso oriental, sabanas hasta el final'

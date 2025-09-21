@@ -6,6 +6,7 @@ import StudyModeMap from './StudyModeMap';
 import { storage } from '../services/storage';
 import { REGION_COLORS } from '../constants/regionColors';
 import { getMemoryAid } from '../data/memoryAids';
+import MiniDepartmentShape from './MiniDepartmentShape';
 
 interface StudyModeProps {
   onClose: () => void;
@@ -426,10 +427,18 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                     if (memoryAid) {
                       return (
                         <div className="space-y-3">
-                          {/* Visual Association */}
+                          {/* Visual Association with Mini Map */}
                           <div className="bg-blue-50 p-3 rounded-lg">
-                            <h5 className="font-semibold text-blue-800 text-sm mb-1">Asociación Visual:</h5>
-                            <p className="text-sm text-blue-700">{memoryAid.visualAssociation}</p>
+                            <h5 className="font-semibold text-blue-800 text-sm mb-2">Asociación Visual:</h5>
+                            <div className="flex items-start gap-3">
+                              <MiniDepartmentShape
+                                departmentName={selectedDepartment.name}
+                                width={80}
+                                height={80}
+                                className="flex-shrink-0 border-2 border-blue-200 rounded-lg"
+                              />
+                              <p className="text-sm text-blue-700 flex-1">{memoryAid.visualAssociation}</p>
+                            </div>
                           </div>
 
                           {/* Geographic Trick */}
