@@ -148,7 +148,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
           <h3 id="tips-heading" className="text-sm font-semibold mb-2">Sabías que...</h3>
           <p className="text-xs text-gray-700">
             Colombia tiene 32 departamentos y un distrito capital.
-            Es el único país sudamericano con costas en dos océanos.
+            Es el único país sudamericano con costas directas en el Pacífico y el Caribe/Atlántico.
           </p>
         </section>
       )}
