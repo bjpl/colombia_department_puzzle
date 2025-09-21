@@ -2,6 +2,7 @@ import React, { useMemo, useEffect, useState } from 'react';
 import { geoMercator, geoPath } from 'd3-geo';
 import { normalizeId } from '../utils/nameNormalizer';
 import { REGION_COLORS } from '../constants/regionColors';
+import { colombiaDepartments } from '../data/colombiaDepartments';
 
 interface MiniDepartmentShapeProps {
   departmentName: string;
@@ -19,8 +20,8 @@ export default function MiniDepartmentShape({
   const [geoData, setGeoData] = useState<any>(null);
 
   useEffect(() => {
-    // Load the GeoJSON data
-    fetch(`${import.meta.env.BASE_URL}data/colombia-departments-ultralight.json`)
+    // Load the optimized GeoJSON data (which has actual shapes, not just bounding boxes)
+    fetch(`${import.meta.env.BASE_URL}data/colombia-departments-optimized.json`)
       .then(response => response.json())
       .then(data => setGeoData(data))
       .catch(error => console.error('Error loading GeoJSON:', error));
@@ -33,8 +34,9 @@ export default function MiniDepartmentShape({
     const normalizedSearchName = normalizeId(departmentName);
 
     return geoData.features.find((feature: any) => {
-      const featureId = normalizeId(feature.properties.NOMBRE_DPT || '');
-      return featureId === normalizedSearchName;
+      // The optimized GeoJSON uses "name" property
+      const featureName = normalizeId(feature.properties.name || feature.properties.NOMBRE_DPT || '');
+      return featureName === normalizedSearchName;
     });
   }, [departmentName, geoData]);
 
@@ -99,8 +101,11 @@ export default function MiniDepartmentShape({
     );
   }
 
-  // Get the region color
-  const region = departmentFeature.properties.region || departmentFeature.properties.NOM_REGION || '';
+  // Get the region color from our department data
+  const department = colombiaDepartments.find(d =>
+    normalizeId(d.name) === normalizeId(departmentName)
+  );
+  const region = department?.region || '';
   const fillColor = REGION_COLORS[region] || '#e5e7eb';
 
   return (
