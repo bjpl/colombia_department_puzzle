@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { ColorblindMode, HIGH_CONTRAST_COLORS } from '../constants/accessibleColors';
 
 interface AccessibilitySettingsProps {
@@ -16,6 +17,9 @@ export default function AccessibilitySettings({
   const [colorMode, setColorMode] = useState<ColorblindMode>('normal');
   const [highContrast, setHighContrast] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [panelPosition, setPanelPosition] = useState({ top: 0, left: 0 });
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   // Load saved preferences
   useEffect(() => {
@@ -34,6 +38,71 @@ export default function AccessibilitySettings({
     if (prefersReducedMotion) setReducedMotion(true);
     if (prefersHighContrast) setHighContrast(true);
   }, []);
+
+  // Calculate panel position to avoid viewport edges
+  useEffect(() => {
+    if (isOpen && buttonRef.current) {
+      const buttonRect = buttonRef.current.getBoundingClientRect();
+      const panelWidth = 320; // Panel width
+      const panelHeight = 500; // Approximate panel height
+      const padding = 8; // Padding from edges
+
+      // Calculate optimal position
+      let left = buttonRect.left;
+      let top = buttonRect.bottom + 8;
+
+      // Check if panel would go off right edge
+      if (left + panelWidth > window.innerWidth - padding) {
+        // Align panel's right edge with button's right edge
+        left = buttonRect.right - panelWidth;
+      }
+
+      // Check if panel would go off left edge
+      if (left < padding) {
+        left = padding;
+      }
+
+      // Check if panel would go off bottom edge
+      if (top + panelHeight > window.innerHeight - padding) {
+        // Position above button instead
+        top = buttonRect.top - panelHeight - 8;
+      }
+
+      // Check if panel would go off top edge when positioned above
+      if (top < padding) {
+        // Keep below button but ensure it fits
+        top = buttonRect.bottom + 8;
+      }
+
+      setPanelPosition({ top, left });
+    }
+  }, [isOpen]);
+
+  // Close panel when clicking outside
+  useEffect(() => {
+    if (isOpen) {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (panelRef.current && !panelRef.current.contains(event.target as Node) &&
+            buttonRef.current && !buttonRef.current.contains(event.target as Node)) {
+          setIsOpen(false);
+        }
+      };
+
+      const handleEscapeKey = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          setIsOpen(false);
+        }
+      };
+
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscapeKey);
+
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+        document.removeEventListener('keydown', handleEscapeKey);
+      };
+    }
+  }, [isOpen]);
 
   // Save preferences
   const saveSettings = (settings: any) => {
@@ -75,9 +144,10 @@ export default function AccessibilitySettings({
   };
 
   return (
-    <div className="relative">
+    <>
       {/* Accessibility Button */}
       <button
+        ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
         className="p-2 rounded-lg bg-white shadow-md hover:shadow-lg transition-all duration-200 border-2 border-gray-300 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         aria-label="Configuración de accesibilidad"
@@ -99,9 +169,17 @@ export default function AccessibilitySettings({
         </svg>
       </button>
 
-      {/* Settings Panel */}
-      {isOpen && (
-        <div className="absolute top-12 right-0 w-80 bg-white rounded-lg shadow-xl border-2 border-gray-200 p-4 z-50">
+      {/* Settings Panel - Rendered as Portal to escape container constraints */}
+      {isOpen && createPortal(
+        <div
+          ref={panelRef}
+          className="fixed w-80 bg-white rounded-lg shadow-2xl border-2 border-gray-200 p-4 z-[9999] max-h-[90vh] overflow-y-auto"
+          style={{
+            top: `${panelPosition.top}px`,
+            left: `${panelPosition.left}px`,
+            animation: 'fadeInScale 0.2s ease-out'
+          }}
+        >
           <h3 className="text-lg font-bold text-gray-900 mb-4">
             Configuración de Accesibilidad
           </h3>
@@ -211,8 +289,23 @@ export default function AccessibilitySettings({
           >
             Cerrar
           </button>
-        </div>
+        </div>,
+        document.body
       )}
-    </div>
+
+      {/* Animation styles */}
+      <style jsx>{`
+        @keyframes fadeInScale {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+      `}</style>
+    </>
   );
 }

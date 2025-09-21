@@ -116,7 +116,7 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
   return (
     <>
       {/* Modern Glass-morphism Header */}
-      <header className="backdrop-blur-sm bg-white/90 rounded-2xl shadow-lg border border-white/20 overflow-hidden" role="banner" aria-label="Panel de control del juego">
+      <header className="backdrop-blur-sm bg-white/90 rounded-2xl shadow-lg border border-white/20" role="banner" aria-label="Panel de control del juego">
 
         {/* Main Header Section */}
         <div className="px-6 py-4 flex justify-between items-center">
