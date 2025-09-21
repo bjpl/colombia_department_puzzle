@@ -25,9 +25,18 @@ function DraggableChip({ department }: { department: Department }) {
     backgroundColor: backgroundColor,
   };
 
-  // Simplified color classes to avoid conflicts
-  const borderClass = highContrast ? 'border-white' : 'border-gray-600';
-  const textClass = highContrast || colorMode !== 'normal' ? 'text-white' : 'text-gray-800';
+  // Determine text color based on background for proper contrast
+  const needsLightText = (color: string): boolean => {
+    // Colors that need white text for contrast
+    const darkColors = ['#000000', '#0000FF', '#800080', '#008000', '#008B8B'];
+    return darkColors.includes(color.toUpperCase());
+  };
+
+  const borderClass = highContrast ? 'border-black' : 'border-gray-600';
+  const borderWidth = highContrast ? 'border-4' : 'border-2';
+  const textClass = highContrast
+    ? needsLightText(backgroundColor) ? 'text-white' : 'text-black'
+    : colorMode !== 'normal' ? 'text-white' : 'text-gray-800';
 
   return (
     <div
@@ -37,8 +46,8 @@ function DraggableChip({ department }: { department: Department }) {
       {...attributes}
       className={`
         inline-flex items-center px-2 py-1 rounded-md
-        ${borderClass} ${textClass}
-        border-2 cursor-move select-none
+        ${borderClass} ${borderWidth} ${textClass}
+        cursor-move select-none
         transition-all duration-150
         ${isDragging ? 'opacity-90' : 'hover:shadow-md hover:scale-105'}
       `}

@@ -162,12 +162,12 @@ export const PATTERN_DEFINITIONS = {
 export const HIGH_CONTRAST_COLORS = {
   regions: {
     'Andina': '#000000',      // Black
-    'Caribe': '#FFFFFF',      // White with black border
-    'Pacífica': '#000080',    // Navy
-    'Pacífico': '#000080',    // Navy (alias for consistency)
-    'Orinoquía': '#FFD700',   // Gold with black text
+    'Caribe': '#0000FF',      // Pure blue (not white - visible on white bg)
+    'Pacífica': '#800080',    // Purple (more visible than navy)
+    'Pacífico': '#800080',    // Purple (alias for consistency)
+    'Orinoquía': '#FF8C00',   // Dark orange (better than gold)
     'Amazonía': '#008000',    // Green
-    'Insular': '#00FFFF'      // Cyan with black text
+    'Insular': '#008B8B'      // Dark cyan (better contrast than bright cyan)
   },
 
   ui: {
@@ -186,13 +186,14 @@ export type ColorblindMode = 'normal' | 'protanopia' | 'deuteranopia' | 'tritano
 // All colors meet WCAG AA contrast standards (4.5:1) against white backgrounds
 export const COLORBLIND_PALETTES: Record<ColorblindMode, Record<string, string>> = {
   normal: {
-    // Standard vibrant colors with good contrast
-    'Andina': '#059669',      // Emerald green
-    'Caribe': '#0EA5E9',      // Sky blue
-    'Pacífica': '#A855F7',    // Purple
-    'Orinoquía': '#F97316',   // Orange
-    'Amazonía': '#14B8A6',    // Teal
-    'Insular': '#06B6D4',     // Cyan
+    // Standard vibrant colors - all visually distinct
+    'Andina': '#16A34A',      // True green (distinct from teal)
+    'Caribe': '#0284C7',      // Strong blue (distinct from cyan)
+    'Pacífica': '#9333EA',    // Rich purple
+    'Pacífico': '#9333EA',    // Rich purple (alias)
+    'Orinoquía': '#EA580C',   // Deep orange
+    'Amazonía': '#0D9488',    // Teal (distinct from green)
+    'Insular': '#0891B2',     // Cyan (distinct from blue)
     'default': '#6B7280'      // Gray
   },
   protanopia: {
@@ -201,6 +202,7 @@ export const COLORBLIND_PALETTES: Record<ColorblindMode, Record<string, string>>
     'Andina': '#0066CC',      // Strong blue (replaces green)
     'Caribe': '#4B9BFF',      // Light blue
     'Pacífica': '#FFB000',    // Gold/yellow (high visibility)
+    'Pacífico': '#FFB000',    // Gold/yellow (alias)
     'Orinoquía': '#FF6B35',   // Orange-yellow (still visible)
     'Amazonía': '#785EF0',    // Blue-purple
     'Insular': '#DC267F',     // Magenta (distinguishable)
@@ -212,6 +214,7 @@ export const COLORBLIND_PALETTES: Record<ColorblindMode, Record<string, string>>
     'Andina': '#0066CC',      // Strong blue (replaces green)
     'Caribe': '#4B9BFF',      // Light blue
     'Pacífica': '#FFB000',    // Gold/yellow
+    'Pacífico': '#FFB000',    // Gold/yellow (alias)
     'Orinoquía': '#FE6100',   // Pure orange (high visibility)
     'Amazonía': '#785EF0',    // Blue-purple
     'Insular': '#DC267F',     // Magenta
@@ -223,6 +226,7 @@ export const COLORBLIND_PALETTES: Record<ColorblindMode, Record<string, string>>
     'Andina': '#CC0000',      // Red
     'Caribe': '#009900',      // Green
     'Pacífica': '#FF6666',    // Light red
+    'Pacífico': '#FF6666',    // Light red (alias)
     'Orinoquía': '#66CC00',   // Yellow-green
     'Amazonía': '#006600',    // Dark green
     'Insular': '#990033',     // Dark red
@@ -234,6 +238,7 @@ export const COLORBLIND_PALETTES: Record<ColorblindMode, Record<string, string>>
     'Andina': '#1A1A1A',      // Near black
     'Caribe': '#404040',      // Dark gray
     'Pacífica': '#666666',    // Medium gray
+    'Pacífico': '#666666',    // Medium gray (alias)
     'Orinoquía': '#8C8C8C',   // Light gray
     'Amazonía': '#B3B3B3',    // Very light gray
     'Insular': '#D9D9D9',     // Near white (on dark bg)
