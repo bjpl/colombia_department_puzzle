@@ -25,9 +25,7 @@ const DepartmentPath = memo(({
   isPlaced,
   isOver,
   isDragging,
-  showRegionColors,
-  isSelected,
-  onClick
+  showRegionColors
 }: {
   feature: GeoFeature;
   pathString: string;
@@ -35,8 +33,6 @@ const DepartmentPath = memo(({
   isOver: boolean;
   isDragging: boolean;
   showRegionColors: boolean;
-  isSelected?: boolean;
-  onClick?: () => void;
 }) => {
   // Find the region for this department
   const department = colombiaDepartments.find(d =>
@@ -48,64 +44,38 @@ const DepartmentPath = memo(({
   const regionColor = department ? REGION_COLORS[department.region] : '#e5e7eb';
 
   const departmentColor = useMemo(() => {
-    if (isSelected) return '#3b82f6'; // Blue for selected
     if (isPlaced) return '#10b981'; // Green for placed
     if (isOver && isDragging) return '#fbbf24'; // Yellow/gold when hovering
     if (showRegionColors) return regionColor; // Show region color
     return '#f3f4f6'; // Light gray for unplaced (much lighter for better border visibility)
-  }, [isPlaced, isOver, isDragging, showRegionColors, regionColor, isSelected]);
+  }, [isPlaced, isOver, isDragging, showRegionColors, regionColor]);
 
   const strokeColor = useMemo(() => {
-    if (isSelected) return '#1e40af'; // Dark blue border when selected
     if (isOver && isDragging) return '#f59e0b'; // Orange border when drop target
     if (isOver) return '#3b82f6'; // Blue border on hover
     return '#374151'; // Default dark gray
-  }, [isOver, isDragging, isSelected]);
+  }, [isOver, isDragging]);
 
   const strokeWidth = useMemo(() => {
-    if (isSelected) return '3'; // Thick border when selected
     if (isOver && isDragging) return '3'; // Thick border when drop target
     if (isOver) return '2'; // Medium border on hover
     return '1'; // Default thin border
-  }, [isOver, isDragging, isSelected]);
+  }, [isOver, isDragging]);
 
   return (
-    <>
-      {/* Selection glow effect */}
-      {isSelected && (
-        <>
-          <path
-            d={pathString}
-            fill="none"
-            stroke="#3b82f6"
-            strokeWidth="8"
-            opacity="0.3"
-            className="animate-pulse"
-          />
-          <path
-            d={pathString}
-            fill="#3b82f6"
-            opacity="0.1"
-            className="animate-pulse"
-          />
-        </>
-      )}
-      <path
-        d={pathString}
-        fill={departmentColor}
-        stroke={strokeColor}
-        strokeWidth={strokeWidth}
-        opacity={isPlaced ? 0.9 : isSelected ? 1 : isOver ? 0.95 : 0.7}
-        className="transition-all duration-200 hover:opacity-100"
-        style={{
-          cursor: onClick ? 'pointer' : 'inherit', // Pointer cursor for clickable departments
-          filter: isSelected ? 'drop-shadow(0 0 12px rgba(59, 130, 246, 0.8))' :
-                  isOver && isDragging ? 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.6))' : 'none',
-          pointerEvents: onClick ? 'auto' : isDragging ? 'auto' : 'none' // Allow clicks when onClick handler exists
-        }}
-        onClick={onClick}
-      />
-    </>
+    <path
+      d={pathString}
+      fill={departmentColor}
+      stroke={strokeColor}
+      strokeWidth={strokeWidth}
+      opacity={isPlaced ? 0.9 : isOver ? 0.95 : 0.7}
+      className="transition-all duration-200"
+      style={{
+        cursor: 'inherit', // Inherit the grab cursor from the SVG parent for consistent panning
+        filter: isOver && isDragging ? 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.6))' : 'none',
+        pointerEvents: isDragging ? 'auto' : 'none' // Allow panning when not dragging
+      }}
+    />
   );
 });
 
@@ -143,7 +113,6 @@ export default function OptimizedColombiaMap() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [draggedOverDepartment, setDraggedOverDepartment] = useState<string | null>(null);
-  const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null); // New state for clicked department
   const [zoomLevel, setZoomLevel] = useState(1);
   const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
   const [isPanning, setIsPanning] = useState(false);
@@ -478,17 +447,6 @@ export default function OptimizedColombiaMap() {
                       isOver={isOver}
                       isDragging={isDragging}
                       showRegionColors={showRegionColors}
-                      isSelected={selectedDepartment === departmentId}
-                      onClick={() => {
-                        if (!isDragging) {
-                          setSelectedDepartment(departmentId === selectedDepartment ? null : departmentId);
-                          // Find and show department info
-                          const deptInfo = colombiaDepartments.find(d => d.id === departmentId);
-                          if (deptInfo) {
-                            console.log('Selected department:', deptInfo.name, '- Capital:', deptInfo.capital);
-                          }
-                        }
-                      }}
                     />
                   );
                 }}
@@ -539,32 +497,6 @@ export default function OptimizedColombiaMap() {
           </div>
         </div>
       )}
-
-      {/* Selected department info */}
-      {selectedDepartment && !isDragging && (() => {
-        const dept = colombiaDepartments.find(d => d.id === selectedDepartment);
-        if (!dept) return null;
-        return (
-          <div className="absolute top-2 left-2 pointer-events-none z-10">
-            <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-3 rounded-lg shadow-xl">
-              <div className="flex items-start gap-3">
-                <div className="text-2xl">📍</div>
-                <div>
-                  <p className="font-bold text-lg">{dept.name}</p>
-                  <p className="text-sm opacity-90">Capital: {dept.capital}</p>
-                  <p className="text-xs opacity-80">Región: {dept.region}</p>
-                  {dept.population && (
-                    <p className="text-xs opacity-80">Población: {dept.population.toLocaleString('es-CO')}</p>
-                  )}
-                </div>
-              </div>
-              <div className="mt-2 text-xs opacity-75">
-                Clic de nuevo para deseleccionar
-              </div>
-            </div>
-          </div>
-        );
-      })()}
 
       {/* Progress indicator - Made more compact */}
       <div className="absolute bottom-2 left-2 right-2">
