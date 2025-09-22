@@ -37,17 +37,17 @@ export default function KeyboardCursor({
 
   return (
     <>
-      {/* Fixed department label in upper left */}
+      {/* Fixed department label in upper center (near drag tooltip) */}
       <div
-        className="fixed pointer-events-none z-50 top-20 left-4"
+        className="fixed pointer-events-none z-50 top-16 left-1/2 transform -translate-x-1/2"
         aria-hidden="true"
       >
         <div className="bg-white shadow-xl rounded-lg px-4 py-2 border-2 border-blue-500">
           <div className="flex items-center gap-2">
-            <span className="text-lg">📦</span>
-            <div>
-              <div className="text-xs text-gray-500 uppercase tracking-wide">Moviendo:</div>
-              <div className="font-bold text-base">{selectedDepartment.name}</div>
+            <span className="text-lg">⌨️</span>
+            <div className="flex items-baseline gap-2">
+              <span className="text-xs text-gray-500 uppercase tracking-wide">Moviendo:</span>
+              <span className="font-bold text-base">{selectedDepartment.name}</span>
             </div>
           </div>
         </div>
