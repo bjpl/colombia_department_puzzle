@@ -1,7 +1,7 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import {
   Button, Card, CardContent,
-  colors, spacing, textStyles, shadows
+  colors, spacing, textStyles, shadows, radius
 } from '../design-system';
 
 /**
@@ -149,14 +149,14 @@ export default class GameLogicErrorBoundary extends Component<Props, State> {
                 <h2 style={{
                   fontSize: textStyles.heading.h2.fontSize[0],
                   fontWeight: textStyles.heading.h2.fontWeight,
-                  color: colors.neutral[800],
+                  color: colors.gray[800],
                   marginBottom: spacing[2]
                 }}>
                   {title}
                 </h2>
 
                 <p style={{
-                  color: colors.neutral[600],
+                  color: colors.gray[600],
                   marginBottom: spacing[4]
                 }}>
                   {description}
@@ -165,7 +165,7 @@ export default class GameLogicErrorBoundary extends Component<Props, State> {
                 {/* Quick Fix Suggestions */}
                 <div style={{
                   backgroundColor: colors.brand[50],
-                  borderRadius: borderRadius.lg,
+                  borderRadius: radius.lg,
                   padding: spacing[4],
                   marginBottom: spacing[4]
                 }}>
@@ -232,17 +232,17 @@ export default class GameLogicErrorBoundary extends Component<Props, State> {
                     <summary style={{
                       cursor: 'pointer',
                       fontSize: textStyles.body.small.fontSize[0],
-                      color: colors.neutral[500]
+                      color: colors.gray[500]
                     }}>
                       Información de Debug
                     </summary>
                     <div style={{
                       marginTop: spacing[2],
                       padding: spacing[3],
-                      backgroundColor: colors.neutral[100],
-                      borderRadius: borderRadius.md,
+                      backgroundColor: colors.gray[100],
+                      borderRadius: radius.md,
                       fontSize: textStyles.body.small.fontSize[0],
-                      color: colors.neutral[700],
+                      color: colors.gray[700],
                       overflow: 'auto',
                       maxHeight: '8rem',
                       fontFamily: 'monospace'
@@ -258,7 +258,7 @@ export default class GameLogicErrorBoundary extends Component<Props, State> {
                 <p style={{
                   marginTop: spacing[4],
                   fontSize: textStyles.body.small.fontSize[0],
-                  color: colors.neutral[500]
+                  color: colors.gray[500]
                 }}>
                   Si el problema persiste después de reiniciar, intenta recargar la página.
                 </p>

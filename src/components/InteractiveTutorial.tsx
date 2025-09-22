@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { storage } from '../services/storage';
 import {
   Button, Card, CardHeader, CardTitle, CardContent, Badge,
-  colors, spacing, textStyles, shadows
+  colors, spacing, textStyles, shadows, radius
 } from '../design-system';
 
 interface InteractiveTutorialProps {
@@ -328,14 +328,14 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
                     key={index}
                     style={{
                       height: '4px',
-                      borderRadius: borderRadius.full,
+                      borderRadius: radius.full,
                       transition: 'all 0.3s',
                       width: index === currentStep ? '32px' : '4px',
                       background: index === currentStep
                         ? 'linear-gradient(to right, rgb(14 165 233), rgb(16 185 129))'
                         : index < currentStep
                         ? colors.success
-                        : colors.neutral[300]
+                        : colors.gray[300]
                     }}
                   />
                 ))}
@@ -376,7 +376,7 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
                   fontSize: textStyles.body.small.fontSize[0],
                   fontWeight: 'medium',
                   background: 'linear-gradient(to right, rgb(14 165 233), rgb(16 185 129))',
-                  borderRadius: borderRadius.lg,
+                  borderRadius: radius.lg,
                   transform: 'transition-all'
                 }}
               >

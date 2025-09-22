@@ -1,7 +1,7 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import {
   Button, Card, CardContent,
-  colors, spacing, textStyles, shadows
+  colors, spacing, textStyles, shadows, radius
 } from '../design-system';
 
 interface Props {
@@ -52,13 +52,13 @@ export default class ErrorBoundary extends Component<Props, State> {
               <h2 style={{
                 fontSize: textStyles.heading.h2.fontSize[0],
                 fontWeight: textStyles.heading.h2.fontWeight,
-                color: colors.neutral[800],
+                color: colors.gray[800],
                 marginBottom: spacing[4]
               }}>
                 Algo salió mal
               </h2>
               <p style={{
-                color: colors.neutral[600],
+                color: colors.gray[600],
                 marginBottom: spacing[6]
               }}>
                 Ha ocurrido un error inesperado. Por favor, recarga la página para continuar jugando.
@@ -75,16 +75,16 @@ export default class ErrorBoundary extends Component<Props, State> {
                   <summary style={{
                     cursor: 'pointer',
                     fontSize: textStyles.body.small.fontSize[0],
-                    color: colors.neutral[500]
+                    color: colors.gray[500]
                   }}>
                     Detalles del error (solo desarrollo)
                   </summary>
                   <pre style={{
                     marginTop: spacing[2],
                     fontSize: textStyles.body.small.fontSize[0],
-                    backgroundColor: colors.neutral[100],
+                    backgroundColor: colors.gray[100],
                     padding: spacing[2],
-                    borderRadius: borderRadius.md,
+                    borderRadius: radius.md,
                     overflow: 'auto'
                   }}>
                     {this.state.error.toString()}

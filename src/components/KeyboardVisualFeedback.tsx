@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import {
   Button, Card, CardHeader, CardTitle, CardContent, Badge,
-  colors, spacing, textStyles, shadows
+  colors, spacing, textStyles, shadows, radius
 } from '../design-system';
 
 /**
@@ -216,8 +216,8 @@ export function KeyboardFeedbackToggle() {
           height: '24px',
           width: '44px',
           alignItems: 'center',
-          borderRadius: borderRadius.full,
-          backgroundColor: enabled ? colors.brand[600] : colors.neutral[300],
+          borderRadius: radius.full,
+          backgroundColor: enabled ? colors.brand[600] : colors.gray[300],
           transition: 'colors 0.2s'
         }}
         aria-label={enabled ? 'Desactivar visual de teclado' : 'Activar visual de teclado'}

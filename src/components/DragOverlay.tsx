@@ -28,11 +28,11 @@ export default function DragOverlay() {
     return darkColors.includes(color.toUpperCase());
   };
 
-  const borderColor = highContrast ? colors.neutral[950] : colors.neutral[600];
+  const borderColor = highContrast ? colors.gray[950] : colors.gray[600];
   const borderWidth = highContrast ? '4px' : '2px';
   const textColor = highContrast
-    ? needsLightText(backgroundColor) ? colors.neutral[50] : colors.neutral[950]
-    : colorMode !== 'normal' ? colors.neutral[50] : colors.neutral[800];
+    ? needsLightText(backgroundColor) ? colors.gray[50] : colors.gray[950]
+    : colorMode !== 'normal' ? colors.gray[50] : colors.gray[800];
 
   return (
     <DndDragOverlay dropAnimation={null}>

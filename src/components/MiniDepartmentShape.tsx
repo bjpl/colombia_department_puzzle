@@ -84,7 +84,7 @@ export default function MiniDepartmentShape({
       normalizeId(d.name) === normalizeId(departmentName)
     );
     const region = department?.region || '';
-    return region ? getRegionColor(region) : colors.neutral[200];
+    return region ? getRegionColor(region) : colors.gray[200];
   }, [departmentName, getRegionColor, colorMode]);
 
   // Show loading or error state
@@ -97,8 +97,8 @@ export default function MiniDepartmentShape({
             y="0"
             width={width}
             height={height}
-            fill={colors.neutral[100]}
-            stroke={colors.neutral[300]}
+            fill={colors.gray[100]}
+            stroke={colors.gray[300]}
             strokeWidth="1"
             rx="4"
           />
@@ -108,7 +108,7 @@ export default function MiniDepartmentShape({
             textAnchor="middle"
             dominantBaseline="middle"
             fontSize="10"
-            fill={colors.neutral[400]}
+            fill={colors.gray[400]}
           >
             {!geoData ? '...' : '?'}
           </text>
@@ -131,8 +131,8 @@ export default function MiniDepartmentShape({
           y="0"
           width={width}
           height={height}
-          fill={colors.neutral[50]}
-          stroke={colors.neutral[200]}
+          fill={colors.gray[50]}
+          stroke={colors.gray[200]}
           strokeWidth="1"
           rx="4"
         />
@@ -141,7 +141,7 @@ export default function MiniDepartmentShape({
         <path
           d={pathData}
           fill={fillColor}
-          stroke={highContrast ? colors.neutral[950] : colors.neutral[700]}
+          stroke={highContrast ? colors.gray[950] : colors.gray[700]}
           strokeWidth={highContrast ? "1" : "0.5"}
           opacity="0.8"
         />

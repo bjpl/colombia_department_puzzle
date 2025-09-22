@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
   Button, Card, CardHeader, CardTitle, CardContent, Badge,
-  colors, spacing, textStyles, shadows
+  colors, spacing, textStyles, shadows, radius
 } from '../design-system';
 
 interface GameModeSelectorProps {
@@ -187,7 +187,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                       onClick={() => toggleRegionSelection(region.id)}
                       style={{
                         position: 'relative',
-                        borderRadius: borderRadius.lg,
+                        borderRadius: radius.lg,
                         padding: spacing[4],
                         border: `2px solid ${isSelected ? colors.brand[500] : colors.border}`,
                         backgroundColor: isSelected ? colors.brand[50] : colors.background,
@@ -204,7 +204,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                           left: 0,
                           width: '100%',
                           height: '4px',
-                          borderRadius: `${borderRadius.lg} ${borderRadius.lg} 0 0`,
+                          borderRadius: `${radius.lg} ${radius.lg} 0 0`,
                           backgroundColor: region.color
                         }}
                       />

@@ -1,7 +1,7 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import {
   Button, Card, CardContent,
-  colors, spacing, textStyles, shadows
+  colors, spacing, textStyles, shadows, radius
 } from '../design-system';
 
 /**
@@ -93,14 +93,14 @@ export default class MapErrorBoundary extends Component<Props, State> {
                 <h2 style={{
                   fontSize: textStyles.heading.h2.fontSize[0],
                   fontWeight: textStyles.heading.h2.fontWeight,
-                  color: colors.neutral[800],
+                  color: colors.gray[800],
                   marginBottom: spacing[2]
                 }}>
                   Error al Cargar el Mapa
                 </h2>
 
                 <p style={{
-                  color: colors.neutral[600],
+                  color: colors.gray[600],
                   marginBottom: spacing[4]
                 }}>
                   Hubo un problema al mostrar el mapa de Colombia.
@@ -122,24 +122,24 @@ export default class MapErrorBoundary extends Component<Props, State> {
                     <summary style={{
                       cursor: 'pointer',
                       fontSize: textStyles.body.small.fontSize[0],
-                      color: colors.neutral[500]
+                      color: colors.gray[500]
                     }}>
                       Detalles técnicos
                     </summary>
                     <div style={{
                       marginTop: spacing[2],
                       padding: spacing[3],
-                      backgroundColor: colors.neutral[100],
-                      borderRadius: borderRadius.md,
+                      backgroundColor: colors.gray[100],
+                      borderRadius: radius.md,
                       fontSize: textStyles.body.small.fontSize[0],
                       fontFamily: 'monospace',
-                      color: colors.neutral[700],
+                      color: colors.gray[700],
                       overflow: 'auto',
                       maxHeight: '8rem'
                     }}>
                       {this.state.error.message}
                       {this.state.errorInfo && (
-                        <div style={{ marginTop: spacing[2], color: colors.neutral[500] }}>
+                        <div style={{ marginTop: spacing[2], color: colors.gray[500] }}>
                           {this.state.errorInfo.componentStack}
                         </div>
                       )}
@@ -174,11 +174,11 @@ export default class MapErrorBoundary extends Component<Props, State> {
                   {/* Alternative Action */}
                   <div style={{
                     paddingTop: spacing[3],
-                    borderTop: `1px solid ${colors.neutral[200]}`
+                    borderTop: `1px solid ${colors.gray[200]}`
                   }}>
                     <p style={{
                       fontSize: textStyles.body.small.fontSize[0],
-                      color: colors.neutral[600],
+                      color: colors.gray[600],
                       marginBottom: spacing[2]
                     }}>
                       Mientras tanto, puedes:
@@ -203,7 +203,7 @@ export default class MapErrorBoundary extends Component<Props, State> {
                     marginTop: spacing[4],
                     padding: spacing[3],
                     backgroundColor: colors.warning[50],
-                    borderRadius: borderRadius.lg
+                    borderRadius: radius.lg
                   }}>
                     <p style={{
                       fontSize: textStyles.body.small.fontSize[0],

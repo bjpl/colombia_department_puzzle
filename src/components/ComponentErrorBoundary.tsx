@@ -122,7 +122,7 @@ export default class ComponentErrorBoundary extends Component<Props, State> {
                       maxHeight: '5rem',
                       backgroundColor: colors.warning[100],
                       padding: spacing[2],
-                      borderRadius: borderRadius.md
+                      borderRadius: radius.md
                     }}>
                       {this.state.error.message}
                     </pre>

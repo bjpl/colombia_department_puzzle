@@ -33,8 +33,8 @@ export default function HintsPanel() {
           style={{
             width: '100%',
             padding: spacing[3],
-            border: `2px solid ${game.score >= hints.HINT_COSTS.region && !hints.activeHint ? colors.success : colors.neutral[300]}`,
-            backgroundColor: game.score >= hints.HINT_COSTS.region && !hints.activeHint ? 'rgb(240 253 244)' : colors.neutral[50],
+            border: `2px solid ${game.score >= hints.HINT_COSTS.region && !hints.activeHint ? colors.success : colors.gray[300]}`,
+            backgroundColor: game.score >= hints.HINT_COSTS.region && !hints.activeHint ? 'rgb(240 253 244)' : colors.gray[50],
             cursor: game.score >= hints.HINT_COSTS.region && !hints.activeHint ? 'pointer' : 'not-allowed',
             opacity: game.score >= hints.HINT_COSTS.region && !hints.activeHint ? 1 : 0.6,
             textAlign: 'left'
@@ -63,8 +63,8 @@ export default function HintsPanel() {
           style={{
             width: '100%',
             padding: spacing[3],
-            border: `2px solid ${game.score >= hints.HINT_COSTS.letter && !hints.activeHint ? colors.warning : colors.neutral[300]}`,
-            backgroundColor: game.score >= hints.HINT_COSTS.letter && !hints.activeHint ? 'rgb(254 252 232)' : colors.neutral[50],
+            border: `2px solid ${game.score >= hints.HINT_COSTS.letter && !hints.activeHint ? colors.warning : colors.gray[300]}`,
+            backgroundColor: game.score >= hints.HINT_COSTS.letter && !hints.activeHint ? 'rgb(254 252 232)' : colors.gray[50],
             cursor: game.score >= hints.HINT_COSTS.letter && !hints.activeHint ? 'pointer' : 'not-allowed',
             opacity: game.score >= hints.HINT_COSTS.letter && !hints.activeHint ? 1 : 0.6,
             textAlign: 'left'
@@ -93,8 +93,8 @@ export default function HintsPanel() {
           style={{
             width: '100%',
             padding: spacing[3],
-            border: `2px solid ${game.score >= hints.HINT_COSTS.flash && !hints.activeHint ? colors.error : colors.neutral[300]}`,
-            backgroundColor: game.score >= hints.HINT_COSTS.flash && !hints.activeHint ? '#fef2f2' : colors.neutral[50],
+            border: `2px solid ${game.score >= hints.HINT_COSTS.flash && !hints.activeHint ? colors.error : colors.gray[300]}`,
+            backgroundColor: game.score >= hints.HINT_COSTS.flash && !hints.activeHint ? '#fef2f2' : colors.gray[50],
             cursor: game.score >= hints.HINT_COSTS.flash && !hints.activeHint ? 'pointer' : 'not-allowed',
             opacity: game.score >= hints.HINT_COSTS.flash && !hints.activeHint ? 1 : 0.6,
             textAlign: 'left'

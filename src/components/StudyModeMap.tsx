@@ -403,7 +403,7 @@ export default function StudyModeMap({
 
       {/* Zoom indicator */}
       {zoomLevel > 1 && (
-        <Badge variant="secondary" style={{ position: 'absolute', top: spacing[2], right: spacing[2], backgroundColor: highContrast ? colors.neutral[900] : colors.background, color: highContrast ? colors.text.primary : colors.text.secondary, padding: `${spacing[1]} ${spacing[2]}`, boxShadow: shadows.sm, fontSize: textStyles.body.small.fontSize[0] }}>
+        <Badge variant="secondary" style={{ position: 'absolute', top: spacing[2], right: spacing[2], backgroundColor: highContrast ? colors.gray[900] : colors.background, color: highContrast ? colors.text.primary : colors.text.secondary, padding: `${spacing[1]} ${spacing[2]}`, boxShadow: shadows.sm, fontSize: textStyles.body.small.fontSize[0] }}>
           Zoom: {Math.round(zoomLevel * 100)}%
         </Badge>
       )}

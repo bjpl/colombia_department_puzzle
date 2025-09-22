@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Department } from '../types/game';
 import {
-  colors, spacing, textStyles, shadows
+  colors, spacing, textStyles, shadows, radius
 } from '../design-system';
 
 /**
@@ -46,9 +46,9 @@ export default function KeyboardCursor({
         aria-hidden="true"
       >
         <div style={{
-          backgroundColor: colors.neutral[50],
+          backgroundColor: colors.gray[50],
           boxShadow: shadows.xl,
-          borderRadius: borderRadius.lg,
+          borderRadius: radius.lg,
           padding: `${spacing[2]} ${spacing[4]}`,
           border: `2px solid ${colors.brand[500]}`
         }}>
@@ -57,7 +57,7 @@ export default function KeyboardCursor({
             <div className="flex items-baseline gap-2">
               <span style={{
                 fontSize: textStyles.body.small.fontSize[0],
-                color: colors.neutral[500],
+                color: colors.gray[500],
                 textTransform: 'uppercase',
                 letterSpacing: '0.05em'
               }}>
@@ -132,7 +132,7 @@ export default function KeyboardCursor({
         >
           <div
             className="absolute inset-0 rounded-full border border-dashed opacity-15"
-            style={{ borderColor: colors.neutral[300] }}
+            style={{ borderColor: colors.gray[300] }}
           />
         </div>
       )}
@@ -152,7 +152,7 @@ export default function KeyboardCursor({
             className="animate-pulse"
             style={{
               backgroundColor: colors.secondary[600],
-              color: colors.neutral[50],
+              color: colors.gray[50],
               fontSize: textStyles.body.small.fontSize[0],
               padding: `${spacing[1]} ${spacing[2]}`,
               borderRadius: '9999px',
@@ -174,11 +174,11 @@ export default function KeyboardCursor({
             left: `${position.x}px`,
             top: `${position.y + 50}px`,
             transform: 'translateX(-50%)',
-            backgroundColor: colors.neutral[950],
-            color: colors.neutral[50],
+            backgroundColor: colors.gray[950],
+            color: colors.gray[50],
             fontSize: '10px',
             padding: `${spacing[1]} ${spacing[2]}`,
-            borderRadius: borderRadius.md
+            borderRadius: radius.md
           }}
         >
           Detected: {targetZone}

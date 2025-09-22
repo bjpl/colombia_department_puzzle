@@ -82,7 +82,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
                 </div>
               </>
             )}
-            <div style={{ paddingTop: compact ? spacing[1] : spacing[2], borderTop: `1px solid ${colors.neutral[200]}` }}>
+            <div style={{ paddingTop: compact ? spacing[1] : spacing[2], borderTop: `1px solid ${colors.gray[200]}` }}>
               <p style={{ fontSize: compact ? textStyles.body.small.fontSize[0] : textStyles.body.small.fontSize[0], color: colors.text.secondary, fontStyle: 'italic', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
                 {game.currentDepartment.trivia}
               </p>
