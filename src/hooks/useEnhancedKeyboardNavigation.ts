@@ -33,11 +33,17 @@ export function useEnhancedKeyboardNavigation() {
   const moveSpeed = { normal: 15, fast: 40, precision: 5 }; // No need for ref, constant values
   const animationFrameRef = useRef<number | null>(null);
 
+  // Use refs to access current state in event handlers
+  const navStateRef = useRef(navState);
+  navStateRef.current = navState;
+  const gameRef = useRef(game);
+  gameRef.current = game;
+
   // Update available departments
   useEffect(() => {
     const filtered = game.getFilteredDepartments();
     availableDepartmentsRef.current = filtered.filter(
-      dept => !game.placedDepartments.has(dept.id)
+      dept => !gameRef.current.placedDepartments.has(dept.id)
     );
   }, [game.placedDepartments]);
 
@@ -90,7 +96,7 @@ export function useEnhancedKeyboardNavigation() {
       }
 
       // PRIORITY: If we're in moving mode and using arrow keys, handle it here first
-      if (navState.mode === 'moving' && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      if (navStateRef.current.mode === 'moving' && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation(); // Stop ALL other handlers
@@ -102,8 +108,8 @@ export function useEnhancedKeyboardNavigation() {
             ? moveSpeed.fast
             : moveSpeed.normal;
 
-        let newX = navState.cursorPosition.x;
-        let newY = navState.cursorPosition.y;
+        let newX = navStateRef.current.cursorPosition.x;
+        let newY = navStateRef.current.cursorPosition.y;
 
         switch (e.key) {
           case 'ArrowUp': newY -= speed; break;
@@ -146,12 +152,12 @@ export function useEnhancedKeyboardNavigation() {
           e.preventDefault();
         }
 
-        if (navState.mode === 'selecting' || navState.mode === 'idle') {
+        if (navStateRef.current.mode === 'selecting' || navStateRef.current.mode === 'idle') {
           // Pick up department
           const deptId = e.target.getAttribute('data-department-id');
           if (deptId) {
-            const department = game.departments.find(d => d.id === deptId);
-            if (department && !game.placedDepartments.has(department.id)) {
+            const department = gameRef.current.departments.find(d => d.id === deptId);
+            if (department && !gameRef.current.placedDepartments.has(department.id)) {
 
               // Start cursor closer to the map center, not at the department
               // Map is roughly in the center of the viewport
@@ -164,7 +170,7 @@ export function useEnhancedKeyboardNavigation() {
               setNavState({
                 mode: 'moving',
                 selectedDepartment: department,
-                focusedIndex: navState.focusedIndex,
+                focusedIndex: navStateRef.current.focusedIndex,
                 cursorPosition: { x: startX, y: startY },
                 targetZone: null,
                 lastMousePosition: { x: 0, y: 0 }
@@ -175,24 +181,24 @@ export function useEnhancedKeyboardNavigation() {
               announceToScreenReader(`${department.name} levantado. Use las flechas para mover. Enter para colocar.`);
             }
           }
-        } else if (navState.mode === 'moving' && navState.selectedDepartment) {
+        } else if (navStateRef.current.mode === 'moving' && navStateRef.current.selectedDepartment) {
           // Place department
           console.log('Placing department:', {
-            targetZone: navState.targetZone,
-            departmentId: navState.selectedDepartment.id,
-            cursorPosition: navState.cursorPosition
+            targetZone: navStateRef.current.targetZone,
+            departmentId: navStateRef.current.selectedDepartment.id,
+            cursorPosition: navStateRef.current.cursorPosition
           });
 
-          const isCorrect = navState.targetZone === navState.selectedDepartment.id;
+          const isCorrect = navStateRef.current.targetZone === navStateRef.current.selectedDepartment.id;
 
-          if (navState.targetZone) {
+          if (navStateRef.current.targetZone) {
             // Start game if needed
-            if (!game.isGameStarted) {
-              game.startGame();
+            if (!gameRef.current.isGameStarted) {
+              gameRef.current.startGame();
             }
             // Don't use selectDepartment - directly place without setting currentDepartment
             // This prevents the DragOverlay from showing
-            game.placeDepartment(navState.selectedDepartment.id, isCorrect);
+            gameRef.current.placeDepartment(navStateRef.current.selectedDepartment.id, isCorrect);
 
             // Trigger placement feedback using custom event
             console.log('Dispatching placement-feedback event', { isCorrect, departmentName: navState.selectedDepartment.name });
@@ -200,15 +206,15 @@ export function useEnhancedKeyboardNavigation() {
               detail: {
                 show: true,
                 isCorrect,
-                departmentName: navState.selectedDepartment.name,
-                position: navState.cursorPosition
+                departmentName: navStateRef.current.selectedDepartment.name,
+                position: navStateRef.current.cursorPosition
               }
             }));
 
             if (isCorrect) {
-              announceToScreenReader(`¡Correcto! ${navState.selectedDepartment.name} colocado.`);
+              announceToScreenReader(`¡Correcto! ${navStateRef.current.selectedDepartment.name} colocado.`);
             } else {
-              announceToScreenReader(`Incorrecto. ${navState.selectedDepartment.name} no va ahí.`);
+              announceToScreenReader(`Incorrecto. ${navStateRef.current.selectedDepartment.name} no va ahí.`);
             }
           } else {
             // No target zone - just announce
@@ -228,7 +234,7 @@ export function useEnhancedKeyboardNavigation() {
       }
 
       // Escape to cancel
-      if (key === 'Escape' && navState.mode === 'moving') {
+      if (key === 'Escape' && navStateRef.current.mode === 'moving') {
         e.preventDefault();
         setNavState(prev => ({
           ...prev,
@@ -244,7 +250,7 @@ export function useEnhancedKeyboardNavigation() {
       // Arrow key movement is now handled at the top of the function for priority
 
       // Number keys for quick region focus
-      if (/^[1-6]$/.test(key) && navState.mode !== 'moving') {
+      if (/^[1-6]$/.test(key) && navStateRef.current.mode !== 'moving') {
         const regions = ['Andina', 'Caribe', 'Pacífico', 'Orinoquía', 'Amazonía', 'Insular'];
         const regionIndex = parseInt(key) - 1;
 
@@ -265,10 +271,10 @@ export function useEnhancedKeyboardNavigation() {
 
     // Track mouse movement to switch modes
     const handleMouseMove = (e: MouseEvent) => {
-      if (navState.mode === 'moving') {
+      if (navStateRef.current.mode === 'moving') {
         const distance = Math.sqrt(
-          Math.pow(e.clientX - navState.lastMousePosition.x, 2) +
-          Math.pow(e.clientY - navState.lastMousePosition.y, 2)
+          Math.pow(e.clientX - navStateRef.current.lastMousePosition.x, 2) +
+          Math.pow(e.clientY - navStateRef.current.lastMousePosition.y, 2)
         );
 
         // If mouse moved significantly, switch to mouse mode
@@ -298,7 +304,7 @@ export function useEnhancedKeyboardNavigation() {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [navState, game, animateMovement]);
+  }, []); // Remove dependencies to prevent re-registering on every state change
 
   return {
     isKeyboardMode: navState.mode === 'moving',
