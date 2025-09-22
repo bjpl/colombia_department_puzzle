@@ -17,8 +17,8 @@ const LEGACY_COLORS = {
 export const REGION_COLORS: Record<string, string> = {
   'Andina': MODERN_REGION_COLORS['Andina'].primary,      // #059669 - Emerald green
   'Caribe': MODERN_REGION_COLORS['Caribe'].primary,      // #0EA5E9 - Sky blue
-  'Pacífico': MODERN_REGION_COLORS['Pacífica'].primary,  // #A855F7 - Modern purple
-  'Pacífica': MODERN_REGION_COLORS['Pacífica'].primary,  // #A855F7 - Modern purple
+  'Pacífico': MODERN_REGION_COLORS['Pacífico'].primary,  // #7C3AED - Deep violet
+  'Pacífica': MODERN_REGION_COLORS['Pacífico'].primary,  // #7C3AED - Deep violet (support both spellings)
   'Orinoquía': MODERN_REGION_COLORS['Orinoquía'].primary, // #F97316 - Sunset orange
   'Amazonía': MODERN_REGION_COLORS['Amazonía'].primary,   // #14B8A6 - Tropical teal
   'Insular': MODERN_REGION_COLORS['Insular'].primary,    // #06B6D4 - Ocean cyan
@@ -43,15 +43,15 @@ export const REGION_STYLES: Record<string, { bg: string; text: string; icon: str
   'Pacífico': {
     bg: 'from-purple-600 via-purple-500 to-purple-400',  // Modern purple gradient
     text: 'text-white',
-    icon: MODERN_REGION_COLORS['Pacífica'].icon || '🌴',
-    pattern: MODERN_REGION_COLORS['Pacífica'].pattern,
+    icon: MODERN_REGION_COLORS['Pacífico'].icon || '🌴',
+    pattern: MODERN_REGION_COLORS['Pacífico'].pattern,
     glow: 'shadow-purple-500/50'
   },
   'Pacífica': {
     bg: 'from-purple-600 via-purple-500 to-purple-400',  // Modern purple gradient
     text: 'text-white',
-    icon: MODERN_REGION_COLORS['Pacífica'].icon || '🌴',
-    pattern: MODERN_REGION_COLORS['Pacífica'].pattern,
+    icon: MODERN_REGION_COLORS['Pacífico'].icon || '🌴',
+    pattern: MODERN_REGION_COLORS['Pacífico'].pattern,
     glow: 'shadow-purple-500/50'
   },
   'Orinoquía': {
