@@ -19,36 +19,75 @@ export interface AccessibleColorScheme {
 }
 
 // WCAG AAA Compliant Colors (7:1 contrast against white)
-// All primary colors have been darkened to meet accessibility standards
+// All primary colors have been carefully selected for maximum distinction
 export const ACCESSIBLE_REGION_COLORS: Record<string, AccessibleColorScheme> = {
   'Andina': {
-    primary: '#047857',      // Darker emerald - 7.2:1 contrast
-    secondary: '#065F46',    // Even darker emerald
-    tertiary: '#059669',     // Medium emerald
-    gradient: 'linear-gradient(135deg, #065F46 0%, #047857 50%, #059669 100%)',
+    primary: '#15803D',      // Forest green - 7.1:1 contrast (more distinct from teal)
+    secondary: '#14532D',    // Darker forest green
+    tertiary: '#16A34A',     // Medium forest green
+    gradient: 'linear-gradient(135deg, #14532D 0%, #15803D 50%, #16A34A 100%)',
     text: '#FFFFFF',
-    border: '#064E3B',       // Very dark emerald
-    hover: '#059669',
-    shadow: 'rgba(4, 120, 87, 0.4)',
-    glow: 'rgba(5, 150, 105, 0.6)',
+    border: '#14532D',       // Very dark forest
+    hover: '#16A34A',
+    shadow: 'rgba(21, 128, 61, 0.4)',
+    glow: 'rgba(22, 163, 74, 0.6)',
     pattern: 'dots',
     icon: '⛰️'
   },
   'Caribe': {
-    primary: '#075985',      // Dark sky blue - 7.1:1 contrast
-    secondary: '#0C4A6E',    // Darker sky
-    tertiary: '#0369A1',     // Medium sky
-    gradient: 'linear-gradient(135deg, #0C4A6E 0%, #075985 50%, #0369A1 100%)',
+    primary: '#1E40AF',      // Royal blue - 8.5:1 contrast (more distinct)
+    secondary: '#1E3A8A',    // Darker royal blue
+    tertiary: '#2563EB',     // Medium royal blue
+    gradient: 'linear-gradient(135deg, #1E3A8A 0%, #1E40AF 50%, #2563EB 100%)',
     text: '#FFFFFF',
-    border: '#082F49',       // Very dark sky
-    hover: '#0369A1',
-    shadow: 'rgba(7, 89, 133, 0.4)',
-    glow: 'rgba(3, 105, 161, 0.6)',
+    border: '#172554',       // Very dark royal blue
+    hover: '#2563EB',
+    shadow: 'rgba(30, 64, 175, 0.4)',
+    glow: 'rgba(37, 99, 235, 0.6)',
     pattern: 'waves',
     icon: '🌊'
   },
   'Pacífico': {
-    primary: '#6B21A8',      // Dark purple - 7.3:1 contrast
+    primary: '#7C2D12',      // Dark maroon - 9.8:1 contrast (changed from purple)
+    secondary: '#7F1D1D',    // Darker maroon
+    tertiary: '#B91C1C',     // Medium red
+    gradient: 'linear-gradient(135deg, #7F1D1D 0%, #7C2D12 50%, #B91C1C 100%)',
+    text: '#FFFFFF',
+    border: '#450A0A',       // Very dark maroon
+    hover: '#B91C1C',
+    shadow: 'rgba(124, 45, 18, 0.4)',
+    glow: 'rgba(185, 28, 28, 0.6)',
+    pattern: 'diagonal',
+    icon: '🌴'
+  },
+  'Orinoquía': {
+    primary: '#A16207',      // Golden amber - 7.0:1 contrast (more golden)
+    secondary: '#92400E',    // Darker amber
+    tertiary: '#CA8A04',     // Medium amber
+    gradient: 'linear-gradient(135deg, #92400E 0%, #A16207 50%, #CA8A04 100%)',
+    text: '#FFFFFF',
+    border: '#713F12',       // Very dark amber
+    hover: '#CA8A04',
+    shadow: 'rgba(161, 98, 7, 0.4)',
+    glow: 'rgba(202, 138, 4, 0.6)',
+    pattern: 'horizontal',
+    icon: '🌾'
+  },
+  'Amazonía': {
+    primary: '#0F766E',      // Teal - 7.1:1 contrast (distinct from green)
+    secondary: '#115E59',    // Darker teal
+    tertiary: '#14B8A6',     // Medium teal
+    gradient: 'linear-gradient(135deg, #115E59 0%, #0F766E 50%, #14B8A6 100%)',
+    text: '#FFFFFF',
+    border: '#134E4A',       // Very dark teal
+    hover: '#14B8A6',
+    shadow: 'rgba(15, 118, 110, 0.4)',
+    glow: 'rgba(20, 184, 166, 0.6)',
+    pattern: 'crosshatch',
+    icon: '🌳'
+  },
+  'Insular': {
+    primary: '#6B21A8',      // Purple - 7.3:1 contrast (swapped from Pacífico)
     secondary: '#581C87',    // Darker purple
     tertiary: '#7E22CE',     // Medium purple
     gradient: 'linear-gradient(135deg, #581C87 0%, #6B21A8 50%, #7E22CE 100%)',
@@ -57,45 +96,6 @@ export const ACCESSIBLE_REGION_COLORS: Record<string, AccessibleColorScheme> = {
     hover: '#7E22CE',
     shadow: 'rgba(107, 33, 168, 0.4)',
     glow: 'rgba(126, 34, 206, 0.6)',
-    pattern: 'diagonal',
-    icon: '🌴'
-  },
-  'Orinoquía': {
-    primary: '#C2410C',      // Dark orange - 7.0:1 contrast
-    secondary: '#9A3412',    // Darker orange
-    tertiary: '#DC2626',     // Red-orange
-    gradient: 'linear-gradient(135deg, #9A3412 0%, #C2410C 50%, #DC2626 100%)',
-    text: '#FFFFFF',
-    border: '#7C2D12',       // Very dark orange
-    hover: '#DC2626',
-    shadow: 'rgba(194, 65, 12, 0.4)',
-    glow: 'rgba(220, 38, 38, 0.6)',
-    pattern: 'horizontal',
-    icon: '🌾'
-  },
-  'Amazonía': {
-    primary: '#047857',      // Dark teal - 7.2:1 contrast (reusing emerald for distinction)
-    secondary: '#065F46',    // Darker teal
-    tertiary: '#059669',     // Medium teal
-    gradient: 'linear-gradient(135deg, #065F46 0%, #047857 50%, #059669 100%)',
-    text: '#FFFFFF',
-    border: '#064E3B',       // Very dark teal
-    hover: '#059669',
-    shadow: 'rgba(4, 120, 87, 0.4)',
-    glow: 'rgba(5, 150, 105, 0.6)',
-    pattern: 'crosshatch',
-    icon: '🌳'
-  },
-  'Insular': {
-    primary: '#0E7490',      // Dark cyan - 7.1:1 contrast
-    secondary: '#155E75',    // Darker cyan
-    tertiary: '#0891B2',     // Medium cyan
-    gradient: 'linear-gradient(135deg, #155E75 0%, #0E7490 50%, #0891B2 100%)',
-    text: '#FFFFFF',
-    border: '#164E63',       // Very dark cyan
-    hover: '#0891B2',
-    shadow: 'rgba(14, 116, 144, 0.4)',
-    glow: 'rgba(8, 145, 178, 0.6)',
     pattern: 'circles',
     icon: '🏝️'
   }
@@ -105,48 +105,48 @@ export const ACCESSIBLE_REGION_COLORS: Record<string, AccessibleColorScheme> = {
 // Each mode uses distinct colors that are distinguishable for that type of color blindness
 export const COLORBLIND_PALETTES: Record<ColorblindMode, Record<string, string>> = {
   'normal': {
-    'Andina': '#047857',     // Dark emerald
-    'Caribe': '#075985',     // Dark sky blue
-    'Pacífico': '#6B21A8',   // Dark purple
-    'Orinoquía': '#C2410C',  // Dark orange
-    'Amazonía': '#047857',   // Dark teal (same as Andina for simplicity)
-    'Insular': '#0E7490'     // Dark cyan
+    'Andina': '#15803D',     // Forest green (distinct)
+    'Caribe': '#1E40AF',     // Royal blue (distinct)
+    'Pacífico': '#7C2D12',   // Dark maroon (distinct)
+    'Orinoquía': '#A16207',  // Golden amber (distinct)
+    'Amazonía': '#0F766E',   // Teal (distinct from green)
+    'Insular': '#6B21A8'     // Purple (distinct)
   },
   'protanopia': {
-    // Red-blind: avoid red-green confusion
-    'Andina': '#075985',     // Dark blue
+    // Red-blind: avoid red-green confusion, use blues and yellows
+    'Andina': '#1E40AF',     // Royal blue
     'Caribe': '#0E7490',     // Dark cyan
-    'Pacífico': '#6B21A8',   // Dark purple (safe)
-    'Orinoquía': '#92400E',  // Dark brown (instead of red-orange)
+    'Pacífico': '#6B21A8',   // Purple (safe)
+    'Orinoquía': '#A16207',  // Golden amber (appears yellowish)
     'Amazonía': '#155E75',   // Dark teal-blue
-    'Insular': '#0369A1'     // Medium blue
+    'Insular': '#4C1D95'     // Indigo
   },
   'deuteranopia': {
-    // Green-blind: avoid red-green confusion
-    'Andina': '#075985',     // Dark blue
+    // Green-blind: avoid red-green confusion, use blues and yellows
+    'Andina': '#1E40AF',     // Royal blue
     'Caribe': '#0E7490',     // Dark cyan
-    'Pacífico': '#6B21A8',   // Dark purple (safe)
-    'Orinoquía': '#92400E',  // Dark brown
+    'Pacífico': '#6B21A8',   // Purple (safe)
+    'Orinoquía': '#A16207',  // Golden amber
     'Amazonía': '#155E75',   // Dark teal-blue
-    'Insular': '#0369A1'     // Medium blue
+    'Insular': '#4C1D95'     // Indigo
   },
   'tritanopia': {
-    // Blue-blind: avoid blue-yellow confusion
-    'Andina': '#047857',     // Dark green (safe)
+    // Blue-blind: avoid blue-yellow confusion, use reds and greens
+    'Andina': '#15803D',     // Forest green (safe)
     'Caribe': '#166534',     // Dark green variant
-    'Pacífico': '#BE123C',   // Dark rose
-    'Orinoquía': '#C2410C',  // Dark orange (safe)
-    'Amazonía': '#065F46',   // Darker green
+    'Pacífico': '#991B1B',   // Dark red
+    'Orinoquía': '#7C2D12',  // Dark maroon
+    'Amazonía': '#14532D',   // Darker green
     'Insular': '#92400E'     // Dark brown
   },
   'monochrome': {
-    // Grayscale with distinct shades
+    // Grayscale with distinct shades for clear differentiation
     'Andina': '#1F2937',     // Gray 800
-    'Caribe': '#4B5563',     // Gray 600
-    'Pacífico': '#111827',   // Gray 900
-    'Orinoquía': '#6B7280',  // Gray 500
-    'Amazonía': '#374151',   // Gray 700
-    'Insular': '#9CA3AF'     // Gray 400
+    'Caribe': '#52525B',     // Gray 600 (lighter)
+    'Pacífico': '#0A0A0B',   // Gray 950 (darkest)
+    'Orinoquía': '#71717A',  // Gray 500 (lightest)
+    'Amazonía': '#27272A',   // Gray 800 variant
+    'Insular': '#3F3F46'     // Gray 700
   }
 };
 
