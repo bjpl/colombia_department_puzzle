@@ -1,77 +1,5 @@
 [
   {
-    "timestamp": 1758437487819,
-    "memoryTotal": 68125028352,
-    "memoryUsed": 31915311104,
-    "memoryFree": 36209717248,
-    "memoryUsagePercent": 46.84814359136048,
-    "memoryEfficiency": 53.15185640863952,
-    "cpuCount": 22,
-    "cpuLoad": 0,
-    "platform": "win32",
-    "uptime": 119327.906
-  },
-  {
-    "timestamp": 1758437517829,
-    "memoryTotal": 68125028352,
-    "memoryUsed": 31645233152,
-    "memoryFree": 36479795200,
-    "memoryUsagePercent": 46.451699056167755,
-    "memoryEfficiency": 53.548300943832245,
-    "cpuCount": 22,
-    "cpuLoad": 0,
-    "platform": "win32",
-    "uptime": 119357.921
-  },
-  {
-    "timestamp": 1758437547837,
-    "memoryTotal": 68125028352,
-    "memoryUsed": 31592873984,
-    "memoryFree": 36532154368,
-    "memoryUsagePercent": 46.37484159384207,
-    "memoryEfficiency": 53.62515840615793,
-    "cpuCount": 22,
-    "cpuLoad": 0,
-    "platform": "win32",
-    "uptime": 119387.921
-  },
-  {
-    "timestamp": 1758437577850,
-    "memoryTotal": 68125028352,
-    "memoryUsed": 31638753280,
-    "memoryFree": 36486275072,
-    "memoryUsagePercent": 46.442187321410714,
-    "memoryEfficiency": 53.557812678589286,
-    "cpuCount": 22,
-    "cpuLoad": 0,
-    "platform": "win32",
-    "uptime": 119417.937
-  },
-  {
-    "timestamp": 1758437607864,
-    "memoryTotal": 68125028352,
-    "memoryUsed": 31703752704,
-    "memoryFree": 36421275648,
-    "memoryUsagePercent": 46.537599280234645,
-    "memoryEfficiency": 53.462400719765355,
-    "cpuCount": 22,
-    "cpuLoad": 0,
-    "platform": "win32",
-    "uptime": 119447.953
-  },
-  {
-    "timestamp": 1758437637879,
-    "memoryTotal": 68125028352,
-    "memoryUsed": 32013729792,
-    "memoryFree": 36111298560,
-    "memoryUsagePercent": 46.99261133013554,
-    "memoryEfficiency": 53.00738866986446,
-    "cpuCount": 22,
-    "cpuLoad": 0,
-    "platform": "win32",
-    "uptime": 119477.968
-  },
-  {
     "timestamp": 1758437667893,
     "memoryTotal": 68125028352,
     "memoryUsed": 31709048832,
@@ -12418,5 +12346,77 @@
     "cpuLoad": 0,
     "platform": "win32",
     "uptime": 205721.203
+  },
+  {
+    "timestamp": 1758523911128,
+    "memoryTotal": 68125028352,
+    "memoryUsed": 30344335360,
+    "memoryFree": 37780692992,
+    "memoryUsagePercent": 44.54212511033642,
+    "memoryEfficiency": 55.45787488966358,
+    "cpuCount": 22,
+    "cpuLoad": 0,
+    "platform": "win32",
+    "uptime": 205751.218
+  },
+  {
+    "timestamp": 1758523941133,
+    "memoryTotal": 68125028352,
+    "memoryUsed": 30298955776,
+    "memoryFree": 37826072576,
+    "memoryUsagePercent": 44.47551290466434,
+    "memoryEfficiency": 55.52448709533566,
+    "cpuCount": 22,
+    "cpuLoad": 0,
+    "platform": "win32",
+    "uptime": 205781.218
+  },
+  {
+    "timestamp": 1758523971140,
+    "memoryTotal": 68125028352,
+    "memoryUsed": 30292103168,
+    "memoryFree": 37832925184,
+    "memoryUsagePercent": 44.465454034722164,
+    "memoryEfficiency": 55.534545965277836,
+    "cpuCount": 22,
+    "cpuLoad": 0,
+    "platform": "win32",
+    "uptime": 205811.234
+  },
+  {
+    "timestamp": 1758524001152,
+    "memoryTotal": 68125028352,
+    "memoryUsed": 30375497728,
+    "memoryFree": 37749530624,
+    "memoryUsagePercent": 44.5878680168039,
+    "memoryEfficiency": 55.4121319831961,
+    "cpuCount": 22,
+    "cpuLoad": 0,
+    "platform": "win32",
+    "uptime": 205841.234
+  },
+  {
+    "timestamp": 1758524031157,
+    "memoryTotal": 68125028352,
+    "memoryUsed": 30272094208,
+    "memoryFree": 37852934144,
+    "memoryUsagePercent": 44.436083096486925,
+    "memoryEfficiency": 55.563916903513075,
+    "cpuCount": 22,
+    "cpuLoad": 0,
+    "platform": "win32",
+    "uptime": 205871.25
+  },
+  {
+    "timestamp": 1758524061158,
+    "memoryTotal": 68125028352,
+    "memoryUsed": 30201798656,
+    "memoryFree": 37923229696,
+    "memoryUsagePercent": 44.332897008054374,
+    "memoryEfficiency": 55.667102991945626,
+    "cpuCount": 22,
+    "cpuLoad": 0,
+    "platform": "win32",
+    "uptime": 205901.25
   }
 ]
