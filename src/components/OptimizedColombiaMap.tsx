@@ -95,6 +95,7 @@ const DroppableDepartment = ({ feature, isDragging, children }: {
   isDragging: boolean;
   children: (isOver: boolean) => React.ReactNode;
 }) => {
+  const game = useGame();
   // Use the actual department ID from properties, or find it from the department data
   const department = colombiaDepartments.find(d =>
     normalizeId(d.name) === normalizeId(feature.properties.name) ||
@@ -115,12 +116,18 @@ const DroppableDepartment = ({ feature, isDragging, children }: {
   const enhancedNav = (window as any).__keyboardNavTarget;
   const isKeyboardTarget = enhancedNav === departmentId;
 
+  // Check if this zone already has a department placed
+  const isPlaced = game.placedDepartments.has(departmentId);
+
+  // Only highlight if it's an empty zone (valid drop target)
+  const shouldHighlight = !isPlaced && (isOver || isKeyboardTarget);
+
   return (
     <g ref={setNodeRef}
        data-over={isOver}
        data-department-drop-zone={departmentId}
        data-keyboard-target={isKeyboardTarget}>
-      {children(isOver || isKeyboardTarget)}
+      {children(shouldHighlight)}
     </g>
   );
 };

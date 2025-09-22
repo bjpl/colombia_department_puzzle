@@ -48,11 +48,9 @@ export default function KeyboardCursor({
       {/* Simple floating pill only */}
       <div className={`
         bg-white shadow-lg rounded-md px-2 py-1 border-2
-        ${targetZone === selectedDepartment.id
-          ? 'border-green-500'
-          : targetZone
-            ? 'border-red-400'
-            : 'border-blue-500'
+        ${targetZone
+          ? 'border-purple-500 ring-2 ring-purple-300'  // Neutral indicator for any drop zone
+          : 'border-blue-500'
         }
         transition-all duration-200
       `}>
@@ -65,11 +63,7 @@ export default function KeyboardCursor({
       {/* Compact instructions - only show briefly */}
       {targetZone && (
         <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-[10px] px-2 py-1 rounded whitespace-nowrap opacity-90">
-          {targetZone === selectedDepartment.id ? (
-            <span className="text-green-400">✓ Enter para colocar</span>
-          ) : (
-            <span className="text-red-400">✗ Zona incorrecta</span>
-          )}
+          <span className="text-purple-300">Enter para colocar aquí</span>
         </div>
       )}
     </div>
