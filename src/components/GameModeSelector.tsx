@@ -180,7 +180,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
                 {REGIONS.map(region => {
                   const isUnlocked = isRegionUnlocked(region);
                   const isSelected = selectedRegions.has(region.id);
@@ -195,12 +195,16 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                         position: 'relative',
                         borderRadius: radius.lg,
                         padding: spacing[4],
+                        paddingTop: spacing[3],
                         border: `2px solid ${isSelected ? colors.brand[500] : colors.border}`,
                         backgroundColor: isSelected ? colors.brand[50] : colors.background,
                         transition: 'all 0.2s',
                         transform: isSelected ? 'scale(1.05)' : 'scale(1)',
                         height: 'auto',
-                        textAlign: 'left'
+                        minHeight: '140px',
+                        textAlign: 'left',
+                        display: 'flex',
+                        flexDirection: 'column'
                       }}
                     >
                       <div
@@ -215,19 +219,31 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                         }}
                       />
 
-                      <div className="flex justify-between items-start mb-2">
-                        <h3 style={{ fontWeight: textStyles.heading.h3.fontWeight, fontSize: textStyles.heading.h3.fontSize[0] }}>{region.name}</h3>
+                      <div className="flex flex-col" style={{ marginTop: spacing[2] }}>
+                        <h3 style={{
+                          fontWeight: textStyles.heading.h3.fontWeight,
+                          fontSize: textStyles.heading.h3.fontSize[0],
+                          marginBottom: spacing[2]
+                        }}>
+                          {region.name}
+                        </h3>
+                        <div style={{
+                          fontSize: textStyles.body.small.fontSize[0],
+                          color: colors.text.secondary,
+                          marginBottom: spacing[3],
+                          lineHeight: 1.5
+                        }}>
+                          <span style={{ fontWeight: 600 }}>{region.departments}</span>
+                          <span style={{ marginLeft: spacing[1] }}>departamento{region.departments > 1 ? 's' : ''}</span>
+                        </div>
                       </div>
 
-                      <div style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary, marginBottom: spacing[3] }}>
-                        {region.departments} departamento{region.departments > 1 ? 's' : ''}
-                      </div>
-
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between" style={{ marginTop: 'auto' }}>
                         <Badge
                           variant="secondary"
                           style={{
                             fontSize: textStyles.body.small.fontSize[0],
+                            padding: `${spacing[1]} ${spacing[2]}`,
                             backgroundColor:
                               region.difficulty === 'Fácil' ? 'rgb(220 252 231)' :
                               region.difficulty === 'Medio' ? 'rgb(254 243 199)' :
@@ -237,7 +253,8 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                               region.difficulty === 'Fácil' ? 'rgb(21 128 61)' :
                               region.difficulty === 'Medio' ? 'rgb(161 98 7)' :
                               region.difficulty === 'Difícil' ? 'rgb(194 65 12)' :
-                              'rgb(220 38 38)'
+                              'rgb(220 38 38)',
+                            fontWeight: 600
                           }}
                         >
                           {region.difficulty}
