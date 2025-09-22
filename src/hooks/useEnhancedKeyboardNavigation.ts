@@ -170,9 +170,12 @@ export function useEnhancedKeyboardNavigation() {
           const isCorrect = navState.targetZone === navState.selectedDepartment.id;
 
           if (navState.targetZone) {
-            // Set current department right before placement
-            game.selectDepartment(navState.selectedDepartment);
-            // Pass the selected department's ID
+            // Start game if needed
+            if (!game.isGameStarted) {
+              game.startGame();
+            }
+            // Don't use selectDepartment - directly place without setting currentDepartment
+            // This prevents the DragOverlay from showing
             game.placeDepartment(navState.selectedDepartment.id, isCorrect);
 
             if (isCorrect) {
