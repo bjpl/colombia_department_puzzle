@@ -60,6 +60,7 @@ export default function GameContainer() {
   // Enhanced flow states
   const [showTransition, setShowTransition] = useState(false);
   const [transitionConfig, setTransitionConfig] = useState<{ from: string; to: string; mode: GameModeConfig } | null>(null);
+  const [hasUsedStudyMode, setHasUsedStudyMode] = useState(false);
 
   // Clean up any lingering DOM elements from old keyboard navigation
   useEffect(() => {
@@ -548,18 +549,22 @@ export default function GameContainer() {
           <InteractiveTutorial
             onComplete={() => {
               modal.closeModal();
-              // After tutorial, show mode selector for first-time users
-              const profile = storage.getActiveProfile();
-              if (!profile || !profile.stats?.gamesPlayed || profile.stats.gamesPlayed === 0) {
-                modal.openModal('gameMode');
+              // After tutorial, show mode selector for first-time users (unless they came from study mode)
+              if (!hasUsedStudyMode) {
+                const profile = storage.getActiveProfile();
+                if (!profile || !profile.stats?.gamesPlayed || profile.stats.gamesPlayed === 0) {
+                  modal.openModal('gameMode');
+                }
               }
             }}
             onSkip={() => {
               modal.closeModal();
-              // If skipping tutorial, also show mode selector for first-time users
-              const profile = storage.getActiveProfile();
-              if (!profile || !profile.stats?.gamesPlayed || profile.stats.gamesPlayed === 0) {
-                modal.openModal('gameMode');
+              // If skipping tutorial, also show mode selector for first-time users (unless they came from study mode)
+              if (!hasUsedStudyMode) {
+                const profile = storage.getActiveProfile();
+                if (!profile || !profile.stats?.gamesPlayed || profile.stats.gamesPlayed === 0) {
+                  modal.openModal('gameMode');
+                }
               }
             }}
           />
@@ -568,6 +573,7 @@ export default function GameContainer() {
           <StudyMode
             onClose={() => {
               game.clearCurrentDepartment();
+              setHasUsedStudyMode(true); // Mark that study mode was used
               modal.closeModal();
             }}
             onStartGame={() => {

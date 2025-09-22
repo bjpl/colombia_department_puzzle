@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-export type ModalType = 'tutorial' | 'study' | 'postGame' | null;
+export type ModalType = 'tutorial' | 'study' | 'postGame' | 'gameMode' | null;
 
 export function useModalManager() {
   const [activeModal, setActiveModal] = useState<ModalType>(null);
