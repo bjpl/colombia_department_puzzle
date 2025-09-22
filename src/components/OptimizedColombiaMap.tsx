@@ -26,7 +26,8 @@ const DepartmentPath = memo(({
   isPlaced,
   isOver,
   isDragging,
-  showRegionColors
+  showRegionColors,
+  isKeyboardTarget
 }: {
   feature: GeoFeature;
   pathString: string;
@@ -34,6 +35,7 @@ const DepartmentPath = memo(({
   isOver: boolean;
   isDragging: boolean;
   showRegionColors: boolean;
+  isKeyboardTarget?: boolean;
 }) => {
   const { getRegionColor, highContrast, colorMode } = useAccessibility();
 
@@ -53,24 +55,27 @@ const DepartmentPath = memo(({
 
   const departmentColor = useMemo(() => {
     if (isPlaced) return '#10b981'; // Green for placed
-    if (isOver && isDragging) return '#fbbf24'; // Yellow/gold when hovering
+    if (isOver && isDragging) return '#fbbf24'; // Yellow/gold when hovering with mouse
+    // Don't change fill color for keyboard targeting - keep it clean
     if (showRegionColors) return regionColor; // Show region color
-    return '#f3f4f6'; // Light gray for unplaced (much lighter for better border visibility)
+    return '#f3f4f6'; // Light gray for unplaced
   }, [isPlaced, isOver, isDragging, showRegionColors, regionColor, colorMode]);
 
   const strokeColor = useMemo(() => {
     if (highContrast) return '#000'; // Black border in high contrast
+    if (isKeyboardTarget) return '#9333ea'; // Purple border for keyboard target
     if (isOver && isDragging) return '#f59e0b'; // Orange border when drop target
     if (isOver) return '#3b82f6'; // Blue border on hover
     return '#374151'; // Default dark gray
-  }, [isOver, isDragging, highContrast]);
+  }, [isOver, isDragging, highContrast, isKeyboardTarget]);
 
   const strokeWidth = useMemo(() => {
     if (highContrast) return '2.5'; // Thicker border in high contrast
+    if (isKeyboardTarget) return '2.5'; // Medium-thick purple border for keyboard
     if (isOver && isDragging) return '3'; // Thick border when drop target
     if (isOver) return '2'; // Medium border on hover
     return '1'; // Default thin border
-  }, [isOver, isDragging, highContrast]);
+  }, [isOver, isDragging, highContrast, isKeyboardTarget]);
 
   return (
     <path
@@ -78,12 +83,18 @@ const DepartmentPath = memo(({
       fill={departmentColor}
       stroke={strokeColor}
       strokeWidth={strokeWidth}
-      opacity={isPlaced ? 0.9 : isOver ? 0.95 : 0.7}
-      className="transition-all duration-200"
+      opacity={isPlaced ? 0.9 : isKeyboardTarget ? 0.8 : isOver ? 0.95 : 0.7}
+      className={`transition-all duration-200 ${isKeyboardTarget ? 'animate-pulse' : ''}`}
       style={{
         cursor: 'inherit', // Inherit the grab cursor from the SVG parent for consistent panning
-        filter: isOver && isDragging ? 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.6))' : 'none',
-        pointerEvents: 'auto' // Always allow hit detection for keyboard navigation
+        filter: isKeyboardTarget
+          ? 'drop-shadow(0 0 4px rgba(147, 51, 234, 0.5))' // Subtle purple glow
+          : isOver && isDragging
+            ? 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.6))'
+            : 'none',
+        pointerEvents: 'auto', // Always allow hit detection for keyboard navigation
+        strokeDasharray: isKeyboardTarget ? '8 4' : 'none', // Dashed border for keyboard
+        strokeLinecap: isKeyboardTarget ? 'round' : 'butt'
       }}
     />
   );
@@ -474,6 +485,7 @@ export default function OptimizedColombiaMap() {
                       isOver={isOver}
                       isDragging={isDragging}
                       showRegionColors={showRegionColors}
+                      isKeyboardTarget={shouldHighlight && !isDragging}
                     />
                   );
                 }}
