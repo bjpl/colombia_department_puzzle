@@ -123,9 +123,50 @@ export function useEnhancedKeyboardNavigation() {
         newY = Math.max(50, Math.min(window.innerHeight - 50, newY));
 
         // Update position immediately and check for drop zones
+        // Hide cursor temporarily to avoid hitting it with elementFromPoint
+        const cursorElements = document.querySelectorAll('.fixed.pointer-events-none.z-50');
+        cursorElements.forEach(el => (el as HTMLElement).style.display = 'none');
+
         const element = document.elementFromPoint(newX, newY);
-        const dropZone = element?.closest('[data-department-drop-zone]');
-        const zoneId = dropZone?.getAttribute('data-department-drop-zone') || null;
+        console.log('Element at cursor position:', element?.tagName, element?.className, element?.id);
+
+        // Restore cursor visibility
+        cursorElements.forEach(el => (el as HTMLElement).style.display = '');
+
+        // Check for drop zone in element or its parents
+        let dropZone = element?.closest('[data-department-drop-zone]');
+
+        // If not found, try to find SVG elements directly
+        if (!dropZone && element) {
+          // Check if we hit an SVG path or element that's part of a drop zone
+          let parent = element.parentElement;
+          while (parent && parent !== document.body) {
+            if (parent.hasAttribute('data-department-drop-zone')) {
+              dropZone = parent;
+              break;
+            }
+            parent = parent.parentElement;
+          }
+        }
+
+        let zoneId = dropZone?.getAttribute('data-department-drop-zone') || null;
+
+        // If still no zone found, try alternative method
+        if (!zoneId) {
+          // Get all drop zones and check if cursor position overlaps any
+          const allZones = document.querySelectorAll('[data-department-drop-zone]');
+          for (const zone of allZones) {
+            const rect = zone.getBoundingClientRect();
+            if (newX >= rect.left && newX <= rect.right &&
+                newY >= rect.top && newY <= rect.bottom) {
+              zoneId = zone.getAttribute('data-department-drop-zone');
+              console.log('Zone found via bounds check:', zoneId);
+              break;
+            }
+          }
+        }
+
+        console.log('Final drop zone:', zoneId);
 
         setNavState(prev => ({
           ...prev,
@@ -171,14 +212,22 @@ export function useEnhancedKeyboardNavigation() {
               const startX = mapCenterX - 100;
               const startY = mapCenterY;
 
+              // Check if we're already over a drop zone at start position
+              const startElement = document.elementFromPoint(startX, startY);
+              const startDropZone = startElement?.closest('[data-department-drop-zone]');
+              const startZoneId = startDropZone?.getAttribute('data-department-drop-zone') || null;
+
               setNavState({
                 mode: 'moving',
                 selectedDepartment: department,
                 focusedIndex: navStateRef.current.focusedIndex,
                 cursorPosition: { x: startX, y: startY },
-                targetZone: null,
+                targetZone: startZoneId,
                 lastMousePosition: { x: 0, y: 0 }
               });
+
+              // Set initial global target
+              (window as any).__keyboardNavTarget = startZoneId;
 
               // Don't use game.selectDepartment as it sets isDragging
               // We'll handle placement directly when Enter is pressed
