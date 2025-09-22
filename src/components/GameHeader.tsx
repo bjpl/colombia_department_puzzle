@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useGame } from '../context/GameContext';
 import { useSoundEffect } from '../services/soundManager';
 import AccessibilitySettings from './AccessibilitySettings';
+import { useNavigate } from 'react-router-dom';
 
 interface GameHeaderProps {
   onStudyMode?: () => void;
@@ -12,6 +13,7 @@ interface GameHeaderProps {
 export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: GameHeaderProps) {
   const game = useGame();
   const sound = useSoundEffect();
+  const navigate = useNavigate();
   const [soundEnabled, setSoundEnabled] = useState(true);
 
   // Initialize sound state from storage
@@ -113,6 +115,13 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
     </svg>
   );
 
+  const ResourcesIcon = () => (
+    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+      <path fillRule="evenodd" d="M4 5a2 2 0 012-2 1 1 0 000 2H6a2 2 0 100 4h2a2 2 0 100 4h2a1 1 0 100 2 2 2 0 01-2 2H6a2 2 0 01-2-2V5z" />
+    </svg>
+  );
+
   return (
     <>
       {/* Modern Glass-morphism Header */}
@@ -206,6 +215,16 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
                 <HelpIcon />
               </button>
             )}
+
+            {/* Resources Button */}
+            <button
+              onClick={() => navigate('/resources')}
+              className="p-2.5 bg-gradient-to-r from-emerald-100 to-emerald-200 text-emerald-700 rounded-xl hover:from-emerald-200 hover:to-emerald-300 transition-all transform hover:scale-105 active:scale-95 shadow-md shadow-emerald-500/20"
+              title="Recursos educativos"
+              aria-label="Ver recursos educativos"
+            >
+              <ResourcesIcon />
+            </button>
 
             {/* Reset Button */}
             <button
