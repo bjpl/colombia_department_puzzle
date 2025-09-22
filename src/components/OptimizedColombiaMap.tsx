@@ -104,7 +104,7 @@ const DepartmentPath = memo(({
 const DroppableDepartment = ({ feature, isDragging, children }: {
   feature: GeoFeature;
   isDragging: boolean;
-  children: (isOver: boolean) => React.ReactNode;
+  children: (isOver: boolean, shouldHighlight: boolean) => React.ReactNode;
 }) => {
   const game = useGame();
   // Use the actual department ID from properties, or find it from the department data
@@ -140,7 +140,7 @@ const DroppableDepartment = ({ feature, isDragging, children }: {
        data-keyboard-target={isKeyboardTarget}
        style={{ pointerEvents: 'auto' }} // Ensure the group is also detectable
     >
-      {children(shouldHighlight)}
+      {children(isOver, shouldHighlight)}
     </g>
   );
 };
@@ -469,7 +469,7 @@ export default function OptimizedColombiaMap() {
 
             return (
               <DroppableDepartment key={key} feature={feature} isDragging={isDragging}>
-                {(isOver) => {
+                {(isOver, shouldHighlight) => {
                   // Update draggedOver state when hovering
                   if (isOver && draggedOverDepartment !== feature.properties.name) {
                     setDraggedOverDepartment(feature.properties.name);
