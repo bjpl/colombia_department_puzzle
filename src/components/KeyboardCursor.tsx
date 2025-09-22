@@ -37,6 +37,22 @@ export default function KeyboardCursor({
 
   return (
     <>
+      {/* Fixed department label in upper left */}
+      <div
+        className="fixed pointer-events-none z-50 top-20 left-4"
+        aria-hidden="true"
+      >
+        <div className="bg-white shadow-xl rounded-lg px-4 py-2 border-2 border-blue-500">
+          <div className="flex items-center gap-2">
+            <span className="text-lg">📦</span>
+            <div>
+              <div className="text-xs text-gray-500 uppercase tracking-wide">Moviendo:</div>
+              <div className="font-bold text-base">{selectedDepartment.name}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* EXACT TARGET POINT - The actual crosshair that needs to be over the department */}
       <div
         className="fixed pointer-events-none z-[60]"
@@ -48,11 +64,11 @@ export default function KeyboardCursor({
         aria-hidden="true"
       >
         {/* Crosshair lines */}
-        <div className="absolute w-8 h-[2px] bg-red-500 -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute w-[2px] h-8 bg-red-500 -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute w-10 h-[2px] bg-red-500 -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute w-[2px] h-10 bg-red-500 -translate-x-1/2 -translate-y-1/2" />
         {/* Center dot */}
         <div className={`
-          absolute w-3 h-3 rounded-full -translate-x-1/2 -translate-y-1/2
+          absolute w-4 h-4 rounded-full -translate-x-1/2 -translate-y-1/2
           ${targetZone
             ? 'bg-green-500 ring-4 ring-green-300 animate-pulse'
             : 'bg-red-500 ring-2 ring-red-300'
@@ -61,7 +77,7 @@ export default function KeyboardCursor({
         `} />
       </div>
 
-      {/* Detection radius indicator - smaller, more accurate */}
+      {/* Detection helper circle - very subtle */}
       {!targetZone && (
         <div
           className="fixed pointer-events-none z-40"
@@ -69,62 +85,31 @@ export default function KeyboardCursor({
             left: `${position.x}px`,
             top: `${position.y}px`,
             transform: 'translate(-50%, -50%)',
-            width: '80px',  // Reduced from 100px
-            height: '80px', // Reduced from 100px
+            width: '60px',
+            height: '60px',
           }}
           aria-hidden="true"
         >
-          <div className="absolute inset-0 rounded-full border border-dashed border-gray-400 opacity-20" />
+          <div className="absolute inset-0 rounded-full border border-dashed border-gray-300 opacity-15" />
         </div>
       )}
 
-      {/* Department name pill - offset above the crosshair */}
-      <div
-        className="fixed pointer-events-none z-50"
-        style={{
-          left: `${position.x}px`,
-          top: `${position.y - 35}px`, // Offset above the crosshair
-          transform: 'translateX(-50%)',
-        }}
-        aria-hidden="true"
-      >
-        {/* Floating pill with department name */}
-        <div className={`
-          bg-white shadow-xl rounded-md px-3 py-1.5 border-2
-          ${targetZone
-            ? 'border-purple-500 ring-4 ring-purple-300 scale-110'  // Stronger feedback when over zone
-            : 'border-blue-500 ring-2 ring-blue-200'
-          }
-          transition-all duration-200
-        `}>
-          <div className="flex items-center gap-1.5">
-            <span className="text-sm">📦</span>
-            <span className="font-bold text-xs">{selectedDepartment.name}</span>
+      {/* Minimal instruction when over a zone */}
+      {targetZone && (
+        <div
+          className="fixed pointer-events-none z-50"
+          style={{
+            left: `${position.x}px`,
+            top: `${position.y + 30}px`,
+            transform: 'translateX(-50%)',
+          }}
+          aria-hidden="true"
+        >
+          <div className="bg-purple-600 text-white text-xs px-2 py-1 rounded-full shadow-lg whitespace-nowrap font-semibold animate-pulse">
+            Enter ↵
           </div>
         </div>
-
-      </div>
-
-      {/* Instructions positioned below the crosshair */}
-      <div
-        className="fixed pointer-events-none z-50"
-        style={{
-          left: `${position.x}px`,
-          top: `${position.y + 25}px`, // Below the crosshair
-          transform: 'translateX(-50%)',
-        }}
-        aria-hidden="true"
-      >
-        {targetZone ? (
-          <div className="bg-purple-600 text-white text-xs px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap font-semibold animate-pulse">
-            ✓ Enter para colocar
-          </div>
-        ) : (
-          <div className="bg-gray-700 text-gray-200 text-[10px] px-2 py-1 rounded whitespace-nowrap opacity-75">
-            ↑↓←→ Mover • Ctrl=Preciso • Shift=Rápido
-          </div>
-        )}
-      </div>
+      )}
 
       {/* DEBUG: Show detected zone ID */}
       {targetZone && process.env.NODE_ENV === 'development' && (
