@@ -127,54 +127,51 @@ export function useEnhancedKeyboardNavigation() {
         newX = Math.max(50, Math.min(window.innerWidth - 50, newX));
         newY = Math.max(50, Math.min(window.innerHeight - 50, newY));
 
-        // Update position immediately and check for drop zones
-        // Hide cursor temporarily to avoid hitting it with elementFromPoint
+        // Enhanced drop zone detection with better SVG support
+        let zoneId = null;
+
+        // Method 1: Direct hit test (hide cursor first to avoid interference)
         const cursorElements = document.querySelectorAll('.fixed.pointer-events-none.z-50');
-        cursorElements.forEach(el => (el as HTMLElement).style.display = 'none');
+        cursorElements.forEach(el => (el as HTMLElement).style.visibility = 'hidden');
 
-        const element = document.elementFromPoint(newX, newY);
-        console.log('Element at cursor position:', element?.tagName, element?.className, element?.id);
+        const elementsAtPoint = document.elementsFromPoint ?
+          document.elementsFromPoint(newX, newY) :
+          [document.elementFromPoint(newX, newY)];
 
-        // Restore cursor visibility
-        cursorElements.forEach(el => (el as HTMLElement).style.display = '');
+        cursorElements.forEach(el => (el as HTMLElement).style.visibility = '');
 
-        // Check for drop zone in element or its parents
-        let dropZone = element?.closest('[data-department-drop-zone]');
-
-        // If not found, try to find SVG elements directly
-        if (!dropZone && element) {
-          // Check if we hit an SVG path or element that's part of a drop zone
-          let parent = element.parentElement;
-          while (parent && parent !== document.body) {
-            if (parent.hasAttribute('data-department-drop-zone')) {
-              dropZone = parent;
+        // Check all elements at point for drop zones
+        for (const element of elementsAtPoint) {
+          if (element) {
+            const dropZone = element.closest('[data-department-drop-zone]');
+            if (dropZone) {
+              zoneId = dropZone.getAttribute('data-department-drop-zone');
+              console.log('Direct hit on zone:', zoneId);
               break;
             }
-            parent = parent.parentElement;
           }
         }
 
-        let zoneId = dropZone?.getAttribute('data-department-drop-zone') || null;
-
-        // If still no zone found, try alternative method with tolerance
+        // Method 2: Proximity-based detection with larger tolerance for better UX
         if (!zoneId) {
-          // Get all drop zones and check if cursor position overlaps any
           const allZones = document.querySelectorAll('[data-department-drop-zone]');
           let closestZone = null;
           let closestDistance = Infinity;
 
+          // First pass: Check for exact bounding box overlap
           for (const zone of allZones) {
             const rect = zone.getBoundingClientRect();
 
-            // Check if cursor is inside the bounding box
-            if (newX >= rect.left && newX <= rect.right &&
-                newY >= rect.top && newY <= rect.bottom) {
+            // Add small padding to make targeting easier
+            const padding = 5;
+            if (newX >= rect.left - padding && newX <= rect.right + padding &&
+                newY >= rect.top - padding && newY <= rect.bottom + padding) {
               zoneId = zone.getAttribute('data-department-drop-zone');
-              console.log('Zone found via bounds check:', zoneId);
+              console.log('Zone found via bounds:', zoneId);
               break;
             }
 
-            // Also track the closest zone in case cursor is between zones
+            // Track closest for fallback
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
             const distance = Math.sqrt(Math.pow(newX - centerX, 2) + Math.pow(newY - centerY, 2));
@@ -185,10 +182,19 @@ export function useEnhancedKeyboardNavigation() {
             }
           }
 
-          // If no exact match but we're close to a zone (within 30 pixels), use it
-          if (!zoneId && closestZone && closestDistance < 30) {
+          // Second pass: Use closest zone if within reasonable distance
+          // Increased from 30 to 50 pixels for easier targeting
+          if (!zoneId && closestZone && closestDistance < 50) {
             zoneId = closestZone.getAttribute('data-department-drop-zone');
-            console.log('Using closest zone:', zoneId, 'distance:', closestDistance);
+            console.log('Using proximity zone:', zoneId, 'distance:', Math.round(closestDistance));
+
+            // Optional: Snap to center when very close (within 25 pixels)
+            if (closestDistance < 25 && ctrlKey) {
+              const rect = closestZone.getBoundingClientRect();
+              newX = rect.left + rect.width / 2;
+              newY = rect.top + rect.height / 2;
+              console.log('Snapping to center of zone:', zoneId);
+            }
           }
         }
 
