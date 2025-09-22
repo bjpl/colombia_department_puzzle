@@ -134,7 +134,7 @@ export default function NextChallengeRecommender({
   return (
     <Card variant="default" style={{ marginTop: spacing[6], padding: spacing[6], background: 'linear-gradient(to right, rgb(219 234 254), rgb(240 253 244))' }}>
       <CardHeader style={{ marginBottom: spacing[4] }}>
-        <CardTitle style={{ fontSize: textStyles.heading.medium.fontSize[0], fontWeight: 'bold', color: colors.text.primary }}>¿Qué sigue?</CardTitle>
+        <CardTitle style={{ fontSize: textStyles.heading.h2.fontSize[0], fontWeight: 'bold', color: colors.text.primary }}>¿Qué sigue?</CardTitle>
         <p style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>
           Elige tu próximo desafío
         </p>
@@ -157,7 +157,7 @@ export default function NextChallengeRecommender({
               transition: 'all 0.2s'
             }}
           >
-            <div style={{ fontSize: textStyles.heading.large.fontSize[0] }}>{rec.icon}</div>
+            <div style={{ fontSize: textStyles.display.small.fontSize[0] }}>{rec.icon}</div>
             <div style={{ flex: 1 }}>
               <h4 style={{ fontWeight: 'semibold', color: colors.text.primary }}>{rec.title}</h4>
               <p style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>{rec.description}</p>

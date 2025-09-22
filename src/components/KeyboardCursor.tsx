@@ -158,7 +158,7 @@ export default function KeyboardCursor({
               borderRadius: '9999px',
               boxShadow: shadows.lg,
               whiteSpace: 'nowrap',
-              fontWeight: textStyles.body.semibold.fontWeight
+              fontWeight: 'semibold'
             }}
           >
             Enter ↵

@@ -343,7 +343,7 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
             </div>
 
             {/* Content */}
-            <h3 style={{ fontSize: textStyles.heading.medium.fontSize[0], fontWeight: 'semibold', color: colors.text.primary, marginBottom: spacing[2] }}>
+            <h3 style={{ fontSize: textStyles.heading.h2.fontSize[0], fontWeight: 'semibold', color: colors.text.primary, marginBottom: spacing[2] }}>
               {step.title}
             </h3>
             <p style={{ color: colors.text.secondary, fontSize: textStyles.body.small.fontSize[0], lineHeight: '1.6', marginBottom: spacing[4] }}>

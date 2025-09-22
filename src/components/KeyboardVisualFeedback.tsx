@@ -147,7 +147,7 @@ export default function KeyboardVisualFeedback() {
             animation: 'slideInLeft 0.2s ease-out, fadeOut 0.3s ease-in 1.7s forwards'
           }}
         >
-          <span style={{ fontSize: textStyles.heading.medium.fontSize[0] }}>{getActionIcon(action.action)}</span>
+          <span style={{ fontSize: textStyles.heading.h2.fontSize[0] }}>{getActionIcon(action.action)}</span>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span style={{ fontSize: textStyles.body.small.fontSize[0], fontWeight: 'medium' }}>{getActionLabel(action.action)}</span>
             <span style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.disabled }}>{action.key}</span>
@@ -201,7 +201,7 @@ export function KeyboardFeedbackToggle() {
   return (
     <Card variant="default" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: spacing[3] }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: spacing[2] }}>
-        <span style={{ fontSize: textStyles.heading.small.fontSize[0] }}>⌨️</span>
+        <span style={{ fontSize: textStyles.heading.h3.fontSize[0] }}>⌨️</span>
         <div>
           <p style={{ fontWeight: 'medium', color: colors.text.secondary }}>Visual de Teclado</p>
           <p style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.disabled }}>Mostrar acciones del teclado en pantalla</p>
