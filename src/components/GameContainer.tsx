@@ -50,6 +50,68 @@ export default function GameContainer() {
   const [showTransition, setShowTransition] = useState(false);
   const [transitionConfig, setTransitionConfig] = useState<{ from: string; to: string; mode: GameModeConfig } | null>(null);
 
+  // Clean up any lingering DOM elements from old keyboard navigation
+  useEffect(() => {
+    // Remove any stuck keyboard navigation indicators
+    const oldIndicator = document.getElementById('keyboard-nav-indicator');
+    if (oldIndicator) {
+      console.log('Removing old keyboard navigation indicator');
+      oldIndicator.remove();
+    }
+
+    // Also check for any elements with the specific classes
+    const blueBoxes = document.querySelectorAll('.bg-blue-500.text-white.px-3.py-2.rounded-lg');
+    blueBoxes.forEach(box => {
+      if (box.textContent?.includes('Caquetá') || box.querySelector('.text-2xl')) {
+        console.log('Removing stuck blue box:', box.textContent);
+        box.remove();
+      }
+    });
+
+    // Reset any stuck drag state
+    if (game.isDraggingDepartment && !game.currentDepartment) {
+      console.log('Resetting stuck drag state');
+      game.setIsDragging(false);
+    }
+
+    // Clean up any stuck DragOverlay elements
+    const dragOverlays = document.querySelectorAll('[class*="inline-flex"][class*="px-3"][class*="py-1"][class*="rounded-md"]');
+    dragOverlays.forEach(overlay => {
+      const parent = overlay.parentElement;
+      if (parent && parent.style.position === 'fixed' && parent.style.zIndex) {
+        console.log('Removing stuck DragOverlay:', overlay.textContent);
+        parent.remove();
+      }
+    });
+  }, []);
+
+  // Add periodic cleanup for any stuck overlays
+  useEffect(() => {
+    const cleanupInterval = setInterval(() => {
+      // Look for stuck blue boxes with Caquetá or pin icons
+      const stuckElements = document.querySelectorAll('.fixed.z-50, .fixed.pointer-events-none');
+      stuckElements.forEach(element => {
+        if (element.innerHTML.includes('Caquetá') ||
+            element.innerHTML.includes('📍') ||
+            element.querySelector('.bg-blue-500') ||
+            element.querySelector('.inline-flex.items-center.px-3.py-1')) {
+          // Check if this is not the active KeyboardCursor
+          if (!enhancedNav.isKeyboardMode || !element.innerHTML.includes('cursor')) {
+            console.log('Removing stuck overlay element');
+            element.remove();
+          }
+        }
+      });
+
+      // Also ensure drag state is reset if no department is selected
+      if (game.isDraggingDepartment && !game.currentDepartment) {
+        game.setIsDragging(false);
+      }
+    }, 1000); // Check every second
+
+    return () => clearInterval(cleanupInterval);
+  }, [enhancedNav.isKeyboardMode, game.currentDepartment, game.isDraggingDepartment]);
+
   // Initialize sound system on first user interaction
   useEffect(() => {
     const initSoundOnInteraction = () => {
