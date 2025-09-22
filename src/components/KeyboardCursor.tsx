@@ -61,24 +61,22 @@ export default function KeyboardCursor({
         `} />
       </div>
 
-      {/* Detection radius indicator - subtle visual aid */}
-      <div
-        className="fixed pointer-events-none z-40"
-        style={{
-          left: `${position.x}px`,
-          top: `${position.y}px`,
-          transform: 'translate(-50%, -50%)',
-          width: '100px',
-          height: '100px',
-        }}
-        aria-hidden="true"
-      >
-        <div className={`
-          absolute inset-0 rounded-full border-2 border-dashed
-          ${targetZone ? 'border-purple-400 opacity-50' : 'border-gray-300 opacity-30'}
-          animate-pulse
-        `} />
-      </div>
+      {/* Detection radius indicator - smaller, more accurate */}
+      {!targetZone && (
+        <div
+          className="fixed pointer-events-none z-40"
+          style={{
+            left: `${position.x}px`,
+            top: `${position.y}px`,
+            transform: 'translate(-50%, -50%)',
+            width: '80px',  // Reduced from 100px
+            height: '80px', // Reduced from 100px
+          }}
+          aria-hidden="true"
+        >
+          <div className="absolute inset-0 rounded-full border border-dashed border-gray-400 opacity-20" />
+        </div>
+      )}
 
       {/* Department name pill - offset above the crosshair */}
       <div

@@ -127,73 +127,88 @@ export function useEnhancedKeyboardNavigation() {
         newX = Math.max(50, Math.min(window.innerWidth - 50, newX));
         newY = Math.max(50, Math.min(window.innerHeight - 50, newY));
 
-        // Enhanced drop zone detection with better SVG support
+        // Enhanced drop zone detection with better accuracy
         let zoneId = null;
+        let detectionMethod = '';
 
-        // Method 1: Direct hit test (hide cursor first to avoid interference)
-        const cursorElements = document.querySelectorAll('.fixed.pointer-events-none.z-50');
+        // Method 1: Direct hit test - hide ALL cursor elements first
+        const cursorElements = document.querySelectorAll('.fixed.pointer-events-none');
         cursorElements.forEach(el => (el as HTMLElement).style.visibility = 'hidden');
 
+        // Also hide the detection radius indicator specifically
+        const radiusIndicators = document.querySelectorAll('.fixed.pointer-events-none.z-40, .fixed.pointer-events-none.z-\\[60\\]');
+        radiusIndicators.forEach(el => (el as HTMLElement).style.visibility = 'hidden');
+
+        // Get ALL elements at the exact crosshair point
         const elementsAtPoint = document.elementsFromPoint ?
           document.elementsFromPoint(newX, newY) :
           [document.elementFromPoint(newX, newY)];
 
+        // Restore visibility
         cursorElements.forEach(el => (el as HTMLElement).style.visibility = '');
+        radiusIndicators.forEach(el => (el as HTMLElement).style.visibility = '');
 
-        // Check all elements at point for drop zones
+        // Check all elements at point for drop zones - prioritize direct hits
         for (const element of elementsAtPoint) {
-          if (element) {
+          if (element && element.hasAttribute('data-department-drop-zone')) {
+            zoneId = element.getAttribute('data-department-drop-zone');
+            detectionMethod = 'direct-element';
+            console.log('✅ Direct hit on element:', zoneId);
+            break;
+          } else if (element) {
             const dropZone = element.closest('[data-department-drop-zone]');
             if (dropZone) {
               zoneId = dropZone.getAttribute('data-department-drop-zone');
-              console.log('Direct hit on zone:', zoneId);
+              detectionMethod = 'closest-parent';
+              console.log('✅ Found via closest parent:', zoneId);
               break;
             }
           }
         }
 
-        // Method 2: Proximity-based detection with larger tolerance for better UX
+        // Method 2: Only use proximity if no direct hit found
         if (!zoneId) {
           const allZones = document.querySelectorAll('[data-department-drop-zone]');
-          let closestZone = null;
-          let closestDistance = Infinity;
+          let bestMatch = null;
+          let bestMatchDistance = Infinity;
+          let insideZone = null;
 
-          // First pass: Check for exact bounding box overlap
           for (const zone of allZones) {
             const rect = zone.getBoundingClientRect();
 
-            // Add small padding to make targeting easier
-            const padding = 5;
-            if (newX >= rect.left - padding && newX <= rect.right + padding &&
-                newY >= rect.top - padding && newY <= rect.bottom + padding) {
+            // Check if cursor is INSIDE the bounding box (no padding for accuracy)
+            if (newX >= rect.left && newX <= rect.right &&
+                newY >= rect.top && newY <= rect.bottom) {
+              insideZone = zone;
               zoneId = zone.getAttribute('data-department-drop-zone');
-              console.log('Zone found via bounds:', zoneId);
-              break;
+              detectionMethod = 'inside-bounds';
+              console.log('✅ Cursor inside bounds of:', zoneId);
+              break;  // Prioritize being inside bounds
             }
 
-            // Track closest for fallback
+            // Track closest zone as fallback
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
             const distance = Math.sqrt(Math.pow(newX - centerX, 2) + Math.pow(newY - centerY, 2));
 
-            if (distance < closestDistance) {
-              closestDistance = distance;
-              closestZone = zone;
+            if (distance < bestMatchDistance) {
+              bestMatchDistance = distance;
+              bestMatch = zone;
             }
           }
 
-          // Second pass: Use closest zone if within reasonable distance
-          // Increased from 30 to 50 pixels for easier targeting
-          if (!zoneId && closestZone && closestDistance < 50) {
-            zoneId = closestZone.getAttribute('data-department-drop-zone');
-            console.log('Using proximity zone:', zoneId, 'distance:', Math.round(closestDistance));
+          // Only use proximity as last resort, with stricter threshold
+          if (!zoneId && bestMatch && bestMatchDistance < 40) {  // Reduced from 50
+            zoneId = bestMatch.getAttribute('data-department-drop-zone');
+            detectionMethod = 'proximity-fallback';
+            console.log('⚠️ Using proximity fallback:', zoneId, 'distance:', Math.round(bestMatchDistance));
 
-            // Optional: Snap to center when very close (within 25 pixels)
-            if (closestDistance < 25 && ctrlKey) {
-              const rect = closestZone.getBoundingClientRect();
+            // Optional: Snap to center when very close (within 20 pixels) and using Ctrl
+            if (bestMatchDistance < 20 && ctrlKey) {
+              const rect = bestMatch.getBoundingClientRect();
               newX = rect.left + rect.width / 2;
               newY = rect.top + rect.height / 2;
-              console.log('Snapping to center of zone:', zoneId);
+              console.log('🎯 Snapping to center of zone:', zoneId);
             }
           }
         }
@@ -201,7 +216,12 @@ export function useEnhancedKeyboardNavigation() {
         // Only show target zone if it's not already placed
         const finalZoneId = zoneId && !gameRef.current.placedDepartments.has(zoneId) ? zoneId : null;
 
-        console.log('Final drop zone:', finalZoneId, 'Original:', zoneId);
+        // Enhanced logging for debugging
+        if (finalZoneId !== navStateRef.current.targetZone) {
+          console.log(`🎯 Target changed: ${navStateRef.current.targetZone} → ${finalZoneId}`);
+          console.log(`   Detection: ${detectionMethod}`);
+          console.log(`   Position: (${Math.round(newX)}, ${Math.round(newY)})`);
+        }
 
         setNavState(prev => ({
           ...prev,
