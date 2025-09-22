@@ -41,7 +41,7 @@ const DepartmentPath = memo(({
   showRegionColors: boolean;
   isKeyboardTarget?: boolean;
 }) => {
-  const { getRegionColor, highContrast, colorMode } = useAccessibility();
+  const { getRegionColor, colorMode } = useAccessibility();
 
   // Find the region for this department
   const department = colombiaDepartments.find(d =>
@@ -55,7 +55,7 @@ const DepartmentPath = memo(({
   const regionColor = useMemo(() => {
     if (!department) return 'rgb(229 231 235)';
     return getRegionColor(department.region);
-  }, [department, colorMode, highContrast]); // Use primitive values as dependencies, not the function
+  }, [department, colorMode]); // Use primitive values as dependencies, not the function
 
   const departmentColor = useMemo(() => {
     if (isPlaced) return 'rgb(16 185 129)'; // Green for placed
@@ -66,20 +66,18 @@ const DepartmentPath = memo(({
   }, [isPlaced, isOver, isDragging, showRegionColors, regionColor, colorMode]);
 
   const strokeColor = useMemo(() => {
-    if (highContrast) return 'black'; // Black border in high contrast
     if (isKeyboardTarget) return 'rgb(147 51 234)'; // Purple border for keyboard target
     if (isOver && isDragging) return 'rgb(245 158 11)'; // Orange border when drop target
     if (isOver) return 'rgb(59 130 246)'; // Blue border on hover
     return 'rgb(55 65 81)'; // Default dark gray
-  }, [isOver, isDragging, highContrast, isKeyboardTarget]);
+  }, [isOver, isDragging, isKeyboardTarget]);
 
   const strokeWidth = useMemo(() => {
-    if (highContrast) return '2.5'; // Thicker border in high contrast
     if (isKeyboardTarget) return '2.5'; // Medium-thick purple border for keyboard
     if (isOver && isDragging) return '3'; // Thick border when drop target
     if (isOver) return '2'; // Medium border on hover
     return '1'; // Default thin border
-  }, [isOver, isDragging, highContrast, isKeyboardTarget]);
+  }, [isOver, isDragging, isKeyboardTarget]);
 
   return (
     <path

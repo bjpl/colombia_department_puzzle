@@ -474,8 +474,6 @@ export interface UserSettings {
   analyticsOptIn: boolean;
 
   // Accessibility
-  highContrast: boolean;
-  reducedMotion: boolean;
   screenReaderSupport: boolean;
   keyboardNavigation: boolean;
 }

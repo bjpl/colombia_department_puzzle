@@ -19,7 +19,7 @@ export default function MiniDepartmentShape({
   className = ''
 }: MiniDepartmentShapeProps) {
   const [geoData, setGeoData] = useState<any>(null);
-  const { getRegionColor, highContrast, colorMode } = useAccessibility();
+  const { getRegionColor, colorMode } = useAccessibility();
 
   useEffect(() => {
     // Load the optimized GeoJSON data (which has actual shapes, not just bounding boxes)
@@ -84,7 +84,8 @@ export default function MiniDepartmentShape({
       normalizeId(d.name) === normalizeId(departmentName)
     );
     const region = department?.region || '';
-    return region ? getRegionColor(region) : colors.gray[200];
+    // Use the new WCAG AAA compliant color system
+    return region ? getRegionColor(region) : colors.gray[300];
   }, [departmentName, getRegionColor, colorMode]);
 
   // Show loading or error state
@@ -141,9 +142,9 @@ export default function MiniDepartmentShape({
         <path
           d={pathData}
           fill={fillColor}
-          stroke={highContrast ? colors.gray[950] : colors.gray[700]}
-          strokeWidth={highContrast ? "1" : "0.5"}
-          opacity="0.8"
+          stroke={colors.gray[800]}
+          strokeWidth="0.75"
+          opacity="0.9"
         />
       </svg>
     </div>

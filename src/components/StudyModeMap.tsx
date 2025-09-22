@@ -30,7 +30,7 @@ export default function StudyModeMap({
   const svgRef = useRef<SVGSVGElement>(null);
 
   // Use accessibility context
-  const { getRegionColor, highContrast, reducedMotion } = useAccessibility();
+  const { getRegionColor } = useAccessibility();
 
   // Simplified Colombia bounds
   const colombiaBounds = {
@@ -195,9 +195,9 @@ export default function StudyModeMap({
                     r="30"
                     fill="none"
                     stroke={getDepartmentColor(dept.region, true, false)}
-                    strokeWidth={highContrast ? "2" : "1"}
-                    opacity={highContrast ? "0.5" : "0.3"}
-                    className={reducedMotion ? '' : 'animate-ping'}
+                    strokeWidth="1"
+                    opacity="0.3"
+                    className='animate-ping'
                   />
                   {/* Middle ring */}
                   <circle
@@ -206,9 +206,9 @@ export default function StudyModeMap({
                     r="22"
                     fill="none"
                     stroke={getDepartmentColor(dept.region, true, false)}
-                    strokeWidth={highContrast ? "3" : "2"}
+                    strokeWidth="2"
                     strokeDasharray="5,5"
-                    className={reducedMotion ? '' : 'animate-pulse'}
+                    className='animate-pulse'
                   />
                   {/* Inner glow */}
                   <circle
@@ -227,16 +227,14 @@ export default function StudyModeMap({
                 cy={pos[1]}
                 r={isSelected ? "16" : "12"}
                 fill={getDepartmentColor(dept.region, isSelected, isStudied)}
-                stroke={highContrast ? 'black' : isSelected ? 'white' : 'rgba(255,255,255,0.5)'}
-                strokeWidth={highContrast ? "2" : isSelected ? "3" : "1"}
-                className={`cursor-pointer ${reducedMotion ? '' : 'transition-all duration-300'} hover:opacity-90 ${
-                  isSelected ? 'drop-shadow-lg' : 'hover:drop-shadow-md'
-                }`}
+                stroke={isSelected ? 'white' : 'rgba(255,255,255,0.5)'}
+                strokeWidth={isSelected ? "3" : "1"}
+                className="cursor-pointer transition-all duration-300 hover:opacity-90 drop-shadow-lg hover:drop-shadow-md"
                 onClick={() => onDepartmentClick(dept)}
                 style={{
                   transform: isSelected ? 'scale(1.3)' : 'scale(1)',
                   transformOrigin: `${pos[0]}px ${pos[1]}px`,
-                  filter: isSelected && !highContrast ? 'drop-shadow(0 0 8px rgba(255,255,255,0.8))' : 'none'
+                  filter: isSelected ? 'drop-shadow(0 0 8px rgba(255,255,255,0.8))' : 'none'
                 }}
               >
                 <title>{dept.name} - {dept.capital}</title>
@@ -248,14 +246,12 @@ export default function StudyModeMap({
                 y={pos[1]}
                 textAnchor="middle"
                 dominantBaseline="central"
-                fill={highContrast ? 'black' : isSelected ? 'black' : 'white'}
+                fill={isSelected ? 'black' : 'white'}
                 fontSize={isSelected ? "11" : "8"}
-                fontWeight={isSelected || highContrast ? "bold" : "normal"}
+                fontWeight={isSelected ? "bold" : "normal"}
                 className="pointer-events-none"
                 style={{
-                  textShadow: highContrast
-                    ? 'none'
-                    : isSelected
+                  textShadow: isSelected
                     ? '0 0 4px rgba(255,255,255,0.9), 1px 1px 2px rgba(255,255,255,0.7)'
                     : '1px 1px 2px rgba(0,0,0,0.5)'
                 }}
@@ -270,8 +266,8 @@ export default function StudyModeMap({
                     cx={pos[0] + 10}
                     cy={pos[1] - 10}
                     r="6"
-                    fill={highContrast ? 'black' : 'rgb(16 185 129)'}
-                    stroke={highContrast ? 'white' : 'white'}
+                    fill='rgb(16 185 129)'
+                    stroke='white'
                     strokeWidth="1"
                   />
                   <text
@@ -280,7 +276,7 @@ export default function StudyModeMap({
                     textAnchor="middle"
                     dominantBaseline="central"
                     fontSize="10"
-                    fill={highContrast ? 'white' : 'white'}
+                    fill='white'
                     fontWeight="bold"
                   >
                     ✓
@@ -295,8 +291,8 @@ export default function StudyModeMap({
                     width="40"
                     height="16"
                     rx="8"
-                    fill={highContrast ? 'black' : 'rgb(31 41 55)'}
-                    opacity={highContrast ? '1' : '0.9'}
+                    fill='rgb(31 41 55)'
+                    opacity='0.9'
                   />
                   <text
                     x={pos[0]}
@@ -323,17 +319,17 @@ export default function StudyModeMap({
             y="0"
             width="560"
             height="60"
-            fill={highContrast ? 'black' : 'rgba(255,255,255,0.95)'}
+            fill='rgba(255,255,255,0.95)'
             rx="5"
-            stroke={highContrast ? 'white' : 'rgb(55 65 81)'}
-            strokeWidth={highContrast ? '2' : '1'}
+            stroke='rgb(55 65 81)'
+            strokeWidth='1'
           />
           <text
             x="10"
             y="20"
             fontSize="12"
             fontWeight="bold"
-            fill={highContrast ? 'white' : 'rgb(17 24 39)'}
+            fill='rgb(17 24 39)'
           >
             Regiones:
           </text>
@@ -344,7 +340,7 @@ export default function StudyModeMap({
                 cy="10"
                 r="8"
                 fill={getRegionColor(region)}
-                stroke={highContrast ? 'black' : 'white'}
+                stroke='white'
                 strokeWidth="1.5"
                 className="drop-shadow-sm"
               />
@@ -352,7 +348,7 @@ export default function StudyModeMap({
                 x="25"
                 y="14"
                 fontSize="11"
-                fill={highContrast ? 'white' : 'rgb(17 24 39)'}
+                fill='rgb(17 24 39)'
                 fontWeight="500"
               >
                 {region}
@@ -403,14 +399,14 @@ export default function StudyModeMap({
 
       {/* Zoom indicator */}
       {zoomLevel > 1 && (
-        <Badge variant="secondary" style={{ position: 'absolute', top: spacing[2], right: spacing[2], backgroundColor: highContrast ? colors.gray[900] : colors.background, color: highContrast ? colors.text.primary : colors.text.secondary, padding: `${spacing[1]} ${spacing[2]}`, boxShadow: shadows.sm, fontSize: textStyles.body.small.fontSize[0] }}>
+        <Badge variant="secondary" style={{ position: 'absolute', top: spacing[2], right: spacing[2], backgroundColor: colors.background, color: colors.text.secondary, padding: `${spacing[1]} ${spacing[2]}`, boxShadow: shadows.sm, fontSize: textStyles.body.small.fontSize[0] }}>
           Zoom: {Math.round(zoomLevel * 100)}%
         </Badge>
       )}
 
       {/* Pan hint */}
       {zoomLevel > 1 && (
-        <div className={`absolute bottom-2 left-2 ${highContrast ? 'bg-black text-white' : 'bg-white'} px-2 py-1 rounded shadow text-xs`}>
+        <div className="absolute bottom-2 left-2 bg-white px-2 py-1 rounded shadow text-xs">
           🖱️ Arrastra para mover el mapa
         </div>
       )}

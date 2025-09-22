@@ -7,7 +7,7 @@ import {
 
 export default function DragOverlay() {
   const game = useGame();
-  const { getRegionColor, highContrast, colorMode } = useAccessibility();
+  const { getRegionColor, colorMode } = useAccessibility();
 
   console.log('DragOverlay render:', {
     currentDepartment: game.currentDepartment?.name,
@@ -22,17 +22,10 @@ export default function DragOverlay() {
   // Use dynamic colors from accessibility context
   const backgroundColor = getRegionColor(game.currentDepartment.region);
 
-  // Determine text color based on background for proper contrast (matching DepartmentTray)
-  const needsLightText = (color: string): boolean => {
-    const darkColors = ['black', 'blue-800', 'purple-800', 'green-800', 'cyan-800'];
-    return darkColors.includes(color.toUpperCase());
-  };
-
-  const borderColor = highContrast ? colors.gray[950] : colors.gray[600];
-  const borderWidth = highContrast ? '4px' : '2px';
-  const textColor = highContrast
-    ? needsLightText(backgroundColor) ? colors.gray[50] : colors.gray[950]
-    : colorMode !== 'normal' ? colors.gray[50] : colors.gray[800];
+  // All our WCAG AAA colors work with white text
+  const borderColor = colors.gray[700]; // Dark border for visibility
+  const borderWidth = '2px';
+  const textColor = colors.text.inverse; // Always white for contrast
 
   return (
     <DndDragOverlay dropAnimation={null}>
@@ -43,7 +36,10 @@ export default function DragOverlay() {
           backgroundColor: backgroundColor,
           color: textColor,
           borderColor: borderColor,
-          borderWidth: borderWidth
+          borderWidth: borderWidth,
+          borderStyle: 'solid',
+          textShadow: '0 1px 2px rgba(0,0,0,0.2)', // Better text readability
+          fontWeight: 600 // Bolder text
         }}
       >
         <span className="text-sm font-medium">

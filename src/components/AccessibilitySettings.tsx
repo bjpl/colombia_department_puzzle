@@ -9,14 +9,10 @@ import {
 
 interface AccessibilitySettingsProps {
   onColorModeChange?: (mode: ColorblindMode) => void;
-  onHighContrastToggle?: (enabled: boolean) => void;
-  onReducedMotionToggle?: (enabled: boolean) => void;
 }
 
 export default function AccessibilitySettings({
-  onColorModeChange,
-  onHighContrastToggle,
-  onReducedMotionToggle
+  onColorModeChange
 }: AccessibilitySettingsProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [panelPosition, setPanelPosition] = useState({ top: 0, left: 0 });
@@ -26,11 +22,7 @@ export default function AccessibilitySettings({
   // Use the accessibility context
   const {
     colorMode,
-    highContrast,
-    reducedMotion,
-    setColorMode: updateColorMode,
-    setHighContrast: updateHighContrast,
-    setReducedMotion: updateReducedMotion
+    setColorMode: updateColorMode
   } = useAccessibility();
 
   // Settings are now managed by the context, no need to load here
@@ -106,18 +98,6 @@ export default function AccessibilitySettings({
     onColorModeChange?.(mode);
   };
 
-  const handleHighContrastToggle = () => {
-    const newValue = !highContrast;
-    updateHighContrast(newValue);
-    onHighContrastToggle?.(newValue);
-  };
-
-  const handleReducedMotionToggle = () => {
-    const newValue = !reducedMotion;
-    updateReducedMotion(newValue);
-    onReducedMotionToggle?.(newValue);
-  };
-
   return (
     <>
       {/* Accessibility Button */}
@@ -183,63 +163,6 @@ export default function AccessibilitySettings({
             </p>
           </div>
 
-          {/* High Contrast Toggle */}
-          <div className="mb-4">
-            <label className="flex items-center justify-between cursor-pointer">
-              <div>
-                <span className="text-sm font-semibold text-neutral-600">
-                  Alto contraste
-                </span>
-                <p className="text-sm text-neutral-600">
-                  Aumenta el contraste para mejor visibilidad
-                </p>
-              </div>
-              <Button
-                variant="ghost"
-                role="switch"
-                aria-checked={highContrast}
-                onClick={handleHighContrastToggle}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-200 ${
-                  highContrast ? 'bg-brand-600' : 'bg-neutral-300'
-                }`}
-              >
-                <span
-                  className={`inline-block h-4 w-4 rounded-full bg-white transition-transform duration-200 ${
-                    highContrast ? 'translate-x-6' : 'translate-x-1'
-                  }`}
-                />
-              </Button>
-            </label>
-          </div>
-
-          {/* Reduced Motion Toggle */}
-          <div className="mb-4">
-            <label className="flex items-center justify-between cursor-pointer">
-              <div>
-                <span className="text-sm font-semibold text-neutral-600">
-                  Reducir movimiento
-                </span>
-                <p className="text-sm text-neutral-600">
-                  Minimiza animaciones y transiciones
-                </p>
-              </div>
-              <Button
-                variant="ghost"
-                role="switch"
-                aria-checked={reducedMotion}
-                onClick={handleReducedMotionToggle}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-200 ${
-                  reducedMotion ? 'bg-brand-600' : 'bg-neutral-300'
-                }`}
-              >
-                <span
-                  className={`inline-block h-4 w-4 rounded-full bg-white transition-transform duration-200 ${
-                    reducedMotion ? 'translate-x-6' : 'translate-x-1'
-                  }`}
-                />
-              </Button>
-            </label>
-          </div>
 
           {/* Keyboard Shortcuts Info */}
           <div className="border-t border-neutral-200 pt-3 mt-3">

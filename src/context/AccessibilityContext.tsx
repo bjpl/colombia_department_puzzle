@@ -1,18 +1,14 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { ColorblindMode } from '../constants/accessibleColors';
 import {
-  ColorblindMode,
+  ACCESSIBLE_REGION_COLORS,
   COLORBLIND_PALETTES,
-  HIGH_CONTRAST_COLORS
-} from '../constants/accessibleColors';
-import { MODERN_REGION_COLORS } from '../constants/modernAccessibleColors';
+  getAccessibleRegionColor
+} from '../constants/accessibleColorsFixed';
 
 interface AccessibilityContextType {
   colorMode: ColorblindMode;
-  highContrast: boolean;
-  reducedMotion: boolean;
   setColorMode: (mode: ColorblindMode) => void;
-  setHighContrast: (enabled: boolean) => void;
-  setReducedMotion: (enabled: boolean) => void;
   getRegionColor: (region: string, opacity?: number) => string;
   getTextColor: (background: string) => string;
 }
@@ -25,8 +21,6 @@ interface AccessibilityProviderProps {
 
 export function AccessibilityProvider({ children }: AccessibilityProviderProps) {
   const [colorMode, setColorMode] = useState<ColorblindMode>('normal');
-  const [highContrast, setHighContrast] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
 
   // Load saved preferences on mount
   useEffect(() => {
@@ -34,60 +28,25 @@ export function AccessibilityProvider({ children }: AccessibilityProviderProps) 
     if (saved) {
       const settings = JSON.parse(saved);
       setColorMode(settings.colorMode || 'normal');
-      setHighContrast(settings.highContrast || false);
-      setReducedMotion(settings.reducedMotion || false);
     }
-
-    // Check system preferences
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const prefersHighContrast = window.matchMedia('(prefers-contrast: high)').matches;
-
-    if (prefersReducedMotion) setReducedMotion(true);
-    if (prefersHighContrast) setHighContrast(true);
   }, []);
 
   // Apply document-level classes for CSS
   useEffect(() => {
-    // Apply high contrast class
-    if (highContrast) {
-      document.documentElement.classList.add('high-contrast');
-    } else {
-      document.documentElement.classList.remove('high-contrast');
-    }
-
-    // Apply reduced motion class
-    if (reducedMotion) {
-      document.documentElement.classList.add('reduce-motion');
-    } else {
-      document.documentElement.classList.remove('reduce-motion');
-    }
-
     // Apply color mode class
     document.documentElement.setAttribute('data-color-mode', colorMode);
-  }, [highContrast, reducedMotion, colorMode]);
+  }, [colorMode]);
 
   // Save settings when they change
   useEffect(() => {
-    const settings = { colorMode, highContrast, reducedMotion };
+    const settings = { colorMode };
     localStorage.setItem('accessibilitySettings', JSON.stringify(settings));
-  }, [colorMode, highContrast, reducedMotion]);
+  }, [colorMode]);
 
   // Get the appropriate color based on current settings
   const getRegionColor = (region: string, opacity: number = 1): string => {
-    let color: string;
-
-    if (highContrast) {
-      // Use high contrast colors - note the nested structure
-      color = HIGH_CONTRAST_COLORS.regions[region] || HIGH_CONTRAST_COLORS.regions['Andina'] || 'black';
-    } else if (colorMode !== 'normal') {
-      // Use colorblind-safe palette
-      const palette = COLORBLIND_PALETTES[colorMode];
-      color = palette[region] || palette.default || 'gray-500';
-    } else {
-      // Use modern beautiful colors
-      const regionColors = MODERN_REGION_COLORS[region] || MODERN_REGION_COLORS['Andina'];
-      color = regionColors.primary;
-    }
+    // Use the new WCAG AAA compliant color system
+    const color = getAccessibleRegionColor(region, colorMode);
 
     // Apply opacity if needed
     if (opacity < 1 && color.startsWith('#')) {
@@ -102,20 +61,14 @@ export function AccessibilityProvider({ children }: AccessibilityProviderProps) 
 
   // Get appropriate text color based on background
   const getTextColor = (background: string): string => {
-    if (highContrast) {
-      return 'black'; // Always black text in high contrast mode
-    }
-    // For normal mode, return white (components handle this internally)
-    return 'white';
+    // All our WCAG AAA colors have been tested to work with white text
+    // They all have at least 7:1 contrast ratio with white
+    return '#FFFFFF';
   };
 
   const value = {
     colorMode,
-    highContrast,
-    reducedMotion,
     setColorMode,
-    setHighContrast,
-    setReducedMotion,
     getRegionColor,
     getTextColor
   };

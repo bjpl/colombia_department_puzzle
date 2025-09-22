@@ -326,12 +326,6 @@ export const a11y = {
   // Minimum touch target size
   minTouchTarget: 'min-h-[44px] min-w-[44px]',
 
-  // High contrast mode support
-  highContrast: {
-    border: 'contrast-more:border-2 contrast-more:border-gray-900',
-    text: 'contrast-more:text-gray-900',
-    background: 'contrast-more:bg-white'
-  }
 };
 
 // Export default theme object

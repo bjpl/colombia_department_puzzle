@@ -22,7 +22,7 @@ function DraggableChip({ department }: { department: Department }) {
     id: department.id,
     data: department,
   });
-  const { getRegionColor, highContrast, colorMode } = useAccessibility();
+  const { getRegionColor, colorMode } = useAccessibility();
 
   // Dynamic background color based on accessibility settings
   const backgroundColor = getRegionColor(department.region);
@@ -43,11 +43,10 @@ function DraggableChip({ department }: { department: Department }) {
     return darkColors.includes(color.toUpperCase());
   };
 
-  const borderClass = highContrast ? 'border-black' : 'border-gray-600';
-  const borderWidth = highContrast ? 'border-4' : 'border-2';
-  const textClass = highContrast
-    ? needsLightText(backgroundColor) ? 'text-white' : 'text-black'
-    : colorMode !== 'normal' ? 'text-white' : 'text-gray-800';
+  // All our WCAG AAA colors are designed to work with white text (7:1+ contrast)
+  // Use dark border for better visibility
+  const borderColor = colors.gray[700]; // Dark border for good contrast
+  const textColor = colors.text.inverse; // White text for all backgrounds
 
   // Handle keyboard events properly
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -65,17 +64,17 @@ function DraggableChip({ department }: { department: Department }) {
       style={{
         ...style,
         backgroundColor: backgroundColor,
-        borderColor: highContrast ? colors.gray[900] : colors.gray[600],
-        borderWidth: highContrast ? '4px' : '2px',
-        color: highContrast
-          ? needsLightText(backgroundColor) ? colors.text.inverse : colors.text.primary
-          : colorMode !== 'normal' ? colors.text.inverse : colors.text.primary,
+        borderColor: borderColor,
+        borderWidth: '2px',
+        borderStyle: 'solid',
+        color: textColor,
         cursor: 'move',
         userSelect: 'none',
         fontSize: textStyles.caption.fontSize[0],
-        fontWeight: textStyles.ui.small.fontWeight,
+        fontWeight: textStyles.ui.medium.fontWeight, // Bolder for better readability
         maxWidth: '75px',
-        padding: `${spacing[1]} ${spacing[2]}`
+        padding: `${spacing[1]} ${spacing[2]}`,
+        textShadow: '0 1px 2px rgba(0,0,0,0.2)' // Subtle shadow for better text readability
       }}
       {...listeners}
       {...attributes}
