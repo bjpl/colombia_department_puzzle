@@ -83,7 +83,7 @@ const DepartmentPath = memo(({
       style={{
         cursor: 'inherit', // Inherit the grab cursor from the SVG parent for consistent panning
         filter: isOver && isDragging ? 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.6))' : 'none',
-        pointerEvents: isDragging ? 'auto' : 'none' // Allow panning when not dragging
+        pointerEvents: 'auto' // Always allow hit detection for keyboard navigation
       }}
     />
   );
@@ -126,7 +126,9 @@ const DroppableDepartment = ({ feature, isDragging, children }: {
     <g ref={setNodeRef}
        data-over={isOver}
        data-department-drop-zone={departmentId}
-       data-keyboard-target={isKeyboardTarget}>
+       data-keyboard-target={isKeyboardTarget}
+       style={{ pointerEvents: 'auto' }} // Ensure the group is also detectable
+    >
       {children(shouldHighlight)}
     </g>
   );
