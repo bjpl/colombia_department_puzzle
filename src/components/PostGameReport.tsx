@@ -4,6 +4,9 @@ import { storage, GameSession } from '../services/storage';
 import { Department, colombiaDepartments } from '../data/colombiaDepartments';
 import NextChallengeRecommender from './NextChallengeRecommender';
 import { GameModeConfig } from './GameModeSelector';
+import {
+  Button, Card, CardHeader, CardTitle, CardContent, Badge
+} from '../design-system';
 
 interface PostGameReportProps {
   onClose: () => void;
@@ -145,87 +148,89 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSe
   const earnedAchievements = achievements.filter(a => a.earned);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50 p-4">
+      <Card variant="default" className="w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-green-500 to-sky-500 text-white p-6">
+        <CardHeader className="bg-gradient-to-r from-emerald-500 to-sky-500 text-white p-6">
           <div className="flex justify-between items-center">
             <div>
-              <h2 className="text-3xl font-bold">🎉 ¡Juego Completado!</h2>
-              <p className="text-lg opacity-90 mt-1">
+              <CardTitle className="text-2xl font-bold">🎉 ¡Juego Completado!</CardTitle>
+              <p className="text-sm opacity-90 mt-1">
                 Has completado el rompecabezas de Colombia
               </p>
             </div>
-            <button
+            <Button
+              variant="ghost"
               onClick={onClose}
-              className="text-white/80 hover:text-white text-2xl"
+              className="text-white/80 text-lg"
             >
               ✕
-            </button>
+            </Button>
           </div>
-        </div>
+        </CardHeader>
 
-        <div className="p-6 overflow-y-auto flex-1 min-h-0">
+        <CardContent className="p-6 overflow-y-auto flex-1 min-h-0">
           {/* Main Statistics */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            <div className="bg-sky-50 rounded-lg p-4 text-center">
-              <div className={`text-3xl font-bold ${getScoreColor(gameStats.finalScore)}`}>
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <Card variant="default" className="bg-sky-50 text-center p-4">
+              <div className={`text-2xl font-bold ${getScoreColor(gameStats.finalScore)}`}>
                 {gameStats.finalScore}
-                {isNewHighScore && <span className="text-xs ml-1 text-yellow-500">¡NUEVO!</span>}
+                {isNewHighScore && <Badge variant="primary" className="text-xs ml-1 bg-yellow-500">¡NUEVO!</Badge>}
               </div>
-              <div className="text-sm text-gray-600 mt-1">Puntuación Final</div>
-            </div>
+              <div className="text-xs text-gray-600 mt-1">Puntuación Final</div>
+            </Card>
 
-            <div className="bg-green-50 rounded-lg p-4 text-center">
-              <div className="text-3xl font-bold text-green-600">
+            <Card variant="default" className="bg-green-50 text-center p-4">
+              <div className="text-2xl font-bold text-green-600">
                 {formatTime(gameStats.totalTime)}
-                {isNewBestTime && <span className="text-xs ml-1 text-yellow-500">¡RÉCORD!</span>}
+                {isNewBestTime && <Badge variant="primary" className="text-xs ml-1 bg-yellow-500">¡RÉCORD!</Badge>}
               </div>
-              <div className="text-sm text-gray-600 mt-1">Tiempo Total</div>
-            </div>
+              <div className="text-xs text-gray-600 mt-1">Tiempo Total</div>
+            </Card>
 
-            <div className="bg-violet-50 rounded-lg p-4 text-center">
-              <div className="text-3xl font-bold text-violet-600">
+            <Card variant="default" className="bg-purple-50 text-center p-4">
+              <div className="text-2xl font-bold text-purple-600">
                 {gameStats.accuracy}%
               </div>
-              <div className="text-sm text-gray-600 mt-1">Precisión</div>
-            </div>
+              <div className="text-xs text-gray-600 mt-1">Precisión</div>
+            </Card>
 
-            <div className="bg-yellow-50 rounded-lg p-4 text-center">
-              <div className="text-3xl font-bold text-yellow-600">
+            <Card variant="default" className="bg-yellow-50 text-center p-4">
+              <div className="text-2xl font-bold text-yellow-600">
                 {gameStats.hintsUsed}
               </div>
-              <div className="text-sm text-gray-600 mt-1">Pistas Usadas</div>
-            </div>
+              <div className="text-xs text-gray-600 mt-1">Pistas Usadas</div>
+            </Card>
           </div>
 
           {/* Achievements Section */}
           {earnedAchievements.length > 0 && (
             <div className="mb-6">
-              <h3 className="text-xl font-bold text-gray-800 mb-3">🏆 Logros Obtenidos</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              <h3 className="text-lg font-bold text-gray-900 mb-3">🏆 Logros Obtenidos</h3>
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3">
                 {earnedAchievements.map(achievement => (
-                  <div
+                  <Card
                     key={achievement.id}
-                    className="bg-gradient-to-r from-yellow-100 to-yellow-200 rounded-lg p-3 border-2 border-yellow-400"
+                    variant="default"
+                    className="bg-gradient-to-r from-yellow-100 to-yellow-400 p-3 border-2 border-yellow-600"
                   >
                     <div className="flex items-center gap-2">
-                      <span className="text-3xl">{achievement.icon}</span>
+                      <span className="text-2xl">{achievement.icon}</span>
                       <div>
-                        <div className="font-semibold text-gray-800">{achievement.name}</div>
+                        <div className="font-semibold text-gray-900">{achievement.name}</div>
                         <div className="text-xs text-gray-600">{achievement.description}</div>
                       </div>
                     </div>
-                  </div>
+                  </Card>
                 ))}
               </div>
             </div>
           )}
 
           {/* Detailed Statistics */}
-          <div className="bg-gray-50 rounded-lg p-4 mb-6">
-            <h3 className="text-lg font-bold text-gray-800 mb-3">📊 Estadísticas Detalladas</h3>
-            <div className="grid grid-cols-2 gap-4 text-sm">
+          <Card variant="default" className="bg-gray-50 p-4 mb-6">
+            <h3 className="text-sm font-bold text-gray-900 mb-3">📊 Estadísticas Detalladas</h3>
+            <div className="grid grid-cols-2 gap-4 text-xs">
               <div className="flex justify-between">
                 <span className="text-gray-600">Departamentos Correctos:</span>
                 <span className="font-semibold">{gameStats.perfectPlacements}/33</span>
@@ -243,12 +248,12 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSe
                 <span className="font-semibold">{gameStats.hintsPerDept}</span>
               </div>
             </div>
-          </div>
+          </Card>
 
           {/* Performance Summary */}
-          <div className="bg-gradient-to-r from-sky-50 to-green-50 rounded-lg p-4 mb-6">
-            <h3 className="text-lg font-bold text-gray-800 mb-2">💡 Resumen de Rendimiento</h3>
-            <p className="text-gray-600 text-sm">
+          <Card variant="default" className="bg-gradient-to-r from-sky-50 to-green-50 p-4 mb-6">
+            <h3 className="text-sm font-bold text-gray-900 mb-2">💡 Resumen de Rendimiento</h3>
+            <p className="text-gray-600 text-xs">
               {gameStats.accuracy >= 90
                 ? "¡Excelente trabajo! Tu precisión fue sobresaliente. Conoces muy bien los departamentos de Colombia."
                 : gameStats.accuracy >= 70
@@ -256,11 +261,11 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSe
                 : "Sigue practicando. Te recomendamos usar el modo de estudio para familiarizarte mejor con los departamentos."}
             </p>
             {gameStats.totalTime < 180 && (
-              <p className="text-green-600 text-sm mt-2">
+              <p className="text-green-600 text-xs mt-2">
                 ⚡ ¡Increíble velocidad! Completaste el juego en tiempo récord.
               </p>
             )}
-          </div>
+          </Card>
 
           {/* Next Challenge Recommendations */}
           {showRecommendations && onSelectMode && (
@@ -288,30 +293,36 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSe
 
           {/* Action Buttons */}
           <div className="flex justify-center gap-4">
-            <button
+            <Button
+              variant="primary"
+              size="lg"
               onClick={onPlayAgain}
-              className="px-6 py-3 bg-gradient-to-r from-sky-500 to-green-500 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all font-semibold"
+              className="bg-gradient-to-r from-sky-500 to-emerald-500 font-semibold transition-all"
             >
               🎮 Jugar de Nuevo
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="secondary"
+              size="lg"
               onClick={onStudyMode}
-              className="px-6 py-3 bg-violet-500 text-white rounded-lg hover:bg-violet-600 transition-colors font-semibold"
+              className="bg-purple-600 text-white font-semibold"
             >
               📚 Modo Estudio
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="ghost"
+              size="lg"
               onClick={() => {
                 // Share functionality placeholder
                 alert('Compartir funcionalidad próximamente');
               }}
-              className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-semibold"
+              className="bg-gray-200 text-gray-600 font-semibold"
             >
               📤 Compartir
-            </button>
+            </Button>
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

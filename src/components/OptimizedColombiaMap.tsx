@@ -6,6 +6,10 @@ import { useAccessibility } from '../context/AccessibilityContext';
 import { normalizeId } from '../utils/nameNormalizer';
 import { colombiaDepartments } from '../data/colombiaDepartments';
 import { MODERN_REGION_COLORS } from '../constants/accessibleColors';
+import {
+  Button, Card, CardHeader, CardTitle, CardContent, Badge,
+  colors, spacing, textStyles, shadows
+} from '../design-system';
 
 interface GeoFeature {
   type: string;
@@ -49,24 +53,24 @@ const DepartmentPath = memo(({
 
   // Recalculate color when colorMode changes - avoid passing function as dependency
   const regionColor = useMemo(() => {
-    if (!department) return '#e5e7eb';
+    if (!department) return 'rgb(229 231 235)';
     return getRegionColor(department.region);
   }, [department, colorMode, highContrast]); // Use primitive values as dependencies, not the function
 
   const departmentColor = useMemo(() => {
-    if (isPlaced) return '#10b981'; // Green for placed
-    if (isOver && isDragging) return '#fbbf24'; // Yellow/gold when hovering with mouse
+    if (isPlaced) return 'rgb(16 185 129)'; // Green for placed
+    if (isOver && isDragging) return 'rgb(251 191 36)'; // Yellow/gold when hovering with mouse
     // Don't change fill color for keyboard targeting - keep it clean
     if (showRegionColors) return regionColor; // Show region color
-    return '#f3f4f6'; // Light gray for unplaced
+    return 'rgb(243 244 246)'; // Light gray for unplaced
   }, [isPlaced, isOver, isDragging, showRegionColors, regionColor, colorMode]);
 
   const strokeColor = useMemo(() => {
-    if (highContrast) return '#000'; // Black border in high contrast
-    if (isKeyboardTarget) return '#9333ea'; // Purple border for keyboard target
-    if (isOver && isDragging) return '#f59e0b'; // Orange border when drop target
-    if (isOver) return '#3b82f6'; // Blue border on hover
-    return '#374151'; // Default dark gray
+    if (highContrast) return 'black'; // Black border in high contrast
+    if (isKeyboardTarget) return 'rgb(147 51 234)'; // Purple border for keyboard target
+    if (isOver && isDragging) return 'rgb(245 158 11)'; // Orange border when drop target
+    if (isOver) return 'rgb(59 130 246)'; // Blue border on hover
+    return 'rgb(55 65 81)'; // Default dark gray
   }, [isOver, isDragging, highContrast, isKeyboardTarget]);
 
   const strokeWidth = useMemo(() => {
@@ -84,16 +88,15 @@ const DepartmentPath = memo(({
       stroke={strokeColor}
       strokeWidth={strokeWidth}
       opacity={isPlaced ? 0.9 : isKeyboardTarget ? 0.8 : isOver ? 0.95 : 0.7}
-      className={`transition-all duration-200 ${isKeyboardTarget ? 'animate-pulse' : ''}`}
-      style={{
-        cursor: 'inherit', // Inherit the grab cursor from the SVG parent for consistent panning
-        filter: isKeyboardTarget
-          ? 'drop-shadow(0 0 4px rgba(147, 51, 234, 0.5))' // Subtle purple glow
+      className={`transition-all duration-200 cursor-inherit pointer-events-auto ${
+        isKeyboardTarget
+          ? 'animate-pulse drop-shadow-[0_0_4px_rgba(147,51,234,0.5)]'
           : isOver && isDragging
-            ? 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.6))'
-            : 'none',
-        pointerEvents: 'auto', // Always allow hit detection for keyboard navigation
-        strokeDasharray: isKeyboardTarget ? '8 4' : 'none', // Dashed border for keyboard
+            ? 'drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]'
+            : ''
+      }`}
+      style={{
+        strokeDasharray: isKeyboardTarget ? '8 4' : 'none',
         strokeLinecap: isKeyboardTarget ? 'round' : 'butt'
       }}
     />
@@ -138,7 +141,7 @@ const DroppableDepartment = ({ feature, isDragging, children }: {
        data-over={isOver}
        data-department-drop-zone={departmentId}
        data-keyboard-target={isKeyboardTarget}
-       style={{ pointerEvents: 'auto' }} // Ensure the group is also detectable
+       className="pointer-events-auto" // Ensure the group is also detectable
     >
       {children(isOver, shouldHighlight)}
     </g>
@@ -238,7 +241,7 @@ export default function OptimizedColombiaMap() {
     return (
       <div className="flex flex-col items-center justify-center h-96">
         <div className="mb-4">
-          <div className="text-gray-600 animate-pulse mb-2">Cargando mapa de Colombia...</div>
+          <div className="text-gray-600 mb-2">Cargando mapa de Colombia...</div>
           <div className="w-64 h-2 bg-gray-200 rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-sky-400 to-green-400 transition-all duration-500"
@@ -311,7 +314,7 @@ export default function OptimizedColombiaMap() {
   };
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center bg-gradient-to-br from-sky-100 via-sky-50 to-green-100">
+    <div className="relative w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-100 via-blue-50 to-green-50">
       {/* Pan Indicator */}
       {!isDragging && (
         <div className="absolute top-16 left-4 z-20 bg-white/90 px-3 py-2 rounded-lg shadow-md border border-gray-300 pointer-events-none" aria-hidden="true">
@@ -326,12 +329,13 @@ export default function OptimizedColombiaMap() {
 
       {/* Region Color Toggle */}
       <div className="absolute bottom-4 left-4 z-20">
-        <button
+        <Button
+          variant={showRegionColors ? 'primary' : 'secondary'}
           onClick={() => setShowRegionColors(!showRegionColors)}
-          className={`flex items-center gap-2 px-3 py-2 rounded-lg shadow-md border transition-all ${
+          className={`flex items-center gap-2 shadow-md border ${
             showRegionColors
-              ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white border-sky-600'
-              : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'
+              ? 'bg-gradient-to-r from-sky-500 to-emerald-500 text-white border-blue-600'
+              : 'bg-white text-gray-600 border-gray-300'
           }`}
           title="Mostrar/Ocultar colores de regiones"
           aria-label={showRegionColors ? 'Ocultar colores de regiones' : 'Mostrar colores de regiones'}
@@ -343,11 +347,11 @@ export default function OptimizedColombiaMap() {
           <span className="text-sm font-medium">
             {showRegionColors ? 'Ocultar' : 'Mostrar'} Regiones
           </span>
-        </button>
+        </Button>
         {showRegionColors && (
-          <div className="mt-2 bg-white/95 rounded-lg shadow-md p-3 border border-gray-300" role="region" aria-label="Leyenda de regiones">
-            <p className="text-xs font-semibold text-gray-700 mb-2">Regiones de Colombia:</p>
-            <div className="grid grid-cols-2 gap-1 text-xs">
+          <Card variant="default" className="mt-2 bg-white/95 p-3 border border-gray-300" role="region" aria-label="Leyenda de regiones">
+            <p className="text-sm font-semibold text-gray-600 mb-2">Regiones de Colombia:</p>
+            <div className="grid grid-cols-2 gap-1 text-sm">
               <div className="flex items-center gap-1">
                 <div className="w-3 h-3 rounded border border-gray-400" style={{ backgroundColor: getRegionColor('Andina', 0.7) }}></div>
                 <span>Andina</span>
@@ -373,15 +377,16 @@ export default function OptimizedColombiaMap() {
                 <span>Insular</span>
               </div>
             </div>
-          </div>
+          </Card>
         )}
       </div>
 
       {/* Zoom Controls */}
       <div className="absolute top-4 right-4 z-20 flex flex-col gap-2">
-        <button
+        <Button
+          variant="secondary"
           onClick={() => setZoomLevel(Math.min(zoomLevel * 1.2, 4))}
-          className="bg-white hover:bg-gray-100 text-gray-700 p-2 rounded-lg shadow-md border border-gray-300"
+          className="bg-white text-gray-600 p-2 border border-gray-300 shadow-md"
           title="Acercar (Zoom In)"
           aria-label="Acercar el mapa"
         >
@@ -389,10 +394,11 @@ export default function OptimizedColombiaMap() {
             <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
             <path fillRule="evenodd" d="M8 6a.5.5 0 01.5.5V7.5H9.5a.5.5 0 010 1H8.5V9.5a.5.5 0 01-1 0V8.5H6.5a.5.5 0 010-1H7.5V6.5A.5.5 0 018 6z" clipRule="evenodd" />
           </svg>
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="secondary"
           onClick={() => setZoomLevel(Math.max(zoomLevel * 0.8, 0.5))}
-          className="bg-white hover:bg-gray-100 text-gray-700 p-2 rounded-lg shadow-md border border-gray-300"
+          className="bg-white text-gray-600 p-2 border border-gray-300 shadow-md"
           title="Alejar (Zoom Out)"
           aria-label="Alejar el mapa"
         >
@@ -400,38 +406,34 @@ export default function OptimizedColombiaMap() {
             <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
             <path fillRule="evenodd" d="M6.5 8a.5.5 0 01.5-.5h2a.5.5 0 010 1H7a.5.5 0 01-.5-.5z" clipRule="evenodd" />
           </svg>
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="secondary"
           onClick={resetView}
-          className="bg-white hover:bg-gray-100 text-gray-700 p-2 rounded-lg shadow-md border border-gray-300"
+          className="bg-white text-gray-600 p-2 border border-gray-300 shadow-md"
           title="Restablecer Vista"
           aria-label="Restablecer vista del mapa a posición inicial"
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
           </svg>
-        </button>
-        <div className="text-xs text-center bg-white px-2 py-1 rounded border border-gray-300" role="status" aria-live="polite" aria-label="Nivel de zoom">
+        </Button>
+        <Badge variant="secondary" className="text-sm text-center bg-white border border-gray-300" role="status" aria-live="polite" aria-label="Nivel de zoom">
           {Math.round(zoomLevel * 100)}%
-        </div>
+        </Badge>
       </div>
 
       <svg
         ref={svgRef}
         width="100%"
         height="100%"
-        className="rounded-lg"
+        className={`rounded-lg w-full h-full min-h-[550px] pointer-events-auto ${
+          isPanning ? 'cursor-grabbing' : 'cursor-grab'
+        }`}
         viewBox={`0 0 ${width} ${height}`}
         preserveAspectRatio="xMidYMid meet"
         role="img"
         aria-label="Mapa interactivo de Colombia. Usa el ratón para hacer zoom y panear. Arrastra departamentos desde la bandeja izquierda para colocarlos."
-        style={{
-          width: '100%',
-          height: '100%',
-          minHeight: '550px',
-          cursor: isPanning ? 'grabbing' : 'grab', // Show grab cursor to indicate pan is available
-          pointerEvents: 'all'
-        }}
         onWheel={handleWheel}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
@@ -441,9 +443,9 @@ export default function OptimizedColombiaMap() {
         {/* Ocean gradient - More vibrant Colombian colors */}
         <defs>
           <radialGradient id="ocean" cx="50%" cy="50%" r="80%">
-            <stop offset="0%" style={{ stopColor: '#bfdbfe', stopOpacity: 1 }} />
-            <stop offset="50%" style={{ stopColor: '#dbeafe', stopOpacity: 1 }} />
-            <stop offset="100%" style={{ stopColor: '#bbf7d0', stopOpacity: 1 }} />
+            <stop offset="0%" stopColor="rgb(191 219 254)" stopOpacity="1" />
+            <stop offset="50%" stopColor="rgb(219 234 254)" stopOpacity="1" />
+            <stop offset="100%" stopColor="rgb(187 247 208)" stopOpacity="1" />
           </radialGradient>
         </defs>
 
@@ -500,21 +502,21 @@ export default function OptimizedColombiaMap() {
           y={25}
           textAnchor="middle"
           className="text-xl font-bold"
-          fill="#1f2937"
+          fill="rgb(31 41 55)"
         >
           Colombia - Rompecabezas de Departamentos
         </text>
 
         {/* Legend - Positioned at bottom right */}
         <g transform={`translate(${width - 130}, ${height - 80})`}>
-          <rect width="110" height="60" fill="white" opacity="0.9" rx="4" stroke="#e5e7eb" strokeWidth="0.5" />
-          <text x="8" y="16" fontSize="10" fontWeight="600" fill="#374151">Leyenda:</text>
-          <rect x="8" y="22" width="10" height="8" fill="#e5e7eb" />
-          <text x="22" y="29" fontSize="9" fill="#6b7280">Por colocar</text>
-          <rect x="8" y="34" width="10" height="8" fill="#10b981" />
-          <text x="22" y="41" fontSize="9" fill="#6b7280">Colocado</text>
-          <rect x="8" y="46" width="10" height="8" fill="#fbbf24" />
-          <text x="22" y="53" fontSize="9" fill="#6b7280">Zona objetivo</text>
+          <rect width="110" height="60" fill="white" opacity="0.9" rx="4" stroke="rgb(229 231 235)" strokeWidth="0.5" />
+          <text x="8" y="16" fontSize="10" fontWeight="600" fill="rgb(55 65 81)">Leyenda:</text>
+          <rect x="8" y="22" width="10" height="8" fill="rgb(229 231 235)" />
+          <text x="22" y="29" fontSize="9" fill="rgb(107 114 128)">Por colocar</text>
+          <rect x="8" y="34" width="10" height="8" fill="rgb(16 185 129)" />
+          <text x="22" y="41" fontSize="9" fill="rgb(107 114 128)">Colocado</text>
+          <rect x="8" y="46" width="10" height="8" fill="rgb(251 191 36)" />
+          <text x="22" y="53" fontSize="9" fill="rgb(107 114 128)">Zona objetivo</text>
         </g>
       </svg>
 

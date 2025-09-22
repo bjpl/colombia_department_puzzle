@@ -9,6 +9,20 @@ import { getMemoryAid } from '../data/memoryAids';
 import { getDepartmentEducation } from '../data/departmentEducation';
 import { getRegionalNarrative } from '../data/regionalNarratives';
 import MiniDepartmentShape from './MiniDepartmentShape';
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+  Badge,
+  colors,
+  spacing,
+  textStyles,
+  shadows
+} from '../design-system';
+import { cn } from '../design-system/utils/cn';
 
 interface StudyModeProps {
   onClose: () => void;
@@ -138,67 +152,95 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
   const studyProgress = (flowState.studiedDepartments.size / colombiaDepartments.length) * 100;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-7xl h-[90vh] flex flex-col overflow-hidden">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-3">
+      <Card
+        variant="elevated"
+        padding="none"
+        className={cn("w-full max-w-7xl h-[90vh] flex flex-col overflow-hidden shadow-2xl")}
+      >
         {/* Enhanced Header with Flow Indicators */}
-        <div className="bg-gradient-to-r from-sky-500 to-green-500 text-white p-4">
+        <div
+          className="bg-gradient-to-r from-sky-500 to-green-500 text-white p-3"
+        >
           <div className="flex justify-between items-center">
             <div>
-              <h2 className="text-2xl font-bold">📚 Modo de Estudio Mejorado</h2>
-              <p className="text-sm opacity-90">
+              <h2
+                className="text-3xl font-bold leading-tight text-white"
+              >
+                📚 Modo de Estudio Mejorado
+              </h2>
+              <p
+                className="text-sm text-white opacity-90"
+              >
                 {flowState.phase === 'explore' && 'Explora los departamentos de Colombia'}
                 {flowState.phase === 'focus' && `Enfocado en: ${flowState.focusedRegion || 'Selecciona una región'}`}
                 {flowState.phase === 'quiz' && 'Prueba tus conocimientos'}
                 {flowState.phase === 'ready' && '¡Listo para jugar!'}
               </p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-1">
               {/* Flow Phase Indicators */}
-              <div className="flex items-center gap-1 bg-white/20 px-3 py-1 rounded-lg">
-                <span className={`w-2 h-2 rounded-full ${flowState.phase === 'explore' ? 'bg-white' : 'bg-white/40'}`} />
-                <span className={`w-2 h-2 rounded-full ${flowState.phase === 'focus' ? 'bg-white' : 'bg-white/40'}`} />
-                <span className={`w-2 h-2 rounded-full ${flowState.phase === 'quiz' ? 'bg-white' : 'bg-white/40'}`} />
-                <span className={`w-2 h-2 rounded-full ${flowState.phase === 'ready' ? 'bg-white' : 'bg-white/40'}`} />
+              <div
+                className="flex items-center rounded-lg bg-white/20 gap-0.5 px-2 py-0.5"
+              >
+                <span
+                  className={`rounded-full w-1 h-1 ${flowState.phase === 'explore' ? 'bg-white' : 'bg-white/40'}`}
+                />
+                <span
+                  className={`rounded-full w-1 h-1 ${flowState.phase === 'focus' ? 'bg-white' : 'bg-white/40'}`}
+                />
+                <span
+                  className={`rounded-full w-1 h-1 ${flowState.phase === 'quiz' ? 'bg-white' : 'bg-white/40'}`}
+                />
+                <span
+                  className={`rounded-full w-1 h-1 ${flowState.phase === 'ready' ? 'bg-white' : 'bg-white/40'}`}
+                />
               </div>
-              <button
+              <Button
                 onClick={() => setViewMode(
                   viewMode === 'cards' ? 'grid' :
                   viewMode === 'grid' ? 'map' : 'cards'
                 )}
-                className="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors"
+                variant="ghost"
+                className="bg-white/20 hover:bg-white/30 text-white border-none"
               >
                 {viewMode === 'cards' ? '📋 Vista Cuadrícula' :
                  viewMode === 'grid' ? '🗺️ Vista Mapa' : '🃏 Vista Tarjetas'}
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={onClose}
-                className="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors"
+                variant="ghost"
+                className="bg-white/20 hover:bg-white/30 text-white border-none"
               >
                 ✕ Cerrar
-              </button>
+              </Button>
             </div>
           </div>
 
           {/* Enhanced Progress with Milestones */}
-          <div className="mt-3">
-            <div className="bg-white/20 rounded-full h-3 relative">
+          <div className="mt-2">
+            <div className="bg-white/20 rounded-full relative h-2">
               <div
-                className="bg-white h-3 rounded-full transition-all duration-500 relative"
+                className="bg-white rounded-full transition-all duration-500 relative h-2"
                 style={{ width: `${studyProgress}%` }}
               >
                 {/* Milestone markers */}
                 {[25, 50, 75].map(milestone => (
                   <div
                     key={milestone}
-                    className={`absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full ${
+                    className={`absolute top-1/2 -translate-y-1/2 rounded-full w-1 h-1 ${
                       studyProgress >= milestone ? 'bg-yellow-400' : 'bg-white/40'
                     }`}
-                    style={{ left: `${(milestone / 100) * (100 / (studyProgress / 100))}%` }}
+                    style={{
+                      left: `${(milestone / 100) * (100 / (studyProgress / 100))}%`
+                    }}
                   />
                 ))}
               </div>
             </div>
-            <div className="flex justify-between text-xs mt-1">
+            <div
+              className="flex justify-between text-xs mt-0.5 text-white"
+            >
               <span>Inicio</span>
               <span>{flowState.studiedDepartments.size}/{colombiaDepartments.length}</span>
               <span>Maestría</span>
@@ -208,21 +250,29 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
 
         {/* Smart Action Bar */}
         {showQuickActions && (
-          <div className="bg-sky-50 border-b border-sky-200 px-4 py-2 flex items-center justify-between">
-            <div className="flex gap-2">
-              <span className="text-sm text-sky-700">Acciones Rápidas:</span>
-              <button
+          <div
+            className="border-b border-sky-200 bg-sky-50 flex items-center justify-between px-3 py-1"
+          >
+            <div className="flex items-center gap-1">
+              <span className="text-sm text-sky-700">
+                Acciones Rápidas:
+              </span>
+              <Button
                 onClick={handleStartPractice}
-                className="px-3 py-1 bg-green-500 text-white text-sm rounded-lg hover:bg-green-600"
+                variant="primary"
+                size="sm"
+                className="bg-green-500 border-green-500 hover:bg-green-600"
               >
                 🎯 Practicar Región Estudiada
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={() => setFlowState(prev => ({ ...prev, phase: 'quiz' }))}
-                className="px-3 py-1 bg-violet-500 text-white text-sm rounded-lg hover:bg-violet-600"
+                variant="primary"
+                size="sm"
+                className="bg-violet-500 border-violet-500 hover:bg-violet-600"
               >
                 🧠 Mini Quiz
-              </button>
+              </Button>
             </div>
             <div className="text-sm text-gray-600">
               💡 Has estudiado suficientes departamentos para practicar
@@ -232,80 +282,112 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
 
         <div className="flex flex-1 min-h-0">
           {/* Left Panel - Interactive Department Explorer */}
-          <div className="flex-1 overflow-y-auto p-4 border-r">
+          <div
+            className="flex-1 overflow-y-auto border-r border-gray-200 p-3"
+          >
             {/* Region Filter Tabs */}
-            <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
-              <button
+            <div
+              className="flex overflow-x-auto gap-1 mb-3 pb-1"
+            >
+              <Button
                 onClick={() => setFlowState(prev => ({ ...prev, focusedRegion: null }))}
-                className={`px-4 py-2 rounded-lg transition-all whitespace-nowrap ${
-                  !flowState.focusedRegion
-                    ? 'bg-sky-500 text-white'
-                    : 'bg-gray-100 hover:bg-gray-200'
-                }`}
+                variant={!flowState.focusedRegion ? 'primary' : 'secondary'}
+                size="sm"
+                className="whitespace-nowrap"
               >
                 Todas las Regiones
-              </button>
+              </Button>
               {Object.keys(departmentsByRegion).map(region => (
-                <button
+                <Button
                   key={region}
                   onClick={() => handleRegionFocus(region)}
-                  className={`px-4 py-2 rounded-lg transition-all whitespace-nowrap ${
-                    flowState.focusedRegion === region
-                      ? 'bg-sky-500 text-white'
-                      : 'bg-gray-100 hover:bg-gray-200'
-                  }`}
+                  variant={flowState.focusedRegion === region ? 'primary' : 'secondary'}
+                  size="sm"
+                  className="whitespace-nowrap"
                 >
                   {region} ({departmentsByRegion[region].length})
-                </button>
+                </Button>
               ))}
             </div>
 
             {/* Enhanced Card View */}
             {viewMode === 'cards' && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {Object.entries(displayDepartments).flatMap(([region, depts]) =>
                   depts.map(dept => (
-                    <div
+                    <Card
                       key={dept.id}
                       onClick={() => handleDepartmentClick(dept)}
-                      className={`
-                        relative bg-white rounded-xl shadow-md hover:shadow-xl
-                        transition-all cursor-pointer overflow-hidden group
-                        ${selectedDepartment?.id === dept.id ? 'ring-2 ring-sky-500' : ''}
-                      `}
+                      variant="default"
+                      padding="none"
+                      hover
+                      className={cn(
+                        'relative cursor-pointer overflow-hidden group transition-all',
+                        selectedDepartment?.id === dept.id && 'ring-2',
+                        selectedDepartment?.id === dept.id && `ring-[${colors.brand[500]}]`
+                      )}
                     >
                       {/* Region color bar */}
                       <div
-                        className="h-2 w-full"
-                        style={{ backgroundColor: REGION_COLORS[dept.region] || '#e5e7eb' }}
+                        className="w-full h-1"
+                        style={{
+                          backgroundColor: REGION_COLORS[dept.region] || 'rgb(229 231 235)'
+                        }}
                       />
 
-                      <div className="p-4">
-                        <div className="flex justify-between items-start mb-2">
-                          <h3 className="font-bold text-lg">{dept.name}</h3>
+                      <CardContent className="p-3">
+                        <CardHeader className="flex-row justify-between items-start mb-1">
+                          <CardTitle className="text-lg font-semibold text-gray-900">
+                            {dept.name}
+                          </CardTitle>
                           {flowState.studiedDepartments.has(dept.id) && (
                             <span className="text-green-500">✓</span>
                           )}
-                        </div>
-                        <p className="text-sm text-gray-600 mb-1">Capital: {dept.capital}</p>
-                        <p className="text-xs text-gray-500">{dept.region}</p>
+                        </CardHeader>
+                        <CardDescription className="text-sm text-gray-600 mb-0.5">
+                          Capital: {dept.capital}
+                        </CardDescription>
+                        <p className="text-xs text-gray-500">
+                          {dept.region}
+                        </p>
 
                         {/* Quick stats on hover */}
-                        <div className="mt-3 pt-3 border-t border-gray-100 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <div className="flex justify-between text-xs text-gray-600">
+                        <div
+                          className="border-t opacity-0 group-hover:opacity-100 transition-opacity"
+                          style={{
+                            marginTop: spacing[3],
+                            paddingTop: spacing[3],
+                            borderColor: colors.gray[100]
+                          }}
+                        >
+                          <div
+                            className="flex justify-between"
+                            style={{
+                              fontSize: textStyles.caption.fontSize[0],
+                              color: colors.text.secondary
+                            }}
+                          >
                             <span>Área: {dept.area.toLocaleString()} km²</span>
                             <span>Pop: {(dept.population / 1000000).toFixed(1)}M</span>
                           </div>
                         </div>
-                      </div>
+                      </CardContent>
 
                       {/* Study progress indicator */}
                       {flowState.studiedDepartments.has(dept.id) && (
-                        <div className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                        <Badge
+                          variant="success"
+                          size="sm"
+                          className="absolute"
+                          style={{
+                            top: spacing[2],
+                            right: spacing[2]
+                          }}
+                        >
                           Estudiado
-                        </div>
+                        </Badge>
                       )}
-                    </div>
+                    </Card>
                   ))
                 )}
               </div>
@@ -313,27 +395,34 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
 
             {/* Grid View */}
             {viewMode === 'grid' && (
-              <div className="space-y-4">
+              <div className="flex flex-col gap-3">
                 {Object.entries(displayDepartments).map(([region, depts]) => (
                   <div key={region}>
-                    <h3 className="font-bold text-lg mb-2 text-gray-700">
+                    <h3 className="text-lg font-semibold mb-1 text-gray-600">
                       {region} ({depts.length})
                     </h3>
-                    <div className="grid grid-cols-4 gap-2">
+                    <div className="grid grid-cols-4 gap-1">
                       {depts.map(dept => (
-                        <button
+                        <Button
                           key={dept.id}
                           onClick={() => handleDepartmentClick(dept)}
-                          className={`
-                            p-3 rounded-lg border-2 transition-all text-left
-                            ${flowState.studiedDepartments.has(dept.id) ? 'bg-green-50 border-green-300' : 'bg-gray-50 border-gray-300'}
-                            ${selectedDepartment?.id === dept.id ? 'ring-2 ring-sky-500 scale-105' : ''}
-                            hover:scale-105 hover:shadow-lg
-                          `}
+                          variant={flowState.studiedDepartments.has(dept.id) ? 'secondary' : 'ghost'}
+                          className={cn(
+                            'text-left transition-all hover:scale-105 p-2 h-auto min-h-12',
+                            flowState.studiedDepartments.has(dept.id) && 'bg-green-50 border-green-300',
+                            selectedDepartment?.id === dept.id && 'ring-2 scale-105',
+                            selectedDepartment?.id === dept.id && `ring-[${colors.brand[500]}]`
+                          )}
                         >
-                          <div className="font-semibold text-sm">{dept.name}</div>
-                          <div className="text-xs text-gray-600">{dept.capital}</div>
-                        </button>
+                          <div className="flex flex-col items-start">
+                            <div className="text-sm font-medium">
+                              {dept.name}
+                            </div>
+                            <div className="text-xs text-gray-600">
+                              {dept.capital}
+                            </div>
+                          </div>
+                        </Button>
                       ))}
                     </div>
                   </div>
@@ -354,70 +443,115 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
           </div>
 
           {/* Right Panel - Smart Information Display */}
-          <div className="w-1/3 bg-gray-50 overflow-hidden flex flex-col">
+          <div
+            className="w-1/3 overflow-hidden flex flex-col bg-gray-50"
+          >
             {selectedDepartment ? (
-              <div className="flex-1 overflow-y-auto p-4 space-y-4">
+              <div
+                className="flex-1 overflow-y-auto flex flex-col p-3 gap-3"
+              >
                 {/* Department Header Card */}
-                <div
-                  className="relative bg-white rounded-lg border-2 p-4 shadow-md"
-                  style={{ borderColor: REGION_COLORS[selectedDepartment.region] || '#e5e7eb' }}
+                <Card
+                  variant="outlined"
+                  padding="md"
+                  className="relative"
+                  style={{
+                    borderColor: REGION_COLORS[selectedDepartment.region] || colors.surface.border,
+                    borderWidth: '2px'
+                  }}
                 >
-                  <h3 className="text-2xl font-bold text-gray-800">
-                    {selectedDepartment.name}
-                  </h3>
-                  <p className="text-sm text-gray-600">{selectedDepartment.region}</p>
+                  <CardHeader className="flex-row justify-between items-start">
+                    <div>
+                      <CardTitle className="text-3xl font-bold text-gray-900">
+                        {selectedDepartment.name}
+                      </CardTitle>
+                      <CardDescription className="text-sm text-gray-600">
+                        {selectedDepartment.region}
+                      </CardDescription>
+                    </div>
 
-                  {/* Study Status */}
-                  <div className="absolute top-4 right-4">
-                    {flowState.studiedDepartments.has(selectedDepartment.id) ? (
-                      <span className="text-green-500 text-2xl">✓</span>
-                    ) : (
-                      <span className="text-gray-300 text-2xl">○</span>
-                    )}
-                  </div>
-                </div>
+                    {/* Study Status */}
+                    <div className="text-3xl">
+                      {flowState.studiedDepartments.has(selectedDepartment.id) ? (
+                        <span className="text-green-500">✓</span>
+                      ) : (
+                        <span className="text-gray-300">○</span>
+                      )}
+                    </div>
+                  </CardHeader>
+                </Card>
 
 
                 {/* Information Cards */}
-                <div className="bg-white p-4 rounded-lg shadow">
-                  <h4 className="font-semibold text-gray-700 mb-3 flex items-center gap-2">
-                    <span className="text-xl">📍</span> Información Geográfica
-                  </h4>
-                  <dl className="space-y-2 text-sm">
-                    <div className="flex justify-between py-1 border-b border-gray-100">
-                      <dt className="text-gray-600">Capital:</dt>
-                      <dd className="font-semibold">{selectedDepartment.capital}</dd>
-                    </div>
-                    <div className="flex justify-between py-1 border-b border-gray-100">
-                      <dt className="text-gray-600">Área:</dt>
-                      <dd className="font-semibold">
-                        {selectedDepartment.area.toLocaleString()} km²
-                      </dd>
-                    </div>
-                    <div className="flex justify-between py-1 border-b border-gray-100">
-                      <dt className="text-gray-600">Población:</dt>
-                      <dd className="font-semibold">
-                        {selectedDepartment.population.toLocaleString()}
-                      </dd>
-                    </div>
-                    <div className="flex justify-between py-1">
-                      <dt className="text-gray-600">Densidad:</dt>
-                      <dd className="font-semibold">
-                        {Math.round(selectedDepartment.population / selectedDepartment.area)} hab/km²
-                      </dd>
-                    </div>
-                  </dl>
-                </div>
+                <Card variant="default" padding="md">
+                  <CardHeader className="mb-2">
+                    <CardTitle className="flex items-center text-base font-semibold text-gray-600 gap-1">
+                      <span className="text-xl">📍</span>
+                      Información Geográfica
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <dl className="flex flex-col gap-1">
+                      <div
+                        className="flex justify-between border-b border-gray-100 pb-0.5"
+                      >
+                        <dt className="text-sm text-gray-600">
+                          Capital:
+                        </dt>
+                        <dd className="text-sm font-medium text-gray-900">
+                          {selectedDepartment.capital}
+                        </dd>
+                      </div>
+                      <div
+                        className="flex justify-between border-b border-gray-100 pb-0.5"
+                      >
+                        <dt className="text-sm text-gray-600">
+                          Área:
+                        </dt>
+                        <dd className="text-sm font-medium text-gray-900">
+                          {selectedDepartment.area.toLocaleString()} km²
+                        </dd>
+                      </div>
+                      <div
+                        className="flex justify-between border-b border-gray-100 pb-0.5"
+                      >
+                        <dt className="text-sm text-gray-600">
+                          Población:
+                        </dt>
+                        <dd className="text-sm font-medium text-gray-900">
+                          {selectedDepartment.population.toLocaleString()}
+                        </dd>
+                      </div>
+                      <div className="flex justify-between">
+                        <dt className="text-sm text-gray-600">
+                          Densidad:
+                        </dt>
+                        <dd className="text-sm font-medium text-gray-900">
+                          {Math.round(selectedDepartment.population / selectedDepartment.area)} hab/km²
+                        </dd>
+                      </div>
+                    </dl>
+                  </CardContent>
+                </Card>
 
                 {/* Trivia Card */}
-                <div className="bg-gradient-to-br from-violet-50 to-sky-50 p-4 rounded-lg shadow">
-                  <h4 className="font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                    <span className="text-xl">💡</span> Dato Curioso
-                  </h4>
-                  <p className="text-sm text-gray-600 italic">
-                    {selectedDepartment.trivia}
-                  </p>
-                </div>
+                <Card
+                  variant="default"
+                  padding="md"
+                  className="bg-gradient-to-br from-gray-100 to-cyan-50"
+                >
+                  <CardHeader className="mb-1">
+                    <CardTitle className="flex items-center text-base font-semibold text-gray-600 gap-1">
+                      <span className="text-xl">💡</span>
+                      Dato Curioso
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="italic text-sm text-gray-600">
+                      {selectedDepartment.trivia}
+                    </p>
+                  </CardContent>
+                </Card>
 
                 {/* Historia y Contexto Section */}
                 {(() => {
@@ -655,24 +789,26 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
             )}
 
             {/* Smart Action Footer */}
-            <div className="bg-white border-t border-gray-200 p-4">
-              <div className="flex gap-2">
-                {studyProgress >= 60 && (
-                  <button
-                    onClick={() => {
-                      game.setGameMode({ type: 'full' });
-                      onStartGame();
-                    }}
-                    className="flex-1 px-4 py-2 bg-gradient-to-r from-sky-500 to-green-500 text-white rounded-lg hover:shadow-lg"
-                  >
-                    Juego Completo
-                  </button>
-                )}
-              </div>
+            <div
+              className="border-t border-gray-200 bg-white flex p-3 gap-1"
+            >
+              {studyProgress >= 60 && (
+                <Button
+                  onClick={() => {
+                    game.setGameMode({ type: 'full' });
+                    onStartGame();
+                  }}
+                  variant="primary"
+                  fullWidth
+                  className="bg-gradient-to-r from-sky-500 to-green-500 hover:shadow-lg"
+                >
+                  Juego Completo
+                </Button>
+              )}
             </div>
           </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
 }

@@ -3,6 +3,10 @@ import * as d3 from 'd3-geo';
 import { Department } from '../data/colombiaDepartments';
 import { normalizeId } from '../utils/nameNormalizer';
 import { useAccessibility } from '../context/AccessibilityContext';
+import {
+  Button, Card, CardHeader, CardTitle, CardContent, Badge,
+  colors, spacing, textStyles, shadows
+} from '../design-system';
 
 interface StudyModeMapProps {
   selectedDepartment: Department | null;
@@ -153,7 +157,7 @@ export default function StudyModeMap({
   };
 
   return (
-    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-green-50 rounded-lg relative">
+    <div className="w-full h-full flex items-center justify-center rounded-lg relative" style={{ background: 'linear-gradient(to bottom right, rgb(219 234 254), rgb(240 253 244))' }}>
       <svg
         ref={svgRef}
         width="600"
@@ -223,7 +227,7 @@ export default function StudyModeMap({
                 cy={pos[1]}
                 r={isSelected ? "16" : "12"}
                 fill={getDepartmentColor(dept.region, isSelected, isStudied)}
-                stroke={highContrast ? '#000' : isSelected ? '#fff' : 'rgba(255,255,255,0.5)'}
+                stroke={highContrast ? 'black' : isSelected ? 'white' : 'rgba(255,255,255,0.5)'}
                 strokeWidth={highContrast ? "2" : isSelected ? "3" : "1"}
                 className={`cursor-pointer ${reducedMotion ? '' : 'transition-all duration-300'} hover:opacity-90 ${
                   isSelected ? 'drop-shadow-lg' : 'hover:drop-shadow-md'
@@ -244,7 +248,7 @@ export default function StudyModeMap({
                 y={pos[1]}
                 textAnchor="middle"
                 dominantBaseline="central"
-                fill={highContrast ? '#000' : isSelected ? '#000' : 'white'}
+                fill={highContrast ? 'black' : isSelected ? 'black' : 'white'}
                 fontSize={isSelected ? "11" : "8"}
                 fontWeight={isSelected || highContrast ? "bold" : "normal"}
                 className="pointer-events-none"
@@ -266,8 +270,8 @@ export default function StudyModeMap({
                     cx={pos[0] + 10}
                     cy={pos[1] - 10}
                     r="6"
-                    fill={highContrast ? '#000' : '#10b981'}
-                    stroke={highContrast ? '#fff' : 'white'}
+                    fill={highContrast ? 'black' : 'rgb(16 185 129)'}
+                    stroke={highContrast ? 'white' : 'white'}
                     strokeWidth="1"
                   />
                   <text
@@ -276,7 +280,7 @@ export default function StudyModeMap({
                     textAnchor="middle"
                     dominantBaseline="central"
                     fontSize="10"
-                    fill={highContrast ? '#fff' : 'white'}
+                    fill={highContrast ? 'white' : 'white'}
                     fontWeight="bold"
                   >
                     ✓
@@ -291,7 +295,7 @@ export default function StudyModeMap({
                     width="40"
                     height="16"
                     rx="8"
-                    fill={highContrast ? '#000' : '#1f2937'}
+                    fill={highContrast ? 'black' : 'rgb(31 41 55)'}
                     opacity={highContrast ? '1' : '0.9'}
                   />
                   <text
@@ -319,9 +323,9 @@ export default function StudyModeMap({
             y="0"
             width="560"
             height="60"
-            fill={highContrast ? '#000' : 'rgba(255,255,255,0.95)'}
+            fill={highContrast ? 'black' : 'rgba(255,255,255,0.95)'}
             rx="5"
-            stroke={highContrast ? '#fff' : '#374151'}
+            stroke={highContrast ? 'white' : 'rgb(55 65 81)'}
             strokeWidth={highContrast ? '2' : '1'}
           />
           <text
@@ -329,7 +333,7 @@ export default function StudyModeMap({
             y="20"
             fontSize="12"
             fontWeight="bold"
-            fill={highContrast ? '#fff' : '#111827'}
+            fill={highContrast ? 'white' : 'rgb(17 24 39)'}
           >
             Regiones:
           </text>
@@ -340,7 +344,7 @@ export default function StudyModeMap({
                 cy="10"
                 r="8"
                 fill={getRegionColor(region)}
-                stroke={highContrast ? '#000' : 'white'}
+                stroke={highContrast ? 'black' : 'white'}
                 strokeWidth="1.5"
                 className="drop-shadow-sm"
               />
@@ -348,7 +352,7 @@ export default function StudyModeMap({
                 x="25"
                 y="14"
                 fontSize="11"
-                fill={highContrast ? '#fff' : '#111827'}
+                fill={highContrast ? 'white' : 'rgb(17 24 39)'}
                 fontWeight="500"
               >
                 {region}
@@ -359,10 +363,11 @@ export default function StudyModeMap({
       </svg>
 
       {/* Zoom Controls */}
-      <div className="absolute bottom-4 right-4 flex flex-col gap-2">
-        <button
+      <div className="absolute bottom-4 right-4" style={{ display: 'flex', flexDirection: 'column', gap: spacing[2] }}>
+        <Button
+          variant="secondary"
           onClick={() => setZoomLevel(Math.min(zoomLevel * 1.2, 4))}
-          className="p-2 bg-white rounded-lg shadow hover:bg-gray-100 transition-colors"
+          style={{ padding: spacing[2], backgroundColor: colors.background, boxShadow: shadows.md }}
           title="Acercar"
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
@@ -370,10 +375,11 @@ export default function StudyModeMap({
             <path d="M9 6v6M6 9h6" strokeWidth="2" strokeLinecap="round"/>
             <path d="M14 14l4 4" strokeWidth="2" strokeLinecap="round"/>
           </svg>
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="secondary"
           onClick={() => setZoomLevel(Math.max(zoomLevel * 0.8, 0.5))}
-          className="p-2 bg-white rounded-lg shadow hover:bg-gray-100 transition-colors"
+          style={{ padding: spacing[2], backgroundColor: colors.background, boxShadow: shadows.md }}
           title="Alejar"
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
@@ -381,24 +387,25 @@ export default function StudyModeMap({
             <path d="M6 9h6" strokeWidth="2" strokeLinecap="round"/>
             <path d="M14 14l4 4" strokeWidth="2" strokeLinecap="round"/>
           </svg>
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="secondary"
           onClick={resetView}
-          className="p-2 bg-white rounded-lg shadow hover:bg-gray-100 transition-colors"
+          style={{ padding: spacing[2], backgroundColor: colors.background, boxShadow: shadows.md }}
           title="Restablecer"
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
             <path d="M4 10a6 6 0 0112 0M4 10v-4m0 4l3-3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             <path d="M16 10a6 6 0 01-12 0M16 10v4m0-4l-3 3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-        </button>
+        </Button>
       </div>
 
       {/* Zoom indicator */}
       {zoomLevel > 1 && (
-        <div className={`absolute top-2 right-2 ${highContrast ? 'bg-black text-white' : 'bg-white'} px-2 py-1 rounded shadow text-xs`}>
+        <Badge variant="secondary" style={{ position: 'absolute', top: spacing[2], right: spacing[2], backgroundColor: highContrast ? colors.neutral[900] : colors.background, color: highContrast ? colors.text.primary : colors.text.secondary, padding: `${spacing[1]} ${spacing[2]}`, boxShadow: shadows.sm, fontSize: textStyles.body.small.fontSize[0] }}>
           Zoom: {Math.round(zoomLevel * 100)}%
-        </div>
+        </Badge>
       )}
 
       {/* Pan hint */}

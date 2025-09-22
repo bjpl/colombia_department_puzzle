@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import {
+  Button, Card, CardHeader, CardTitle, CardContent, Badge,
+  colors, spacing, textStyles, shadows
+} from '../design-system';
 
 interface GameModeSelectorProps {
   onSelectMode: (mode: GameModeConfig) => void;
@@ -19,12 +23,12 @@ interface UserRegionStats {
 }
 
 const REGIONS = [
-  { id: 'Insular', name: 'Insular', departments: 1, difficulty: 'Fácil', color: '#10b981', unlockRequirement: 0 },
-  { id: 'Pacífica', name: 'Pacífica', departments: 4, difficulty: 'Fácil', color: '#e9d5ff', unlockRequirement: 0 },
-  { id: 'Orinoquía', name: 'Orinoquía', departments: 4, difficulty: 'Medio', color: '#fef3c7', unlockRequirement: 1 },
-  { id: 'Amazonía', name: 'Amazonía', departments: 6, difficulty: 'Medio', color: '#86efac', unlockRequirement: 2 },
-  { id: 'Caribe', name: 'Caribe', departments: 8, difficulty: 'Difícil', color: '#93c5fd', unlockRequirement: 3 },
-  { id: 'Andina', name: 'Andina', departments: 10, difficulty: 'Experto', color: '#bef264', unlockRequirement: 5 },
+  { id: 'Insular', name: 'Insular', departments: 1, difficulty: 'Fácil', color: 'emerald-500', unlockRequirement: 0 },
+  { id: 'Pacífica', name: 'Pacífica', departments: 4, difficulty: 'Fácil', color: 'purple-200', unlockRequirement: 0 },
+  { id: 'Orinoquía', name: 'Orinoquía', departments: 4, difficulty: 'Medio', color: 'amber-100', unlockRequirement: 1 },
+  { id: 'Amazonía', name: 'Amazonía', departments: 6, difficulty: 'Medio', color: 'green-300', unlockRequirement: 2 },
+  { id: 'Caribe', name: 'Caribe', departments: 8, difficulty: 'Difícil', color: 'blue-300', unlockRequirement: 3 },
+  { id: 'Andina', name: 'Andina', departments: 10, difficulty: 'Experto', color: 'lime-400', unlockRequirement: 5 },
 ];
 
 export default function GameModeSelector({ onSelectMode, onClose, userStats }: GameModeSelectorProps) {
@@ -68,93 +72,103 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-auto transform transition-all">
-        <div className="p-8">
+    <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50 p-4" style={{ backgroundColor: colors.overlay }}>
+      <Card variant="default" className="max-w-4xl w-full max-h-[90vh] overflow-auto transition-all">
+        <CardContent className="p-8">
           <div className="flex justify-between items-start mb-6">
             <div>
-              <h1 className="text-3xl font-bold mb-2 bg-gradient-to-r from-sky-600 to-green-600 bg-clip-text text-transparent">
+              <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-sky-600 to-emerald-600 bg-clip-text text-transparent">
                 Elige Tu Modo de Juego
               </h1>
               <p className="text-gray-600">
                 Tres formas simples de aprender los departamentos de Colombia
               </p>
             </div>
-            <button
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
+              className="text-gray-600 text-2xl leading-none"
             >
               ×
-            </button>
+            </Button>
           </div>
 
           {!showRegionSelector ? (
             <div className="grid md:grid-cols-3 gap-6">
               {/* Full Country Mode */}
-              <button
+              <Button
+                variant="secondary"
                 onClick={() => handleModeSelect('full')}
-                className="relative group transform transition-all hover:scale-105"
+                className="relative transition-all h-auto"
               >
-                <div className="bg-gradient-to-br from-sky-50 to-sky-100 rounded-xl p-6 border-2 border-sky-200 hover:border-sky-400 transition-all">
+                <Card variant="default" className="bg-gradient-to-br from-sky-50 to-sky-100 rounded-lg p-6 border-2 border-sky-200 transition-all duration-200">
                   <div className="text-4xl mb-4">🌎</div>
                   <h3 className="text-xl font-bold mb-2">Colombia Completa</h3>
-                  <p className="text-sm text-gray-600 mb-4">
+                  <p style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary, marginBottom: spacing[4] }}>
                     Todos los 33 departamentos de una vez. ¡El desafío completo!
                   </p>
-                  <div className="flex items-center justify-center gap-2 text-xs">
-                    <span className="px-2 py-1 bg-sky-100 text-sky-700 rounded-full">33 departamentos</span>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: spacing[2] }}>
+                    <Badge variant="secondary" className="bg-sky-100 text-sky-800">33 departamentos</Badge>
                   </div>
-                </div>
-              </button>
+                </Card>
+              </Button>
 
               {/* Region Mode */}
-              <button
+              <Button
+                variant="secondary"
                 onClick={() => handleModeSelect('region')}
-                className="relative group transform transition-all hover:scale-105"
+                className="relative transition-all h-auto"
               >
-                <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 border-2 border-green-200 hover:border-green-400 transition-all">
+                <Card variant="default" className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6 border-2 border-green-200 transition-all duration-200">
                   <div className="text-4xl mb-4">🗺️</div>
                   <h3 className="text-xl font-bold mb-2">Por Regiones</h3>
-                  <p className="text-sm text-gray-600 mb-4">
+                  <p style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary, marginBottom: spacing[4] }}>
                     Elige regiones específicas para practicar paso a paso.
                   </p>
-                  <div className="flex items-center justify-center gap-2 text-xs">
-                    <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full">1-10 departamentos</span>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: spacing[2] }}>
+                    <Badge variant="secondary" className="bg-green-100 text-green-800">1-10 departamentos</Badge>
                   </div>
-                </div>
-                <div className="absolute -top-2 -right-2 bg-yellow-400 text-xs px-2 py-1 rounded-full font-bold">
+                </Card>
+                <Badge
+                  variant="primary"
+                  style={{ position: 'absolute', top: '-8px', right: '-8px', backgroundColor: colors.warning, fontSize: textStyles.body.small.fontSize[0], fontWeight: 'bold' }}
+                >
                   Recomendado
-                </div>
-              </button>
+                </Badge>
+              </Button>
 
               {/* Study Mode */}
-              <button
+              <Button
+                variant="secondary"
                 onClick={() => handleModeSelect('study')}
-                className="relative group transform transition-all hover:scale-105"
+                className="relative transition-all h-auto"
               >
-                <div className="bg-gradient-to-br from-violet-50 to-violet-100 rounded-xl p-6 border-2 border-violet-200 hover:border-violet-400 transition-all">
+                <Card variant="default" className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-6 border-2 border-purple-200 transition-all duration-200">
                   <div className="text-4xl mb-4">📚</div>
                   <h3 className="text-xl font-bold mb-2">Modo Estudio</h3>
-                  <p className="text-sm text-gray-600 mb-4">
+                  <p style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary, marginBottom: spacing[4] }}>
                     Aprende primero, luego practica. Ideal para principiantes.
                   </p>
-                  <div className="flex items-center justify-center gap-2 text-xs">
-                    <span className="px-2 py-1 bg-violet-100 text-violet-700 rounded-full">Aprendizaje</span>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: spacing[2] }}>
+                    <Badge variant="secondary" className="bg-violet-100 text-violet-800">Aprendizaje</Badge>
                   </div>
-                </div>
-              </button>
+                </Card>
+              </Button>
             </div>
           ) : (
             <div>
               <div className="mb-6">
-                <button
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={() => setShowRegionSelector(false)}
-                  className="text-sm text-gray-600 hover:text-gray-900 mb-4 flex items-center gap-1"
+                  style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary, marginBottom: spacing[4], display: 'flex', alignItems: 'center', gap: spacing[1] }}
                 >
                   ← Volver a modos
-                </button>
-                <h2 className="text-2xl font-bold mb-2">Selecciona las Regiones</h2>
-                <p className="text-gray-600">
+                </Button>
+                <h2 style={{ fontSize: textStyles.heading.large.fontSize[0], fontWeight: 'bold', marginBottom: spacing[2] }}>Selecciona las Regiones</h2>
+                <p style={{ color: colors.text.secondary }}>
                   Elige una o más regiones para practicar.
                   {userStats && ` Tienes ${getTotalStars()} ⭐ estrellas.`}
                 </p>
@@ -167,51 +181,71 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                   const progress = userStats?.regionProgress.get(region.id);
 
                   return (
-                    <button
+                    <Button
                       key={region.id}
+                      variant="secondary"
                       onClick={() => toggleRegionSelection(region.id)}
-                      className={`
-                        relative rounded-xl p-4 border-2 transition-all transform
-                        ${isSelected
-                          ? 'border-sky-500 bg-sky-50 scale-105'
-                          : 'border-gray-200 hover:border-gray-400 bg-white hover:scale-105'
-                        }
-                      `}
+                      style={{
+                        position: 'relative',
+                        borderRadius: borderRadius.lg,
+                        padding: spacing[4],
+                        border: `2px solid ${isSelected ? colors.brand[500] : colors.border}`,
+                        backgroundColor: isSelected ? colors.brand[50] : colors.background,
+                        transition: 'all 0.2s',
+                        transform: isSelected ? 'scale(1.05)' : 'scale(1)',
+                        height: 'auto',
+                        textAlign: 'left'
+                      }}
                     >
                       <div
-                        className="absolute top-0 left-0 w-full h-1 rounded-t-xl"
-                        style={{ backgroundColor: region.color }}
+                        style={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          width: '100%',
+                          height: '4px',
+                          borderRadius: `${borderRadius.lg} ${borderRadius.lg} 0 0`,
+                          backgroundColor: region.color
+                        }}
                       />
 
                       <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-bold text-lg">{region.name}</h3>
+                        <h3 style={{ fontWeight: 'bold', fontSize: textStyles.heading.small.fontSize[0] }}>{region.name}</h3>
                       </div>
 
-                      <div className="text-sm text-gray-600 mb-3">
+                      <div style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary, marginBottom: spacing[3] }}>
                         {region.departments} departamento{region.departments > 1 ? 's' : ''}
                       </div>
 
                       <div className="flex items-center justify-between">
-                        <span className={`
-                          text-xs px-2 py-1 rounded-full
-                          ${region.difficulty === 'Fácil' ? 'bg-green-100 text-green-700' :
-                            region.difficulty === 'Medio' ? 'bg-yellow-100 text-yellow-700' :
-                            region.difficulty === 'Difícil' ? 'bg-orange-100 text-orange-700' :
-                            'bg-red-100 text-red-700'}
-                        `}>
+                        <Badge
+                          variant="secondary"
+                          style={{
+                            fontSize: textStyles.body.small.fontSize[0],
+                            backgroundColor:
+                              region.difficulty === 'Fácil' ? 'rgb(220 252 231)' :
+                              region.difficulty === 'Medio' ? 'rgb(254 243 199)' :
+                              region.difficulty === 'Difícil' ? 'rgb(254 215 170)' :
+                              'rgb(254 202 202)',
+                            color:
+                              region.difficulty === 'Fácil' ? 'rgb(21 128 61)' :
+                              region.difficulty === 'Medio' ? 'rgb(161 98 7)' :
+                              region.difficulty === 'Difícil' ? 'rgb(194 65 12)' :
+                              'rgb(220 38 38)'
+                          }}
+                        >
                           {region.difficulty}
-                        </span>
+                        </Badge>
 
                         {progress && (
                           <div className="flex gap-0.5">
                             {[1, 2, 3].map(star => (
                               <span
                                 key={star}
-                                className={`text-lg ${
-                                  star <= progress.stars
-                                    ? 'text-yellow-500'
-                                    : 'text-gray-300'
-                                }`}
+                                style={{
+                                  fontSize: textStyles.heading.small.fontSize[0],
+                                  color: star <= progress.stars ? colors.warning : colors.text.disabled
+                                }}
                               >
                                 ⭐
                               </span>
@@ -221,40 +255,55 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                       </div>
 
                       {isSelected && (
-                        <div className="absolute -top-2 -right-2 bg-sky-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">
+                        <div style={{
+                          position: 'absolute',
+                          top: '-8px',
+                          right: '-8px',
+                          backgroundColor: colors.brand[500],
+                          color: colors.text.primary,
+                          width: '24px',
+                          height: '24px',
+                          borderRadius: '50%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: textStyles.body.small.fontSize[0],
+                          fontWeight: 'bold'
+                        }}>
                           ✓
                         </div>
                       )}
-                    </button>
+                    </Button>
                   );
                 })}
               </div>
 
               <div className="flex justify-between items-center">
-                <div className="text-sm text-gray-600">
+                <div style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>
                   {selectedRegions.size > 0
                     ? `${selectedRegions.size} región${selectedRegions.size > 1 ? 'es' : ''} seleccionada${selectedRegions.size > 1 ? 's' : ''}`
                     : 'Selecciona al menos una región'
                   }
                 </div>
-                <button
+                <Button
+                  variant={selectedRegions.size > 0 ? 'primary' : 'secondary'}
+                  size="lg"
                   onClick={confirmRegionSelection}
                   disabled={selectedRegions.size === 0}
-                  className={`
-                    px-6 py-3 rounded-lg font-bold transition-all
-                    ${selectedRegions.size > 0
-                      ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white hover:shadow-lg'
-                      : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                    }
-                  `}
+                  style={{
+                    background: selectedRegions.size > 0 ? 'linear-gradient(to right, rgb(14 165 233), rgb(16 185 129))' : colors.background,
+                    color: selectedRegions.size > 0 ? colors.text.primary : colors.text.disabled,
+                    fontWeight: 'bold',
+                    cursor: selectedRegions.size === 0 ? 'not-allowed' : 'pointer'
+                  }}
                 >
                   Comenzar Juego
-                </button>
+                </Button>
               </div>
             </div>
           )}
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

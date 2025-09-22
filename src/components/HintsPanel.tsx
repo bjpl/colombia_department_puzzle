@@ -1,5 +1,9 @@
 import { useGame } from '../context/GameContext';
 import { useProgressiveHints } from '../hooks/useProgressiveHints';
+import {
+  Button, Card, CardHeader, CardTitle, CardContent, Badge,
+  colors, spacing, textStyles, shadows
+} from '../design-system';
 
 export default function HintsPanel() {
   const game = useGame();
@@ -10,115 +14,132 @@ export default function HintsPanel() {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-4">
-      <h3 className="text-lg font-semibold mb-3 flex items-center">
-        💡 Pistas Progresivas
-        <span className="ml-auto text-sm text-gray-600">
+    <Card variant="default" style={{ padding: spacing[4] }}>
+      <CardHeader style={{ display: 'flex', alignItems: 'center', marginBottom: spacing[3] }}>
+        <CardTitle style={{ fontSize: textStyles.heading.small.fontSize[0], fontWeight: 'semibold' }}>
+          💡 Pistas Progresivas
+        </CardTitle>
+        <Badge variant="secondary" style={{ marginLeft: 'auto', fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>
           Puntos: {game.score}
-        </span>
-      </h3>
+        </Badge>
+      </CardHeader>
 
-      <div className="space-y-2">
+      <CardContent style={{ display: 'flex', flexDirection: 'column', gap: spacing[2] }}>
         {/* Level 1: Region Hint */}
-        <button
+        <Button
+          variant="secondary"
           onClick={() => hints.activateRegionHint()}
           disabled={game.score < hints.HINT_COSTS.region || hints.activeHint !== null}
-          className={`w-full p-3 rounded-lg border-2 transition-all ${
-            game.score >= hints.HINT_COSTS.region && !hints.activeHint
-              ? 'border-green-400 bg-green-50 hover:bg-green-100 cursor-pointer'
-              : 'border-gray-300 bg-gray-50 cursor-not-allowed opacity-60'
-          }`}
+          style={{
+            width: '100%',
+            padding: spacing[3],
+            border: `2px solid ${game.score >= hints.HINT_COSTS.region && !hints.activeHint ? colors.success : colors.neutral[300]}`,
+            backgroundColor: game.score >= hints.HINT_COSTS.region && !hints.activeHint ? 'rgb(240 253 244)' : colors.neutral[50],
+            cursor: game.score >= hints.HINT_COSTS.region && !hints.activeHint ? 'pointer' : 'not-allowed',
+            opacity: game.score >= hints.HINT_COSTS.region && !hints.activeHint ? 1 : 0.6,
+            textAlign: 'left'
+          }}
         >
-          <div className="flex justify-between items-center">
-            <div className="text-left">
-              <div className="font-semibold text-sm">🗺️ Mostrar Región</div>
-              <div className="text-xs text-gray-600">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontWeight: 'semibold', fontSize: textStyles.body.small.fontSize[0] }}>🗺️ Mostrar Región</div>
+              <div style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>
                 Resalta la región donde pertenece
               </div>
             </div>
-            <div className="text-right">
-              <div className="text-sm font-bold text-green-600">
+            <div>
+              <Badge variant="secondary" style={{ fontSize: textStyles.body.small.fontSize[0], fontWeight: 'bold', color: colors.success }}>
                 -{hints.HINT_COSTS.region} pts
-              </div>
+              </Badge>
             </div>
           </div>
-        </button>
+        </Button>
 
         {/* Level 2: First Letter Hint */}
-        <button
+        <Button
+          variant="secondary"
           onClick={() => hints.activateLetterHint()}
           disabled={game.score < hints.HINT_COSTS.letter || hints.activeHint !== null}
-          className={`w-full p-3 rounded-lg border-2 transition-all ${
-            game.score >= hints.HINT_COSTS.letter && !hints.activeHint
-              ? 'border-yellow-400 bg-yellow-50 hover:bg-yellow-100 cursor-pointer'
-              : 'border-gray-300 bg-gray-50 cursor-not-allowed opacity-60'
-          }`}
+          style={{
+            width: '100%',
+            padding: spacing[3],
+            border: `2px solid ${game.score >= hints.HINT_COSTS.letter && !hints.activeHint ? colors.warning : colors.neutral[300]}`,
+            backgroundColor: game.score >= hints.HINT_COSTS.letter && !hints.activeHint ? 'rgb(254 252 232)' : colors.neutral[50],
+            cursor: game.score >= hints.HINT_COSTS.letter && !hints.activeHint ? 'pointer' : 'not-allowed',
+            opacity: game.score >= hints.HINT_COSTS.letter && !hints.activeHint ? 1 : 0.6,
+            textAlign: 'left'
+          }}
         >
-          <div className="flex justify-between items-center">
-            <div className="text-left">
-              <div className="font-semibold text-sm">🔤 Primera Letra</div>
-              <div className="text-xs text-gray-600">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontWeight: 'semibold', fontSize: textStyles.body.small.fontSize[0] }}>🔤 Primera Letra</div>
+              <div style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>
                 Muestra "{game.currentDepartment.name[0]}..." en el mapa
               </div>
             </div>
-            <div className="text-right">
-              <div className="text-sm font-bold text-yellow-600">
+            <div>
+              <Badge variant="secondary" style={{ fontSize: textStyles.body.small.fontSize[0], fontWeight: 'bold', color: colors.warning }}>
                 -{hints.HINT_COSTS.letter} pts
-              </div>
+              </Badge>
             </div>
           </div>
-        </button>
+        </Button>
 
         {/* Level 3: Flash Location Hint */}
-        <button
+        <Button
+          variant="secondary"
           onClick={() => hints.activateFlashHint()}
           disabled={game.score < hints.HINT_COSTS.flash || hints.activeHint !== null}
-          className={`w-full p-3 rounded-lg border-2 transition-all ${
-            game.score >= hints.HINT_COSTS.flash && !hints.activeHint
-              ? 'border-red-400 bg-red-50 hover:bg-red-100 cursor-pointer'
-              : 'border-gray-300 bg-gray-50 cursor-not-allowed opacity-60'
-          }`}
+          style={{
+            width: '100%',
+            padding: spacing[3],
+            border: `2px solid ${game.score >= hints.HINT_COSTS.flash && !hints.activeHint ? colors.error : colors.neutral[300]}`,
+            backgroundColor: game.score >= hints.HINT_COSTS.flash && !hints.activeHint ? '#fef2f2' : colors.neutral[50],
+            cursor: game.score >= hints.HINT_COSTS.flash && !hints.activeHint ? 'pointer' : 'not-allowed',
+            opacity: game.score >= hints.HINT_COSTS.flash && !hints.activeHint ? 1 : 0.6,
+            textAlign: 'left'
+          }}
         >
-          <div className="flex justify-between items-center">
-            <div className="text-left">
-              <div className="font-semibold text-sm">✨ Mostrar Ubicación</div>
-              <div className="text-xs text-gray-600">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontWeight: 'semibold', fontSize: textStyles.body.small.fontSize[0] }}>✨ Mostrar Ubicación</div>
+              <div style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>
                 Destella la ubicación exacta
               </div>
             </div>
-            <div className="text-right">
-              <div className="text-sm font-bold text-red-600">
+            <div>
+              <Badge variant="secondary" style={{ fontSize: textStyles.body.small.fontSize[0], fontWeight: 'bold', color: colors.error }}>
                 -{hints.HINT_COSTS.flash} pts
-              </div>
+              </Badge>
             </div>
           </div>
-        </button>
-      </div>
+        </Button>
+      </CardContent>
 
       {/* Active Hint Indicator */}
       {hints.activeHint && (
-        <div className="mt-3 p-2 bg-sky-100 rounded-lg border border-sky-300">
-          <div className="text-xs text-sky-700 font-medium">
+        <Card variant="default" style={{ marginTop: spacing[3], padding: spacing[2], backgroundColor: '#e0f2fe', border: `1px solid ${colors.brand[300]}` }}>
+          <div style={{ fontSize: textStyles.body.small.fontSize[0], color: '#075985', fontWeight: 'medium' }}>
             {hints.activeHint === 'region' && '🗺️ Región resaltada en el mapa'}
             {hints.activeHint === 'letter' && `🔤 Busca "${game.currentDepartment.name[0]}..." en la región`}
             {hints.activeHint === 'flash' && '✨ ¡Mira el departamento destellando!'}
           </div>
-        </div>
+        </Card>
       )}
 
       {/* First Letter Display */}
       {hints.showFirstLetter && game.currentDepartment && (
-        <div className="mt-3 p-3 bg-yellow-100 rounded-lg border-2 border-yellow-400">
-          <div className="text-center">
-            <div className="text-3xl font-bold text-yellow-700">
+        <Card variant="default" style={{ marginTop: spacing[3], padding: spacing[3], backgroundColor: '#fefce8', border: `2px solid ${colors.warning}` }}>
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: textStyles.heading.xlarge.fontSize[0], fontWeight: 'bold', color: '#a16207' }}>
               {game.currentDepartment.name[0]}...
             </div>
-            <div className="text-xs text-yellow-600 mt-1">
+            <div style={{ fontSize: textStyles.body.small.fontSize[0], color: '#a16207', marginTop: spacing[1] }}>
               Empieza con esta letra
             </div>
           </div>
-        </div>
+        </Card>
       )}
-    </div>
+    </Card>
   );
 }

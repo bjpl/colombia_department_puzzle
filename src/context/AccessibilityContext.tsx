@@ -78,11 +78,11 @@ export function AccessibilityProvider({ children }: AccessibilityProviderProps) 
 
     if (highContrast) {
       // Use high contrast colors - note the nested structure
-      color = HIGH_CONTRAST_COLORS.regions[region] || HIGH_CONTRAST_COLORS.regions['Andina'] || '#000000';
+      color = HIGH_CONTRAST_COLORS.regions[region] || HIGH_CONTRAST_COLORS.regions['Andina'] || 'black';
     } else if (colorMode !== 'normal') {
       // Use colorblind-safe palette
       const palette = COLORBLIND_PALETTES[colorMode];
-      color = palette[region] || palette.default || '#6B7280';
+      color = palette[region] || palette.default || 'gray-500';
     } else {
       // Use modern beautiful colors
       const regionColors = MODERN_REGION_COLORS[region] || MODERN_REGION_COLORS['Andina'];
@@ -103,10 +103,10 @@ export function AccessibilityProvider({ children }: AccessibilityProviderProps) 
   // Get appropriate text color based on background
   const getTextColor = (background: string): string => {
     if (highContrast) {
-      return '#000000'; // Always black text in high contrast mode
+      return 'black'; // Always black text in high contrast mode
     }
     // For normal mode, return white (components handle this internally)
-    return '#FFFFFF';
+    return 'white';
   };
 
   const value = {

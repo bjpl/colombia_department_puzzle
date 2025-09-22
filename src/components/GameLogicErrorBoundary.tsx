@@ -1,4 +1,8 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
+import {
+  Button, Card, CardContent,
+  colors, spacing, textStyles, shadows
+} from '../design-system';
 
 /**
  * CONCEPT: Game Logic Error Boundary
@@ -128,86 +132,139 @@ export default class GameLogicErrorBoundary extends Component<Props, State> {
       const { title, description, icon } = this.getErrorMessage();
 
       return (
-        <div className="flex items-center justify-center min-h-[400px] p-8">
-          <div className="max-w-md w-full bg-white rounded-xl shadow-2xl p-6">
-            <div className="text-center">
-              {/* Error Icon */}
-              <div className="text-6xl mb-4">{icon}</div>
+        <div
+          className="flex items-center justify-center"
+          style={{ minHeight: '400px', padding: spacing[8] }}
+        >
+          <Card variant="default" style={{
+            maxWidth: '28rem',
+            width: '100%',
+            boxShadow: shadows.xl
+          }}>
+            <CardContent style={{ padding: spacing[6] }}>
+              <div className="text-center">
+                {/* Error Icon */}
+                <div className="text-6xl mb-4">{icon}</div>
 
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                {title}
-              </h2>
+                <h2 style={{
+                  fontSize: textStyles.heading.h2.fontSize[0],
+                  fontWeight: textStyles.heading.h2.fontWeight,
+                  color: colors.neutral[800],
+                  marginBottom: spacing[2]
+                }}>
+                  {title}
+                </h2>
 
-              <p className="text-gray-600 mb-4">
-                {description}
-              </p>
-
-              {/* Quick Fix Suggestions */}
-              <div className="bg-sky-50 rounded-lg p-4 mb-4">
-                <p className="text-sm text-sky-800 font-medium mb-2">
-                  Soluciones Rápidas:
+                <p style={{
+                  color: colors.neutral[600],
+                  marginBottom: spacing[4]
+                }}>
+                  {description}
                 </p>
-                <ul className="text-xs text-sky-700 space-y-1 text-left">
-                  {this.state.errorType === 'scoring' && (
-                    <>
-                      <li>• Los puntos se recalcularán automáticamente</li>
-                      <li>• Tu progreso anterior está guardado</li>
-                    </>
-                  )}
-                  {this.state.errorType === 'state' && (
-                    <>
-                      <li>• Reiniciar el juego puede solucionar el problema</li>
-                      <li>• No perderás tus estadísticas generales</li>
-                    </>
-                  )}
-                  {this.state.errorType === 'progress' && (
-                    <>
-                      <li>• Los departamentos colocados se restaurarán</li>
-                      <li>• Puedes continuar desde el último punto guardado</li>
-                    </>
-                  )}
-                </ul>
+
+                {/* Quick Fix Suggestions */}
+                <div style={{
+                  backgroundColor: colors.brand[50],
+                  borderRadius: borderRadius.lg,
+                  padding: spacing[4],
+                  marginBottom: spacing[4]
+                }}>
+                  <p style={{
+                    fontSize: textStyles.body.small.fontSize[0],
+                    color: colors.brand[800],
+                    fontWeight: textStyles.body.medium.fontWeight,
+                    marginBottom: spacing[2]
+                  }}>
+                    Soluciones Rápidas:
+                  </p>
+                  <ul style={{
+                    fontSize: textStyles.body.small.fontSize[0],
+                    color: colors.brand[700],
+                    textAlign: 'left'
+                  }}>
+                    {this.state.errorType === 'scoring' && (
+                      <>
+                        <li style={{ marginBottom: spacing[1] }}>• Los puntos se recalcularán automáticamente</li>
+                        <li>• Tu progreso anterior está guardado</li>
+                      </>
+                    )}
+                    {this.state.errorType === 'state' && (
+                      <>
+                        <li style={{ marginBottom: spacing[1] }}>• Reiniciar el juego puede solucionar el problema</li>
+                        <li>• No perderás tus estadísticas generales</li>
+                      </>
+                    )}
+                    {this.state.errorType === 'progress' && (
+                      <>
+                        <li style={{ marginBottom: spacing[1] }}>• Los departamentos colocados se restaurarán</li>
+                        <li>• Puedes continuar desde el último punto guardado</li>
+                      </>
+                    )}
+                  </ul>
+                </div>
+
+                {/* Recovery Actions */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: spacing[3] }}>
+                  <Button
+                    variant="primary"
+                    size="md"
+                    onClick={this.handleResetGameState}
+                    aria-label="Reiniciar el estado del juego"
+                    style={{ width: '100%' }}
+                  >
+                    🔄 Reiniciar Juego
+                  </Button>
+
+                  <Button
+                    variant="secondary"
+                    size="md"
+                    onClick={this.handleContinueAnyway}
+                    aria-label="Intentar continuar con el juego"
+                    style={{ width: '100%' }}
+                  >
+                    ➡️ Intentar Continuar
+                  </Button>
+                </div>
+
+                {/* Debug Info (Development Only) */}
+                {process.env.NODE_ENV === 'development' && this.state.error && (
+                  <details style={{ marginTop: spacing[4], textAlign: 'left' }}>
+                    <summary style={{
+                      cursor: 'pointer',
+                      fontSize: textStyles.body.small.fontSize[0],
+                      color: colors.neutral[500]
+                    }}>
+                      Información de Debug
+                    </summary>
+                    <div style={{
+                      marginTop: spacing[2],
+                      padding: spacing[3],
+                      backgroundColor: colors.neutral[100],
+                      borderRadius: borderRadius.md,
+                      fontSize: textStyles.body.small.fontSize[0],
+                      color: colors.neutral[700],
+                      overflow: 'auto',
+                      maxHeight: '8rem',
+                      fontFamily: 'monospace'
+                    }}>
+                      <div>Type: {this.state.errorType}</div>
+                      <div>Message: {this.state.error.message}</div>
+                      <div style={{ marginTop: spacing[2] }}>Stack: {this.state.error.stack}</div>
+                    </div>
+                  </details>
+                )}
+
+                {/* Help Text */}
+                <p style={{
+                  marginTop: spacing[4],
+                  fontSize: textStyles.body.small.fontSize[0],
+                  color: colors.neutral[500]
+                }}>
+                  Si el problema persiste después de reiniciar, intenta recargar la página.
+                </p>
               </div>
-
-              {/* Recovery Actions */}
-              <div className="space-y-3">
-                <button
-                  onClick={this.handleResetGameState}
-                  className="w-full px-4 py-2 bg-gradient-to-r from-sky-500 to-green-500 text-white rounded-lg hover:from-sky-600 hover:to-green-600 transition-all font-medium"
-                  aria-label="Reiniciar el estado del juego"
-                >
-                  🔄 Reiniciar Juego
-                </button>
-
-                <button
-                  onClick={this.handleContinueAnyway}
-                  className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium"
-                  aria-label="Intentar continuar con el juego"
-                >
-                  ➡️ Intentar Continuar
-                </button>
-              </div>
-
-              {/* Debug Info (Development Only) */}
-              {process.env.NODE_ENV === 'development' && this.state.error && (
-                <details className="mt-4 text-left">
-                  <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700">
-                    Información de Debug
-                  </summary>
-                  <div className="mt-2 p-3 bg-gray-100 rounded text-xs font-mono text-gray-700 overflow-auto max-h-32">
-                    <div>Type: {this.state.errorType}</div>
-                    <div>Message: {this.state.error.message}</div>
-                    <div className="mt-2">Stack: {this.state.error.stack}</div>
-                  </div>
-                </details>
-              )}
-
-              {/* Help Text */}
-              <p className="mt-4 text-xs text-gray-500">
-                Si el problema persiste después de reiniciar, intenta recargar la página.
-              </p>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </div>
       );
     }

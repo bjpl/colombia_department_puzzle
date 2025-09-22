@@ -1,4 +1,8 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
+import {
+  Button, Card, CardContent,
+  colors, spacing, textStyles
+} from '../design-system';
 
 /**
  * CONCEPT: Component-Level Error Boundary
@@ -64,41 +68,70 @@ export default class ComponentErrorBoundary extends Component<Props, State> {
       const componentName = this.props.componentName || 'componente';
 
       return (
-        <div className="p-4 bg-yellow-50 border-2 border-yellow-200 rounded-lg">
-          <div className="flex items-start gap-3">
-            <div className="text-2xl">⚠️</div>
-            <div className="flex-1">
-              <p className="font-medium text-yellow-800">
-                Error en {componentName}
-              </p>
-              <p className="text-sm text-yellow-700 mt-1">
-                Este componente encontró un problema y no se puede mostrar.
-              </p>
+        <Card variant="default" style={{
+          backgroundColor: colors.warning[50],
+          borderColor: colors.warning[200],
+          borderWidth: '2px',
+          padding: spacing[4]
+        }}>
+          <CardContent>
+            <div className="flex items-start gap-3">
+              <div className="text-2xl">⚠️</div>
+              <div className="flex-1">
+                <p style={{
+                  fontWeight: textStyles.body.medium.fontWeight,
+                  color: colors.warning[800]
+                }}>
+                  Error en {componentName}
+                </p>
+                <p style={{
+                  fontSize: textStyles.body.small.fontSize[0],
+                  color: colors.warning[700],
+                  marginTop: spacing[1]
+                }}>
+                  Este componente encontró un problema y no se puede mostrar.
+                </p>
 
-              {this.state.retryCount < 3 && (
-                <button
-                  onClick={this.handleRetry}
-                  className="mt-2 text-sm text-yellow-600 hover:text-yellow-800 underline"
-                  aria-label={`Reintentar cargar ${componentName}`}
-                >
-                  Reintentar
-                </button>
-              )}
+                {this.state.retryCount < 3 && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={this.handleRetry}
+                    style={{ marginTop: spacing[2] }}
+                    aria-label={`Reintentar cargar ${componentName}`}
+                  >
+                    Reintentar
+                  </Button>
+                )}
 
-              {/* Show error details in development */}
-              {process.env.NODE_ENV === 'development' && this.state.error && (
-                <details className="mt-2">
-                  <summary className="cursor-pointer text-xs text-yellow-600">
-                    Detalles del error
-                  </summary>
-                  <pre className="mt-1 text-xs text-yellow-700 overflow-auto max-h-20 bg-yellow-100 p-2 rounded">
-                    {this.state.error.message}
-                  </pre>
-                </details>
-              )}
+                {/* Show error details in development */}
+                {process.env.NODE_ENV === 'development' && this.state.error && (
+                  <details style={{ marginTop: spacing[2] }}>
+                    <summary style={{
+                      cursor: 'pointer',
+                      fontSize: textStyles.body.small.fontSize[0],
+                      color: colors.warning[600]
+                    }}>
+                      Detalles del error
+                    </summary>
+                    <pre style={{
+                      marginTop: spacing[1],
+                      fontSize: textStyles.body.small.fontSize[0],
+                      color: colors.warning[700],
+                      overflow: 'auto',
+                      maxHeight: '5rem',
+                      backgroundColor: colors.warning[100],
+                      padding: spacing[2],
+                      borderRadius: borderRadius.md
+                    }}>
+                      {this.state.error.message}
+                    </pre>
+                  </details>
+                )}
+              </div>
             </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       );
     }
 

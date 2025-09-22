@@ -1,4 +1,8 @@
 import { useState, useEffect } from 'react';
+import {
+  Button, Card, CardHeader, CardTitle, CardContent, Badge,
+  colors, spacing, textStyles, shadows
+} from '../design-system';
 
 /**
  * CONCEPT: Visual Keyboard Feedback System
@@ -127,21 +131,28 @@ export default function KeyboardVisualFeedback() {
   }
 
   return (
-    <div className="fixed bottom-20 left-4 z-40 space-y-2 pointer-events-none">
+    <div className="fixed bottom-20 left-4 z-40 pointer-events-none" style={{ display: 'flex', flexDirection: 'column', gap: spacing[2] }}>
       {recentActions.map((action) => (
-        <div
+        <Card
           key={action.timestamp}
-          className="bg-black/80 backdrop-blur-sm text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-3 animate-slide-in-left"
+          variant="default"
           style={{
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            backdropFilter: 'blur(4px)',
+            color: colors.text.primary,
+            padding: `${spacing[2]} ${spacing[4]}`,
+            display: 'flex',
+            alignItems: 'center',
+            gap: spacing[3],
             animation: 'slideInLeft 0.2s ease-out, fadeOut 0.3s ease-in 1.7s forwards'
           }}
         >
-          <span className="text-xl">{getActionIcon(action.action)}</span>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium">{getActionLabel(action.action)}</span>
-            <span className="text-xs text-gray-300">{action.key}</span>
+          <span style={{ fontSize: textStyles.heading.medium.fontSize[0] }}>{getActionIcon(action.action)}</span>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontSize: textStyles.body.small.fontSize[0], fontWeight: 'medium' }}>{getActionLabel(action.action)}</span>
+            <span style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.disabled }}>{action.key}</span>
           </div>
-        </div>
+        </Card>
       ))}
 
       <style jsx>{`
@@ -188,27 +199,41 @@ export function KeyboardFeedbackToggle() {
   };
 
   return (
-    <div className="flex items-center justify-between p-3 bg-white rounded-lg border">
-      <div className="flex items-center gap-2">
-        <span className="text-lg">⌨️</span>
+    <Card variant="default" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: spacing[3] }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: spacing[2] }}>
+        <span style={{ fontSize: textStyles.heading.small.fontSize[0] }}>⌨️</span>
         <div>
-          <p className="font-medium text-gray-700">Visual de Teclado</p>
-          <p className="text-xs text-gray-500">Mostrar acciones del teclado en pantalla</p>
+          <p style={{ fontWeight: 'medium', color: colors.text.secondary }}>Visual de Teclado</p>
+          <p style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.disabled }}>Mostrar acciones del teclado en pantalla</p>
         </div>
       </div>
-      <button
+      <Button
+        variant="ghost"
         onClick={handleToggle}
-        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-          enabled ? 'bg-sky-600' : 'bg-gray-300'
-        }`}
+        style={{
+          position: 'relative',
+          display: 'inline-flex',
+          height: '24px',
+          width: '44px',
+          alignItems: 'center',
+          borderRadius: borderRadius.full,
+          backgroundColor: enabled ? colors.brand[600] : colors.neutral[300],
+          transition: 'colors 0.2s'
+        }}
         aria-label={enabled ? 'Desactivar visual de teclado' : 'Activar visual de teclado'}
       >
         <span
-          className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-            enabled ? 'translate-x-6' : 'translate-x-1'
-          }`}
+          style={{
+            display: 'inline-block',
+            height: '16px',
+            width: '16px',
+            borderRadius: '50%',
+            backgroundColor: colors.background,
+            transform: enabled ? 'translateX(24px)' : 'translateX(4px)',
+            transition: 'transform 0.2s'
+          }}
         />
-      </button>
+      </Button>
     </div>
   );
 }

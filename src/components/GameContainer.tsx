@@ -28,6 +28,17 @@ import { useGameTimer } from '../hooks/useGameTimer';
 import { useEnhancedKeyboardNavigation } from '../hooks/useEnhancedKeyboardNavigation';
 import { keyboardManager } from '../services/keyboardManager';
 import KeyboardCursor from './KeyboardCursor';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  Badge,
+  colors,
+  spacing,
+  textStyles,
+  shadows
+} from '../design-system';
 
 export default function GameContainer() {
   const game = useGame();
@@ -298,22 +309,30 @@ export default function GameContainer() {
 
   return (
     <GameLogicErrorBoundary>
-      <div className="min-h-screen bg-gradient-to-br from-sky-50 to-green-50">
-        <div className="container mx-auto p-4 max-w-[1400px]">
-        <GameHeader
-          onGameMode={() => {
-            game.clearCurrentDepartment(); // Clear any active drag
-            modal.openModal('gameMode');
-          }}
-          onStudyMode={() => {
-            game.clearCurrentDepartment(); // Clear any active drag
-            modal.openModal('study');
-          }}
-          onTutorial={() => {
-            game.clearCurrentDepartment(); // Clear any active drag
-            modal.openModal('tutorial');
-          }}
-        />
+      <div
+        className="min-h-screen"
+        style={{
+          background: `linear-gradient(to bottom right, ${colors.brand[50]}, ${colors.success[50]})`
+        }}
+      >
+        <div
+          className="container mx-auto max-w-[1400px]"
+          style={{ padding: spacing[4] }}
+        >
+          <GameHeader
+            onGameMode={() => {
+              game.clearCurrentDepartment(); // Clear any active drag
+              modal.openModal('gameMode');
+            }}
+            onStudyMode={() => {
+              game.clearCurrentDepartment(); // Clear any active drag
+              modal.openModal('study');
+            }}
+            onTutorial={() => {
+              game.clearCurrentDepartment(); // Clear any active drag
+              modal.openModal('tutorial');
+            }}
+          />
 
         <DndContext
           onDragStart={handleDragStart}
@@ -324,17 +343,60 @@ export default function GameContainer() {
           autoScroll={false}
         >
           {/* MAXIMIZED Layout: Full-screen map with minimal sidebars */}
-          <div className="mt-4 flex gap-3 px-4" style={{ height: 'calc(100vh - 140px)', maxWidth: '100vw' }}>
+          <div
+            className="flex"
+            style={{
+              marginTop: spacing[4],
+              gap: spacing[3],
+              paddingLeft: spacing[4],
+              paddingRight: spacing[4],
+              height: 'calc(100vh - 140px)',
+              maxWidth: '100vw'
+            }}
+          >
 
             {/* Left Sidebar - Ultra-Compact Department Chips */}
             <ComponentErrorBoundary componentName="Department Tray">
-              <div className="bg-white/90 rounded-lg shadow p-2 flex-shrink-0 relative" style={{ width: '208px', maxHeight: '100%' }}>
-                <h3 className="text-xs font-bold mb-2 bg-white z-10 pb-1 border-b flex items-center justify-between sticky top-0">
-                  <span>🧩 Departamentos</span>
-                  <span className="text-xs bg-sky-100 px-1.5 py-0.5 rounded-full">
+              <Card
+                variant="default"
+                padding="sm"
+                className="flex-shrink-0 relative"
+                style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                  width: '208px',
+                  maxHeight: '100%'
+                }}
+              >
+                <CardHeader
+                  className="border-b flex items-center justify-between sticky top-0 z-10"
+                  style={{
+                    backgroundColor: colors.surface.background,
+                    paddingBottom: spacing[1],
+                    marginBottom: spacing[2],
+                    borderColor: colors.surface.border
+                  }}
+                >
+                  <CardTitle
+                    style={{
+                      fontSize: textStyles.caption.fontSize[0],
+                      fontWeight: textStyles.ui.medium.fontWeight,
+                      color: colors.text.primary
+                    }}
+                  >
+                    🧩 Departamentos
+                  </CardTitle>
+                  <Badge
+                    variant="info"
+                    size="sm"
+                    style={{
+                      fontSize: textStyles.caption.fontSize[0],
+                      backgroundColor: colors.brand[100],
+                      color: colors.brand[700]
+                    }}
+                  >
                     {game.departments.filter(d => !game.placedDepartments.has(d.id)).length}
-                  </span>
-                </h3>
+                  </Badge>
+                </CardHeader>
                 <div
                   className="overflow-y-auto scroll-smooth"
                   style={{ maxHeight: 'calc(100vh - 200px)', overflowX: 'hidden' }}
@@ -370,27 +432,51 @@ export default function GameContainer() {
                   <DepartmentTray layout="ultra-compact" />
 
                   {/* Scroll hint at bottom */}
-                  <div className="text-center py-2 text-[10px] text-gray-400">
+                  <div
+                    className="text-center"
+                    style={{
+                      paddingTop: spacing[2],
+                      paddingBottom: spacing[2],
+                      fontSize: '10px',
+                      color: colors.text.tertiary
+                    }}
+                  >
                     ↑↓ Flechas para scroll
                   </div>
                 </div>
-              </div>
+              </Card>
             </ComponentErrorBoundary>
 
             {/* Center - MAXIMIZED Map Canvas */}
             <MapErrorBoundary>
-              <div className="flex-1 bg-white rounded-lg shadow-lg p-2 flex items-center justify-center" style={{ minHeight: '600px' }}>
+              <Card
+                variant="elevated"
+                padding="sm"
+                className="flex-1 flex items-center justify-center"
+                style={{
+                  minHeight: '600px',
+                  boxShadow: shadows.lg
+                }}
+              >
                 <MapCanvas />
-              </div>
+              </Card>
             </MapErrorBoundary>
 
             {/* Right Sidebar - Ultra-Minimal Educational Panel */}
             <ComponentErrorBoundary componentName="Educational Panel">
-              <div className="w-52 bg-white/90 rounded-lg shadow p-2 flex-shrink-0 flex flex-col h-full">
-                <div className="flex-1 overflow-y-auto overflow-x-hidden min-h-0">
+              <Card
+                variant="default"
+                padding="sm"
+                className="flex-shrink-0 flex flex-col h-full"
+                style={{
+                  width: '208px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.9)'
+                }}
+              >
+                <CardContent className="flex-1 overflow-y-auto overflow-x-hidden min-h-0">
                   <EducationalPanel compact={true} />
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             </ComponentErrorBoundary>
           </div>
 
@@ -519,8 +605,8 @@ export default function GameContainer() {
             }}
           />
         )}
+        </div>
       </div>
-    </div>
     </GameLogicErrorBoundary>
   );
 }

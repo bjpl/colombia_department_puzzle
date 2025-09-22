@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useGame } from '../context/GameContext';
+import { colors } from '../design-system';
 
 /**
  * CONCEPT: ARIA Live Regions for Game State Announcements

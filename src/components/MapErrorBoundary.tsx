@@ -1,4 +1,8 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
+import {
+  Button, Card, CardContent,
+  colors, spacing, textStyles, shadows
+} from '../design-system';
 
 /**
  * CONCEPT: Map-Specific Error Boundary
@@ -68,95 +72,160 @@ export default class MapErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="flex items-center justify-center h-full min-h-[400px] bg-gradient-to-br from-red-50 to-orange-50 rounded-lg p-8">
-          <div className="max-w-md w-full bg-white rounded-xl shadow-2xl p-6">
-            <div className="text-center">
-              {/* Error Icon */}
-              <div className="text-6xl mb-4">🗺️❌</div>
+        <div
+          className="flex items-center justify-center h-full rounded-lg"
+          style={{
+            minHeight: '400px',
+            background: `linear-gradient(135deg, ${colors.danger[50]} 0%, ${colors.warning[50]} 100%)`,
+            padding: spacing[8]
+          }}
+        >
+          <Card variant="default" style={{
+            maxWidth: '28rem',
+            width: '100%',
+            boxShadow: shadows.xl
+          }}>
+            <CardContent style={{ padding: spacing[6] }}>
+              <div className="text-center">
+                {/* Error Icon */}
+                <div className="text-6xl mb-4">🗺️❌</div>
 
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                Error al Cargar el Mapa
-              </h2>
+                <h2 style={{
+                  fontSize: textStyles.heading.h2.fontSize[0],
+                  fontWeight: textStyles.heading.h2.fontWeight,
+                  color: colors.neutral[800],
+                  marginBottom: spacing[2]
+                }}>
+                  Error al Cargar el Mapa
+                </h2>
 
-              <p className="text-gray-600 mb-4">
-                Hubo un problema al mostrar el mapa de Colombia.
-                {this.state.retryCount > 0 && (
-                  <span className="block mt-2 text-sm text-orange-600">
-                    Intento #{this.state.retryCount} falló.
-                  </span>
+                <p style={{
+                  color: colors.neutral[600],
+                  marginBottom: spacing[4]
+                }}>
+                  Hubo un problema al mostrar el mapa de Colombia.
+                  {this.state.retryCount > 0 && (
+                    <span style={{
+                      display: 'block',
+                      marginTop: spacing[2],
+                      fontSize: textStyles.body.small.fontSize[0],
+                      color: colors.warning[600]
+                    }}>
+                      Intento #{this.state.retryCount} falló.
+                    </span>
+                  )}
+                </p>
+
+                {/* Error Details (Development Only) */}
+                {process.env.NODE_ENV === 'development' && this.state.error && (
+                  <details style={{ textAlign: 'left', marginBottom: spacing[4] }}>
+                    <summary style={{
+                      cursor: 'pointer',
+                      fontSize: textStyles.body.small.fontSize[0],
+                      color: colors.neutral[500]
+                    }}>
+                      Detalles técnicos
+                    </summary>
+                    <div style={{
+                      marginTop: spacing[2],
+                      padding: spacing[3],
+                      backgroundColor: colors.neutral[100],
+                      borderRadius: borderRadius.md,
+                      fontSize: textStyles.body.small.fontSize[0],
+                      fontFamily: 'monospace',
+                      color: colors.neutral[700],
+                      overflow: 'auto',
+                      maxHeight: '8rem'
+                    }}>
+                      {this.state.error.message}
+                      {this.state.errorInfo && (
+                        <div style={{ marginTop: spacing[2], color: colors.neutral[500] }}>
+                          {this.state.errorInfo.componentStack}
+                        </div>
+                      )}
+                    </div>
+                  </details>
                 )}
-              </p>
 
-              {/* Error Details (Development Only) */}
-              {process.env.NODE_ENV === 'development' && this.state.error && (
-                <details className="text-left mb-4">
-                  <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700">
-                    Detalles técnicos
-                  </summary>
-                  <div className="mt-2 p-3 bg-gray-100 rounded text-xs font-mono text-gray-700 overflow-auto max-h-32">
-                    {this.state.error.message}
-                    {this.state.errorInfo && (
-                      <div className="mt-2 text-gray-500">
-                        {this.state.errorInfo.componentStack}
-                      </div>
-                    )}
+                {/* Recovery Actions */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: spacing[3] }}>
+                  {this.state.retryCount < 3 && (
+                    <Button
+                      variant="primary"
+                      size="md"
+                      onClick={this.handleReset}
+                      aria-label="Reintentar cargar el mapa"
+                      style={{ width: '100%' }}
+                    >
+                      🔄 Reintentar
+                    </Button>
+                  )}
+
+                  <Button
+                    variant="secondary"
+                    size="md"
+                    onClick={this.handleReloadPage}
+                    aria-label="Recargar la página completa"
+                    style={{ width: '100%' }}
+                  >
+                    🔃 Recargar Página
+                  </Button>
+
+                  {/* Alternative Action */}
+                  <div style={{
+                    paddingTop: spacing[3],
+                    borderTop: `1px solid ${colors.neutral[200]}`
+                  }}>
+                    <p style={{
+                      fontSize: textStyles.body.small.fontSize[0],
+                      color: colors.neutral[600],
+                      marginBottom: spacing[2]
+                    }}>
+                      Mientras tanto, puedes:
+                    </p>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        // Navigate to study mode or alternative view
+                        const event = new CustomEvent('navigate-to-study');
+                        window.dispatchEvent(event);
+                      }}
+                    >
+                      📚 Ir al Modo Estudio
+                    </Button>
                   </div>
-                </details>
-              )}
+                </div>
 
-              {/* Recovery Actions */}
-              <div className="space-y-3">
-                {this.state.retryCount < 3 && (
-                  <button
-                    onClick={this.handleReset}
-                    className="w-full px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors font-medium"
-                    aria-label="Reintentar cargar el mapa"
-                  >
-                    🔄 Reintentar
-                  </button>
+                {/* Contact Support (if too many retries) */}
+                {this.state.retryCount >= 3 && (
+                  <div style={{
+                    marginTop: spacing[4],
+                    padding: spacing[3],
+                    backgroundColor: colors.warning[50],
+                    borderRadius: borderRadius.lg
+                  }}>
+                    <p style={{
+                      fontSize: textStyles.body.small.fontSize[0],
+                      color: colors.warning[800]
+                    }}>
+                      💬 Si el problema persiste, intenta:
+                    </p>
+                    <ul style={{
+                      fontSize: textStyles.body.small.fontSize[0],
+                      color: colors.warning[700],
+                      marginTop: spacing[2],
+                      textAlign: 'left'
+                    }}>
+                      <li style={{ marginBottom: spacing[1] }}>• Limpiar la caché del navegador</li>
+                      <li style={{ marginBottom: spacing[1] }}>• Usar otro navegador (Chrome, Firefox)</li>
+                      <li>• Verificar tu conexión a internet</li>
+                    </ul>
+                  </div>
                 )}
-
-                <button
-                  onClick={this.handleReloadPage}
-                  className="w-full px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium"
-                  aria-label="Recargar la página completa"
-                >
-                  🔃 Recargar Página
-                </button>
-
-                {/* Alternative Action */}
-                <div className="pt-3 border-t border-gray-200">
-                  <p className="text-sm text-gray-600 mb-2">
-                    Mientras tanto, puedes:
-                  </p>
-                  <button
-                    onClick={() => {
-                      // Navigate to study mode or alternative view
-                      const event = new CustomEvent('navigate-to-study');
-                      window.dispatchEvent(event);
-                    }}
-                    className="text-sky-500 hover:text-sky-700 underline text-sm"
-                  >
-                    📚 Ir al Modo Estudio
-                  </button>
-                </div>
               </div>
-
-              {/* Contact Support (if too many retries) */}
-              {this.state.retryCount >= 3 && (
-                <div className="mt-4 p-3 bg-yellow-50 rounded-lg">
-                  <p className="text-sm text-yellow-800">
-                    💬 Si el problema persiste, intenta:
-                  </p>
-                  <ul className="text-xs text-yellow-700 mt-2 space-y-1 text-left">
-                    <li>• Limpiar la caché del navegador</li>
-                    <li>• Usar otro navegador (Chrome, Firefox)</li>
-                    <li>• Verificar tu conexión a internet</li>
-                  </ul>
-                </div>
-              )}
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </div>
       );
     }

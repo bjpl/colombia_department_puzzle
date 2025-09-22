@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { ColorblindMode } from '../constants/accessibleColors';
 import { useAccessibility } from '../context/AccessibilityContext';
+import {
+  Button, Card, CardHeader, CardTitle, CardContent, Badge,
+  colors, spacing, textStyles, shadows
+} from '../design-system';
 
 interface AccessibilitySettingsProps {
   onColorModeChange?: (mode: ColorblindMode) => void;
@@ -117,10 +121,11 @@ export default function AccessibilitySettings({
   return (
     <>
       {/* Accessibility Button */}
-      <button
+      <Button
         ref={buttonRef}
+        variant="secondary"
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 rounded-lg bg-white shadow-md hover:shadow-lg transition-all duration-200 border-2 border-gray-300 hover:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+        className="p-2 bg-white shadow-md border-2 border-neutral-300"
         aria-label="Configuración de accesibilidad"
         aria-expanded={isOpen}
       >
@@ -133,37 +138,39 @@ export default function AccessibilitySettings({
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-gray-700"
+          className="text-neutral-600"
         >
           <circle cx="12" cy="12" r="3" />
           <path d="M12 1v6m0 6v6m4.22-13.22l4.24 4.24M1.54 1.54l4.24 4.24M20.46 20.46l-4.24-4.24M1.54 20.46l4.24-4.24" />
         </svg>
-      </button>
+      </Button>
 
       {/* Settings Panel - Rendered as Portal to escape container constraints */}
       {isOpen && createPortal(
-        <div
+        <Card
           ref={panelRef}
-          className="fixed w-80 bg-white rounded-lg shadow-2xl border-2 border-gray-200 p-4 z-[9999] max-h-[90vh] overflow-y-auto"
+          variant="default"
+          className="fixed w-80 z-[9999] max-h-[90vh] overflow-y-auto border-2 border-neutral-200"
           style={{
             top: `${panelPosition.top}px`,
             left: `${panelPosition.left}px`,
             animation: 'fadeInScale 0.2s ease-out'
           }}
         >
-          <h3 className="text-lg font-bold text-gray-900 mb-4">
+          <CardContent className="p-4">
+          <h3 className="text-lg font-bold text-neutral-900 mb-4">
             Configuración de Accesibilidad
           </h3>
 
           {/* Color Vision Mode */}
           <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-neutral-600 mb-2">
               Modo de visión de color
             </label>
             <select
               value={colorMode}
               onChange={(e) => handleColorModeChange(e.target.value as ColorblindMode)}
-              className="w-full px-3 py-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+              className="w-full py-2 px-3 border-2 border-neutral-300 rounded-md text-base"
             >
               <option value="normal">Visión normal</option>
               <option value="protanopia">Protanopia (sin rojo)</option>
@@ -171,7 +178,7 @@ export default function AccessibilitySettings({
               <option value="tritanopia">Tritanopia (sin azul)</option>
               <option value="monochrome">Monocromático</option>
             </select>
-            <p className="text-xs text-gray-600 mt-1">
+            <p className="text-sm text-neutral-600 mt-1">
               Ajusta los colores para diferentes tipos de daltonismo
             </p>
           </div>
@@ -180,27 +187,28 @@ export default function AccessibilitySettings({
           <div className="mb-4">
             <label className="flex items-center justify-between cursor-pointer">
               <div>
-                <span className="text-sm font-semibold text-gray-700">
+                <span className="text-sm font-semibold text-neutral-600">
                   Alto contraste
                 </span>
-                <p className="text-xs text-gray-600">
+                <p className="text-sm text-neutral-600">
                   Aumenta el contraste para mejor visibilidad
                 </p>
               </div>
-              <button
+              <Button
+                variant="ghost"
                 role="switch"
                 aria-checked={highContrast}
                 onClick={handleHighContrastToggle}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 ${
-                  highContrast ? 'bg-sky-600' : 'bg-gray-300'
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-200 ${
+                  highContrast ? 'bg-brand-600' : 'bg-neutral-300'
                 }`}
               >
                 <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  className={`inline-block h-4 w-4 rounded-full bg-white transition-transform duration-200 ${
                     highContrast ? 'translate-x-6' : 'translate-x-1'
                   }`}
                 />
-              </button>
+              </Button>
             </label>
           </div>
 
@@ -208,59 +216,62 @@ export default function AccessibilitySettings({
           <div className="mb-4">
             <label className="flex items-center justify-between cursor-pointer">
               <div>
-                <span className="text-sm font-semibold text-gray-700">
+                <span className="text-sm font-semibold text-neutral-600">
                   Reducir movimiento
                 </span>
-                <p className="text-xs text-gray-600">
+                <p className="text-sm text-neutral-600">
                   Minimiza animaciones y transiciones
                 </p>
               </div>
-              <button
+              <Button
+                variant="ghost"
                 role="switch"
                 aria-checked={reducedMotion}
                 onClick={handleReducedMotionToggle}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 ${
-                  reducedMotion ? 'bg-sky-600' : 'bg-gray-300'
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-200 ${
+                  reducedMotion ? 'bg-brand-600' : 'bg-neutral-300'
                 }`}
               >
                 <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  className={`inline-block h-4 w-4 rounded-full bg-white transition-transform duration-200 ${
                     reducedMotion ? 'translate-x-6' : 'translate-x-1'
                   }`}
                 />
-              </button>
+              </Button>
             </label>
           </div>
 
           {/* Keyboard Shortcuts Info */}
-          <div className="border-t pt-3 mt-3">
-            <h4 className="text-sm font-semibold text-gray-700 mb-2">
+          <div className="border-t border-neutral-200 pt-3 mt-3">
+            <h4 className="text-sm font-semibold text-neutral-600 mb-2">
               Atajos de teclado
             </h4>
-            <ul className="text-xs text-gray-600 space-y-1">
+            <ul className="text-sm text-neutral-600 flex flex-col gap-1">
               <li>
-                <kbd className="px-2 py-0.5 bg-gray-100 border border-gray-300 rounded">Tab</kbd>
+                <Badge variant="secondary" className="bg-neutral-100 border border-neutral-300 rounded-sm">Tab</Badge>
                 {' '}Navegar entre elementos
               </li>
               <li>
-                <kbd className="px-2 py-0.5 bg-gray-100 border border-gray-300 rounded">Enter</kbd>
+                <Badge variant="secondary" className="bg-neutral-100 border border-neutral-300 rounded-sm">Enter</Badge>
                 {' '}Seleccionar elemento
               </li>
               <li>
-                <kbd className="px-2 py-0.5 bg-gray-100 border border-gray-300 rounded">Esc</kbd>
+                <Badge variant="secondary" className="bg-neutral-100 border border-neutral-300 rounded-sm">Esc</Badge>
                 {' '}Cerrar diálogos
               </li>
             </ul>
           </div>
 
           {/* Close Button */}
-          <button
+          <Button
+            variant="secondary"
             onClick={() => setIsOpen(false)}
-            className="mt-4 w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500"
+            className="mt-4 w-full bg-neutral-100 text-neutral-600"
           >
             Cerrar
-          </button>
-        </div>,
+          </Button>
+        </CardContent>
+        </Card>,
         document.body
       )}
 

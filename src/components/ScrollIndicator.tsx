@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import {
+  Button, colors, spacing, shadows
+} from '../design-system';
 
 interface ScrollIndicatorProps {
   containerId: string;
@@ -49,30 +52,42 @@ export default function ScrollIndicator({ containerId }: ScrollIndicatorProps) {
     <>
       {/* Top scroll indicator */}
       {canScrollUp && (
-        <button
-          onClick={scrollUp}
-          className="absolute top-8 right-2 z-20 bg-white/90 rounded-full p-1 shadow-md hover:bg-white transition-colors"
-          aria-label="Desplazar hacia arriba"
-          title="Desplazar hacia arriba (↑)"
+        <div
+          className="absolute top-8 right-2 z-20 bg-neutral-50/90 rounded-full shadow-md"
         >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-            <path d="M8 4L3 9h10L8 4z"/>
-          </svg>
-        </button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={scrollUp}
+            aria-label="Desplazar hacia arriba"
+            title="Desplazar hacia arriba (↑)"
+            className="rounded-full p-1 min-w-0 min-h-0"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 4L3 9h10L8 4z"/>
+            </svg>
+          </Button>
+        </div>
       )}
 
       {/* Bottom scroll indicator */}
       {canScrollDown && (
-        <button
-          onClick={scrollDown}
-          className="absolute bottom-2 right-2 z-20 bg-white/90 rounded-full p-1 shadow-md hover:bg-white transition-colors"
-          aria-label="Desplazar hacia abajo"
-          title="Desplazar hacia abajo (↓)"
+        <div
+          className="absolute bottom-2 right-2 z-20 bg-neutral-50/90 rounded-full shadow-md"
         >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-            <path d="M8 12L3 7h10L8 12z"/>
-          </svg>
-        </button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={scrollDown}
+            aria-label="Desplazar hacia abajo"
+            title="Desplazar hacia abajo (↓)"
+            className="rounded-full p-1 min-w-0 min-h-0"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 12L3 7h10L8 12z"/>
+            </svg>
+          </Button>
+        </div>
       )}
     </>
   );

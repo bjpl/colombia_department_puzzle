@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { useGame } from '../context/GameContext';
 import HintModal from './HintModal';
+import {
+  Button, Card, CardHeader, CardTitle, CardContent, Badge,
+  colors, spacing, textStyles, shadows
+} from '../design-system';
 
 interface EducationalPanelProps {
   compact?: boolean;
@@ -53,12 +57,12 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
         />
       )}
 
-      <aside className="space-y-4" role="complementary" aria-label="Panel educativo">
+      <aside style={{ display: 'flex', flexDirection: 'column', gap: spacing[4] }} role="complementary" aria-label="Panel educativo">
       {/* Current department info */}
       {game.currentDepartment && (
-        <section className={`bg-white rounded-lg shadow-lg ${compact ? 'p-3' : 'p-6'}`} aria-labelledby="selected-dept-heading">
-          <h3 id="selected-dept-heading" className={`${compact ? 'text-sm' : 'text-lg'} font-semibold mb-2`}>Departamento Seleccionado</h3>
-          <div className={`${compact ? 'space-y-1 text-xs' : 'space-y-2'}`}>
+        <Card variant="default" style={{ padding: compact ? spacing[3] : spacing[6] }} aria-labelledby="selected-dept-heading">
+          <CardTitle id="selected-dept-heading" style={{ fontSize: compact ? textStyles.body.small.fontSize[0] : textStyles.heading.small.fontSize[0], fontWeight: 'semibold', marginBottom: spacing[2] }}>Departamento Seleccionado</CardTitle>
+          <CardContent style={{ display: 'flex', flexDirection: 'column', gap: compact ? spacing[1] : spacing[2], fontSize: compact ? textStyles.body.small.fontSize[0] : textStyles.body.default.fontSize[0] }}>
             <div>
               <span className="font-semibold">Nombre:</span> {game.currentDepartment.name}
             </div>
@@ -78,79 +82,90 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
                 </div>
               </>
             )}
-            <div className={`${compact ? 'pt-1' : 'pt-2'} border-t`}>
-              <p className={`${compact ? 'text-xs' : 'text-sm'} text-gray-600 italic line-clamp-2`}>
+            <div style={{ paddingTop: compact ? spacing[1] : spacing[2], borderTop: `1px solid ${colors.neutral[200]}` }}>
+              <p style={{ fontSize: compact ? textStyles.body.small.fontSize[0] : textStyles.body.small.fontSize[0], color: colors.text.secondary, fontStyle: 'italic', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
                 {game.currentDepartment.trivia}
               </p>
             </div>
-          </div>
+          </CardContent>
 
           {game.hints > 0 && (
-            <button
+            <Button
+              variant="primary"
+              size={compact ? 'sm' : 'md'}
               onClick={handleUseHint}
-              className={`${compact ? 'mt-2 px-2 py-1 text-xs' : 'mt-4 px-4 py-2'} w-full bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors`}
+              style={{
+                marginTop: compact ? spacing[2] : spacing[4],
+                width: '100%',
+                backgroundColor: colors.warning,
+                color: colors.text.primary
+              }}
               aria-label={`Usar una pista para ${game.currentDepartment.name}. Quedan ${game.hints} pistas`}
             >
               Usar Pista ({game.hints})
-            </button>
+            </Button>
           )}
-        </section>
+        </Card>
       )}
 
       {/* Instructions */}
       {!game.currentDepartment && !compact && (
-        <section className="bg-white rounded-lg shadow-lg p-6" aria-labelledby="instructions-heading">
-          <h3 id="instructions-heading" className="text-lg font-semibold mb-3">Cómo Jugar</h3>
-          <ol className="space-y-2 text-sm text-gray-700">
-            <li>1. Selecciona un departamento de la izquierda</li>
-            <li>2. Arrástralo hasta su ubicación en el mapa</li>
-            <li>3. Suéltalo en el lugar correcto</li>
-            <li>4. Gana puntos por cada acierto</li>
-            <li>5. Usa pistas si necesitas ayuda</li>
-          </ol>
+        <Card variant="default" style={{ padding: spacing[6] }} aria-labelledby="instructions-heading">
+          <CardTitle id="instructions-heading" style={{ fontSize: textStyles.heading.small.fontSize[0], fontWeight: 'semibold', marginBottom: spacing[3] }}>Cómo Jugar</CardTitle>
+          <CardContent>
+            <ol style={{ display: 'flex', flexDirection: 'column', gap: spacing[2], fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>
+              <li>1. Selecciona un departamento de la izquierda</li>
+              <li>2. Arrástralo hasta su ubicación en el mapa</li>
+              <li>3. Suéltalo en el lugar correcto</li>
+              <li>4. Gana puntos por cada acierto</li>
+              <li>5. Usa pistas si necesitas ayuda</li>
+            </ol>
 
-          <div className="mt-4 p-3 bg-sky-50 rounded-lg">
-            <p className="text-sm text-sky-800">
-              💡 <span className="font-semibold">Tip:</span> Los colores indican las regiones
-            </p>
-          </div>
-        </section>
+            <Card variant="default" style={{ marginTop: spacing[4], padding: spacing[3] }} className="bg-sky-50">
+              <p style={{ fontSize: textStyles.body.small.fontSize[0] }} className="text-sky-800">
+                💡 <span style={{ fontWeight: 'semibold' }}>Tip:</span> Los colores indican las regiones
+              </p>
+            </Card>
+          </CardContent>
+        </Card>
       )}
 
       {/* Statistics */}
-      <section className={`bg-white rounded-lg shadow-lg ${compact ? 'p-3' : 'p-6'}`} aria-labelledby="stats-heading" role="status">
-        <h3 id="stats-heading" className={`${compact ? 'text-sm' : 'text-lg'} font-semibold mb-2`}>Estadísticas</h3>
-        <div className={`${compact ? 'space-y-1 text-xs' : 'space-y-2 text-sm'}`}>
-          <div className="flex justify-between">
+      <Card variant="default" style={{ padding: compact ? spacing[3] : spacing[6] }} aria-labelledby="stats-heading" role="status">
+        <CardTitle id="stats-heading" style={{ fontSize: compact ? textStyles.body.small.fontSize[0] : textStyles.heading.small.fontSize[0], fontWeight: 'semibold', marginBottom: spacing[2] }}>Estadísticas</CardTitle>
+        <CardContent style={{ display: 'flex', flexDirection: 'column', gap: compact ? spacing[1] : spacing[2], fontSize: compact ? textStyles.body.small.fontSize[0] : textStyles.body.small.fontSize[0] }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Fallidos:</span>
-            <span className="font-bold text-red-600">{game.attempts}</span>
+            <Badge variant="secondary" style={{ fontWeight: 'bold', color: colors.error }}>{game.attempts}</Badge>
           </div>
-          <div className="flex justify-between">
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Precisión:</span>
-            <span className="font-bold text-green-600">
+            <Badge variant="secondary" style={{ fontWeight: 'bold', color: colors.success }}>
               {game.placedDepartments.size > 0
                 ? Math.round((game.placedDepartments.size / (game.placedDepartments.size + game.attempts)) * 100)
                 : 0}%
-            </span>
+            </Badge>
           </div>
-          <div className="flex justify-between">
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Restantes:</span>
-            <span className="font-bold text-sky-600">
+            <Badge variant="secondary" style={{ fontWeight: 'bold', color: colors.brand[600] }}>
               {game.departments.length - game.placedDepartments.size}
-            </span>
+            </Badge>
           </div>
-        </div>
-      </section>
+        </CardContent>
+      </Card>
 
       {/* Learning tips */}
       {!compact && (
-        <section className="bg-gradient-to-br from-sky-50 to-green-50 rounded-lg p-4" aria-labelledby="tips-heading">
-          <h3 id="tips-heading" className="text-sm font-semibold mb-2">Sabías que...</h3>
-          <p className="text-xs text-gray-700">
-            Colombia tiene 32 departamentos y un distrito capital.
-            Es el único país sudamericano con costas directas en el Pacífico y el Caribe/Atlántico.
-          </p>
-        </section>
+        <Card variant="default" style={{ padding: spacing[4] }} className="bg-gradient-to-br from-sky-50 to-green-50" aria-labelledby="tips-heading">
+          <CardTitle id="tips-heading" style={{ fontSize: textStyles.body.small.fontSize[0], fontWeight: 'semibold', marginBottom: spacing[2] }}>Sabías que...</CardTitle>
+          <CardContent>
+            <p style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>
+              Colombia tiene 32 departamentos y un distrito capital.
+              Es el único país sudamericano con costas directas en el Pacífico y el Caribe/Atlántico.
+            </p>
+          </CardContent>
+        </Card>
       )}
     </aside>
     </>

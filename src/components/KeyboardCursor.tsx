@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Department } from '../types/game';
+import {
+  colors, spacing, textStyles, shadows
+} from '../design-system';
 
 /**
  * CONCEPT: Visual Keyboard Cursor for Drag & Drop
@@ -42,12 +45,30 @@ export default function KeyboardCursor({
         className="fixed pointer-events-none z-50 top-16 left-1/2 transform -translate-x-1/2"
         aria-hidden="true"
       >
-        <div className="bg-white shadow-xl rounded-lg px-4 py-2 border-2 border-sky-500">
+        <div style={{
+          backgroundColor: colors.neutral[50],
+          boxShadow: shadows.xl,
+          borderRadius: borderRadius.lg,
+          padding: `${spacing[2]} ${spacing[4]}`,
+          border: `2px solid ${colors.brand[500]}`
+        }}>
           <div className="flex items-center gap-2">
             <span className="text-lg">⌨️</span>
             <div className="flex items-baseline gap-2">
-              <span className="text-xs text-gray-500 uppercase tracking-wide">Moviendo:</span>
-              <span className="font-bold text-base">{selectedDepartment.name}</span>
+              <span style={{
+                fontSize: textStyles.body.small.fontSize[0],
+                color: colors.neutral[500],
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}>
+                Moviendo:
+              </span>
+              <span style={{
+                fontWeight: textStyles.body.medium.fontWeight,
+                fontSize: textStyles.body.medium.fontSize[0]
+              }}>
+                {selectedDepartment.name}
+              </span>
             </div>
           </div>
         </div>
@@ -64,17 +85,36 @@ export default function KeyboardCursor({
         aria-hidden="true"
       >
         {/* Crosshair lines */}
-        <div className="absolute w-10 h-[2px] bg-red-500 -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute w-[2px] h-10 bg-red-500 -translate-x-1/2 -translate-y-1/2" />
+        <div
+          className="absolute -translate-x-1/2 -translate-y-1/2"
+          style={{
+            width: '2.5rem',
+            height: '2px',
+            backgroundColor: colors.danger[500]
+          }}
+        />
+        <div
+          className="absolute -translate-x-1/2 -translate-y-1/2"
+          style={{
+            width: '2px',
+            height: '2.5rem',
+            backgroundColor: colors.danger[500]
+          }}
+        />
         {/* Center dot */}
-        <div className={`
-          absolute w-4 h-4 rounded-full -translate-x-1/2 -translate-y-1/2
-          ${targetZone
-            ? 'bg-green-500 ring-4 ring-green-300 animate-pulse'
-            : 'bg-red-500 ring-2 ring-red-300'
-          }
-          transition-all duration-200
-        `} />
+        <div
+          className="absolute -translate-x-1/2 -translate-y-1/2 animate-pulse"
+          style={{
+            width: '1rem',
+            height: '1rem',
+            borderRadius: '50%',
+            backgroundColor: targetZone ? colors.success[500] : colors.danger[500],
+            boxShadow: targetZone
+              ? `0 0 0 4px ${colors.success[300]}`
+              : `0 0 0 2px ${colors.danger[300]}`,
+            transition: 'all 0.2s'
+          }}
+        />
       </div>
 
       {/* Detection helper circle - very subtle */}
@@ -90,7 +130,10 @@ export default function KeyboardCursor({
           }}
           aria-hidden="true"
         >
-          <div className="absolute inset-0 rounded-full border border-dashed border-gray-300 opacity-15" />
+          <div
+            className="absolute inset-0 rounded-full border border-dashed opacity-15"
+            style={{ borderColor: colors.neutral[300] }}
+          />
         </div>
       )}
 
@@ -105,7 +148,19 @@ export default function KeyboardCursor({
           }}
           aria-hidden="true"
         >
-          <div className="bg-violet-600 text-white text-xs px-2 py-1 rounded-full shadow-lg whitespace-nowrap font-semibold animate-pulse">
+          <div
+            className="animate-pulse"
+            style={{
+              backgroundColor: colors.secondary[600],
+              color: colors.neutral[50],
+              fontSize: textStyles.body.small.fontSize[0],
+              padding: `${spacing[1]} ${spacing[2]}`,
+              borderRadius: '9999px',
+              boxShadow: shadows.lg,
+              whiteSpace: 'nowrap',
+              fontWeight: textStyles.body.semibold.fontWeight
+            }}
+          >
             Enter ↵
           </div>
         </div>
@@ -114,11 +169,16 @@ export default function KeyboardCursor({
       {/* DEBUG: Show detected zone ID */}
       {targetZone && process.env.NODE_ENV === 'development' && (
         <div
-          className="fixed pointer-events-none z-50 bg-black text-white text-[10px] px-2 py-1 rounded"
+          className="fixed pointer-events-none z-50"
           style={{
             left: `${position.x}px`,
             top: `${position.y + 50}px`,
             transform: 'translateX(-50%)',
+            backgroundColor: colors.neutral[950],
+            color: colors.neutral[50],
+            fontSize: '10px',
+            padding: `${spacing[1]} ${spacing[2]}`,
+            borderRadius: borderRadius.md
           }}
         >
           Detected: {targetZone}

@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { storage } from '../services/storage';
+import {
+  Button, Card, CardHeader, CardTitle, CardContent, Badge,
+  colors, spacing, textStyles, shadows
+} from '../design-system';
 
 interface InteractiveTutorialProps {
   onComplete: () => void;
@@ -279,64 +283,105 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
           {/* Main card */}
           <div className="relative bg-white/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/20 p-6 max-w-sm">
             {/* Close button */}
-            <button
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={onSkip}
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100/80 hover:bg-gray-200/80 transition-colors group"
+              style={{
+                position: 'absolute',
+                top: spacing[4],
+                right: spacing[4],
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                backgroundColor: 'rgba(243, 244, 246, 0.8)'
+              }}
               aria-label="Skip tutorial"
             >
-              <svg className="w-4 h-4 text-gray-500 group-hover:text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg style={{ width: '16px', height: '16px', color: colors.text.secondary }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
-            </button>
+            </Button>
 
             {/* Step indicator */}
-            <div className="flex items-center gap-3 mb-3">
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-sky-500 to-green-500 text-white text-sm font-bold">
+            <div style={{ display: 'flex', alignItems: 'center', gap: spacing[3], marginBottom: spacing[3] }}>
+              <Badge
+                variant="primary"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(to bottom right, rgb(14 165 233), rgb(16 185 129))',
+                  color: colors.text.primary,
+                  fontSize: textStyles.body.small.fontSize[0],
+                  fontWeight: 'bold'
+                }}
+              >
                 {currentStep + 1}
-              </div>
-              <div className="flex gap-1">
+              </Badge>
+              <div style={{ display: 'flex', gap: spacing[1] }}>
                 {tutorialSteps.map((_, index) => (
                   <div
                     key={index}
-                    className={`h-1 rounded-full transition-all duration-300 ${
-                      index === currentStep
-                        ? 'w-8 bg-gradient-to-r from-sky-500 to-green-500'
+                    style={{
+                      height: '4px',
+                      borderRadius: borderRadius.full,
+                      transition: 'all 0.3s',
+                      width: index === currentStep ? '32px' : '4px',
+                      background: index === currentStep
+                        ? 'linear-gradient(to right, rgb(14 165 233), rgb(16 185 129))'
                         : index < currentStep
-                        ? 'w-1 bg-green-500'
-                        : 'w-1 bg-gray-300'
-                    }`}
+                        ? colors.success
+                        : colors.neutral[300]
+                    }}
                   />
                 ))}
               </div>
             </div>
 
             {/* Content */}
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            <h3 style={{ fontSize: textStyles.heading.medium.fontSize[0], fontWeight: 'semibold', color: colors.text.primary, marginBottom: spacing[2] }}>
               {step.title}
             </h3>
-            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+            <p style={{ color: colors.text.secondary, fontSize: textStyles.body.small.fontSize[0], lineHeight: '1.6', marginBottom: spacing[4] }}>
               {step.content}
             </p>
 
             {/* Actions */}
             <div className="flex items-center justify-between">
               {currentStep > 0 ? (
-                <button
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={handlePrevious}
-                  className="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+                  style={{
+                    fontSize: textStyles.body.small.fontSize[0],
+                    color: colors.text.secondary
+                  }}
                 >
                   Anterior
-                </button>
+                </Button>
               ) : (
                 <div />
               )}
 
-              <button
+              <Button
+                variant="primary"
+                size="md"
                 onClick={handleNext}
-                className="px-5 py-2 text-sm font-medium text-white bg-gradient-to-r from-sky-500 to-green-500 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+                style={{
+                  fontSize: textStyles.body.small.fontSize[0],
+                  fontWeight: 'medium',
+                  background: 'linear-gradient(to right, rgb(14 165 233), rgb(16 185 129))',
+                  borderRadius: borderRadius.lg,
+                  transform: 'transition-all'
+                }}
               >
                 {currentStep === tutorialSteps.length - 1 ? 'Comenzar' : 'Siguiente'}
-              </button>
+              </Button>
             </div>
           </div>
         </div>

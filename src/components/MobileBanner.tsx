@@ -1,4 +1,8 @@
 import { useEffect, useState } from 'react';
+import {
+  Button, Card, CardHeader, CardTitle, CardContent, Badge,
+  colors, spacing, textStyles, shadows
+} from '../design-system';
 
 /**
  * CONCEPT: Mobile Device Detection and Desktop Redirect Banner
@@ -48,18 +52,18 @@ export default function MobileBanner() {
 
   return (
     <div
-      className="fixed inset-0 bg-gradient-to-br from-sky-50 to-green-50 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-blue-50 to-green-50 p-4"
       role="dialog"
       aria-labelledby="mobile-banner-title"
       aria-describedby="mobile-banner-description"
     >
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center">
+      <Card variant="default" className="max-w-md w-full p-8 text-center">
         {/* Colombian Flag Colors as accent */}
         <div className="flex justify-center mb-6">
           <div className="w-full h-2 flex rounded-full overflow-hidden shadow-md">
             <div className="flex-1 bg-yellow-400"></div>
-            <div className="flex-1 bg-sky-600"></div>
-            <div className="flex-1 bg-red-600"></div>
+            <div className="flex-1 bg-blue-600"></div>
+            <div className="flex-1 bg-red-500"></div>
           </div>
         </div>
 
@@ -68,7 +72,7 @@ export default function MobileBanner() {
           🖥️
         </div>
 
-        <h1 id="mobile-banner-title" className="text-2xl font-bold text-gray-800 mb-4">
+        <h1 id="mobile-banner-title" className="text-2xl font-bold text-gray-900 mb-4">
           Mejor Experiencia en Desktop
         </h1>
 
@@ -77,44 +81,48 @@ export default function MobileBanner() {
           donde puedes arrastrar y soltar los departamentos con precisión.
         </p>
 
-        <div className="bg-sky-50 rounded-lg p-4 mb-6">
-          <p className="text-sm text-sky-800 font-medium mb-2">
+        <Card variant="default" className="bg-blue-50 p-4 mb-6">
+          <p className="text-sm text-blue-900 font-medium mb-2">
             📧 Envíate el enlace por correo
           </p>
-          <p className="text-xs text-sky-600">
+          <p className="text-sm text-blue-600">
             Visita este juego en tu computador para la mejor experiencia
           </p>
-          <div className="mt-3 bg-white rounded px-3 py-2 font-mono text-xs text-gray-700 break-all">
+          <div className="mt-3 bg-white rounded p-2 px-3 font-mono text-sm text-gray-600 break-all">
             {window.location.href}
           </div>
-        </div>
+        </Card>
 
-        <div className="space-y-3">
-          <button
+        <div className="flex flex-col gap-3">
+          <Button
+            variant="primary"
+            size="lg"
             onClick={handleDismiss}
-            className="w-full px-6 py-3 bg-gradient-to-r from-green-500 to-sky-500 text-white rounded-lg hover:from-green-600 hover:to-sky-600 transition-all shadow-lg font-semibold"
+            className="w-full bg-gradient-to-r from-emerald-500 to-sky-500 font-semibold shadow-lg"
             aria-label="Continuar al juego en dispositivo móvil"
           >
             Continuar de Todos Modos
-          </button>
+          </Button>
 
-          <button
+          <Button
+            variant="secondary"
+            size="lg"
             onClick={() => {
               // Copy URL to clipboard
               navigator.clipboard.writeText(window.location.href);
               alert('¡Enlace copiado al portapapeles!');
             }}
-            className="w-full px-6 py-3 bg-white text-gray-700 border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+            className="w-full bg-white text-gray-600 border-2 border-gray-300 font-medium"
             aria-label="Copiar enlace del juego al portapapeles"
           >
             📋 Copiar Enlace
-          </button>
+          </Button>
         </div>
 
-        <p className="text-xs text-gray-500 mt-6">
+        <p className="text-sm text-gray-400 mt-6">
           💡 Tip: El juego funciona mejor con un mouse o trackpad
         </p>
-      </div>
+      </Card>
     </div>
   );
 }

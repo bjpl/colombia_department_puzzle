@@ -4,6 +4,17 @@ import { useAccessibility } from '../context/AccessibilityContext';
 import { REGION_TAILWIND_CLASSES } from '../constants/regionColors';
 import { normalizeId } from '../utils/nameNormalizer';
 import { Department } from '../data/colombiaDepartments';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  Badge,
+  colors,
+  spacing,
+  textStyles,
+  shadows
+} from '../design-system';
 
 // Ultra-compact mini chip for maximum map space
 function DraggableChip({ department }: { department: Department }) {
@@ -28,7 +39,7 @@ function DraggableChip({ department }: { department: Department }) {
   // Determine text color based on background for proper contrast
   const needsLightText = (color: string): boolean => {
     // Colors that need white text for contrast
-    const darkColors = ['#000000', '#0000FF', '#800080', '#008000', '#008B8B'];
+    const darkColors = ['black', 'blue-800', 'purple-800', 'green-800', 'cyan-800'];
     return darkColors.includes(color.toUpperCase());
   };
 
@@ -49,17 +60,30 @@ function DraggableChip({ department }: { department: Department }) {
   };
 
   return (
-    <div
+    <Badge
       ref={setNodeRef}
-      style={style}
+      style={{
+        ...style,
+        backgroundColor: backgroundColor,
+        borderColor: highContrast ? colors.gray[900] : colors.gray[600],
+        borderWidth: highContrast ? '4px' : '2px',
+        color: highContrast
+          ? needsLightText(backgroundColor) ? colors.text.inverse : colors.text.primary
+          : colorMode !== 'normal' ? colors.text.inverse : colors.text.primary,
+        cursor: 'move',
+        userSelect: 'none',
+        fontSize: textStyles.caption.fontSize[0],
+        fontWeight: textStyles.ui.small.fontWeight,
+        maxWidth: '75px',
+        padding: `${spacing[1]} ${spacing[2]}`
+      }}
       {...listeners}
       {...attributes}
+      variant="default"
+      size="sm"
       className={`
-        inline-flex items-center px-2 py-1 rounded-md
-        ${borderClass} ${borderWidth} ${textClass}
-        cursor-move select-none
-        transition-all duration-150
-        ${isDragging ? 'opacity-0' : 'hover:shadow-md hover:scale-105'}
+        inline-flex items-center transition-all duration-150
+        ${isDragging ? 'opacity-0' : 'hover:scale-105'}
       `}
       role="button"
       tabIndex={0}
@@ -68,10 +92,10 @@ function DraggableChip({ department }: { department: Department }) {
       data-department-id={department.id}
       onKeyDown={handleKeyDown}
     >
-      <span className="text-[11px] font-bold truncate" style={{ maxWidth: '75px' }}>
+      <span className="truncate">
         {department.name}
       </span>
-    </div>
+    </Badge>
   );
 }
 
@@ -96,18 +120,26 @@ function DraggableDepartment({ department, compact = false }: { department: Depa
   };
 
   return (
-    <div
+    <Card
       ref={setNodeRef}
-      style={style}
+      style={{
+        ...style,
+        background: `linear-gradient(to right, ${colors.brand[50]}, ${colors.success[50]})`,
+        borderColor: colors.brand[400],
+        borderWidth: '2px',
+        cursor: 'move',
+        padding: compact ? spacing[2] : spacing[3]
+      }}
       {...listeners}
       {...attributes}
+      variant="outlined"
+      padding="none"
+      hover
       className={`
-        relative bg-gradient-to-r from-sky-50 to-green-50
-        border-2 border-sky-400 rounded-lg cursor-move
-        hover:shadow-xl hover:scale-105 hover:border-sky-600
-        transition-all duration-200 group
-        ${isDragging ? 'opacity-50 z-50 shadow-2xl ring-4 ring-sky-400' : ''}
-        ${compact ? 'p-2' : 'p-3'}
+        relative group transition-all duration-200
+        ${isDragging ? 'opacity-50 z-50 ring-4' : ''}
+        ${isDragging ? `ring-[${colors.brand[400]}]` : ''}
+        hover:scale-105
       `}
       role="button"
       tabIndex={0}
@@ -118,23 +150,54 @@ function DraggableDepartment({ department, compact = false }: { department: Depa
       onKeyDown={handleKeyDown}
     >
       {/* Drag indicator */}
-      <div className="absolute top-1 right-1 opacity-30 group-hover:opacity-70 transition-opacity">
+      <div
+        className="absolute opacity-30 group-hover:opacity-70 transition-opacity"
+        style={{
+          top: spacing[1],
+          right: spacing[1]
+        }}
+      >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path d="M8 9h8M8 15h8" strokeWidth="3" strokeLinecap="round"/>
         </svg>
       </div>
 
-      <div className="font-semibold text-gray-800 text-sm">{department.name}</div>
+      <div
+        style={{
+          fontSize: textStyles.body.small.fontSize[0],
+          fontWeight: textStyles.body.small.fontWeight,
+          color: colors.text.primary
+        }}
+      >
+        {department.name}
+      </div>
       {!compact && (
         <>
-          <div className="text-xs text-gray-600 mt-1">📍 {department.capital}</div>
-          <div className="text-xs text-sky-600 mt-1 font-medium">{department.region}</div>
+          <div
+            style={{
+              fontSize: textStyles.caption.fontSize[0],
+              color: colors.text.secondary,
+              marginTop: spacing[1]
+            }}
+          >
+            📍 {department.capital}
+          </div>
+          <div
+            style={{
+              fontSize: textStyles.caption.fontSize[0],
+              color: colors.brand[600],
+              marginTop: spacing[1],
+              fontWeight: textStyles.ui.medium.fontWeight
+            }}
+          >
+            {department.region}
+          </div>
         </>
       )}
       <span id={`hint-${department.id}`} className="sr-only">
         Arrastra este departamento al mapa para colocarlo en su ubicación correcta
       </span>
-    </div>
+    </Card>
   );
 }
 
@@ -155,10 +218,42 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
 
   if (availableDepartments.length === 0) {
     return (
-      <div className="text-center py-4 text-gray-500" role="status" aria-live="polite">
-        <div className="text-xl mb-1" aria-hidden="true">🎉</div>
-        <div className="text-sm">¡Completado!</div>
-        <div className="text-xs mt-1 text-green-600 font-semibold">¡Excelente!</div>
+      <div
+        className="text-center"
+        style={{
+          padding: `${spacing[4]} 0`,
+          color: colors.text.tertiary
+        }}
+        role="status"
+        aria-live="polite"
+      >
+        <div
+          style={{
+            fontSize: textStyles.heading.h2.fontSize[0],
+            marginBottom: spacing[1]
+          }}
+          aria-hidden="true"
+        >
+          🎉
+        </div>
+        <div
+          style={{
+            fontSize: textStyles.body.small.fontSize[0],
+            color: colors.text.secondary
+          }}
+        >
+          ¡Completado!
+        </div>
+        <div
+          style={{
+            fontSize: textStyles.caption.fontSize[0],
+            marginTop: spacing[1],
+            color: colors.success[600],
+            fontWeight: textStyles.ui.medium.fontWeight
+          }}
+        >
+          ¡Excelente!
+        </div>
         <span className="sr-only">Todos los departamentos han sido colocados correctamente</span>
       </div>
     );
@@ -195,14 +290,34 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
   // Compact chip layout for minimal space usage
   if (layout === 'compact') {
     return (
-      <div className="space-y-3" role="region" aria-label="Departamentos disponibles para colocar">
+      <div
+        className="flex flex-col"
+        style={{ gap: spacing[3] }}
+        role="region"
+        aria-label="Departamentos disponibles para colocar"
+      >
         {/* Region groups with compact chips */}
         {sortedRegionEntries.map(([region, depts]) => (
-          <div key={region} className="space-y-1.5">
-            <h4 className="text-xs font-semibold text-gray-600 uppercase tracking-wide px-1" id={`region-${region}`}>
+          <div key={region} className="flex flex-col" style={{ gap: spacing[1.5] }}>
+            <h4
+              style={{
+                fontSize: textStyles.caption.fontSize[0],
+                fontWeight: textStyles.ui.medium.fontWeight,
+                color: colors.text.secondary,
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                paddingLeft: spacing[1]
+              }}
+              id={`region-${region}`}
+            >
               {region} ({depts.length})
             </h4>
-            <div className="flex flex-wrap gap-1.5" role="group" aria-labelledby={`region-${region}`}>
+            <div
+              className="flex flex-wrap"
+              style={{ gap: spacing[1.5] }}
+              role="group"
+              aria-labelledby={`region-${region}`}
+            >
               {depts.map(department => (
                 <DraggableChip
                   key={department.id}
@@ -222,11 +337,34 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
       <div role="region" aria-label="Departamentos disponibles para colocar">
         {/* Tiny chips grouped by region */}
         {sortedRegionEntries.map(([region, depts], index) => (
-          <div key={region} className={index > 0 ? "mt-2" : ""}>
-            <h4 className="text-[10px] font-semibold text-gray-500 uppercase px-1 mb-1" id={`ultra-region-${region}`}>
+          <div
+            key={region}
+            style={{
+              marginTop: index > 0 ? spacing[2] : '0'
+            }}
+          >
+            <h4
+              style={{
+                fontSize: '10px',
+                fontWeight: textStyles.ui.medium.fontWeight,
+                color: colors.text.tertiary,
+                textTransform: 'uppercase',
+                paddingLeft: spacing[1],
+                marginBottom: spacing[1]
+              }}
+              id={`ultra-region-${region}`}
+            >
               {region}
             </h4>
-            <div className="flex flex-wrap gap-1 px-1" role="group" aria-labelledby={`ultra-region-${region}`}>
+            <div
+              className="flex flex-wrap"
+              style={{
+                gap: spacing[1],
+                paddingLeft: spacing[1]
+              }}
+              role="group"
+              aria-labelledby={`ultra-region-${region}`}
+            >
               {depts.map(department => (
                 <DraggableChip
                   key={department.id}
@@ -243,23 +381,64 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
   // Vertical layout for sidebar
   if (layout === 'vertical') {
     return (
-      <div className="space-y-4" role="region" aria-label="Panel de departamentos">
+      <div
+        className="flex flex-col"
+        style={{ gap: spacing[4] }}
+        role="region"
+        aria-label="Panel de departamentos"
+      >
         {/* Quick stats */}
-        <div className="bg-sky-50 rounded-lg p-3 text-center" role="status" aria-live="polite" aria-atomic="true">
-          <div className="text-2xl font-bold text-sky-600" aria-hidden="true">
+        <Card
+          variant="default"
+          padding="md"
+          className="text-center"
+          style={{ backgroundColor: colors.brand[50] }}
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <div
+            style={{
+              fontSize: textStyles.heading.h1.fontSize[0],
+              fontWeight: textStyles.heading.h1.fontWeight,
+              color: colors.brand[600]
+            }}
+            aria-hidden="true"
+          >
             {availableDepartments.length}
           </div>
-          <div className="text-xs text-gray-600">Departamentos restantes</div>
+          <div
+            style={{
+              fontSize: textStyles.caption.fontSize[0],
+              color: colors.text.secondary
+            }}
+          >
+            Departamentos restantes
+          </div>
           <span className="sr-only">{availableDepartments.length} departamentos restantes por colocar</span>
-        </div>
+        </Card>
 
         {/* Departments by region */}
         {sortedRegionEntries.map(([region, depts]) => (
-          <div key={region} className="space-y-2">
-            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide" id={`vert-region-${region}`}>
+          <div key={region} className="flex flex-col" style={{ gap: spacing[2] }}>
+            <h4
+              style={{
+                fontSize: textStyles.caption.fontSize[0],
+                fontWeight: textStyles.ui.medium.fontWeight,
+                color: colors.text.tertiary,
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}
+              id={`vert-region-${region}`}
+            >
               {region}
             </h4>
-            <div className="space-y-2" role="group" aria-labelledby={`vert-region-${region}`}>
+            <div
+              className="flex flex-col"
+              style={{ gap: spacing[2] }}
+              role="group"
+              aria-labelledby={`vert-region-${region}`}
+            >
               {depts.map(department => (
                 <DraggableDepartment
                   key={department.id}
@@ -277,7 +456,8 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
   // Horizontal layout (original)
   return (
     <div
-      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3"
+      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+      style={{ gap: spacing[3] }}
       role="region"
       aria-label={`${availableDepartments.length} departamentos disponibles para colocar en el mapa`}
     >

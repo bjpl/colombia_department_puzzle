@@ -39,15 +39,15 @@ describe('Color Consistency Tests', () => {
   test('Accessibility color contrast meets WCAG standards', () => {
     // Modern colors should maintain WCAG AAA compliance
     const skyColors = {
-      500: '#0EA5E9',
-      600: '#0284C7',
-      700: '#0369A1'
+      500: 'sky-500',
+      600: 'sky-600',
+      700: 'sky-700'
     };
 
     const violetColors = {
-      500: '#8B5CF6',
-      600: '#7C3AED',
-      700: '#6D28D9'
+      500: 'violet-500',
+      600: 'violet-600',
+      700: 'violet-700'
     };
 
     // Verify colors exist and are accessible

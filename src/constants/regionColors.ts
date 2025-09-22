@@ -5,23 +5,23 @@ import { MODERN_REGION_COLORS } from './modernAccessibleColors';
 
 // Legacy colors (for reference - DO NOT USE)
 const LEGACY_COLORS = {
-  'Andina': '#bef264', // Old: Lime Green (poor contrast)
-  'Caribe': '#93c5fd', // Old: Light Blue (poor contrast)
-  'Pacífico': '#e9d5ff', // Old: Light Purple (very poor contrast)
-  'Orinoquía': '#fde047', // Old: Yellow (fails WCAG)
-  'Amazonía': '#86efac', // Old: Light Green (poor contrast)
-  'Insular': '#67e8f9', // Old: Cyan (poor contrast)
+  'Andina': 'lime-400', // Old: Lime Green (poor contrast)
+  'Caribe': 'blue-300', // Old: Light Blue (poor contrast)
+  'Pacífico': 'purple-200', // Old: Light Purple (very poor contrast)
+  'Orinoquía': 'yellow-300', // Old: Yellow (fails WCAG)
+  'Amazonía': 'green-300', // Old: Light Green (poor contrast)
+  'Insular': 'cyan-300', // Old: Cyan (poor contrast)
 };
 
 // Modern beautiful color mapping - WCAG AAA compliant
 export const REGION_COLORS: Record<string, string> = {
-  'Andina': MODERN_REGION_COLORS['Andina'].primary,      // #059669 - Emerald green
-  'Caribe': MODERN_REGION_COLORS['Caribe'].primary,      // #0EA5E9 - Sky blue
-  'Pacífico': MODERN_REGION_COLORS['Pacífico'].primary,  // #7C3AED - Deep violet
-  'Pacífica': MODERN_REGION_COLORS['Pacífico'].primary,  // #7C3AED - Deep violet (support both spellings)
-  'Orinoquía': MODERN_REGION_COLORS['Orinoquía'].primary, // #F97316 - Sunset orange
-  'Amazonía': MODERN_REGION_COLORS['Amazonía'].primary,   // #14B8A6 - Tropical teal
-  'Insular': MODERN_REGION_COLORS['Insular'].primary,    // #06B6D4 - Ocean cyan
+  'Andina': MODERN_REGION_COLORS['Andina'].primary,      // emerald-600 - Emerald green
+  'Caribe': MODERN_REGION_COLORS['Caribe'].primary,      // sky-500 - Sky blue
+  'Pacífico': MODERN_REGION_COLORS['Pacífico'].primary,  // violet-600 - Deep violet
+  'Pacífica': MODERN_REGION_COLORS['Pacífico'].primary,  // violet-600 - Deep violet (support both spellings)
+  'Orinoquía': MODERN_REGION_COLORS['Orinoquía'].primary, // orange-500 - Sunset orange
+  'Amazonía': MODERN_REGION_COLORS['Amazonía'].primary,   // teal-500 - Tropical teal
+  'Insular': MODERN_REGION_COLORS['Insular'].primary,    // cyan-500 - Ocean cyan
 };
 
 // Modern beautiful gradient styles with vibrant colors

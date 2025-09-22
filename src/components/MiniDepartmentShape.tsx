@@ -3,6 +3,7 @@ import { geoMercator, geoPath } from 'd3-geo';
 import { normalizeId } from '../utils/nameNormalizer';
 import { useAccessibility } from '../context/AccessibilityContext';
 import { colombiaDepartments } from '../data/colombiaDepartments';
+import { colors } from '../design-system';
 
 interface MiniDepartmentShapeProps {
   departmentName: string;
@@ -83,7 +84,7 @@ export default function MiniDepartmentShape({
       normalizeId(d.name) === normalizeId(departmentName)
     );
     const region = department?.region || '';
-    return region ? getRegionColor(region) : '#e5e7eb';
+    return region ? getRegionColor(region) : colors.neutral[200];
   }, [departmentName, getRegionColor, colorMode]);
 
   // Show loading or error state
@@ -96,8 +97,8 @@ export default function MiniDepartmentShape({
             y="0"
             width={width}
             height={height}
-            fill="#f3f4f6"
-            stroke="#d1d5db"
+            fill={colors.neutral[100]}
+            stroke={colors.neutral[300]}
             strokeWidth="1"
             rx="4"
           />
@@ -107,7 +108,7 @@ export default function MiniDepartmentShape({
             textAnchor="middle"
             dominantBaseline="middle"
             fontSize="10"
-            fill="#9ca3af"
+            fill={colors.neutral[400]}
           >
             {!geoData ? '...' : '?'}
           </text>
@@ -130,8 +131,8 @@ export default function MiniDepartmentShape({
           y="0"
           width={width}
           height={height}
-          fill="#f9fafb"
-          stroke="#e5e7eb"
+          fill={colors.neutral[50]}
+          stroke={colors.neutral[200]}
           strokeWidth="1"
           rx="4"
         />
@@ -140,7 +141,7 @@ export default function MiniDepartmentShape({
         <path
           d={pathData}
           fill={fillColor}
-          stroke={highContrast ? "#000" : "#374151"}
+          stroke={highContrast ? colors.neutral[950] : colors.neutral[700]}
           strokeWidth={highContrast ? "1" : "0.5"}
           opacity="0.8"
         />

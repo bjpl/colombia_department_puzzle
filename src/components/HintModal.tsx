@@ -1,6 +1,19 @@
 import { useEffect, useState } from 'react';
 import { colombiaDepartments } from '../data/colombiaDepartments';
 import { REGION_STYLES as regionColors } from '../constants/regionColors';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  Badge,
+  Button,
+  Modal,
+  colors,
+  spacing,
+  textStyles,
+  shadows
+} from '../design-system';
 
 interface HintModalProps {
   isOpen: boolean;
@@ -843,15 +856,17 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
         {/* Card */}
         <div className="relative bg-white rounded-2xl shadow-2xl p-8 max-w-md mx-auto">
           {/* Close button */}
-          <button
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={onClose}
-            className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors group"
+            className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full group"
             aria-label="Cerrar"
           >
-            <svg className="w-5 h-5 text-gray-500 group-hover:text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
-          </button>
+          </Button>
 
           {/* Hint cost indicator */}
           <div className="absolute top-4 left-4 px-3 py-1 bg-gray-100 rounded-full">
@@ -864,12 +879,14 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
           </div>
 
           {/* Action button */}
-          <button
+          <Button
+            variant="primary"
+            size="lg"
             onClick={onClose}
-            className="mt-6 w-full px-6 py-3 bg-gradient-to-r from-sky-500 to-green-500 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+            className="mt-6 w-full"
           >
             ¡Entendido!
-          </button>
+          </Button>
 
           {/* Progress indicator */}
           <div className="mt-4 flex justify-center gap-2">

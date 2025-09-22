@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { GameModeConfig } from './GameModeSelector';
+import {
+  colors, spacing, textStyles, animations
+} from '../design-system';
 
 interface ModeTransitionProps {
   from: string;
@@ -143,46 +146,67 @@ const ModeTransition: React.FC<ModeTransitionProps> = ({ from, to, mode, onCompl
   }, [message.duration, message.tips.length, onComplete]);
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-blue-600 to-green-600 flex items-center justify-center z-50">
+    <div
+      className="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-br from-brand-600 to-success-600"
+    >
       {/* Animated background patterns */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-white/5 rounded-full animate-pulse" />
-        <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-white/5 rounded-full animate-pulse delay-75" />
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-white/10 rounded-full animate-bounce" />
+        <div
+          className="absolute -top-1/2 -left-1/2 w-full h-full rounded-full animate-pulse bg-white/5"
+        />
+        <div
+          className="absolute -bottom-1/2 -right-1/2 w-full h-full rounded-full animate-pulse delay-75 bg-white/5"
+        />
+        <div
+          className="absolute top-1/4 right-1/4 rounded-full animate-bounce w-64 h-64 bg-white/10"
+        />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center text-white max-w-lg mx-auto p-8">
+      <div
+        className="relative z-10 text-center max-w-lg mx-auto text-neutral-50 p-8"
+      >
         {/* Icon with animation */}
         <div className="text-8xl mb-6 animate-bounce">
           {message.icon}
         </div>
 
         {/* Title */}
-        <h1 className="text-4xl font-bold mb-2 animate-fadeIn">
+        <h1
+          className="animate-fadeIn text-4xl font-bold mb-2"
+        >
           {message.title}
         </h1>
 
         {/* Subtitle */}
-        <p className="text-xl opacity-90 mb-8 animate-fadeIn animation-delay-200">
+        <p
+          className="animate-fadeIn animation-delay-200 text-xl opacity-90 mb-8"
+        >
           {message.subtitle}
         </p>
 
         {/* Progress bar */}
         <div className="mb-6">
-          <div className="h-2 bg-white/20 rounded-full overflow-hidden">
+          <div
+            className="h-2 rounded-full overflow-hidden bg-white/20"
+          >
             <div
-              className="h-full bg-white rounded-full transition-all duration-300 relative"
+              className="h-full rounded-full relative bg-neutral-50 transition-all"
               style={{ width: `${progress}%` }}
             >
-              <div className="absolute right-0 top-0 h-full w-4 bg-white/50 blur animate-pulse" />
+              <div
+                className="absolute right-0 top-0 h-full animate-pulse w-4 bg-white/50 blur-sm"
+              />
             </div>
           </div>
         </div>
 
         {/* Rotating tips */}
         <div className="h-12 flex items-center justify-center">
-          <p className="text-lg opacity-80 animate-fadeInOut" key={tipIndex}>
+          <p
+            className="animate-fadeInOut text-lg opacity-80"
+            key={tipIndex}
+          >
             💡 {message.tips[tipIndex]}
           </p>
         </div>

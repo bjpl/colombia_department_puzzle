@@ -1,5 +1,9 @@
 import React, { useMemo } from 'react';
 import { GameModeConfig } from './GameModeSelector';
+import {
+  Button, Card, CardHeader, CardTitle, CardContent, Badge,
+  colors, spacing, textStyles, shadows
+} from '../design-system';
 
 interface NextChallengeRecommenderProps {
   currentMode: GameModeConfig;
@@ -128,41 +132,57 @@ export default function NextChallengeRecommender({
   }
 
   return (
-    <div className="mt-6 p-6 bg-gradient-to-r from-blue-50 to-green-50 rounded-xl">
-      <div className="mb-4">
-        <h3 className="text-xl font-bold text-gray-800">¿Qué sigue?</h3>
-        <p className="text-sm text-gray-600">
+    <Card variant="default" style={{ marginTop: spacing[6], padding: spacing[6], background: 'linear-gradient(to right, rgb(219 234 254), rgb(240 253 244))' }}>
+      <CardHeader style={{ marginBottom: spacing[4] }}>
+        <CardTitle style={{ fontSize: textStyles.heading.medium.fontSize[0], fontWeight: 'bold', color: colors.text.primary }}>¿Qué sigue?</CardTitle>
+        <p style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>
           Elige tu próximo desafío
         </p>
-      </div>
+      </CardHeader>
 
-      <div className="grid gap-3">
+      <CardContent style={{ display: 'grid', gap: spacing[3] }}>
         {recommendations.map((rec, index) => (
-          <button
+          <Button
             key={index}
+            variant="secondary"
             onClick={() => onSelectChallenge(rec.mode)}
-            className="flex items-center gap-4 p-4 bg-white rounded-lg hover:shadow-md transition-all hover:scale-[1.02] text-left"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: spacing[4],
+              padding: spacing[4],
+              backgroundColor: colors.background,
+              textAlign: 'left',
+              height: 'auto',
+              transition: 'all 0.2s'
+            }}
           >
-            <div className="text-2xl">{rec.icon}</div>
-            <div className="flex-1">
-              <h4 className="font-semibold text-gray-800">{rec.title}</h4>
-              <p className="text-sm text-gray-600">{rec.description}</p>
+            <div style={{ fontSize: textStyles.heading.large.fontSize[0] }}>{rec.icon}</div>
+            <div style={{ flex: 1 }}>
+              <h4 style={{ fontWeight: 'semibold', color: colors.text.primary }}>{rec.title}</h4>
+              <p style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>{rec.description}</p>
             </div>
-            <div className="text-gray-400">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div style={{ color: colors.text.disabled }}>
+              <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </div>
-          </button>
+          </Button>
         ))}
-      </div>
+      </CardContent>
 
-      <button
+      <Button
+        variant="ghost"
         onClick={onViewProgress}
-        className="mt-4 w-full py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors"
+        style={{
+          marginTop: spacing[4],
+          width: '100%',
+          fontSize: textStyles.body.small.fontSize[0],
+          color: colors.text.secondary
+        }}
       >
         Ver mi progreso completo →
-      </button>
-    </div>
+      </Button>
+    </Card>
   );
 }
