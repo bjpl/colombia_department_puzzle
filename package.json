@@ -29,6 +29,7 @@
   "homepage": "https://bjpl.github.io/colombia_department_puzzle",
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
+    "clsx": "^2.1.1",
     "d3-geo": "^3.1.0",
     "lucide-react": "^0.544.0",
     "react": "^18.2.0",

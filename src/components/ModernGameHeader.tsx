@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useGame } from '../context/GameContext';
 import { useSoundEffect } from '../services/soundManager';
-import { Button, Badge, Progress } from '../design-system';
+import { Button } from '../design-system';
 import { cn } from '../design-system/utils/cn';
 import AccessibilitySettings from './AccessibilitySettings';
 import {
@@ -16,13 +16,17 @@ import {
   HelpCircle,
 } from 'lucide-react';
 
-interface GameHeaderProps {
+interface ModernGameHeaderProps {
   onStudyMode?: () => void;
   onTutorial?: () => void;
   onGameMode?: () => void;
 }
 
-export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: GameHeaderProps) {
+export default function ModernGameHeader({
+  onStudyMode,
+  onTutorial,
+  onGameMode,
+}: ModernGameHeaderProps) {
   const game = useGame();
   const sound = useSoundEffect();
   const [soundEnabled, setSoundEnabled] = useState(true);
@@ -43,7 +47,6 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
     const newState = !soundEnabled;
     setSoundEnabled(newState);
     sound.setEnabled(newState);
-    // Play a test sound when enabling
     if (newState) {
       sound.playSound('pickup', 0.3);
     }
@@ -59,7 +62,9 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
     }
   };
 
-  const progress = Math.round((game.placedDepartments.size / game.getFilteredDepartments().length) * 100);
+  const progress = Math.round(
+    (game.placedDepartments.size / game.getFilteredDepartments().length) * 100
+  );
 
   const getModeDisplay = () => {
     if (game.gameMode.type === 'full') return 'Colombia Completa';
@@ -70,61 +75,6 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
     }
     return 'Personalizado';
   };
-
-  // SVG Icons as components
-  const PlayIcon = () => (
-    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-      <path d="M5 4v12l10-6z" />
-    </svg>
-  );
-
-  const PauseIcon = () => (
-    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-      <path fillRule="evenodd" d="M6 4a1 1 0 011 1v10a1 1 0 11-2 0V5a1 1 0 011-1zm8 0a1 1 0 011 1v10a1 1 0 11-2 0V5a1 1 0 011-1z" />
-    </svg>
-  );
-
-  const SoundOnIcon = () => (
-    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-      <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" />
-    </svg>
-  );
-
-  const SoundOffIcon = () => (
-    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-      <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM12.293 7.293a1 1 0 011.414 0L15 8.586l1.293-1.293a1 1 0 111.414 1.414L16.414 10l1.293 1.293a1 1 0 01-1.414 1.414L15 11.414l-1.293 1.293a1 1 0 01-1.414-1.414L13.586 10l-1.293-1.293a1 1 0 010-1.414z" />
-    </svg>
-  );
-
-  const HintIcon = () => (
-    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-      <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
-    </svg>
-  );
-
-  const ResetIcon = () => (
-    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-      <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" />
-    </svg>
-  );
-
-  const StudyIcon = () => (
-    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-      <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
-    </svg>
-  );
-
-  const GameModeIcon = () => (
-    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-      <path fillRule="evenodd" d="M6 3a1 1 0 011-1h.01a1 1 0 010 2H7a1 1 0 01-1-1zm2 3a1 1 0 00-2 0v1a2 2 0 00-2 2v1a2 2 0 00-2 2v.683a3.7 3.7 0 011.055.485 1.704 1.704 0 001.89 0 3.704 3.704 0 012.11 0 1.704 1.704 0 001.89 0 3.704 3.704 0 012.11 0 1.704 1.704 0 001.89 0A3.7 3.7 0 0118 12.683V12a2 2 0 00-2-2V9a2 2 0 00-2-2V6a1 1 0 10-2 0v1h-1V6a1 1 0 10-2 0v1H8V6zm10 8.868a3.704 3.704 0 01-2.055.485 1.704 1.704 0 01-1.89 0 3.704 3.704 0 00-2.11 0 1.704 1.704 0 01-1.89 0 3.704 3.704 0 00-2.11 0 1.704 1.704 0 01-1.89 0A3.7 3.7 0 012 14.868V17a1 1 0 001 1h14a1 1 0 001-1v-2.132z" />
-    </svg>
-  );
-
-  const HelpIcon = () => (
-    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" />
-    </svg>
-  );
 
   return (
     <header
@@ -146,9 +96,9 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
               </h1>
               <div className="flex items-center gap-2 mt-1">
                 <span className="text-sm text-gray-500">Modo:</span>
-                <Badge variant="default" size="sm">
+                <span className="text-xs font-medium px-2 py-1 bg-gray-100 text-gray-700 rounded-md">
                   {getModeDisplay()}
-                </Badge>
+                </span>
               </div>
             </div>
           </div>
@@ -301,12 +251,15 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
 
         {/* Progress Bar */}
         <div className="mt-3">
-          <Progress
-            value={progress}
-            max={100}
-            size="sm"
-            variant="default"
-          />
+          <div className="w-full bg-gray-200 rounded-full h-1.5">
+            <div
+              className={cn(
+                'bg-gray-900 h-1.5 rounded-full transition-all duration-700 ease-out',
+                progress > 0 && 'bg-gradient-to-r from-gray-800 to-gray-900'
+              )}
+              style={{ width: `${progress}%` }}
+            />
+          </div>
         </div>
       </div>
     </header>

@@ -143,11 +143,11 @@ export default class GameLogicErrorBoundary extends Component<Props, State> {
               </p>
 
               {/* Quick Fix Suggestions */}
-              <div className="bg-blue-50 rounded-lg p-4 mb-4">
-                <p className="text-sm text-blue-800 font-medium mb-2">
+              <div className="bg-sky-50 rounded-lg p-4 mb-4">
+                <p className="text-sm text-sky-800 font-medium mb-2">
                   Soluciones Rápidas:
                 </p>
-                <ul className="text-xs text-blue-700 space-y-1 text-left">
+                <ul className="text-xs text-sky-700 space-y-1 text-left">
                   {this.state.errorType === 'scoring' && (
                     <>
                       <li>• Los puntos se recalcularán automáticamente</li>
@@ -173,7 +173,7 @@ export default class GameLogicErrorBoundary extends Component<Props, State> {
               <div className="space-y-3">
                 <button
                   onClick={this.handleResetGameState}
-                  className="w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-lg hover:from-blue-600 hover:to-green-600 transition-all font-medium"
+                  className="w-full px-4 py-2 bg-gradient-to-r from-sky-500 to-green-500 text-white rounded-lg hover:from-sky-600 hover:to-green-600 transition-all font-medium"
                   aria-label="Reiniciar el estado del juego"
                 >
                   🔄 Reiniciar Juego

@@ -109,8 +109,8 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
             <li>5. Usa pistas si necesitas ayuda</li>
           </ol>
 
-          <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-            <p className="text-sm text-blue-800">
+          <div className="mt-4 p-3 bg-sky-50 rounded-lg">
+            <p className="text-sm text-sky-800">
               💡 <span className="font-semibold">Tip:</span> Los colores indican las regiones
             </p>
           </div>
@@ -135,7 +135,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
           </div>
           <div className="flex justify-between">
             <span>Restantes:</span>
-            <span className="font-bold text-blue-600">
+            <span className="font-bold text-sky-600">
               {game.departments.length - game.placedDepartments.size}
             </span>
           </div>
@@ -144,7 +144,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
 
       {/* Learning tips */}
       {!compact && (
-        <section className="bg-gradient-to-br from-blue-50 to-green-50 rounded-lg p-4" aria-labelledby="tips-heading">
+        <section className="bg-gradient-to-br from-sky-50 to-green-50 rounded-lg p-4" aria-labelledby="tips-heading">
           <h3 id="tips-heading" className="text-sm font-semibold mb-2">Sabías que...</h3>
           <p className="text-xs text-gray-700">
             Colombia tiene 32 departamentos y un distrito capital.

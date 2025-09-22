@@ -102,11 +102,11 @@ function DraggableDepartment({ department, compact = false }: { department: Depa
       {...listeners}
       {...attributes}
       className={`
-        relative bg-gradient-to-r from-blue-50 to-green-50
-        border-2 border-blue-400 rounded-lg cursor-move
-        hover:shadow-xl hover:scale-105 hover:border-blue-600
+        relative bg-gradient-to-r from-sky-50 to-green-50
+        border-2 border-sky-400 rounded-lg cursor-move
+        hover:shadow-xl hover:scale-105 hover:border-sky-600
         transition-all duration-200 group
-        ${isDragging ? 'opacity-50 z-50 shadow-2xl ring-4 ring-blue-400' : ''}
+        ${isDragging ? 'opacity-50 z-50 shadow-2xl ring-4 ring-sky-400' : ''}
         ${compact ? 'p-2' : 'p-3'}
       `}
       role="button"
@@ -128,7 +128,7 @@ function DraggableDepartment({ department, compact = false }: { department: Depa
       {!compact && (
         <>
           <div className="text-xs text-gray-600 mt-1">📍 {department.capital}</div>
-          <div className="text-xs text-blue-600 mt-1 font-medium">{department.region}</div>
+          <div className="text-xs text-sky-600 mt-1 font-medium">{department.region}</div>
         </>
       )}
       <span id={`hint-${department.id}`} className="sr-only">
@@ -245,8 +245,8 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
     return (
       <div className="space-y-4" role="region" aria-label="Panel de departamentos">
         {/* Quick stats */}
-        <div className="bg-blue-50 rounded-lg p-3 text-center" role="status" aria-live="polite" aria-atomic="true">
-          <div className="text-2xl font-bold text-blue-600" aria-hidden="true">
+        <div className="bg-sky-50 rounded-lg p-3 text-center" role="status" aria-live="polite" aria-atomic="true">
+          <div className="text-2xl font-bold text-sky-600" aria-hidden="true">
             {availableDepartments.length}
           </div>
           <div className="text-xs text-gray-600">Departamentos restantes</div>

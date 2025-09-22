@@ -199,7 +199,7 @@ export function KeyboardFeedbackToggle() {
       <button
         onClick={handleToggle}
         className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-          enabled ? 'bg-blue-600' : 'bg-gray-300'
+          enabled ? 'bg-sky-600' : 'bg-gray-300'
         }`}
         aria-label={enabled ? 'Desactivar visual de teclado' : 'Activar visual de teclado'}
       >

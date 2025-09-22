@@ -120,7 +120,7 @@ export default function AccessibilitySettings({
       <button
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 rounded-lg bg-white shadow-md hover:shadow-lg transition-all duration-200 border-2 border-gray-300 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        className="p-2 rounded-lg bg-white shadow-md hover:shadow-lg transition-all duration-200 border-2 border-gray-300 hover:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
         aria-label="Configuración de accesibilidad"
         aria-expanded={isOpen}
       >
@@ -163,7 +163,7 @@ export default function AccessibilitySettings({
             <select
               value={colorMode}
               onChange={(e) => handleColorModeChange(e.target.value as ColorblindMode)}
-              className="w-full px-3 py-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
             >
               <option value="normal">Visión normal</option>
               <option value="protanopia">Protanopia (sin rojo)</option>
@@ -191,8 +191,8 @@ export default function AccessibilitySettings({
                 role="switch"
                 aria-checked={highContrast}
                 onClick={handleHighContrastToggle}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-                  highContrast ? 'bg-blue-600' : 'bg-gray-300'
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 ${
+                  highContrast ? 'bg-sky-600' : 'bg-gray-300'
                 }`}
               >
                 <span
@@ -219,8 +219,8 @@ export default function AccessibilitySettings({
                 role="switch"
                 aria-checked={reducedMotion}
                 onClick={handleReducedMotionToggle}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-                  reducedMotion ? 'bg-blue-600' : 'bg-gray-300'
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 ${
+                  reducedMotion ? 'bg-sky-600' : 'bg-gray-300'
                 }`}
               >
                 <span

@@ -141,7 +141,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-7xl h-[90vh] flex flex-col overflow-hidden">
         {/* Enhanced Header with Flow Indicators */}
-        <div className="bg-gradient-to-r from-blue-500 to-green-500 text-white p-4">
+        <div className="bg-gradient-to-r from-sky-500 to-green-500 text-white p-4">
           <div className="flex justify-between items-center">
             <div>
               <h2 className="text-2xl font-bold">📚 Modo de Estudio Mejorado</h2>
@@ -208,9 +208,9 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
 
         {/* Smart Action Bar */}
         {showQuickActions && (
-          <div className="bg-blue-50 border-b border-blue-200 px-4 py-2 flex items-center justify-between">
+          <div className="bg-sky-50 border-b border-sky-200 px-4 py-2 flex items-center justify-between">
             <div className="flex gap-2">
-              <span className="text-sm text-blue-700">Acciones Rápidas:</span>
+              <span className="text-sm text-sky-700">Acciones Rápidas:</span>
               <button
                 onClick={handleStartPractice}
                 className="px-3 py-1 bg-green-500 text-white text-sm rounded-lg hover:bg-green-600"
@@ -219,7 +219,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
               </button>
               <button
                 onClick={() => setFlowState(prev => ({ ...prev, phase: 'quiz' }))}
-                className="px-3 py-1 bg-purple-500 text-white text-sm rounded-lg hover:bg-purple-600"
+                className="px-3 py-1 bg-violet-500 text-white text-sm rounded-lg hover:bg-violet-600"
               >
                 🧠 Mini Quiz
               </button>
@@ -239,7 +239,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                 onClick={() => setFlowState(prev => ({ ...prev, focusedRegion: null }))}
                 className={`px-4 py-2 rounded-lg transition-all whitespace-nowrap ${
                   !flowState.focusedRegion
-                    ? 'bg-blue-500 text-white'
+                    ? 'bg-sky-500 text-white'
                     : 'bg-gray-100 hover:bg-gray-200'
                 }`}
               >
@@ -251,7 +251,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                   onClick={() => handleRegionFocus(region)}
                   className={`px-4 py-2 rounded-lg transition-all whitespace-nowrap ${
                     flowState.focusedRegion === region
-                      ? 'bg-blue-500 text-white'
+                      ? 'bg-sky-500 text-white'
                       : 'bg-gray-100 hover:bg-gray-200'
                   }`}
                 >
@@ -271,7 +271,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                       className={`
                         relative bg-white rounded-xl shadow-md hover:shadow-xl
                         transition-all cursor-pointer overflow-hidden group
-                        ${selectedDepartment?.id === dept.id ? 'ring-2 ring-blue-500' : ''}
+                        ${selectedDepartment?.id === dept.id ? 'ring-2 ring-sky-500' : ''}
                       `}
                     >
                       {/* Region color bar */}
@@ -327,7 +327,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                           className={`
                             p-3 rounded-lg border-2 transition-all text-left
                             ${flowState.studiedDepartments.has(dept.id) ? 'bg-green-50 border-green-300' : 'bg-gray-50 border-gray-300'}
-                            ${selectedDepartment?.id === dept.id ? 'ring-2 ring-blue-500 scale-105' : ''}
+                            ${selectedDepartment?.id === dept.id ? 'ring-2 ring-sky-500 scale-105' : ''}
                             hover:scale-105 hover:shadow-lg
                           `}
                         >
@@ -410,7 +410,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                 </div>
 
                 {/* Trivia Card */}
-                <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-4 rounded-lg shadow">
+                <div className="bg-gradient-to-br from-violet-50 to-sky-50 p-4 rounded-lg shadow">
                   <h4 className="font-semibold text-gray-700 mb-2 flex items-center gap-2">
                     <span className="text-xl">💡</span> Dato Curioso
                   </h4>
@@ -445,7 +445,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                         </div>
 
                         {/* Características Únicas Section */}
-                        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg shadow">
+                        <div className="bg-gradient-to-br from-sky-50 to-indigo-50 p-4 rounded-lg shadow">
                           <h4 className="font-semibold text-gray-700 mb-3 flex items-center gap-2">
                             <span className="text-xl">⭐</span> Características Únicas
                           </h4>
@@ -455,7 +455,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                         </div>
 
                         {/* Patrimonio Cultural Section */}
-                        <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-lg shadow">
+                        <div className="bg-gradient-to-br from-violet-50 to-pink-50 p-4 rounded-lg shadow">
                           <h4 className="font-semibold text-gray-700 mb-3 flex items-center gap-2">
                             <span className="text-xl">🎭</span> Patrimonio Cultural
                           </h4>
@@ -466,7 +466,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
 
                         {/* Datos Específicos */}
                         {education.datosEspecificos && (
-                          <div className="bg-white p-4 rounded-lg shadow border-l-4 border-blue-500">
+                          <div className="bg-white p-4 rounded-lg shadow border-l-4 border-sky-500">
                             <h4 className="font-semibold text-gray-700 mb-3 flex items-center gap-2">
                               <span className="text-xl">📊</span> Datos Específicos
                             </h4>
@@ -474,7 +474,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                               {education.datosEspecificos.fechaCreacion && (
                                 <div className="flex justify-between py-1 border-b border-gray-100">
                                   <dt className="text-gray-600 font-medium">Fecha de Creación:</dt>
-                                  <dd className="font-semibold text-blue-700">{education.datosEspecificos.fechaCreacion}</dd>
+                                  <dd className="font-semibold text-sky-700">{education.datosEspecificos.fechaCreacion}</dd>
                                 </div>
                               )}
                               {education.datosEspecificos.poblacionIndigena && (
@@ -492,7 +492,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                               {education.datosEspecificos.altitud && (
                                 <div className="flex justify-between py-1 border-b border-gray-100">
                                   <dt className="text-gray-600 font-medium">Altitud:</dt>
-                                  <dd className="font-semibold text-purple-700">{education.datosEspecificos.altitud}</dd>
+                                  <dd className="font-semibold text-violet-700">{education.datosEspecificos.altitud}</dd>
                                 </div>
                               )}
                               {education.datosEspecificos.patrimonioUNESCO && education.datosEspecificos.patrimonioUNESCO.length > 0 && (
@@ -512,7 +512,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                                   <dt className="text-gray-600 font-medium mb-1">Principales Industrias:</dt>
                                   <dd className="flex flex-wrap gap-1">
                                     {education.datosEspecificos.industrias.map((industry, index) => (
-                                      <span key={index} className="bg-blue-100 px-2 py-1 rounded text-xs font-semibold text-blue-800">
+                                      <span key={index} className="bg-sky-100 px-2 py-1 rounded text-xs font-semibold text-sky-800">
                                         {industry}
                                       </span>
                                     ))}
@@ -561,16 +561,16 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                       return (
                         <div className="space-y-3">
                           {/* Visual Association with Mini Map */}
-                          <div className="bg-blue-50 p-3 rounded-lg">
-                            <h5 className="font-semibold text-blue-800 text-sm mb-2">Asociación Visual:</h5>
+                          <div className="bg-sky-50 p-3 rounded-lg">
+                            <h5 className="font-semibold text-sky-800 text-sm mb-2">Asociación Visual:</h5>
                             <div className="flex items-start gap-3">
                               <MiniDepartmentShape
                                 departmentName={selectedDepartment.name}
                                 width={80}
                                 height={80}
-                                className="flex-shrink-0 border-2 border-blue-200 rounded-lg"
+                                className="flex-shrink-0 border-2 border-sky-200 rounded-lg"
                               />
-                              <p className="text-sm text-blue-700 flex-1">{memoryAid.visualAssociation}</p>
+                              <p className="text-sm text-sky-700 flex-1">{memoryAid.visualAssociation}</p>
                             </div>
                           </div>
 
@@ -581,9 +581,9 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                           </div>
 
                           {/* Cultural Fact */}
-                          <div className="bg-purple-50 p-3 rounded-lg">
-                            <h5 className="font-semibold text-purple-800 text-sm mb-1">Dato Cultural Memorable:</h5>
-                            <p className="text-sm text-purple-700">{memoryAid.culturalFact}</p>
+                          <div className="bg-violet-50 p-3 rounded-lg">
+                            <h5 className="font-semibold text-violet-800 text-sm mb-1">Dato Cultural Memorable:</h5>
+                            <p className="text-sm text-violet-700">{memoryAid.culturalFact}</p>
                           </div>
 
                           {/* Mnemonic */}
@@ -607,21 +607,21 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                     return (
                       <ul className="text-sm text-gray-600 space-y-2">
                         <li className="flex items-start gap-2">
-                          <span className="text-blue-500">•</span>
+                          <span className="text-sky-500">•</span>
                           <span>Primera letra: <span className="font-bold text-lg">{selectedDepartment.name[0]}</span></span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-blue-500">•</span>
+                          <span className="text-sky-500">•</span>
                           <span>Región: <span className="font-semibold">{selectedDepartment.region}</span></span>
                         </li>
                         {selectedDepartment.name.includes(' ') && (
                           <li className="flex items-start gap-2">
-                            <span className="text-blue-500">•</span>
+                            <span className="text-sky-500">•</span>
                             <span>Es un nombre compuesto</span>
                           </li>
                         )}
                         <li className="flex items-start gap-2">
-                          <span className="text-blue-500">•</span>
+                          <span className="text-sky-500">•</span>
                           <span>Capital empieza con: <span className="font-bold">{selectedDepartment.capital[0]}</span></span>
                         </li>
                       </ul>
@@ -663,7 +663,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                       game.setGameMode({ type: 'full' });
                       onStartGame();
                     }}
-                    className="flex-1 px-4 py-2 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-lg hover:shadow-lg"
+                    className="flex-1 px-4 py-2 bg-gradient-to-r from-sky-500 to-green-500 text-white rounded-lg hover:shadow-lg"
                   >
                     Juego Completo
                   </button>

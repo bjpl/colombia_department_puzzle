@@ -42,7 +42,7 @@ export default function KeyboardCursor({
         className="fixed pointer-events-none z-50 top-16 left-1/2 transform -translate-x-1/2"
         aria-hidden="true"
       >
-        <div className="bg-white shadow-xl rounded-lg px-4 py-2 border-2 border-blue-500">
+        <div className="bg-white shadow-xl rounded-lg px-4 py-2 border-2 border-sky-500">
           <div className="flex items-center gap-2">
             <span className="text-lg">⌨️</span>
             <div className="flex items-baseline gap-2">
@@ -105,7 +105,7 @@ export default function KeyboardCursor({
           }}
           aria-hidden="true"
         >
-          <div className="bg-purple-600 text-white text-xs px-2 py-1 rounded-full shadow-lg whitespace-nowrap font-semibold animate-pulse">
+          <div className="bg-violet-600 text-white text-xs px-2 py-1 rounded-full shadow-lg whitespace-nowrap font-semibold animate-pulse">
             Enter ↵
           </div>
         </div>

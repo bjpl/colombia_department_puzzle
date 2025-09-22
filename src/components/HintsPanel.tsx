@@ -97,8 +97,8 @@ export default function HintsPanel() {
 
       {/* Active Hint Indicator */}
       {hints.activeHint && (
-        <div className="mt-3 p-2 bg-blue-100 rounded-lg border border-blue-300">
-          <div className="text-xs text-blue-700 font-medium">
+        <div className="mt-3 p-2 bg-sky-100 rounded-lg border border-sky-300">
+          <div className="text-xs text-sky-700 font-medium">
             {hints.activeHint === 'region' && '🗺️ Región resaltada en el mapa'}
             {hints.activeHint === 'letter' && `🔤 Busca "${game.currentDepartment.name[0]}..." en la región`}
             {hints.activeHint === 'flash' && '✨ ¡Mira el departamento destellando!'}

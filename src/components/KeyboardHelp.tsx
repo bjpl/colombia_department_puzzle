@@ -127,8 +127,8 @@ export default function KeyboardHelp() {
             </section>
           )}
 
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-            <p className="text-sm text-blue-800">
+          <div className="mt-6 p-4 bg-sky-50 rounded-lg">
+            <p className="text-sm text-sky-800">
               💡 <strong>Tip:</strong> El juego es completamente accesible con teclado.
               Los lectores de pantalla anunciarán automáticamente el progreso.
             </p>

@@ -257,7 +257,7 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
         return (
           <>
             <div className="text-6xl mb-4 animate-bounce">🏝️</div>
-            <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+            <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-cyan-500 to-sky-500 bg-clip-text text-transparent">
               Pista Nivel 1: Territorio Insular
             </h3>
             <div className="space-y-4">
@@ -283,21 +283,21 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
         return (
           <>
             <div className="text-6xl mb-4 animate-bounce">{coast === 'Pacífico' ? '🌊' : '🏖️'}</div>
-            <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
+            <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-sky-500 to-cyan-500 bg-clip-text text-transparent">
               Pista Nivel 1: Departamento Costero
             </h3>
             <div className="space-y-4">
-              <div className="bg-blue-50 rounded-lg p-4">
-                <p className="text-lg font-semibold text-blue-900 mb-2">
+              <div className="bg-sky-50 rounded-lg p-4">
+                <p className="text-lg font-semibold text-sky-900 mb-2">
                   {departmentName} tiene costa en el {coast}
                 </p>
                 {geoHints.position && (
-                  <p className="text-blue-700 mb-2">
+                  <p className="text-sky-700 mb-2">
                     📍 {geoHints.position}
                   </p>
                 )}
                 {department && (
-                  <p className="text-sm text-blue-600 mt-2">
+                  <p className="text-sm text-sky-600 mt-2">
                     Capital: {department.capital}
                   </p>
                 )}
@@ -343,25 +343,25 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
         return (
           <>
             <div className="text-6xl mb-4 animate-bounce">🔍</div>
-            <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-violet-500 to-pink-500 bg-clip-text text-transparent">
               Pista Nivel 1: Tamaño Pequeño
             </h3>
             <div className="space-y-4">
-              <div className="bg-purple-50 rounded-lg p-4">
-                <p className="text-lg font-semibold text-purple-900 mb-2">
+              <div className="bg-violet-50 rounded-lg p-4">
+                <p className="text-lg font-semibold text-violet-900 mb-2">
                   {departmentName} es uno de los más pequeños
                 </p>
                 {geoHints.position && (
-                  <p className="text-purple-700 mb-2">
+                  <p className="text-violet-700 mb-2">
                     📍 {geoHints.position}
                   </p>
                 )}
                 {department && (
-                  <div className="bg-purple-100 rounded p-2 mt-2">
-                    <p className="text-sm text-purple-800">
+                  <div className="bg-violet-100 rounded p-2 mt-2">
+                    <p className="text-sm text-violet-800">
                       💡 Capital: {department.capital}
                     </p>
-                    <p className="text-xs text-purple-600">
+                    <p className="text-xs text-violet-600">
                       Área: {department.area?.toLocaleString()} km²
                     </p>
                   </div>
@@ -423,8 +423,8 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
                   Capital: {department.capital}
                 </p>
               )}
-              <div className="mt-3 bg-blue-50 rounded p-2">
-                <p className="text-xs text-blue-700">
+              <div className="mt-3 bg-sky-50 rounded p-2">
+                <p className="text-xs text-sky-700">
                   💡 Tip: Usa el botón "Mostrar Regiones" en el mapa para ver los colores
                 </p>
               </div>
@@ -440,11 +440,11 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
         return (
           <>
             <div className="text-6xl mb-4 animate-pulse">🗺️</div>
-            <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
+            <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-sky-500 to-cyan-500 bg-clip-text text-transparent">
               Pista Nivel 2: Ubicación Exacta
             </h3>
             <div className="space-y-4">
-              <div className="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-lg p-4">
+              <div className="bg-gradient-to-r from-cyan-50 to-sky-50 rounded-lg p-4">
                 <p className="text-lg font-bold text-cyan-900 mb-3">
                   🏝️ Archipiélago en el Caribe
                 </p>
@@ -472,11 +472,11 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
       return (
         <>
           <div className="text-6xl mb-4 animate-pulse">🧭</div>
-          <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+          <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-sky-600 to-green-600 bg-clip-text text-transparent">
             Pista Nivel 2: {hasMany ? 'Conexiones' : hasFew ? 'Vecinos Clave' : 'Posición Específica'}
           </h3>
           <div className="space-y-4">
-            <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-4">
+            <div className="bg-gradient-to-r from-sky-50 to-green-50 rounded-lg p-4">
               <p className="font-bold text-gray-900 mb-3">{departmentName}</p>
 
               {/* Show neighbors differently based on count */}
@@ -771,13 +771,13 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
 
               {/* All neighbors for reference */}
               {geoHints.neighbors && geoHints.neighbors.length > 0 && (
-                <div className="bg-blue-50 rounded p-2 mb-3">
-                  <p className="text-sm font-semibold text-blue-800 mb-1">
+                <div className="bg-sky-50 rounded p-2 mb-3">
+                  <p className="text-sm font-semibold text-sky-800 mb-1">
                     🔗 Todos sus vecinos:
                   </p>
                   <div className="flex flex-wrap gap-1 ml-6">
                     {geoHints.neighbors.map(neighbor => (
-                      <span key={neighbor} className="px-2 py-0.5 bg-blue-100 rounded text-xs text-blue-700">
+                      <span key={neighbor} className="px-2 py-0.5 bg-sky-100 rounded text-xs text-sky-700">
                         {neighbor}
                       </span>
                     ))}
@@ -836,7 +836,7 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
         {/* Glow effect */}
         <div className={`absolute -inset-4 bg-gradient-to-r ${
           hintLevel === 1 ? regionData.bg :
-          hintLevel === 2 ? 'from-blue-400 to-green-400' :
+          hintLevel === 2 ? 'from-sky-400 to-green-400' :
           'from-red-400 to-orange-400'
         } rounded-3xl blur-2xl opacity-30 animate-pulse`} />
 
@@ -866,7 +866,7 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
           {/* Action button */}
           <button
             onClick={onClose}
-            className="mt-6 w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-green-500 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+            className="mt-6 w-full px-6 py-3 bg-gradient-to-r from-sky-500 to-green-500 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200"
           >
             ¡Entendido!
           </button>
@@ -877,7 +877,7 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
               <div
                 key={level}
                 className={`w-2 h-2 rounded-full ${
-                  level <= hintLevel ? 'bg-blue-500' : 'bg-gray-300'
+                  level <= hintLevel ? 'bg-sky-500' : 'bg-gray-300'
                 }`}
               />
             ))}

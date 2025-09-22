@@ -232,7 +232,7 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
           {/* Core */}
           <div className="relative w-4 h-4">
             <div className="absolute inset-0 bg-white rounded-full animate-pulse" />
-            <div className="absolute inset-1 bg-blue-400 rounded-full" />
+            <div className="absolute inset-1 bg-sky-400 rounded-full" />
           </div>
         </div>
       )}
@@ -274,7 +274,7 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
       >
         <div className="relative">
           {/* Card glow effect */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-2xl blur-xl opacity-20" />
+          <div className="absolute -inset-1 bg-gradient-to-r from-sky-500 to-green-500 rounded-2xl blur-xl opacity-20" />
 
           {/* Main card */}
           <div className="relative bg-white/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/20 p-6 max-w-sm">
@@ -291,7 +291,7 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
 
             {/* Step indicator */}
             <div className="flex items-center gap-3 mb-3">
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-green-500 text-white text-sm font-bold">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-sky-500 to-green-500 text-white text-sm font-bold">
                 {currentStep + 1}
               </div>
               <div className="flex gap-1">
@@ -300,7 +300,7 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
                     key={index}
                     className={`h-1 rounded-full transition-all duration-300 ${
                       index === currentStep
-                        ? 'w-8 bg-gradient-to-r from-blue-500 to-green-500'
+                        ? 'w-8 bg-gradient-to-r from-sky-500 to-green-500'
                         : index < currentStep
                         ? 'w-1 bg-green-500'
                         : 'w-1 bg-gray-300'
@@ -333,7 +333,7 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
 
               <button
                 onClick={handleNext}
-                className="px-5 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-green-500 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+                className="px-5 py-2 text-sm font-medium text-white bg-gradient-to-r from-sky-500 to-green-500 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200"
               >
                 {currentStep === tutorialSteps.length - 1 ? 'Comenzar' : 'Siguiente'}
               </button>

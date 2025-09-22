@@ -48,7 +48,7 @@ export default function MobileBanner() {
 
   return (
     <div
-      className="fixed inset-0 bg-gradient-to-br from-blue-50 to-green-50 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-gradient-to-br from-sky-50 to-green-50 z-50 flex items-center justify-center p-4"
       role="dialog"
       aria-labelledby="mobile-banner-title"
       aria-describedby="mobile-banner-description"
@@ -58,7 +58,7 @@ export default function MobileBanner() {
         <div className="flex justify-center mb-6">
           <div className="w-full h-2 flex rounded-full overflow-hidden shadow-md">
             <div className="flex-1 bg-yellow-400"></div>
-            <div className="flex-1 bg-blue-600"></div>
+            <div className="flex-1 bg-sky-600"></div>
             <div className="flex-1 bg-red-600"></div>
           </div>
         </div>
@@ -77,11 +77,11 @@ export default function MobileBanner() {
           donde puedes arrastrar y soltar los departamentos con precisión.
         </p>
 
-        <div className="bg-blue-50 rounded-lg p-4 mb-6">
-          <p className="text-sm text-blue-800 font-medium mb-2">
+        <div className="bg-sky-50 rounded-lg p-4 mb-6">
+          <p className="text-sm text-sky-800 font-medium mb-2">
             📧 Envíate el enlace por correo
           </p>
-          <p className="text-xs text-blue-600">
+          <p className="text-xs text-sky-600">
             Visita este juego en tu computador para la mejor experiencia
           </p>
           <div className="mt-3 bg-white rounded px-3 py-2 font-mono text-xs text-gray-700 break-all">
@@ -92,7 +92,7 @@ export default function MobileBanner() {
         <div className="space-y-3">
           <button
             onClick={handleDismiss}
-            className="w-full px-6 py-3 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg hover:from-green-600 hover:to-blue-600 transition-all shadow-lg font-semibold"
+            className="w-full px-6 py-3 bg-gradient-to-r from-green-500 to-sky-500 text-white rounded-lg hover:from-green-600 hover:to-sky-600 transition-all shadow-lg font-semibold"
             aria-label="Continuar al juego en dispositivo móvil"
           >
             Continuar de Todos Modos

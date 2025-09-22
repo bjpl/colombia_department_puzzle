@@ -241,7 +241,7 @@ export default function OptimizedColombiaMap() {
           <div className="text-gray-600 animate-pulse mb-2">Cargando mapa de Colombia...</div>
           <div className="w-64 h-2 bg-gray-200 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-blue-400 to-green-400 transition-all duration-500"
+              className="h-full bg-gradient-to-r from-sky-400 to-green-400 transition-all duration-500"
               style={{ width: `${loadingProgress}%` }}
             />
           </div>
@@ -311,7 +311,7 @@ export default function OptimizedColombiaMap() {
   };
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-100 via-sky-50 to-green-100">
+    <div className="relative w-full h-full flex items-center justify-center bg-gradient-to-br from-sky-100 via-sky-50 to-green-100">
       {/* Pan Indicator */}
       {!isDragging && (
         <div className="absolute top-16 left-4 z-20 bg-white/90 px-3 py-2 rounded-lg shadow-md border border-gray-300 pointer-events-none" aria-hidden="true">
@@ -330,7 +330,7 @@ export default function OptimizedColombiaMap() {
           onClick={() => setShowRegionColors(!showRegionColors)}
           className={`flex items-center gap-2 px-3 py-2 rounded-lg shadow-md border transition-all ${
             showRegionColors
-              ? 'bg-gradient-to-r from-blue-500 to-green-500 text-white border-blue-600'
+              ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white border-sky-600'
               : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'
           }`}
           title="Mostrar/Ocultar colores de regiones"
@@ -521,7 +521,7 @@ export default function OptimizedColombiaMap() {
       {/* Zoom hint for small departments */}
       {zoomLevel === 1 && (
         <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 pointer-events-none">
-          <div className="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full border border-blue-300">
+          <div className="bg-sky-100 text-sky-700 text-xs px-3 py-1 rounded-full border border-sky-300">
             🔍 Usa la rueda del mouse o los botones para hacer zoom en áreas pequeñas como Bogotá
           </div>
         </div>
@@ -545,7 +545,7 @@ export default function OptimizedColombiaMap() {
         </div>
         <div className="w-full bg-gray-200 rounded-full h-1.5">
           <div
-            className="bg-gradient-to-r from-blue-400 to-green-400 h-1.5 rounded-full transition-all duration-500"
+            className="bg-gradient-to-r from-sky-400 to-green-400 h-1.5 rounded-full transition-all duration-500"
             style={{ width: `${(game.placedDepartments.size / geoData.features.length) * 100}%` }}
           />
         </div>

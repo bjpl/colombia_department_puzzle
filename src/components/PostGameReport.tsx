@@ -148,7 +148,7 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSe
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-green-500 to-blue-500 text-white p-6">
+        <div className="bg-gradient-to-r from-green-500 to-sky-500 text-white p-6">
           <div className="flex justify-between items-center">
             <div>
               <h2 className="text-3xl font-bold">🎉 ¡Juego Completado!</h2>
@@ -168,7 +168,7 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSe
         <div className="p-6 overflow-y-auto flex-1 min-h-0">
           {/* Main Statistics */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            <div className="bg-blue-50 rounded-lg p-4 text-center">
+            <div className="bg-sky-50 rounded-lg p-4 text-center">
               <div className={`text-3xl font-bold ${getScoreColor(gameStats.finalScore)}`}>
                 {gameStats.finalScore}
                 {isNewHighScore && <span className="text-xs ml-1 text-yellow-500">¡NUEVO!</span>}
@@ -184,8 +184,8 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSe
               <div className="text-sm text-gray-600 mt-1">Tiempo Total</div>
             </div>
 
-            <div className="bg-purple-50 rounded-lg p-4 text-center">
-              <div className="text-3xl font-bold text-purple-600">
+            <div className="bg-violet-50 rounded-lg p-4 text-center">
+              <div className="text-3xl font-bold text-violet-600">
                 {gameStats.accuracy}%
               </div>
               <div className="text-sm text-gray-600 mt-1">Precisión</div>
@@ -246,7 +246,7 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSe
           </div>
 
           {/* Performance Summary */}
-          <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-4 mb-6">
+          <div className="bg-gradient-to-r from-sky-50 to-green-50 rounded-lg p-4 mb-6">
             <h3 className="text-lg font-bold text-gray-800 mb-2">💡 Resumen de Rendimiento</h3>
             <p className="text-gray-600 text-sm">
               {gameStats.accuracy >= 90
@@ -290,13 +290,13 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSe
           <div className="flex justify-center gap-4">
             <button
               onClick={onPlayAgain}
-              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all font-semibold"
+              className="px-6 py-3 bg-gradient-to-r from-sky-500 to-green-500 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all font-semibold"
             >
               🎮 Jugar de Nuevo
             </button>
             <button
               onClick={onStudyMode}
-              className="px-6 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors font-semibold"
+              className="px-6 py-3 bg-violet-500 text-white rounded-lg hover:bg-violet-600 transition-colors font-semibold"
             >
               📚 Modo Estudio
             </button>

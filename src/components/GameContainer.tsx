@@ -60,7 +60,7 @@ export default function GameContainer() {
     }
 
     // Also check for any elements with the specific classes
-    const blueBoxes = document.querySelectorAll('.bg-blue-500.text-white.px-3.py-2.rounded-lg');
+    const blueBoxes = document.querySelectorAll('.bg-sky-500.text-white.px-3.py-2.rounded-lg');
     blueBoxes.forEach(box => {
       if (box.textContent?.includes('Caquetá') || box.querySelector('.text-2xl')) {
         console.log('Removing stuck blue box:', box.textContent);
@@ -298,7 +298,7 @@ export default function GameContainer() {
 
   return (
     <GameLogicErrorBoundary>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
+      <div className="min-h-screen bg-gradient-to-br from-sky-50 to-green-50">
         <div className="container mx-auto p-4 max-w-[1400px]">
         <GameHeader
           onGameMode={() => {
@@ -331,7 +331,7 @@ export default function GameContainer() {
               <div className="bg-white/90 rounded-lg shadow p-2 flex-shrink-0 relative" style={{ width: '208px', maxHeight: '100%' }}>
                 <h3 className="text-xs font-bold mb-2 bg-white z-10 pb-1 border-b flex items-center justify-between sticky top-0">
                   <span>🧩 Departamentos</span>
-                  <span className="text-xs bg-blue-100 px-1.5 py-0.5 rounded-full">
+                  <span className="text-xs bg-sky-100 px-1.5 py-0.5 rounded-full">
                     {game.departments.filter(d => !game.placedDepartments.has(d.id)).length}
                   </span>
                 </h3>

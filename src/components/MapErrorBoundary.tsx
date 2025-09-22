@@ -109,7 +109,7 @@ export default class MapErrorBoundary extends Component<Props, State> {
                 {this.state.retryCount < 3 && (
                   <button
                     onClick={this.handleReset}
-                    className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium"
+                    className="w-full px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors font-medium"
                     aria-label="Reintentar cargar el mapa"
                   >
                     🔄 Reintentar
@@ -135,7 +135,7 @@ export default class MapErrorBoundary extends Component<Props, State> {
                       const event = new CustomEvent('navigate-to-study');
                       window.dispatchEvent(event);
                     }}
-                    className="text-blue-500 hover:text-blue-700 underline text-sm"
+                    className="text-sky-500 hover:text-sky-700 underline text-sm"
                   >
                     📚 Ir al Modo Estudio
                   </button>

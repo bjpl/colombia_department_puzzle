@@ -73,7 +73,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
         <div className="p-8">
           <div className="flex justify-between items-start mb-6">
             <div>
-              <h1 className="text-3xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold mb-2 bg-gradient-to-r from-sky-600 to-green-600 bg-clip-text text-transparent">
                 Elige Tu Modo de Juego
               </h1>
               <p className="text-gray-600">
@@ -95,14 +95,14 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                 onClick={() => handleModeSelect('full')}
                 className="relative group transform transition-all hover:scale-105"
               >
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border-2 border-blue-200 hover:border-blue-400 transition-all">
+                <div className="bg-gradient-to-br from-sky-50 to-sky-100 rounded-xl p-6 border-2 border-sky-200 hover:border-sky-400 transition-all">
                   <div className="text-4xl mb-4">🌎</div>
                   <h3 className="text-xl font-bold mb-2">Colombia Completa</h3>
                   <p className="text-sm text-gray-600 mb-4">
                     Todos los 33 departamentos de una vez. ¡El desafío completo!
                   </p>
                   <div className="flex items-center justify-center gap-2 text-xs">
-                    <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full">33 departamentos</span>
+                    <span className="px-2 py-1 bg-sky-100 text-sky-700 rounded-full">33 departamentos</span>
                   </div>
                 </div>
               </button>
@@ -132,14 +132,14 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                 onClick={() => handleModeSelect('study')}
                 className="relative group transform transition-all hover:scale-105"
               >
-                <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border-2 border-purple-200 hover:border-purple-400 transition-all">
+                <div className="bg-gradient-to-br from-violet-50 to-violet-100 rounded-xl p-6 border-2 border-violet-200 hover:border-violet-400 transition-all">
                   <div className="text-4xl mb-4">📚</div>
                   <h3 className="text-xl font-bold mb-2">Modo Estudio</h3>
                   <p className="text-sm text-gray-600 mb-4">
                     Aprende primero, luego practica. Ideal para principiantes.
                   </p>
                   <div className="flex items-center justify-center gap-2 text-xs">
-                    <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded-full">Aprendizaje</span>
+                    <span className="px-2 py-1 bg-violet-100 text-violet-700 rounded-full">Aprendizaje</span>
                   </div>
                 </div>
               </button>
@@ -173,7 +173,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                       className={`
                         relative rounded-xl p-4 border-2 transition-all transform
                         ${isSelected
-                          ? 'border-blue-500 bg-blue-50 scale-105'
+                          ? 'border-sky-500 bg-sky-50 scale-105'
                           : 'border-gray-200 hover:border-gray-400 bg-white hover:scale-105'
                         }
                       `}
@@ -221,7 +221,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                       </div>
 
                       {isSelected && (
-                        <div className="absolute -top-2 -right-2 bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">
+                        <div className="absolute -top-2 -right-2 bg-sky-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">
                           ✓
                         </div>
                       )}
@@ -243,7 +243,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                   className={`
                     px-6 py-3 rounded-lg font-bold transition-all
                     ${selectedRegions.size > 0
-                      ? 'bg-gradient-to-r from-blue-500 to-green-500 text-white hover:shadow-lg'
+                      ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white hover:shadow-lg'
                       : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                     }
                   `}
