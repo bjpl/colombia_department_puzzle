@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import GameContainer from './components/GameContainer';
-import Resources from './components/Resources';
 import { GameProvider } from './context/GameContext';
 import { AccessibilityProvider } from './context/AccessibilityContext';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -24,7 +23,6 @@ function App() {
               <MobileBanner />
               <Routes>
                 <Route path="/" element={<GameContainer />} />
-                <Route path="/resources" element={<Resources />} />
                 <Route path="*" element={<GameContainer />} />
               </Routes>
             </div>
