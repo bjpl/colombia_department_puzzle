@@ -90,6 +90,14 @@ class KeyboardManager {
       return;
     }
 
+    // Don't interfere with arrow keys during keyboard navigation
+    // Check if there's an active keyboard navigation mode
+    const isNavigating = document.querySelector('[class*="KeyboardCursor"]') !== null ||
+                        document.querySelector('.fixed.pointer-events-none.z-50') !== null;
+    if (isNavigating && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      return; // Let the navigation handler take care of it
+    }
+
     // Find matching shortcut
     const shortcut = this.shortcuts.find(s =>
       s.key === e.key &&

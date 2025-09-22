@@ -85,32 +85,14 @@ export default function GameContainer() {
     });
   }, []);
 
-  // Add periodic cleanup for any stuck overlays
+  // Reset stuck drag state on mount only
   useEffect(() => {
-    const cleanupInterval = setInterval(() => {
-      // Look for stuck blue boxes with Caquetá or pin icons
-      const stuckElements = document.querySelectorAll('.fixed.z-50, .fixed.pointer-events-none');
-      stuckElements.forEach(element => {
-        if (element.innerHTML.includes('Caquetá') ||
-            element.innerHTML.includes('📍') ||
-            element.querySelector('.bg-blue-500') ||
-            element.querySelector('.inline-flex.items-center.px-3.py-1')) {
-          // Check if this is not the active KeyboardCursor
-          if (!enhancedNav.isKeyboardMode || !element.innerHTML.includes('cursor')) {
-            console.log('Removing stuck overlay element');
-            element.remove();
-          }
-        }
-      });
-
-      // Also ensure drag state is reset if no department is selected
-      if (game.isDraggingDepartment && !game.currentDepartment) {
-        game.setIsDragging(false);
-      }
-    }, 1000); // Check every second
-
-    return () => clearInterval(cleanupInterval);
-  }, [enhancedNav.isKeyboardMode, game.currentDepartment, game.isDraggingDepartment]);
+    // Reset drag state if it's stuck
+    if (game.isDraggingDepartment && !game.currentDepartment) {
+      console.log('Resetting stuck drag state on mount');
+      game.setIsDragging(false);
+    }
+  }, []); // Only run once on mount
 
   // Initialize sound system on first user interaction
   useEffect(() => {
@@ -349,16 +331,20 @@ export default function GameContainer() {
                   id="department-scroll-container"
                   onKeyDown={(e) => {
                     // Only allow scrolling if not in keyboard navigation mode (moving a department)
-                    if (enhancedNav.isKeyboardMode) {
+                    if (enhancedNav.isKeyboardMode || enhancedNav.navigationMode === 'moving') {
+                      e.preventDefault();
+                      e.stopPropagation();
                       return; // Don't scroll when moving a department with arrow keys
                     }
 
                     // Arrow keys for scrolling within the container
                     if (e.key === 'ArrowUp') {
                       e.preventDefault();
+                      e.stopPropagation();
                       e.currentTarget.scrollTop -= 50;
                     } else if (e.key === 'ArrowDown') {
                       e.preventDefault();
+                      e.stopPropagation();
                       e.currentTarget.scrollTop += 50;
                     } else if (e.key === 'Home') {
                       e.preventDefault();
