@@ -118,6 +118,7 @@ export default function GameContainer() {
   // Listen for placement feedback from keyboard navigation
   useEffect(() => {
     const handlePlacementFeedback = (event: CustomEvent) => {
+      console.log('Received placement-feedback event:', event.detail);
       const { show, isCorrect, departmentName, position } = event.detail;
       setPlacementFeedback({ show, isCorrect, departmentName, position });
       // Play sound effect

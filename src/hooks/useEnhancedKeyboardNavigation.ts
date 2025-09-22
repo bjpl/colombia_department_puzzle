@@ -116,7 +116,16 @@ export function useEnhancedKeyboardNavigation() {
         newX = Math.max(50, Math.min(window.innerWidth - 50, newX));
         newY = Math.max(50, Math.min(window.innerHeight - 50, newY));
 
-        animateMovement(newX, newY);
+        // Update position immediately and check for drop zones
+        const element = document.elementFromPoint(newX, newY);
+        const dropZone = element?.closest('[data-department-drop-zone]');
+        const zoneId = dropZone?.getAttribute('data-department-drop-zone') || null;
+
+        setNavState(prev => ({
+          ...prev,
+          cursorPosition: { x: newX, y: newY },
+          targetZone: zoneId
+        }));
         return; // Exit early - we've handled this
       }
 
@@ -168,6 +177,12 @@ export function useEnhancedKeyboardNavigation() {
           }
         } else if (navState.mode === 'moving' && navState.selectedDepartment) {
           // Place department
+          console.log('Placing department:', {
+            targetZone: navState.targetZone,
+            departmentId: navState.selectedDepartment.id,
+            cursorPosition: navState.cursorPosition
+          });
+
           const isCorrect = navState.targetZone === navState.selectedDepartment.id;
 
           if (navState.targetZone) {
@@ -180,6 +195,7 @@ export function useEnhancedKeyboardNavigation() {
             game.placeDepartment(navState.selectedDepartment.id, isCorrect);
 
             // Trigger placement feedback using custom event
+            console.log('Dispatching placement-feedback event', { isCorrect, departmentName: navState.selectedDepartment.name });
             window.dispatchEvent(new CustomEvent('placement-feedback', {
               detail: {
                 show: true,
