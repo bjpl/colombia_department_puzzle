@@ -368,8 +368,11 @@ export function useEnhancedKeyboardNavigation() {
           setNavState(prev => ({
             ...prev,
             mode: 'idle',
-            selectedDepartment: null
+            selectedDepartment: null,
+            targetZone: null
           }));
+          // Clear the global keyboard target to remove outline
+          (window as any).__keyboardNavTarget = null;
         }
       }
 
@@ -379,13 +382,29 @@ export function useEnhancedKeyboardNavigation() {
       }));
     };
 
+    // Clear keyboard state on mouse click
+    const handleMouseClick = () => {
+      if (navStateRef.current.mode === 'moving' || navStateRef.current.targetZone) {
+        setNavState(prev => ({
+          ...prev,
+          mode: 'idle',
+          selectedDepartment: null,
+          targetZone: null
+        }));
+        // Clear the global keyboard target to remove outline
+        (window as any).__keyboardNavTarget = null;
+      }
+    };
+
     // Use capture phase for arrow keys to intercept before any bubbling handlers
     window.addEventListener('keydown', handleKeyDown, true); // true = capture phase
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousedown', handleMouseClick);
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown, true); // Match capture phase
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mousedown', handleMouseClick);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }

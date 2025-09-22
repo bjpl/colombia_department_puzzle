@@ -201,6 +201,9 @@ export default function GameContainer() {
   }, [game.isGameComplete]);
 
   const handleDragStart = (event: DragStartEvent) => {
+    // Clear any keyboard navigation state when starting mouse drag
+    (window as any).__keyboardNavTarget = null;
+
     const departmentId = event.active.id as string;
     const department = game.departments.find(d => d.id === departmentId);
     if (department) {
