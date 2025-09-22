@@ -518,15 +518,22 @@ export default function GameContainer() {
         {modal.isModalOpen('gameMode') && (
           <GameModeSelector
             onSelectMode={(mode) => {
-              if (mode.type === 'study') {
-                // Open Study Mode instead of starting game
-                modal.closeModal();
-                modal.openModal('study');
-              } else {
-                // Start game with selected mode
-                game.setGameMode(mode);
-                modal.closeModal();
-                game.resetGame();
+              console.log('GameContainer: onSelectMode called with mode:', mode);
+              try {
+                if (mode.type === 'study') {
+                  console.log('GameContainer: Opening study mode');
+                  // Open Study Mode instead of starting game
+                  modal.closeModal();
+                  modal.openModal('study');
+                } else {
+                  console.log('GameContainer: Starting game with mode:', mode);
+                  // Start game with selected mode
+                  game.setGameMode(mode);
+                  modal.closeModal();
+                  game.resetGame();
+                }
+              } catch (error) {
+                console.error('GameContainer: Error in onSelectMode:', error);
               }
             }}
             onClose={() => modal.closeModal()}

@@ -1,7 +1,7 @@
 // Shared region color constants used across the application
 // Modern, beautiful, and WCAG AAA compliant colors
 
-import { MODERN_REGION_COLORS } from './modernAccessibleColors';
+import { ACCESSIBLE_REGION_COLORS } from './accessibleColorsFixed';
 
 // Legacy colors (for reference - DO NOT USE)
 const LEGACY_COLORS = {
@@ -15,13 +15,13 @@ const LEGACY_COLORS = {
 
 // Modern beautiful color mapping - WCAG AAA compliant
 export const REGION_COLORS: Record<string, string> = {
-  'Andina': MODERN_REGION_COLORS['Andina'].primary,      // emerald-600 - Emerald green
-  'Caribe': MODERN_REGION_COLORS['Caribe'].primary,      // sky-500 - Sky blue
-  'Pacífico': MODERN_REGION_COLORS['Pacífico'].primary,  // violet-600 - Deep violet
-  'Pacífica': MODERN_REGION_COLORS['Pacífico'].primary,  // violet-600 - Deep violet (support both spellings)
-  'Orinoquía': MODERN_REGION_COLORS['Orinoquía'].primary, // orange-500 - Sunset orange
-  'Amazonía': MODERN_REGION_COLORS['Amazonía'].primary,   // teal-500 - Tropical teal
-  'Insular': MODERN_REGION_COLORS['Insular'].primary,    // cyan-500 - Ocean cyan
+  'Andina': ACCESSIBLE_REGION_COLORS['Andina'].primary,      // Forest green
+  'Caribe': ACCESSIBLE_REGION_COLORS['Caribe'].primary,      // Royal blue
+  'Pacífico': ACCESSIBLE_REGION_COLORS['Pacífico'].primary,  // Dark maroon
+  'Pacífica': ACCESSIBLE_REGION_COLORS['Pacífico'].primary,  // Dark maroon (support both spellings)
+  'Orinoquía': ACCESSIBLE_REGION_COLORS['Orinoquía'].primary, // Golden amber
+  'Amazonía': ACCESSIBLE_REGION_COLORS['Amazonía'].primary,   // Teal
+  'Insular': ACCESSIBLE_REGION_COLORS['Insular'].primary,    // Purple
 };
 
 // Modern beautiful gradient styles with vibrant colors
@@ -29,50 +29,50 @@ export const REGION_STYLES: Record<string, { bg: string; text: string; icon: str
   'Andina': {
     bg: 'from-emerald-600 via-emerald-500 to-emerald-400',  // Modern emerald gradient
     text: 'text-white',
-    icon: MODERN_REGION_COLORS['Andina'].icon || '⛰️',
-    pattern: MODERN_REGION_COLORS['Andina'].pattern,
+    icon: ACCESSIBLE_REGION_COLORS['Andina'].icon || '⛰️',
+    pattern: ACCESSIBLE_REGION_COLORS['Andina'].pattern,
     glow: 'shadow-emerald-500/50'
   },
   'Caribe': {
     bg: 'from-sky-600 via-sky-500 to-sky-400',  // Vibrant sky gradient
     text: 'text-white',
-    icon: MODERN_REGION_COLORS['Caribe'].icon || '🌊',
-    pattern: MODERN_REGION_COLORS['Caribe'].pattern,
+    icon: ACCESSIBLE_REGION_COLORS['Caribe'].icon || '🌊',
+    pattern: ACCESSIBLE_REGION_COLORS['Caribe'].pattern,
     glow: 'shadow-sky-500/50'
   },
   'Pacífico': {
     bg: 'from-purple-600 via-purple-500 to-purple-400',  // Modern purple gradient
     text: 'text-white',
-    icon: MODERN_REGION_COLORS['Pacífico'].icon || '🌴',
-    pattern: MODERN_REGION_COLORS['Pacífico'].pattern,
+    icon: ACCESSIBLE_REGION_COLORS['Pacífico'].icon || '🌴',
+    pattern: ACCESSIBLE_REGION_COLORS['Pacífico'].pattern,
     glow: 'shadow-purple-500/50'
   },
   'Pacífica': {
     bg: 'from-purple-600 via-purple-500 to-purple-400',  // Modern purple gradient
     text: 'text-white',
-    icon: MODERN_REGION_COLORS['Pacífico'].icon || '🌴',
-    pattern: MODERN_REGION_COLORS['Pacífico'].pattern,
+    icon: ACCESSIBLE_REGION_COLORS['Pacífico'].icon || '🌴',
+    pattern: ACCESSIBLE_REGION_COLORS['Pacífico'].pattern,
     glow: 'shadow-purple-500/50'
   },
   'Orinoquía': {
     bg: 'from-orange-600 via-orange-500 to-orange-400',  // Sunset orange gradient
     text: 'text-white',
-    icon: MODERN_REGION_COLORS['Orinoquía'].icon || '🌾',
-    pattern: MODERN_REGION_COLORS['Orinoquía'].pattern,
+    icon: ACCESSIBLE_REGION_COLORS['Orinoquía'].icon || '🌾',
+    pattern: ACCESSIBLE_REGION_COLORS['Orinoquía'].pattern,
     glow: 'shadow-orange-500/50'
   },
   'Amazonía': {
     bg: 'from-teal-600 via-teal-500 to-teal-400',  // Tropical teal gradient
     text: 'text-white',
-    icon: MODERN_REGION_COLORS['Amazonía'].icon || '🌳',
-    pattern: MODERN_REGION_COLORS['Amazonía'].pattern,
+    icon: ACCESSIBLE_REGION_COLORS['Amazonía'].icon || '🌳',
+    pattern: ACCESSIBLE_REGION_COLORS['Amazonía'].pattern,
     glow: 'shadow-teal-500/50'
   },
   'Insular': {
     bg: 'from-cyan-600 via-cyan-500 to-cyan-400',  // Ocean cyan gradient
     text: 'text-white',
-    icon: MODERN_REGION_COLORS['Insular'].icon || '🏝️',
-    pattern: MODERN_REGION_COLORS['Insular'].pattern,
+    icon: ACCESSIBLE_REGION_COLORS['Insular'].icon || '🏝️',
+    pattern: ACCESSIBLE_REGION_COLORS['Insular'].pattern,
     glow: 'shadow-cyan-500/50'
   },
 };

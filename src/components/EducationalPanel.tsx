@@ -61,7 +61,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
       {/* Current department info */}
       {game.currentDepartment && (
         <Card variant="default" style={{ padding: compact ? spacing[3] : spacing[6] }} aria-labelledby="selected-dept-heading">
-          <CardTitle id="selected-dept-heading" style={{ fontSize: compact ? textStyles.body.small.fontSize[0] : textStyles.heading.small.fontSize[0], fontWeight: 'semibold', marginBottom: spacing[2] }}>Departamento Seleccionado</CardTitle>
+          <CardTitle id="selected-dept-heading" style={{ fontSize: compact ? textStyles.body.small.fontSize[0] : textStyles.heading.h3.fontSize[0], fontWeight: textStyles.heading.h3.fontWeight, marginBottom: spacing[2] }}>Departamento Seleccionado</CardTitle>
           <CardContent style={{ display: 'flex', flexDirection: 'column', gap: compact ? spacing[1] : spacing[2], fontSize: compact ? textStyles.body.small.fontSize[0] : textStyles.body.default.fontSize[0] }}>
             <div>
               <span className="font-semibold">Nombre:</span> {game.currentDepartment.name}
@@ -111,7 +111,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
       {/* Instructions */}
       {!game.currentDepartment && !compact && (
         <Card variant="default" style={{ padding: spacing[6] }} aria-labelledby="instructions-heading">
-          <CardTitle id="instructions-heading" style={{ fontSize: textStyles.heading.small.fontSize[0], fontWeight: 'semibold', marginBottom: spacing[3] }}>Cómo Jugar</CardTitle>
+          <CardTitle id="instructions-heading" style={{ fontSize: textStyles.heading.h3.fontSize[0], fontWeight: textStyles.heading.h3.fontWeight, marginBottom: spacing[3] }}>Cómo Jugar</CardTitle>
           <CardContent>
             <ol style={{ display: 'flex', flexDirection: 'column', gap: spacing[2], fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>
               <li>1. Selecciona un departamento de la izquierda</li>
@@ -123,7 +123,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
 
             <Card variant="default" style={{ marginTop: spacing[4], padding: spacing[3] }} className="bg-sky-50">
               <p style={{ fontSize: textStyles.body.small.fontSize[0] }} className="text-sky-800">
-                💡 <span style={{ fontWeight: 'semibold' }}>Tip:</span> Los colores indican las regiones
+                💡 <span style={{ fontWeight: textStyles.heading.h3.fontWeight }}>Tip:</span> Los colores indican las regiones
               </p>
             </Card>
           </CardContent>
@@ -132,7 +132,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
 
       {/* Statistics */}
       <Card variant="default" style={{ padding: compact ? spacing[3] : spacing[6] }} aria-labelledby="stats-heading" role="status">
-        <CardTitle id="stats-heading" style={{ fontSize: compact ? textStyles.body.small.fontSize[0] : textStyles.heading.small.fontSize[0], fontWeight: 'semibold', marginBottom: spacing[2] }}>Estadísticas</CardTitle>
+        <CardTitle id="stats-heading" style={{ fontSize: compact ? textStyles.body.small.fontSize[0] : textStyles.heading.h3.fontSize[0], fontWeight: textStyles.heading.h3.fontWeight, marginBottom: spacing[2] }}>Estadísticas</CardTitle>
         <CardContent style={{ display: 'flex', flexDirection: 'column', gap: compact ? spacing[1] : spacing[2], fontSize: compact ? textStyles.body.small.fontSize[0] : textStyles.body.small.fontSize[0] }}>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Fallidos:</span>
@@ -158,7 +158,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
       {/* Learning tips */}
       {!compact && (
         <Card variant="default" style={{ padding: spacing[4] }} className="bg-gradient-to-br from-sky-50 to-green-50" aria-labelledby="tips-heading">
-          <CardTitle id="tips-heading" style={{ fontSize: textStyles.body.small.fontSize[0], fontWeight: 'semibold', marginBottom: spacing[2] }}>Sabías que...</CardTitle>
+          <CardTitle id="tips-heading" style={{ fontSize: textStyles.body.small.fontSize[0], fontWeight: textStyles.heading.h3.fontWeight, marginBottom: spacing[2] }}>Sabías que...</CardTitle>
           <CardContent>
             <p style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>
               Colombia tiene 32 departamentos y un distrito capital.

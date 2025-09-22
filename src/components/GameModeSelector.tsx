@@ -44,10 +44,13 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
   };
 
   const handleModeSelect = (mode: 'full' | 'region' | 'study') => {
+    console.log('GameModeSelector: handleModeSelect called with mode:', mode);
     setSelectedMode(mode);
     if (mode === 'region') {
+      console.log('GameModeSelector: Showing region selector');
       setShowRegionSelector(true);
     } else {
+      console.log('GameModeSelector: Calling onSelectMode with mode:', mode);
       onSelectMode({ type: mode });
     }
   };
@@ -63,11 +66,14 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
   };
 
   const confirmRegionSelection = () => {
+    console.log('GameModeSelector: confirmRegionSelection called with regions:', Array.from(selectedRegions));
     if (selectedRegions.size > 0) {
-      onSelectMode({
-        type: 'region',
+      const config = {
+        type: 'region' as const,
         selectedRegions: Array.from(selectedRegions)
-      });
+      };
+      console.log('GameModeSelector: Calling onSelectMode with config:', config);
+      onSelectMode(config);
     }
   };
 
@@ -167,7 +173,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                 >
                   ← Volver a modos
                 </Button>
-                <h2 style={{ fontSize: textStyles.heading.large.fontSize[0], fontWeight: 'bold', marginBottom: spacing[2] }}>Selecciona las Regiones</h2>
+                <h2 style={{ fontSize: textStyles.heading.h1.fontSize[0], fontWeight: textStyles.heading.h1.fontWeight, marginBottom: spacing[2] }}>Selecciona las Regiones</h2>
                 <p style={{ color: colors.text.secondary }}>
                   Elige una o más regiones para practicar.
                   {userStats && ` Tienes ${getTotalStars()} ⭐ estrellas.`}
@@ -210,7 +216,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                       />
 
                       <div className="flex justify-between items-start mb-2">
-                        <h3 style={{ fontWeight: 'bold', fontSize: textStyles.heading.small.fontSize[0] }}>{region.name}</h3>
+                        <h3 style={{ fontWeight: textStyles.heading.h3.fontWeight, fontSize: textStyles.heading.h3.fontSize[0] }}>{region.name}</h3>
                       </div>
 
                       <div style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary, marginBottom: spacing[3] }}>
@@ -243,7 +249,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                               <span
                                 key={star}
                                 style={{
-                                  fontSize: textStyles.heading.small.fontSize[0],
+                                  fontSize: textStyles.heading.h4.fontSize[0],
                                   color: star <= progress.stars ? colors.warning : colors.text.disabled
                                 }}
                               >

@@ -16,7 +16,7 @@ export default function HintsPanel() {
   return (
     <Card variant="default" style={{ padding: spacing[4] }}>
       <CardHeader style={{ display: 'flex', alignItems: 'center', marginBottom: spacing[3] }}>
-        <CardTitle style={{ fontSize: textStyles.heading.small.fontSize[0], fontWeight: 'semibold' }}>
+        <CardTitle style={{ fontSize: textStyles.heading.h3.fontSize[0], fontWeight: textStyles.heading.h3.fontWeight }}>
           💡 Pistas Progresivas
         </CardTitle>
         <Badge variant="secondary" style={{ marginLeft: 'auto', fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>

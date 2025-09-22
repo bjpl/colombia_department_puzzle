@@ -5,7 +5,7 @@ import { useGame } from '../context/GameContext';
 import { useAccessibility } from '../context/AccessibilityContext';
 import { normalizeId } from '../utils/nameNormalizer';
 import { colombiaDepartments } from '../data/colombiaDepartments';
-import { MODERN_REGION_COLORS } from '../constants/accessibleColors';
+// Region colors are now handled by the AccessibilityContext
 import {
   Button, Card, CardHeader, CardTitle, CardContent, Badge,
   colors, spacing, textStyles, shadows

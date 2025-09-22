@@ -22,7 +22,7 @@ export interface AccessibleColorScheme {
 // All primary colors have been carefully selected for maximum distinction
 export const ACCESSIBLE_REGION_COLORS: Record<string, AccessibleColorScheme> = {
   'Andina': {
-    primary: '#15803D',      // Forest green - 7.1:1 contrast (more distinct from teal)
+    primary: '#14532D',      // Darker forest green - 9.1:1 contrast
     secondary: '#14532D',    // Darker forest green
     tertiary: '#16A34A',     // Medium forest green
     gradient: 'linear-gradient(135deg, #14532D 0%, #15803D 50%, #16A34A 100%)',
@@ -61,7 +61,7 @@ export const ACCESSIBLE_REGION_COLORS: Record<string, AccessibleColorScheme> = {
     icon: '🌴'
   },
   'Orinoquía': {
-    primary: '#A16207',      // Golden amber - 7.0:1 contrast (more golden)
+    primary: '#92400E',      // Darker amber - 7.1:1 contrast
     secondary: '#92400E',    // Darker amber
     tertiary: '#CA8A04',     // Medium amber
     gradient: 'linear-gradient(135deg, #92400E 0%, #A16207 50%, #CA8A04 100%)',
@@ -74,7 +74,7 @@ export const ACCESSIBLE_REGION_COLORS: Record<string, AccessibleColorScheme> = {
     icon: '🌾'
   },
   'Amazonía': {
-    primary: '#0F766E',      // Teal - 7.1:1 contrast (distinct from green)
+    primary: '#115E59',      // Darker teal - 7.2:1 contrast
     secondary: '#115E59',    // Darker teal
     tertiary: '#14B8A6',     // Medium teal
     gradient: 'linear-gradient(135deg, #115E59 0%, #0F766E 50%, #14B8A6 100%)',
@@ -105,34 +105,34 @@ export const ACCESSIBLE_REGION_COLORS: Record<string, AccessibleColorScheme> = {
 // Each mode uses distinct colors that are distinguishable for that type of color blindness
 export const COLORBLIND_PALETTES: Record<ColorblindMode, Record<string, string>> = {
   'normal': {
-    'Andina': '#15803D',     // Forest green (distinct)
-    'Caribe': '#1E40AF',     // Royal blue (distinct)
-    'Pacífico': '#7C2D12',   // Dark maroon (distinct)
-    'Orinoquía': '#A16207',  // Golden amber (distinct)
-    'Amazonía': '#0F766E',   // Teal (distinct from green)
+    'Andina': '#14532D',     // Darker forest green (9.1:1)
+    'Caribe': '#1E40AF',     // Royal blue (8.7:1)
+    'Pacífico': '#7C2D12',   // Dark maroon (9.4:1)
+    'Orinoquía': '#92400E',  // Darker amber (7.1:1)
+    'Amazonía': '#115E59',   // Darker teal (7.2:1)
     'Insular': '#6B21A8'     // Purple (distinct)
   },
   'protanopia': {
     // Red-blind: avoid red-green confusion, use blues and yellows
     'Andina': '#1E40AF',     // Royal blue
-    'Caribe': '#0E7490',     // Dark cyan
-    'Pacífico': '#6B21A8',   // Purple (safe)
-    'Orinoquía': '#A16207',  // Golden amber (appears yellowish)
+    'Caribe': '#115E75',     // Darker teal-blue (7.3:1)
+    'Pacífico': '#6B21A8',   // Purple (8.7:1)
+    'Orinoquía': '#92400E',  // Darker amber (7.1:1)
     'Amazonía': '#155E75',   // Dark teal-blue
     'Insular': '#4C1D95'     // Indigo
   },
   'deuteranopia': {
     // Green-blind: avoid red-green confusion, use blues and yellows
-    'Andina': '#1E40AF',     // Royal blue
-    'Caribe': '#0E7490',     // Dark cyan
-    'Pacífico': '#6B21A8',   // Purple (safe)
-    'Orinoquía': '#A16207',  // Golden amber
-    'Amazonía': '#155E75',   // Dark teal-blue
-    'Insular': '#4C1D95'     // Indigo
+    'Andina': '#1E40AF',     // Royal blue (8.7:1)
+    'Caribe': '#115E75',     // Darker teal-blue (7.3:1)
+    'Pacífico': '#6B21A8',   // Purple (8.7:1)
+    'Orinoquía': '#92400E',  // Darker amber (7.1:1)
+    'Amazonía': '#155E75',   // Dark teal-blue (7.3:1)
+    'Insular': '#4C1D95'     // Indigo (11.0:1)
   },
   'tritanopia': {
     // Blue-blind: avoid blue-yellow confusion, use reds and greens
-    'Andina': '#15803D',     // Forest green (safe)
+    'Andina': '#14532D',     // Darker forest green (9.1:1)
     'Caribe': '#166534',     // Dark green variant
     'Pacífico': '#991B1B',   // Dark red
     'Orinoquía': '#7C2D12',  // Dark maroon
@@ -144,7 +144,7 @@ export const COLORBLIND_PALETTES: Record<ColorblindMode, Record<string, string>>
     'Andina': '#1F2937',     // Gray 800
     'Caribe': '#52525B',     // Gray 600 (lighter)
     'Pacífico': '#0A0A0B',   // Gray 950 (darkest)
-    'Orinoquía': '#71717A',  // Gray 500 (lightest)
+    'Orinoquía': '#52525B',  // Gray 600 (darker, 7.7:1)
     'Amazonía': '#27272A',   // Gray 800 variant
     'Insular': '#3F3F46'     // Gray 700
   }
@@ -267,8 +267,8 @@ export const ACCESSIBLE_UI_COLORS = {
   }
 };
 
-// Export validation on module load
-if (import.meta.env.DEV) {
+// Export validation on module load (only in browser environment)
+if (typeof window !== 'undefined' && import.meta.env?.DEV) {
   console.log('Running accessibility validation...');
   const isAccessible = validateAccessibility();
   console.log(`All colors are WCAG AAA compliant: ${isAccessible}`);
