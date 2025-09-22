@@ -48,16 +48,16 @@ export const MODERN_REGION_COLORS: Record<string, ModernColorScheme> = {
     pattern: 'waves',
     icon: '🌊'
   },
-  'Pacífica': {
-    primary: '#A855F7',      // Purple 500 - Modern purple
-    secondary: '#9333EA',    // Purple 600
-    tertiary: '#C084FC',     // Purple 400 - Accent
-    gradient: 'linear-gradient(135deg, #9333EA 0%, #A855F7 50%, #C084FC 100%)',
+  'Pacífico': {
+    primary: '#7C3AED',      // Violet 600 - Deep violet (very different from green)
+    secondary: '#6D28D9',    // Violet 700
+    tertiary: '#8B5CF6',     // Violet 500 - Accent
+    gradient: 'linear-gradient(135deg, #6D28D9 0%, #7C3AED 50%, #8B5CF6 100%)',
     text: '#FFFFFF',
-    border: '#6B21A8',       // Purple 800
-    hover: '#C084FC',        // Purple 400
-    shadow: 'rgba(168, 85, 247, 0.4)',
-    glow: 'rgba(192, 132, 252, 0.6)',
+    border: '#5B21B6',       // Violet 800
+    hover: '#8B5CF6',        // Violet 500
+    shadow: 'rgba(124, 58, 237, 0.4)',
+    glow: 'rgba(139, 92, 246, 0.6)',
     pattern: 'diagonal',
     icon: '🌴'
   },
