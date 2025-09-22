@@ -37,6 +37,30 @@ export default function KeyboardCursor({
 
   return (
     <>
+      {/* EXACT TARGET POINT - The actual crosshair that needs to be over the department */}
+      <div
+        className="fixed pointer-events-none z-[60]"
+        style={{
+          left: `${position.x}px`,
+          top: `${position.y}px`,
+          transform: 'translate(-50%, -50%)',
+        }}
+        aria-hidden="true"
+      >
+        {/* Crosshair lines */}
+        <div className="absolute w-8 h-[2px] bg-red-500 -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute w-[2px] h-8 bg-red-500 -translate-x-1/2 -translate-y-1/2" />
+        {/* Center dot */}
+        <div className={`
+          absolute w-3 h-3 rounded-full -translate-x-1/2 -translate-y-1/2
+          ${targetZone
+            ? 'bg-green-500 ring-4 ring-green-300 animate-pulse'
+            : 'bg-red-500 ring-2 ring-red-300'
+          }
+          transition-all duration-200
+        `} />
+      </div>
+
       {/* Detection radius indicator - subtle visual aid */}
       <div
         className="fixed pointer-events-none z-40"
@@ -56,17 +80,17 @@ export default function KeyboardCursor({
         `} />
       </div>
 
-      {/* Cursor pill */}
+      {/* Department name pill - offset above the crosshair */}
       <div
         className="fixed pointer-events-none z-50"
         style={{
           left: `${position.x}px`,
-          top: `${position.y}px`,
-          transform: 'translate(-50%, -50%)',
+          top: `${position.y - 35}px`, // Offset above the crosshair
+          transform: 'translateX(-50%)',
         }}
         aria-hidden="true"
       >
-        {/* Simple floating pill with enhanced visibility */}
+        {/* Floating pill with department name */}
         <div className={`
           bg-white shadow-xl rounded-md px-3 py-1.5 border-2
           ${targetZone
@@ -76,23 +100,32 @@ export default function KeyboardCursor({
           transition-all duration-200
         `}>
           <div className="flex items-center gap-1.5">
-            <span className="text-sm">📍</span>
+            <span className="text-sm">📦</span>
             <span className="font-bold text-xs">{selectedDepartment.name}</span>
           </div>
         </div>
 
-        {/* Instructions with better visibility */}
-        <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2">
-          {targetZone ? (
-            <div className="bg-purple-600 text-white text-xs px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap font-semibold animate-pulse">
-              ✓ Enter para colocar
-            </div>
-          ) : (
-            <div className="bg-gray-700 text-gray-200 text-[10px] px-2 py-1 rounded whitespace-nowrap opacity-75">
-              ↑↓←→ Mover • Ctrl=Preciso • Shift=Rápido
-            </div>
-          )}
-        </div>
+      </div>
+
+      {/* Instructions positioned below the crosshair */}
+      <div
+        className="fixed pointer-events-none z-50"
+        style={{
+          left: `${position.x}px`,
+          top: `${position.y + 25}px`, // Below the crosshair
+          transform: 'translateX(-50%)',
+        }}
+        aria-hidden="true"
+      >
+        {targetZone ? (
+          <div className="bg-purple-600 text-white text-xs px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap font-semibold animate-pulse">
+            ✓ Enter para colocar
+          </div>
+        ) : (
+          <div className="bg-gray-700 text-gray-200 text-[10px] px-2 py-1 rounded whitespace-nowrap opacity-75">
+            ↑↓←→ Mover • Ctrl=Preciso • Shift=Rápido
+          </div>
+        )}
       </div>
     </>
   );
