@@ -162,7 +162,8 @@ export default function GameContainer() {
     const profile = storage.getActiveProfile();
 
     // Show tutorial for first-time users or those who haven't seen it
-    if (!settings.tutorialShown || !profile || (!profile.stats?.gamesPlayed || profile.stats.gamesPlayed === 0)) {
+    // But only if no other modal is already open
+    if (!modal.activeModal && (!settings.tutorialShown || !profile || (!profile.stats?.gamesPlayed || profile.stats.gamesPlayed === 0))) {
       modal.openModal('tutorial');
     }
   }, []);
@@ -323,11 +324,14 @@ export default function GameContainer() {
           <GameHeader
             onGameMode={() => {
               game.clearCurrentDepartment(); // Clear any active drag
-              modal.openModal('gameMode');
+              modal.closeAllModals(); // Clear any queued modals first
+              setTimeout(() => modal.openModal('gameMode'), 0); // Open after clearing
             }}
             onStudyMode={() => {
               game.clearCurrentDepartment(); // Clear any active drag
-              modal.openModal('study');
+              modal.closeAllModals(); // Clear any queued modals first
+              setHasUsedStudyMode(true); // Mark that study mode is being opened
+              setTimeout(() => modal.openModal('study'), 0); // Open after clearing
             }}
             onTutorial={() => {
               game.clearCurrentDepartment(); // Clear any active drag
@@ -574,7 +578,7 @@ export default function GameContainer() {
             onClose={() => {
               game.clearCurrentDepartment();
               setHasUsedStudyMode(true); // Mark that study mode was used
-              modal.closeModal();
+              modal.closeAllModals(); // Use closeAllModals to clear any queued modals
             }}
             onStartGame={() => {
               game.clearCurrentDepartment();
