@@ -17,13 +17,14 @@ export default function PlacementFeedback({
 
   useEffect(() => {
     if (show) {
+      console.log('PlacementFeedback: Showing feedback', { isCorrect, departmentName, position });
       setIsVisible(true);
       const timer = setTimeout(() => {
         setIsVisible(false);
       }, 2000);
       return () => clearTimeout(timer);
     }
-  }, [show]);
+  }, [show, isCorrect, departmentName]); // Added deps to re-trigger on changes
 
   if (!isVisible) return null;
 

@@ -111,9 +111,16 @@ const DroppableDepartment = ({ feature, isDragging, children }: {
     }
   });
 
+  // Check if this is the keyboard navigation target
+  const enhancedNav = (window as any).__keyboardNavTarget;
+  const isKeyboardTarget = enhancedNav === departmentId;
+
   return (
-    <g ref={setNodeRef} data-over={isOver} data-department-drop-zone={departmentId}>
-      {children(isOver)}
+    <g ref={setNodeRef}
+       data-over={isOver}
+       data-department-drop-zone={departmentId}
+       data-keyboard-target={isKeyboardTarget}>
+      {children(isOver || isKeyboardTarget)}
     </g>
   );
 };

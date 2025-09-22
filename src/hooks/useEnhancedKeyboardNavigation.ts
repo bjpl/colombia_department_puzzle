@@ -132,6 +132,10 @@ export function useEnhancedKeyboardNavigation() {
           cursorPosition: { x: newX, y: newY },
           targetZone: zoneId
         }));
+
+        // Set global variable for map highlighting
+        (window as any).__keyboardNavTarget = zoneId;
+
         return; // Exit early - we've handled this
       }
 
@@ -201,7 +205,7 @@ export function useEnhancedKeyboardNavigation() {
             gameRef.current.placeDepartment(navStateRef.current.selectedDepartment.id, isCorrect);
 
             // Trigger placement feedback using custom event
-            console.log('Dispatching placement-feedback event', { isCorrect, departmentName: navState.selectedDepartment.name });
+            console.log('Dispatching placement-feedback event', { isCorrect, departmentName: navStateRef.current.selectedDepartment.name });
             window.dispatchEvent(new CustomEvent('placement-feedback', {
               detail: {
                 show: true,
@@ -228,6 +232,8 @@ export function useEnhancedKeyboardNavigation() {
             selectedDepartment: null,
             targetZone: null
           }));
+          // Clear global target
+          (window as any).__keyboardNavTarget = null;
           // Don't call clearCurrentDepartment as we're not using drag state
         }
         return;
@@ -242,6 +248,8 @@ export function useEnhancedKeyboardNavigation() {
           selectedDepartment: null,
           targetZone: null
         }));
+        // Clear global target
+        (window as any).__keyboardNavTarget = null;
         // Don't call clearCurrentDepartment as we're not using drag state
         announceToScreenReader('Selección cancelada');
         return;

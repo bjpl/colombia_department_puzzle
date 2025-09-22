@@ -160,13 +160,20 @@ export default function GameContainer() {
     const handlePlacementFeedback = (event: CustomEvent) => {
       console.log('Received placement-feedback event:', event.detail);
       const { show, isCorrect, departmentName, position } = event.detail;
-      setPlacementFeedback({ show, isCorrect, departmentName, position });
-      // Play sound effect
-      if (isCorrect) {
-        sound.playSound('correct');
-      } else {
-        sound.playSound('incorrect');
-      }
+
+      // Reset first to ensure re-trigger
+      setPlacementFeedback({ show: false, isCorrect: false, departmentName: '', position: { x: 0, y: 0 } });
+
+      // Then set new values after a brief delay
+      setTimeout(() => {
+        setPlacementFeedback({ show, isCorrect, departmentName, position });
+        // Play sound effect
+        if (isCorrect) {
+          sound.playSound('correct');
+        } else {
+          sound.playSound('incorrect');
+        }
+      }, 10);
     };
 
     window.addEventListener('placement-feedback', handlePlacementFeedback as EventListener);
