@@ -115,6 +115,25 @@ export default function GameContainer() {
     }
   }, []);
 
+  // Listen for placement feedback from keyboard navigation
+  useEffect(() => {
+    const handlePlacementFeedback = (event: CustomEvent) => {
+      const { show, isCorrect, departmentName, position } = event.detail;
+      setPlacementFeedback({ show, isCorrect, departmentName, position });
+      // Play sound effect
+      if (isCorrect) {
+        sound.playSound('correct');
+      } else {
+        sound.playSound('incorrect');
+      }
+    };
+
+    window.addEventListener('placement-feedback', handlePlacementFeedback as EventListener);
+    return () => {
+      window.removeEventListener('placement-feedback', handlePlacementFeedback as EventListener);
+    };
+  }, []);
+
   // Clear drag state when window loses focus
   useEffect(() => {
     const handleBlur = () => {
@@ -320,8 +339,8 @@ export default function GameContainer() {
             </ComponentErrorBoundary>
           </div>
 
-          {/* Drag Overlay for visual feedback */}
-          <DragOverlay />
+          {/* Drag Overlay for visual feedback - only show during mouse drag */}
+          {game.isDraggingDepartment && <DragOverlay />}
         </DndContext>
 
         {/* Placement Feedback */}

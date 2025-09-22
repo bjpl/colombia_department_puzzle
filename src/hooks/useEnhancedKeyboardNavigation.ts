@@ -19,6 +19,7 @@ interface NavigationState {
 
 export function useEnhancedKeyboardNavigation() {
   const game = useGame();
+  const [placementFeedback, setPlacementFeedback] = useState<any>(null);
   const [navState, setNavState] = useState<NavigationState>({
     mode: 'idle',
     selectedDepartment: null,
@@ -178,12 +179,20 @@ export function useEnhancedKeyboardNavigation() {
             // This prevents the DragOverlay from showing
             game.placeDepartment(navState.selectedDepartment.id, isCorrect);
 
+            // Trigger placement feedback using custom event
+            window.dispatchEvent(new CustomEvent('placement-feedback', {
+              detail: {
+                show: true,
+                isCorrect,
+                departmentName: navState.selectedDepartment.name,
+                position: navState.cursorPosition
+              }
+            }));
+
             if (isCorrect) {
               announceToScreenReader(`¡Correcto! ${navState.selectedDepartment.name} colocado.`);
-              createSuccessAnimation(navState.cursorPosition);
             } else {
               announceToScreenReader(`Incorrecto. ${navState.selectedDepartment.name} no va ahí.`);
-              createErrorAnimation(navState.cursorPosition);
             }
           } else {
             // No target zone - just announce
