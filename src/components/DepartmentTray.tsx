@@ -61,7 +61,6 @@ function DraggableChip({ department }: { department: Department }) {
         transition-all duration-150
         ${isDragging ? 'opacity-0' : 'hover:shadow-md hover:scale-105'}
       `}
-      title={`${department.name} - Capital: ${department.capital} - Región: ${department.region}`}
       role="button"
       tabIndex={0}
       aria-label={`Arrastra ${department.name} al mapa. Capital: ${department.capital}, Región: ${department.region}`}

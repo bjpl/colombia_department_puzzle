@@ -25,7 +25,6 @@ import { normalizeId, departmentNameMap } from '../utils/nameNormalizer';
 import { storage } from '../services/storage';
 import { useModalManager } from '../hooks/useModalManager';
 import { useGameTimer } from '../hooks/useGameTimer';
-import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
 import { useEnhancedKeyboardNavigation } from '../hooks/useEnhancedKeyboardNavigation';
 import { keyboardManager } from '../services/keyboardManager';
 import KeyboardCursor from './KeyboardCursor';
@@ -35,9 +34,6 @@ export default function GameContainer() {
   const modal = useModalManager();
   const timer = useGameTimer();
   const sound = useSoundEffect();
-
-  // Initialize keyboard navigation - THIS IS CRITICAL!
-  const keyboardNav = useKeyboardNavigation();
 
   // Enhanced keyboard navigation for drag & drop
   const enhancedNav = useEnhancedKeyboardNavigation();
