@@ -218,9 +218,22 @@ export function useEnhancedKeyboardNavigation() {
 
         // Enhanced logging for debugging
         if (finalZoneId !== navStateRef.current.targetZone) {
-          console.log(`🎯 Target changed: ${navStateRef.current.targetZone} → ${finalZoneId}`);
+          const dept = gameRef.current.departments.find(d => d.id === finalZoneId);
+          const prevDept = gameRef.current.departments.find(d => d.id === navStateRef.current.targetZone);
+
+          console.log(`🎯 Target changed: ${prevDept?.name || navStateRef.current.targetZone} → ${dept?.name || finalZoneId}`);
+          console.log(`   Zone ID: ${navStateRef.current.targetZone} → ${finalZoneId}`);
           console.log(`   Detection: ${detectionMethod}`);
           console.log(`   Position: (${Math.round(newX)}, ${Math.round(newY)})`);
+
+          // Debug: Log what element is actually at this position
+          if (finalZoneId) {
+            const targetElement = document.querySelector(`[data-department-drop-zone="${finalZoneId}"]`);
+            if (targetElement) {
+              const rect = targetElement.getBoundingClientRect();
+              console.log(`   Zone bounds: (${Math.round(rect.left)}, ${Math.round(rect.top)}) - (${Math.round(rect.right)}, ${Math.round(rect.bottom)})`);
+            }
+          }
         }
 
         setNavState(prev => ({

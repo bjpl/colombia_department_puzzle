@@ -125,6 +125,20 @@ export default function KeyboardCursor({
           </div>
         )}
       </div>
+
+      {/* DEBUG: Show detected zone ID */}
+      {targetZone && process.env.NODE_ENV === 'development' && (
+        <div
+          className="fixed pointer-events-none z-50 bg-black text-white text-[10px] px-2 py-1 rounded"
+          style={{
+            left: `${position.x}px`,
+            top: `${position.y + 50}px`,
+            transform: 'translateX(-50%)',
+          }}
+        >
+          Detected: {targetZone}
+        </div>
+      )}
     </>
   );
 }
