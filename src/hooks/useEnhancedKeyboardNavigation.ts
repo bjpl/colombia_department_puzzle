@@ -102,11 +102,16 @@ export function useEnhancedKeyboardNavigation() {
         e.stopImmediatePropagation(); // Stop ALL other handlers
 
         const { shiftKey, ctrlKey } = e;
+
+        // Use precision speed when already over a zone for fine-tuning
+        const isOverZone = navStateRef.current.targetZone !== null;
+        const baseSpeed = isOverZone ? moveSpeed.precision : moveSpeed.normal;
+
         const speed = ctrlKey
           ? moveSpeed.precision
           : shiftKey
             ? moveSpeed.fast
-            : moveSpeed.normal;
+            : baseSpeed;
 
         let newX = navStateRef.current.cursorPosition.x;
         let newY = navStateRef.current.cursorPosition.y;
@@ -151,31 +156,55 @@ export function useEnhancedKeyboardNavigation() {
 
         let zoneId = dropZone?.getAttribute('data-department-drop-zone') || null;
 
-        // If still no zone found, try alternative method
+        // If still no zone found, try alternative method with tolerance
         if (!zoneId) {
           // Get all drop zones and check if cursor position overlaps any
           const allZones = document.querySelectorAll('[data-department-drop-zone]');
+          let closestZone = null;
+          let closestDistance = Infinity;
+
           for (const zone of allZones) {
             const rect = zone.getBoundingClientRect();
+
+            // Check if cursor is inside the bounding box
             if (newX >= rect.left && newX <= rect.right &&
                 newY >= rect.top && newY <= rect.bottom) {
               zoneId = zone.getAttribute('data-department-drop-zone');
               console.log('Zone found via bounds check:', zoneId);
               break;
             }
+
+            // Also track the closest zone in case cursor is between zones
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const distance = Math.sqrt(Math.pow(newX - centerX, 2) + Math.pow(newY - centerY, 2));
+
+            if (distance < closestDistance) {
+              closestDistance = distance;
+              closestZone = zone;
+            }
+          }
+
+          // If no exact match but we're close to a zone (within 30 pixels), use it
+          if (!zoneId && closestZone && closestDistance < 30) {
+            zoneId = closestZone.getAttribute('data-department-drop-zone');
+            console.log('Using closest zone:', zoneId, 'distance:', closestDistance);
           }
         }
 
-        console.log('Final drop zone:', zoneId);
+        // Only show target zone if it's not already placed
+        const finalZoneId = zoneId && !gameRef.current.placedDepartments.has(zoneId) ? zoneId : null;
+
+        console.log('Final drop zone:', finalZoneId, 'Original:', zoneId);
 
         setNavState(prev => ({
           ...prev,
           cursorPosition: { x: newX, y: newY },
-          targetZone: zoneId
+          targetZone: finalZoneId
         }));
 
         // Set global variable for map highlighting
-        (window as any).__keyboardNavTarget = zoneId;
+        (window as any).__keyboardNavTarget = finalZoneId;
 
         return; // Exit early - we've handled this
       }

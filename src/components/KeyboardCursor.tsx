@@ -63,7 +63,7 @@ export default function KeyboardCursor({
       {/* Compact instructions - only show briefly */}
       {targetZone && (
         <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-[10px] px-2 py-1 rounded whitespace-nowrap opacity-90">
-          <span className="text-purple-300">Enter para colocar aquí</span>
+          <span className="text-purple-300">✓ Enter para colocar</span>
         </div>
       )}
     </div>
