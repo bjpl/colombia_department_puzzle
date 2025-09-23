@@ -46,18 +46,18 @@ export default function KeyboardCursor({
         aria-hidden="true"
       >
         <div style={{
-          backgroundColor: colors.gray[50],
+          backgroundColor: '#f9fafb',
           boxShadow: shadows.xl,
           borderRadius: radius.lg,
           padding: `${spacing[2]} ${spacing[4]}`,
-          border: `2px solid ${colors.brand[500]}`
+          border: '2px solid #3b82f6'
         }}>
           <div className="flex items-center gap-2">
             <span className="text-lg">⌨️</span>
             <div className="flex items-baseline gap-2">
               <span style={{
                 fontSize: textStyles.body.small.fontSize[0],
-                color: colors.gray[500],
+                color: '#6b7280',
                 textTransform: 'uppercase',
                 letterSpacing: '0.05em'
               }}>
@@ -132,7 +132,7 @@ export default function KeyboardCursor({
         >
           <div
             className="absolute inset-0 rounded-full border border-dashed opacity-15"
-            style={{ borderColor: colors.gray[300] }}
+            style={{ borderColor: '#d1d5db' }}
           />
         </div>
       )}
@@ -151,8 +151,8 @@ export default function KeyboardCursor({
           <div
             className="animate-pulse"
             style={{
-              backgroundColor: colors.secondary[600],
-              color: colors.gray[50],
+              backgroundColor: '#4b5563',
+              color: '#f9fafb',
               fontSize: textStyles.body.small.fontSize[0],
               padding: `${spacing[1]} ${spacing[2]}`,
               borderRadius: '9999px',
@@ -174,8 +174,8 @@ export default function KeyboardCursor({
             left: `${position.x}px`,
             top: `${position.y + 50}px`,
             transform: 'translateX(-50%)',
-            backgroundColor: colors.gray[950],
-            color: colors.gray[50],
+            backgroundColor: '#030712',
+            color: '#f9fafb',
             fontSize: '10px',
             padding: `${spacing[1]} ${spacing[2]}`,
             borderRadius: radius.md
