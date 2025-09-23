@@ -40,11 +40,12 @@ export default function PlacementFeedback({
       }}
     >
       <div
-        className={`animate-pulse py-2 px-4 rounded-lg shadow-lg font-semibold text-neutral-50 ${
-          isCorrect
-            ? 'bg-gradient-to-r from-success-500 to-success-600'
-            : 'bg-gradient-to-r from-danger-500 to-danger-600'
-        }`}
+        className="py-2 px-4 rounded-lg shadow-lg font-semibold"
+        style={{
+          backgroundColor: isCorrect ? colors.success : colors.error,
+          color: '#FFFFFF', // Force white text
+          animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+        }}
       >
         <div className="flex items-center gap-2">
           <span className="text-2xl">
@@ -60,9 +61,11 @@ export default function PlacementFeedback({
 
       {/* Ripple effect */}
       <div
-        className={`absolute inset-0 rounded-full animate-ping opacity-75 ${
-          isCorrect ? 'bg-success-400' : 'bg-danger-400'
-        }`}
+        className="absolute inset-0 rounded-full animate-ping"
+        style={{
+          backgroundColor: isCorrect ? colors.success : colors.error,
+          opacity: 0.3
+        }}
       />
     </div>
   );
