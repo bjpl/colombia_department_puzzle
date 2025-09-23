@@ -83,7 +83,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
         <CardContent className="p-8">
           <div className="flex justify-between items-start mb-6">
             <div>
-              <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-sky-600 to-emerald-600 bg-clip-text text-transparent">
+              <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-sky-600 to-emerald-600 bg-clip-text text-transparent leading-relaxed pb-1">
                 Elige Tu Modo de Juego
               </h1>
               <p className="text-gray-600">
