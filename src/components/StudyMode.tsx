@@ -395,31 +395,33 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
 
             {/* Grid View */}
             {viewMode === 'grid' && (
-              <div className="flex flex-col gap-8 pb-4">
+              <div className="flex flex-col gap-6 pb-4">
                 {Object.entries(displayDepartments).map(([region, depts]) => (
-                  <div key={region} className="relative">
-                    {/* Region label with better positioning */}
-                    <div className="mb-3 px-2 py-1 bg-gray-100 rounded-md inline-block">
-                      <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                        {region}
-                        <span className="ml-2 text-gray-500 font-normal">
+                  <div key={region} className="space-y-3">
+                    {/* Region label - full width with clear separation */}
+                    <div className="w-full">
+                      <div className="px-3 py-2 bg-gray-100 rounded-md inline-flex items-center">
+                        <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                          {region}
+                        </h3>
+                        <span className="ml-2 text-sm text-gray-500">
                           ({depts.length} departamentos)
                         </span>
-                      </h3>
+                      </div>
                     </div>
 
-                    {/* Department grid with better spacing */}
-                    <div className="grid grid-cols-3 gap-2">
+                    {/* Department grid with clear spacing from label */}
+                    <div className="grid grid-cols-3 gap-3">
                       {depts.map(dept => (
                         <Button
                           key={dept.id}
                           onClick={() => handleDepartmentClick(dept)}
                           variant={flowState.studiedDepartments.has(dept.id) ? 'secondary' : 'ghost'}
                           className={cn(
-                            'text-left transition-all hover:scale-105 p-3 h-auto min-h-[60px]',
-                            'border border-gray-200 rounded-lg',
+                            'text-left transition-all hover:scale-105 p-3 h-auto min-h-[70px]',
+                            'border border-gray-200 rounded-lg relative',
                             flowState.studiedDepartments.has(dept.id) && 'bg-green-50 border-green-300',
-                            selectedDepartment?.id === dept.id && 'ring-2 scale-105 shadow-lg',
+                            selectedDepartment?.id === dept.id && 'ring-2 scale-105 shadow-lg z-10',
                             selectedDepartment?.id === dept.id && `ring-[${colors.brand[500]}]`
                           )}
                           style={{
