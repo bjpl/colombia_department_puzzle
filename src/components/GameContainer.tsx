@@ -210,6 +210,7 @@ export default function GameContainer() {
 
     const departmentId = event.active.id as string;
     const department = game.departments.find(d => d.id === departmentId);
+    console.log('[DEBUG] Drag start:', { departmentId, department });
     if (department) {
       game.selectDepartment(department);
       game.setIsDragging(true); // Set dragging state to true
@@ -249,12 +250,20 @@ export default function GameContainer() {
       const draggedId = active.id as string;
       const targetId = over.id as string;
 
-      // Get the department data - prioritize game.currentDepartment which is set on drag start
+      // Get the department data - try all possible sources
       const draggedDepartment = game.currentDepartment ||
                                game.departments.find(d => d.id === draggedId) ||
+                               game.activeDepartments?.find(d => d.id === draggedId) ||
                                active.data?.current;
 
-      // Get a readable department name
+      console.log('[DEBUG] Drag end department resolution:', {
+        draggedId,
+        currentDept: game.currentDepartment,
+        foundDept: game.departments.find(d => d.id === draggedId),
+        draggedDepartment
+      });
+
+      // Get a readable department name - ALWAYS provide something
       let departmentName = '';
       if (draggedDepartment?.name) {
         departmentName = draggedDepartment.name;
@@ -267,6 +276,8 @@ export default function GameContainer() {
       } else {
         departmentName = 'el departamento';
       }
+
+      console.log('[DEBUG] Final department name:', departmentName);
 
       // Check if the placement is correct - simple comparison now
       const isCorrect = draggedId === targetId;
