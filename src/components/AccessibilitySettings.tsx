@@ -27,6 +27,25 @@ export default function AccessibilitySettings({
 
   // Settings are now managed by the context, no need to load here
 
+  // Listen for keyboard shortcut 'a' to open accessibility settings
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Check if 'a' key is pressed without modifiers
+      if (e.key === 'a' && !e.ctrlKey && !e.altKey && !e.metaKey && !e.shiftKey) {
+        // Don't trigger if typing in an input field
+        const target = e.target as HTMLElement;
+        if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
+          return;
+        }
+        e.preventDefault();
+        setIsOpen(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   // Calculate panel position to avoid viewport edges
   useEffect(() => {
     if (isOpen && buttonRef.current) {
