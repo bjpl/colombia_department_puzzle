@@ -249,19 +249,24 @@ export default function GameContainer() {
       const draggedId = active.id as string;
       const targetId = over.id as string;
 
-      // Get the department data - try multiple sources to ensure we have it
-      const draggedDepartment = active.data?.current ||
+      // Get the department data - prioritize game.currentDepartment which is set on drag start
+      const draggedDepartment = game.currentDepartment ||
                                game.departments.find(d => d.id === draggedId) ||
-                               game.currentDepartment;
+                               active.data?.current;
 
-      console.log('Drag end - Department info:', {
-        draggedId,
-        targetId,
-        departmentFromData: active.data?.current,
-        departmentFromFind: game.departments.find(d => d.id === draggedId),
-        departmentFromCurrent: game.currentDepartment,
-        finalDepartment: draggedDepartment
-      });
+      // Get a readable department name
+      let departmentName = '';
+      if (draggedDepartment?.name) {
+        departmentName = draggedDepartment.name;
+      } else if (draggedId) {
+        // Format the ID as a readable name (e.g., "la-guajira" -> "La Guajira")
+        departmentName = draggedId
+          .split('-')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+      } else {
+        departmentName = 'el departamento';
+      }
 
       // Check if the placement is correct - simple comparison now
       const isCorrect = draggedId === targetId;
@@ -273,12 +278,10 @@ export default function GameContainer() {
 
       // Then show new feedback after a brief delay
       setTimeout(() => {
-        const deptName = draggedDepartment?.name || draggedId || 'Departamento';
-        console.log('Setting placement feedback with name:', deptName);
         setPlacementFeedback({
           show: true,
           isCorrect,
-          departmentName: deptName, // Always pass a name, fallback to ID if needed
+          departmentName: departmentName,
           position: rect ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 } : { x: window.innerWidth / 2, y: window.innerHeight / 2 }
         });
       }, 10);
