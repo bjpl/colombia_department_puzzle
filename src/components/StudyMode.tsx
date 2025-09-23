@@ -312,7 +312,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
 
             {/* Enhanced Card View */}
             {viewMode === 'cards' && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {Object.entries(displayDepartments).flatMap(([region, depts]) =>
                   depts.map(dept => (
                     <Card
@@ -395,31 +395,53 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
 
             {/* Grid View */}
             {viewMode === 'grid' && (
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-8 pb-4">
                 {Object.entries(displayDepartments).map(([region, depts]) => (
-                  <div key={region}>
-                    <h3 className="text-lg font-semibold mb-1 text-gray-600">
-                      {region} ({depts.length})
-                    </h3>
-                    <div className="grid grid-cols-4 gap-1">
+                  <div key={region} className="relative">
+                    {/* Region label with better positioning */}
+                    <div className="mb-3 px-2 py-1 bg-gray-100 rounded-md inline-block">
+                      <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                        {region}
+                        <span className="ml-2 text-gray-500 font-normal">
+                          ({depts.length} departamentos)
+                        </span>
+                      </h3>
+                    </div>
+
+                    {/* Department grid with better spacing */}
+                    <div className="grid grid-cols-3 gap-2">
                       {depts.map(dept => (
                         <Button
                           key={dept.id}
                           onClick={() => handleDepartmentClick(dept)}
                           variant={flowState.studiedDepartments.has(dept.id) ? 'secondary' : 'ghost'}
                           className={cn(
-                            'text-left transition-all hover:scale-105 p-2 h-auto min-h-12',
+                            'text-left transition-all hover:scale-105 p-3 h-auto min-h-[60px]',
+                            'border border-gray-200 rounded-lg',
                             flowState.studiedDepartments.has(dept.id) && 'bg-green-50 border-green-300',
-                            selectedDepartment?.id === dept.id && 'ring-2 scale-105',
+                            selectedDepartment?.id === dept.id && 'ring-2 scale-105 shadow-lg',
                             selectedDepartment?.id === dept.id && `ring-[${colors.brand[500]}]`
                           )}
+                          style={{
+                            backgroundColor: flowState.studiedDepartments.has(dept.id)
+                              ? 'rgb(240 253 244)'
+                              : selectedDepartment?.id === dept.id
+                              ? colors.brand[50]
+                              : 'white'
+                          }}
                         >
-                          <div className="flex flex-col items-start">
-                            <div className="text-sm font-medium">
+                          <div className="flex flex-col items-start gap-1">
+                            <div className="text-sm font-semibold text-gray-900 leading-tight">
                               {dept.name}
                             </div>
-                            <div className="text-xs text-gray-600">
-                              {dept.capital}
+                            <div className="text-xs text-gray-500">
+                              Capital: {dept.capital}
+                            </div>
+                            <div
+                              className="text-xs font-medium"
+                              style={{ color: REGION_COLORS[dept.region] || colors.text.secondary }}
+                            >
+                              {dept.region}
                             </div>
                           </div>
                         </Button>
