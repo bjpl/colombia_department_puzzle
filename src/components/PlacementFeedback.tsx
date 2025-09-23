@@ -42,7 +42,7 @@ export default function PlacementFeedback({
       <div
         className="py-2 px-4 rounded-lg shadow-lg font-semibold"
         style={{
-          backgroundColor: isCorrect ? colors.success : colors.error,
+          backgroundColor: isCorrect ? '#16a34a' : '#dc2626', // Green for correct, red for incorrect
           color: '#FFFFFF', // Force white text
           animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
         }}
@@ -63,7 +63,7 @@ export default function PlacementFeedback({
       <div
         className="absolute inset-0 rounded-full animate-ping"
         style={{
-          backgroundColor: isCorrect ? colors.success : colors.error,
+          backgroundColor: isCorrect ? '#16a34a' : '#dc2626',
           opacity: 0.3
         }}
       />
