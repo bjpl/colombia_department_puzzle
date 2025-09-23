@@ -249,8 +249,19 @@ export default function GameContainer() {
       const draggedId = active.id as string;
       const targetId = over.id as string;
 
-      // Get the department data
-      const draggedDepartment = active.data.current as Department;
+      // Get the department data - try multiple sources to ensure we have it
+      const draggedDepartment = active.data?.current ||
+                               game.departments.find(d => d.id === draggedId) ||
+                               game.currentDepartment;
+
+      console.log('Drag end - Department info:', {
+        draggedId,
+        targetId,
+        departmentFromData: active.data?.current,
+        departmentFromFind: game.departments.find(d => d.id === draggedId),
+        departmentFromCurrent: game.currentDepartment,
+        finalDepartment: draggedDepartment
+      });
 
       // Check if the placement is correct - simple comparison now
       const isCorrect = draggedId === targetId;
@@ -262,10 +273,12 @@ export default function GameContainer() {
 
       // Then show new feedback after a brief delay
       setTimeout(() => {
+        const deptName = draggedDepartment?.name || draggedId || 'Departamento';
+        console.log('Setting placement feedback with name:', deptName);
         setPlacementFeedback({
           show: true,
           isCorrect,
-          departmentName: draggedDepartment?.name || '', // Always pass the department name
+          departmentName: deptName, // Always pass a name, fallback to ID if needed
           position: rect ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 } : { x: window.innerWidth / 2, y: window.innerHeight / 2 }
         });
       }, 10);
