@@ -59,20 +59,18 @@ ${failedTests === 0 ? '🎉 All colors meet WCAG AAA standards!' : '⚠️ Some 
   return { results, summary };
 }
 
-// Run validation
-if (import.meta.env.DEV) {
-  console.log('🚀 Running WCAG AAA Accessibility Validation...');
-  const { results, summary } = validateAllColors();
-  console.log(summary);
+// Run validation when script is executed
+console.log('🚀 Running WCAG AAA Accessibility Validation...');
+const { results, summary } = validateAllColors();
+console.log(summary);
 
-  // Group failed tests for easier debugging
-  const failedTests = results.filter(r => !r.passes);
-  if (failedTests.length > 0) {
-    console.log('\n⚠️ Failed Tests:');
-    failedTests.forEach(test => {
-      console.log(`  ${test.mode} - ${test.region}: ${test.color} (Ratio: ${test.ratio.toFixed(2)})`);
-    });
-  }
+// Group failed tests for easier debugging
+const failedTests = results.filter(r => !r.passes);
+if (failedTests.length > 0) {
+  console.log('\n⚠️ Failed Tests:');
+  failedTests.forEach(test => {
+    console.log(`  ${test.mode} - ${test.region}: ${test.color} (Ratio: ${test.ratio.toFixed(2)})`);
+  });
 }
 
 export { validateAllColors };

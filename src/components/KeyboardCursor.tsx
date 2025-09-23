@@ -90,7 +90,7 @@ export default function KeyboardCursor({
           style={{
             width: '2.5rem',
             height: '2px',
-            backgroundColor: colors.danger[500]
+            backgroundColor: '#dc2626'
           }}
         />
         <div
@@ -98,7 +98,7 @@ export default function KeyboardCursor({
           style={{
             width: '2px',
             height: '2.5rem',
-            backgroundColor: colors.danger[500]
+            backgroundColor: '#dc2626'
           }}
         />
         {/* Center dot */}
@@ -108,10 +108,10 @@ export default function KeyboardCursor({
             width: '1rem',
             height: '1rem',
             borderRadius: '50%',
-            backgroundColor: targetZone ? colors.success[500] : colors.danger[500],
+            backgroundColor: targetZone ? '#16a34a' : '#dc2626',
             boxShadow: targetZone
-              ? `0 0 0 4px ${colors.success[300]}`
-              : `0 0 0 2px ${colors.danger[300]}`,
+              ? '0 0 0 4px rgba(34, 197, 94, 0.3)'
+              : '0 0 0 2px #dc2626',
             transition: 'all 0.2s'
           }}
         />
