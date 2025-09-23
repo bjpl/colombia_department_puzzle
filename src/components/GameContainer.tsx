@@ -156,17 +156,8 @@ export default function GameContainer() {
     }
   }, [game.elapsedTime, game.isGameStarted]);
 
-  // Check for first-time player and show tutorial
-  useEffect(() => {
-    const settings = storage.getSettings();
-    const profile = storage.getActiveProfile();
-
-    // Show tutorial for first-time users or those who haven't seen it
-    // But only if no other modal is already open
-    if (!modal.activeModal && (!settings.tutorialShown || !profile || (!profile.stats?.gamesPlayed || profile.stats.gamesPlayed === 0))) {
-      modal.openModal('tutorial');
-    }
-  }, []);
+  // Removed automatic tutorial display to prevent modal queue issues
+  // Users can access tutorial via the header button if needed
 
   // Listen for placement feedback from keyboard navigation
   useEffect(() => {
@@ -335,7 +326,8 @@ export default function GameContainer() {
             }}
             onTutorial={() => {
               game.clearCurrentDepartment(); // Clear any active drag
-              modal.openModal('tutorial');
+              modal.closeAllModals(); // Clear any queued modals first
+              setTimeout(() => modal.openModal('tutorial'), 0); // Open after clearing
             }}
           />
 
@@ -552,24 +544,10 @@ export default function GameContainer() {
         {modal.isModalOpen('tutorial') && (
           <InteractiveTutorial
             onComplete={() => {
-              modal.closeModal();
-              // After tutorial, show mode selector for first-time users (unless they came from study mode)
-              if (!hasUsedStudyMode) {
-                const profile = storage.getActiveProfile();
-                if (!profile || !profile.stats?.gamesPlayed || profile.stats.gamesPlayed === 0) {
-                  modal.openModal('gameMode');
-                }
-              }
+              modal.closeAllModals(); // Simply close without showing any other modal
             }}
             onSkip={() => {
-              modal.closeModal();
-              // If skipping tutorial, also show mode selector for first-time users (unless they came from study mode)
-              if (!hasUsedStudyMode) {
-                const profile = storage.getActiveProfile();
-                if (!profile || !profile.stats?.gamesPlayed || profile.stats.gamesPlayed === 0) {
-                  modal.openModal('gameMode');
-                }
-              }
+              modal.closeAllModals(); // Simply close without showing any other modal
             }}
           />
         )}
