@@ -53,7 +53,7 @@ export default function PlacementFeedback({
           <span>
             {isCorrect
               ? `¡Correcto! ${departmentName}`
-              : 'Ubicación incorrecta'}
+              : departmentName ? `Intenta de nuevo con ${departmentName}` : 'Ubicación incorrecta'}
           </span>
         </div>
       </div>

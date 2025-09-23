@@ -257,12 +257,18 @@ export default function GameContainer() {
 
       // Show placement feedback
       const rect = (event.over as DragEndEvent['over'] & { rect?: DOMRect })?.rect;
-      setPlacementFeedback({
-        show: true,
-        isCorrect,
-        departmentName: isCorrect ? (draggedDepartment?.name || '') : '',
-        position: rect ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 } : { x: window.innerWidth / 2, y: window.innerHeight / 2 }
-      });
+      // Reset feedback first to ensure it shows on consecutive attempts
+      setPlacementFeedback(prev => ({ ...prev, show: false }));
+
+      // Then show new feedback after a brief delay
+      setTimeout(() => {
+        setPlacementFeedback({
+          show: true,
+          isCorrect,
+          departmentName: draggedDepartment?.name || '', // Always pass the department name
+          position: rect ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 } : { x: window.innerWidth / 2, y: window.innerHeight / 2 }
+        });
+      }, 10);
 
       if (isCorrect) {
         // Correct placement - use the department ID
