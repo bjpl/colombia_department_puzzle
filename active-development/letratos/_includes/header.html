@@ -1,0 +1,15 @@
+<header class="site-header">
+  <nav class="site-nav">
+    <a href="{{ '/' | relative_url }}" class="site-title">
+      <img src="{{ '/assets/logotype.png' | relative_url }}" alt="{{ site.title }}" class="site-logo">
+    </a>
+    <div class="nav-links">
+      <a href="{{ '/en/' | relative_url }}" class="{% if page.lang == 'en' or page.url contains '/en/' %}active{% endif %}">English</a>
+      <a href="{{ '/es/' | relative_url }}" class="{% if page.lang == 'es' or page.url contains '/es/' %}active{% endif %}">Español</a>
+      <!-- Photography link temporarily disabled
+      <a href="{{ '/photography/' | relative_url }}" class="{% if page.url contains '/photography/' %}active{% endif %}">Photography</a>
+      -->
+      <a href="{{ '/about/' | relative_url }}" class="{% if page.url contains '/about' %}active{% endif %}">About</a>
+    </div>
+  </nav>
+</header>
