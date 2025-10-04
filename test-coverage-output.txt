@@ -1,0 +1,429 @@
+
+> colombia-departments-puzzle@1.0.0 test
+> vitest --coverage --run
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mC:/Users/brand/Development/Project_Workspace/active-development/colombia_puzzle_game[39m
+[2m      Coverage enabled with [22m[33mv8[39m
+
+ [32m✓[39m src/tests/colorConsistency.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/tests/utils/nameNormalizer.test.ts [2m ([22m[2m13 tests[22m[2m)[22m[90m 23[2mms[22m[39m
+ [33m❯[39m src/tests/hooks/useModalManager.test.ts [2m ([22m[2m16 tests[22m [2m|[22m [31m5 failed[39m[2m)[22m[90m 86[2mms[22m[39m
+[31m   [33m❯[31m src/tests/hooks/useModalManager.test.ts[2m > [22museModalManager[2m > [22mClosing Modals[2m > [22mshould process queue in FIFO order[39m
+[31m     → expected 'postGame' to be 'tutorial' // Object.is equality[39m
+[31m   [33m❯[31m src/tests/hooks/useModalManager.test.ts[2m > [22museModalManager[2m > [22mClosing Modals[2m > [22mshould close all modals including queue[39m
+[31m     → expected 'postGame' to be 'tutorial' // Object.is equality[39m
+[31m   [33m❯[31m src/tests/hooks/useModalManager.test.ts[2m > [22museModalManager[2m > [22mModal State Checking[2m > [22mshould return false for queued modals[39m
+[31m     → expected false to be true // Object.is equality[39m
+[31m   [33m❯[31m src/tests/hooks/useModalManager.test.ts[2m > [22museModalManager[2m > [22mComplex Scenarios[2m > [22mshould handle opening same modal type multiple times[39m
+[31m     → expected false to be true // Object.is equality[39m
+[31m   [33m❯[31m src/tests/hooks/useModalManager.test.ts[2m > [22museModalManager[2m > [22mComplex Scenarios[2m > [22mshould handle mixed operations[39m
+[31m     → expected 'study' to be 'tutorial' // Object.is equality[39m
+ [33m❯[39m src/tests/services/storage.test.ts [2m ([22m[2m17 tests[22m [2m|[22m [31m2 failed[39m[2m)[22m[90m 67[2mms[22m[39m
+[31m   [33m❯[31m src/tests/services/storage.test.ts[2m > [22mStorageService[2m > [22mUser Profiles[2m > [22mshould handle multiple profiles[39m
+[31m     → expected [ { …(4) } ] to have a length of 3 but got 1[39m
+[31m   [33m❯[31m src/tests/services/storage.test.ts[2m > [22mStorageService[2m > [22mGame Sessions[2m > [22mshould filter sessions by profile ID[39m
+[31m     → expected [ { …(6) }, { …(6) } ] to have a length of 1 but got 2[39m
+ [32m✓[39m src/tests/utils/cn.test.ts [2m ([22m[2m12 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [33m❯[39m src/tests/hooks/useKeyboardNavigation.test.ts [2m ([22m[2m10 tests[22m [2m|[22m [31m10 failed[39m[2m)[22m[90m 27[2mms[22m[39m
+[31m   [33m❯[31m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mInitial State[2m > [22mshould initialize with default state[39m
+[31m     → createRoot(...): Target container is not a DOM element.[39m
+[31m   [33m❯[31m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mDepartment Selection[2m > [22mshould handle select action when focused on department[39m
+[31m     → createRoot(...): Target container is not a DOM element.[39m
+[31m   [33m❯[31m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mDepartment Selection[2m > [22mshould not select if department already placed[39m
+[31m     → createRoot(...): Target container is not a DOM element.[39m
+[31m   [33m❯[31m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mCancel Action[2m > [22mshould clear selection on cancel[39m
+[31m     → createRoot(...): Target container is not a DOM element.[39m
+[31m   [33m❯[31m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mGame Actions[2m > [22mshould use hint when action is triggered[39m
+[31m     → createRoot(...): Target container is not a DOM element.[39m
+[31m   [33m❯[31m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mGame Actions[2m > [22mshould not use hint if no hints available[39m
+[31m     → createRoot(...): Target container is not a DOM element.[39m
+[31m   [33m❯[31m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mGame Actions[2m > [22mshould toggle pause state[39m
+[31m     → createRoot(...): Target container is not a DOM element.[39m
+[31m   [33m❯[31m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mMute Action[2m > [22mshould toggle sound settings[39m
+[31m     → createRoot(...): Target container is not a DOM element.[39m
+[31m   [33m❯[31m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mCleanup[2m > [22mshould remove event listeners on unmount[39m
+[31m     → createRoot(...): Target container is not a DOM element.[39m
+[31m   [33m❯[31m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mAccessibility[2m > [22mshould create screen reader announcements[39m
+[31m     → createRoot(...): Target container is not a DOM element.[39m
+ [32m✓[39m src/tests/hooks/useProgressiveHints.test.ts [2m ([22m[2m20 tests[22m[2m)[22m[90m 71[2mms[22m[39m
+ [33m❯[39m src/tests/hooks/useGameTimer.test.ts [2m ([22m[2m14 tests[22m [2m|[22m [31m9 failed[39m[2m)[22m[33m 40191[2mms[22m[39m
+[31m   [33m❯[31m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mTimer Control[2m > [22mshould start timer and update elapsed time[39m
+[31m     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m   [33m❯[31m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mTimer Control[2m > [22mshould pause timer correctly[39m
+[31m     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m   [33m❯[31m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mTimer Control[2m > [22mshould resume timer after pause[39m
+[31m     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m   [33m❯[31m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mTimer Control[2m > [22mshould stop timer and keep elapsed time[39m
+[31m     → expected 8 to be 5 // Object.is equality[39m
+[31m   [33m❯[31m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mTimer Control[2m > [22mshould reset timer to initial state[39m
+[31m     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m   [33m❯[31m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mEdge Cases[2m > [22mshould not start timer if already running[39m
+[31m     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m   [33m❯[31m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mEdge Cases[2m > [22mshould not pause if already paused[39m
+[31m     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m   [33m❯[31m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mEdge Cases[2m > [22mshould clean up interval on unmount[39m
+[31m     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m   [33m❯[31m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mPause/Resume Flow[2m > [22mshould handle multiple pause/resume cycles[39m
+[31m     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+
+[31m⎯⎯⎯⎯⎯⎯[1m[7m Failed Tests 26 [27m[22m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mTimer Control[2m > [22mshould start timer and update elapsed time
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mTimer Control[2m > [22mshould pause timer correctly
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mTimer Control[2m > [22mshould resume timer after pause
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mTimer Control[2m > [22mshould reset timer to initial state
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mEdge Cases[2m > [22mshould not start timer if already running
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mEdge Cases[2m > [22mshould not pause if already paused
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mEdge Cases[2m > [22mshould clean up interval on unmount
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mPause/Resume Flow[2m > [22mshould handle multiple pause/resume cycles
+[31m[1mError[22m: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useGameTimer.test.ts[2m > [22museGameTimer[2m > [22mTimer Control[2m > [22mshould stop timer and keep elapsed time
+[31m[1mAssertionError[22m: expected 8 to be 5 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 5[39m
+[31m+ 8[39m
+
+[36m [2m❯[22m src/tests/hooks/useGameTimer.test.ts:[2m138:42[22m[39m
+    [90m136| [39m      [34mexpect[39m(result[33m.[39mcurrent[33m.[39misPaused)[33m.[39m[34mtoBe[39m([35mfalse[39m)[33m;[39m
+    [90m137| [39m      [90m// Elapsed time should be preserved[39m
+    [90m138| [39m      [34mexpect[39m(result[33m.[39mcurrent[33m.[39melapsedTime)[33m.[39m[34mtoBe[39m([34m5[39m)[33m;[39m
+    [90m   | [39m                                         [31m^[39m
+    [90m139| [39m    })[33m;[39m
+    [90m140| [39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mInitial State[2m > [22mshould initialize with default state
+[31m[1mError[22m: createRoot(...): Target container is not a DOM element.[39m
+[90m [2m❯[22m createRoot node_modules/react-dom/cjs/react-dom.development.js:[2m29384:11[22m[39m
+[90m [2m❯[22m Object.createRoot$1 [as createRoot] node_modules/react-dom/cjs/react-dom.development.js:[2m29855:10[22m[39m
+[90m [2m❯[22m Object.exports.createRoot node_modules/react-dom/client.js:[2m12:16[22m[39m
+[90m [2m❯[22m createConcurrentRoot node_modules/@testing-library/react/dist/pure.js:[2m147:27[22m[39m
+[90m [2m❯[22m render node_modules/@testing-library/react/dist/pure.js:[2m266:12[22m[39m
+[90m [2m❯[22m Proxy.renderHook node_modules/@testing-library/react/dist/pure.js:[2m340:7[22m[39m
+[36m [2m❯[22m src/tests/hooks/useKeyboardNavigation.test.ts:[2m60:26[22m[39m
+    [90m 58| [39m  [34mdescribe[39m([32m'Initial State'[39m[33m,[39m () [33m=>[39m {
+    [90m 59| [39m    [34mit[39m([32m'should initialize with default state'[39m[33m,[39m () [33m=>[39m {
+    [90m 60| [39m      [35mconst[39m { result } [33m=[39m [34mrenderHook[39m(() [33m=>[39m [34museKeyboardNavigation[39m())[33m;[39m
+    [90m   | [39m                         [31m^[39m
+    [90m 61| [39m
+    [90m 62| [39m      [34mexpect[39m(result[33m.[39mcurrent[33m.[39misKeyboardMode)[33m.[39m[34mtoBe[39m([35mfalse[39m)[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mDepartment Selection[2m > [22mshould handle select action when focused on department
+[31m[1mError[22m: createRoot(...): Target container is not a DOM element.[39m
+[90m [2m❯[22m createRoot node_modules/react-dom/cjs/react-dom.development.js:[2m29384:11[22m[39m
+[90m [2m❯[22m Object.createRoot$1 [as createRoot] node_modules/react-dom/cjs/react-dom.development.js:[2m29855:10[22m[39m
+[90m [2m❯[22m Object.exports.createRoot node_modules/react-dom/client.js:[2m12:16[22m[39m
+[90m [2m❯[22m createConcurrentRoot node_modules/@testing-library/react/dist/pure.js:[2m147:27[22m[39m
+[90m [2m❯[22m render node_modules/@testing-library/react/dist/pure.js:[2m266:12[22m[39m
+[90m [2m❯[22m Proxy.renderHook node_modules/@testing-library/react/dist/pure.js:[2m340:7[22m[39m
+[36m [2m❯[22m src/tests/hooks/useKeyboardNavigation.test.ts:[2m71:26[22m[39m
+    [90m 69| [39m  [34mdescribe[39m([32m'Department Selection'[39m[33m,[39m () [33m=>[39m {
+    [90m 70| [39m    [34mit[39m([32m'should handle select action when focused on department'[39m[33m,[39m () [33m=>[39m…
+    [90m 71| [39m      [35mconst[39m { result } [33m=[39m [34mrenderHook[39m(() [33m=>[39m [34museKeyboardNavigation[39m())[33m;[39m
+    [90m   | [39m                         [31m^[39m
+    [90m 72| [39m
+    [90m 73| [39m      [35mconst[39m mockElement [33m=[39m {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mDepartment Selection[2m > [22mshould not select if department already placed
+[31m[1mError[22m: createRoot(...): Target container is not a DOM element.[39m
+[90m [2m❯[22m createRoot node_modules/react-dom/cjs/react-dom.development.js:[2m29384:11[22m[39m
+[90m [2m❯[22m Object.createRoot$1 [as createRoot] node_modules/react-dom/cjs/react-dom.development.js:[2m29855:10[22m[39m
+[90m [2m❯[22m Object.exports.createRoot node_modules/react-dom/client.js:[2m12:16[22m[39m
+[90m [2m❯[22m createConcurrentRoot node_modules/@testing-library/react/dist/pure.js:[2m147:27[22m[39m
+[90m [2m❯[22m render node_modules/@testing-library/react/dist/pure.js:[2m266:12[22m[39m
+[90m [2m❯[22m Proxy.renderHook node_modules/@testing-library/react/dist/pure.js:[2m340:7[22m[39m
+[36m [2m❯[22m src/tests/hooks/useKeyboardNavigation.test.ts:[2m101:26[22m[39m
+    [90m 99| [39m    [34mit[39m([32m'should not select if department already placed'[39m[33m,[39m () [33m=>[39m {
+    [90m100| [39m      mockGameContext[33m.[39mplacedDepartments [33m=[39m [35mnew[39m [33mSet[39m([[32m'antioquia'[39m])[33m;[39m
+    [90m101| [39m      [35mconst[39m { result } [33m=[39m [34mrenderHook[39m(() [33m=>[39m [34museKeyboardNavigation[39m())[33m;[39m
+    [90m   | [39m                         [31m^[39m
+    [90m102| [39m
+    [90m103| [39m      [35mconst[39m mockElement [33m=[39m {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mCancel Action[2m > [22mshould clear selection on cancel
+[31m[1mError[22m: createRoot(...): Target container is not a DOM element.[39m
+[90m [2m❯[22m createRoot node_modules/react-dom/cjs/react-dom.development.js:[2m29384:11[22m[39m
+[90m [2m❯[22m Object.createRoot$1 [as createRoot] node_modules/react-dom/cjs/react-dom.development.js:[2m29855:10[22m[39m
+[90m [2m❯[22m Object.exports.createRoot node_modules/react-dom/client.js:[2m12:16[22m[39m
+[90m [2m❯[22m createConcurrentRoot node_modules/@testing-library/react/dist/pure.js:[2m147:27[22m[39m
+[90m [2m❯[22m render node_modules/@testing-library/react/dist/pure.js:[2m266:12[22m[39m
+[90m [2m❯[22m Proxy.renderHook node_modules/@testing-library/react/dist/pure.js:[2m340:7[22m[39m
+[36m [2m❯[22m src/tests/hooks/useKeyboardNavigation.test.ts:[2m130:26[22m[39m
+    [90m128| [39m  [34mdescribe[39m([32m'Cancel Action'[39m[33m,[39m () [33m=>[39m {
+    [90m129| [39m    [34mit[39m([32m'should clear selection on cancel'[39m[33m,[39m [35masync[39m () [33m=>[39m {
+    [90m130| [39m      [35mconst[39m { result } [33m=[39m [34mrenderHook[39m(() [33m=>[39m [34museKeyboardNavigation[39m())[33m;[39m
+    [90m   | [39m                         [31m^[39m
+    [90m131| [39m
+    [90m132| [39m      [90m// First select a department[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mGame Actions[2m > [22mshould use hint when action is triggered
+[31m[1mError[22m: createRoot(...): Target container is not a DOM element.[39m
+[90m [2m❯[22m createRoot node_modules/react-dom/cjs/react-dom.development.js:[2m29384:11[22m[39m
+[90m [2m❯[22m Object.createRoot$1 [as createRoot] node_modules/react-dom/cjs/react-dom.development.js:[2m29855:10[22m[39m
+[90m [2m❯[22m Object.exports.createRoot node_modules/react-dom/client.js:[2m12:16[22m[39m
+[90m [2m❯[22m createConcurrentRoot node_modules/@testing-library/react/dist/pure.js:[2m147:27[22m[39m
+[90m [2m❯[22m render node_modules/@testing-library/react/dist/pure.js:[2m266:12[22m[39m
+[90m [2m❯[22m Proxy.renderHook node_modules/@testing-library/react/dist/pure.js:[2m340:7[22m[39m
+[36m [2m❯[22m src/tests/hooks/useKeyboardNavigation.test.ts:[2m181:26[22m[39m
+    [90m179| [39m      mockGameContext[33m.[39mhints [33m=[39m [34m3[39m[33m;[39m
+    [90m180| [39m
+    [90m181| [39m      [35mconst[39m { result } [33m=[39m [34mrenderHook[39m(() [33m=>[39m [34museKeyboardNavigation[39m())[33m;[39m
+    [90m   | [39m                         [31m^[39m
+    [90m182| [39m
+    [90m183| [39m      [34mact[39m(() [33m=>[39m {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mGame Actions[2m > [22mshould not use hint if no hints available
+[31m[1mError[22m: createRoot(...): Target container is not a DOM element.[39m
+[90m [2m❯[22m createRoot node_modules/react-dom/cjs/react-dom.development.js:[2m29384:11[22m[39m
+[90m [2m❯[22m Object.createRoot$1 [as createRoot] node_modules/react-dom/cjs/react-dom.development.js:[2m29855:10[22m[39m
+[90m [2m❯[22m Object.exports.createRoot node_modules/react-dom/client.js:[2m12:16[22m[39m
+[90m [2m❯[22m createConcurrentRoot node_modules/@testing-library/react/dist/pure.js:[2m147:27[22m[39m
+[90m [2m❯[22m render node_modules/@testing-library/react/dist/pure.js:[2m266:12[22m[39m
+[90m [2m❯[22m Proxy.renderHook node_modules/@testing-library/react/dist/pure.js:[2m340:7[22m[39m
+[36m [2m❯[22m src/tests/hooks/useKeyboardNavigation.test.ts:[2m205:26[22m[39m
+    [90m203| [39m      mockGameContext[33m.[39mhints [33m=[39m [34m0[39m[33m;[39m
+    [90m204| [39m
+    [90m205| [39m      [35mconst[39m { result } [33m=[39m [34mrenderHook[39m(() [33m=>[39m [34museKeyboardNavigation[39m())[33m;[39m
+    [90m   | [39m                         [31m^[39m
+    [90m206| [39m
+    [90m207| [39m      [34mact[39m(() [33m=>[39m {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mGame Actions[2m > [22mshould toggle pause state
+[31m[1mError[22m: createRoot(...): Target container is not a DOM element.[39m
+[90m [2m❯[22m createRoot node_modules/react-dom/cjs/react-dom.development.js:[2m29384:11[22m[39m
+[90m [2m❯[22m Object.createRoot$1 [as createRoot] node_modules/react-dom/cjs/react-dom.development.js:[2m29855:10[22m[39m
+[90m [2m❯[22m Object.exports.createRoot node_modules/react-dom/client.js:[2m12:16[22m[39m
+[90m [2m❯[22m createConcurrentRoot node_modules/@testing-library/react/dist/pure.js:[2m147:27[22m[39m
+[90m [2m❯[22m render node_modules/@testing-library/react/dist/pure.js:[2m266:12[22m[39m
+[90m [2m❯[22m Proxy.renderHook node_modules/@testing-library/react/dist/pure.js:[2m340:7[22m[39m
+[36m [2m❯[22m src/tests/hooks/useKeyboardNavigation.test.ts:[2m221:26[22m[39m
+    [90m219| [39m
+    [90m220| [39m    [34mit[39m([32m'should toggle pause state'[39m[33m,[39m () [33m=>[39m {
+    [90m221| [39m      [35mconst[39m { result } [33m=[39m [34mrenderHook[39m(() [33m=>[39m [34museKeyboardNavigation[39m())[33m;[39m
+    [90m   | [39m                         [31m^[39m
+    [90m222| [39m
+    [90m223| [39m      [34mact[39m(() [33m=>[39m {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mMute Action[2m > [22mshould toggle sound settings
+[31m[1mError[22m: createRoot(...): Target container is not a DOM element.[39m
+[90m [2m❯[22m createRoot node_modules/react-dom/cjs/react-dom.development.js:[2m29384:11[22m[39m
+[90m [2m❯[22m Object.createRoot$1 [as createRoot] node_modules/react-dom/cjs/react-dom.development.js:[2m29855:10[22m[39m
+[90m [2m❯[22m Object.exports.createRoot node_modules/react-dom/client.js:[2m12:16[22m[39m
+[90m [2m❯[22m createConcurrentRoot node_modules/@testing-library/react/dist/pure.js:[2m147:27[22m[39m
+[90m [2m❯[22m render node_modules/@testing-library/react/dist/pure.js:[2m266:12[22m[39m
+[90m [2m❯[22m Proxy.renderHook node_modules/@testing-library/react/dist/pure.js:[2m340:7[22m[39m
+[36m [2m❯[22m src/tests/hooks/useKeyboardNavigation.test.ts:[2m253:26[22m[39m
+    [90m251| [39m  [34mdescribe[39m([32m'Mute Action'[39m[33m,[39m () [33m=>[39m {
+    [90m252| [39m    [34mit[39m([32m'should toggle sound settings'[39m[33m,[39m () [33m=>[39m {
+    [90m253| [39m      [35mconst[39m { result } [33m=[39m [34mrenderHook[39m(() [33m=>[39m [34museKeyboardNavigation[39m())[33m;[39m
+    [90m   | [39m                         [31m^[39m
+    [90m254| [39m
+    [90m255| [39m      [90m// Initial state[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mCleanup[2m > [22mshould remove event listeners on unmount
+[31m[1mError[22m: createRoot(...): Target container is not a DOM element.[39m
+[90m [2m❯[22m createRoot node_modules/react-dom/cjs/react-dom.development.js:[2m29384:11[22m[39m
+[90m [2m❯[22m Object.createRoot$1 [as createRoot] node_modules/react-dom/cjs/react-dom.development.js:[2m29855:10[22m[39m
+[90m [2m❯[22m Object.exports.createRoot node_modules/react-dom/client.js:[2m12:16[22m[39m
+[90m [2m❯[22m createConcurrentRoot node_modules/@testing-library/react/dist/pure.js:[2m147:27[22m[39m
+[90m [2m❯[22m render node_modules/@testing-library/react/dist/pure.js:[2m266:12[22m[39m
+[90m [2m❯[22m Proxy.renderHook node_modules/@testing-library/react/dist/pure.js:[2m340:7[22m[39m
+[36m [2m❯[22m src/tests/hooks/useKeyboardNavigation.test.ts:[2m291:27[22m[39m
+    [90m289| [39m      [35mconst[39m removeEventListenerSpy [33m=[39m vi[33m.[39m[34mspyOn[39m(window[33m,[39m [32m'removeEventList[39m…
+    [90m290| [39m
+    [90m291| [39m      [35mconst[39m { unmount } [33m=[39m [34mrenderHook[39m(() [33m=>[39m [34museKeyboardNavigation[39m())[33m;[39m
+    [90m   | [39m                          [31m^[39m
+    [90m292| [39m
+    [90m293| [39m      [34munmount[39m()[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useKeyboardNavigation.test.ts[2m > [22museKeyboardNavigation[2m > [22mAccessibility[2m > [22mshould create screen reader announcements
+[31m[1mError[22m: createRoot(...): Target container is not a DOM element.[39m
+[90m [2m❯[22m createRoot node_modules/react-dom/cjs/react-dom.development.js:[2m29384:11[22m[39m
+[90m [2m❯[22m Object.createRoot$1 [as createRoot] node_modules/react-dom/cjs/react-dom.development.js:[2m29855:10[22m[39m
+[90m [2m❯[22m Object.exports.createRoot node_modules/react-dom/client.js:[2m12:16[22m[39m
+[90m [2m❯[22m createConcurrentRoot node_modules/@testing-library/react/dist/pure.js:[2m147:27[22m[39m
+[90m [2m❯[22m render node_modules/@testing-library/react/dist/pure.js:[2m266:12[22m[39m
+[90m [2m❯[22m Proxy.renderHook node_modules/@testing-library/react/dist/pure.js:[2m340:7[22m[39m
+[36m [2m❯[22m src/tests/hooks/useKeyboardNavigation.test.ts:[2m306:26[22m[39m
+    [90m304| [39m      [35mconst[39m appendChildSpy [33m=[39m vi[33m.[39m[34mspyOn[39m(document[33m.[39mbody[33m,[39m [32m'appendChild'[39m)[33m;[39m
+    [90m305| [39m
+    [90m306| [39m      [35mconst[39m { result } [33m=[39m [34mrenderHook[39m(() [33m=>[39m [34museKeyboardNavigation[39m())[33m;[39m
+    [90m   | [39m                         [31m^[39m
+    [90m307| [39m
+    [90m308| [39m      [35mconst[39m mockElement [33m=[39m {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useModalManager.test.ts[2m > [22museModalManager[2m > [22mClosing Modals[2m > [22mshould process queue in FIFO order
+[31m[1mAssertionError[22m: expected 'postGame' to be 'tutorial' // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- tutorial[39m
+[31m+ postGame[39m
+
+[36m [2m❯[22m src/tests/hooks/useModalManager.test.ts:[2m112:42[22m[39m
+    [90m110| [39m      })[33m;[39m
+    [90m111| [39m
+    [90m112| [39m      [34mexpect[39m(result[33m.[39mcurrent[33m.[39mactiveModal)[33m.[39m[34mtoBe[39m([32m'tutorial'[39m)[33m;[39m
+    [90m   | [39m                                         [31m^[39m
+    [90m113| [39m
+    [90m114| [39m      [34mact[39m(() [33m=>[39m {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useModalManager.test.ts[2m > [22museModalManager[2m > [22mClosing Modals[2m > [22mshould close all modals including queue
+[31m[1mAssertionError[22m: expected 'postGame' to be 'tutorial' // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- tutorial[39m
+[31m+ postGame[39m
+
+[36m [2m❯[22m src/tests/hooks/useModalManager.test.ts:[2m142:42[22m[39m
+    [90m140| [39m      })[33m;[39m
+    [90m141| [39m
+    [90m142| [39m      [34mexpect[39m(result[33m.[39mcurrent[33m.[39mactiveModal)[33m.[39m[34mtoBe[39m([32m'tutorial'[39m)[33m;[39m
+    [90m   | [39m                                         [31m^[39m
+    [90m143| [39m      [34mexpect[39m(result[33m.[39mcurrent[33m.[39mhasQueuedModals)[33m.[39m[34mtoBe[39m([35mtrue[39m)[33m;[39m
+    [90m144| [39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useModalManager.test.ts[2m > [22museModalManager[2m > [22mModal State Checking[2m > [22mshould return false for queued modals
+[31m[1mAssertionError[22m: expected false to be true // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+[36m [2m❯[22m src/tests/hooks/useModalManager.test.ts:[2m175:54[22m[39m
+    [90m173| [39m      })[33m;[39m
+    [90m174| [39m
+    [90m175| [39m      [34mexpect[39m(result[33m.[39mcurrent[33m.[39m[34misModalOpen[39m([32m'tutorial'[39m))[33m.[39m[34mtoBe[39m([35mtrue[39m)[33m;[39m
+    [90m   | [39m                                                     [31m^[39m
+    [90m176| [39m      [34mexpect[39m(result[33m.[39mcurrent[33m.[39m[34misModalOpen[39m([32m'study'[39m))[33m.[39m[34mtoBe[39m([35mfalse[39m)[33m;[39m
+    [90m177| [39m    })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useModalManager.test.ts[2m > [22museModalManager[2m > [22mComplex Scenarios[2m > [22mshould handle opening same modal type multiple times
+[31m[1mAssertionError[22m: expected false to be true // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+[36m [2m❯[22m src/tests/hooks/useModalManager.test.ts:[2m239:46[22m[39m
+    [90m237| [39m
+    [90m238| [39m      [34mexpect[39m(result[33m.[39mcurrent[33m.[39mactiveModal)[33m.[39m[34mtoBe[39m([32m'tutorial'[39m)[33m;[39m
+    [90m239| [39m      [34mexpect[39m(result[33m.[39mcurrent[33m.[39mhasQueuedModals)[33m.[39m[34mtoBe[39m([35mtrue[39m)[33m;[39m
+    [90m   | [39m                                             [31m^[39m
+    [90m240| [39m
+    [90m241| [39m      [34mact[39m(() [33m=>[39m {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/hooks/useModalManager.test.ts[2m > [22museModalManager[2m > [22mComplex Scenarios[2m > [22mshould handle mixed operations
+[31m[1mAssertionError[22m: expected 'study' to be 'tutorial' // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- tutorial[39m
+[31m+ study[39m
+
+[36m [2m❯[22m src/tests/hooks/useModalManager.test.ts:[2m256:42[22m[39m
+    [90m254| [39m      })[33m;[39m
+    [90m255| [39m
+    [90m256| [39m      [34mexpect[39m(result[33m.[39mcurrent[33m.[39mactiveModal)[33m.[39m[34mtoBe[39m([32m'tutorial'[39m)[33m;[39m
+    [90m   | [39m                                         [31m^[39m
+    [90m257| [39m
+    [90m258| [39m      [34mact[39m(() [33m=>[39m {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/services/storage.test.ts[2m > [22mStorageService[2m > [22mUser Profiles[2m > [22mshould handle multiple profiles
+[31m[1mAssertionError[22m: expected [ { …(4) } ] to have a length of 3 but got 1[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 3[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m src/tests/services/storage.test.ts:[2m66:24[22m[39m
+    [90m 64| [39m
+    [90m 65| [39m      [35mconst[39m profiles [33m=[39m storage[33m.[39m[34mgetProfiles[39m()[33m;[39m
+    [90m 66| [39m      [34mexpect[39m(profiles)[33m.[39m[34mtoHaveLength[39m([34m3[39m)[33m;[39m
+    [90m   | [39m                       [31m^[39m
+    [90m 67| [39m    })[33m;[39m
+    [90m 68| [39m  })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/26]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/services/storage.test.ts[2m > [22mStorageService[2m > [22mGame Sessions[2m > [22mshould filter sessions by profile ID
+[31m[1mAssertionError[22m: expected [ { …(6) }, { …(6) } ] to have a length of 1 but got 2[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 1[39m
+[31m+ 2[39m
+
+[36m [2m❯[22m src/tests/services/storage.test.ts:[2m229:32[22m[39m
+    [90m227| [39m
+    [90m228| [39m      [35mconst[39m profile1Sessions [33m=[39m storage[33m.[39m[34mgetSessions[39m(profile1[33m.[39mid)[33m;[39m
+    [90m229| [39m      [34mexpect[39m(profile1Sessions)[33m.[39m[34mtoHaveLength[39m([34m1[39m)[33m;[39m
+    [90m   | [39m                               [31m^[39m
+    [90m230| [39m      [34mexpect[39m(profile1Sessions[[34m0[39m][33m.[39mscore)[33m.[39m[34mtoBe[39m([34m100[39m)[33m;[39m
+    [90m231| [39m    })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/26]⎯[22m[39m
+
+[2m Test Files [22m [1m[31m4 failed[39m[22m[2m | [22m[1m[32m4 passed[39m[22m[90m (8)[39m
+[2m      Tests [22m [1m[31m26 failed[39m[22m[2m | [22m[1m[32m80 passed[39m[22m[90m (106)[39m
+[2m   Start at [22m 04:00:23
+[2m   Duration [22m 43.02s[2m (transform 448ms, setup 3.42s, collect 554ms, tests 40.48s, environment 13.26s, prepare 2.19s)[22m
+

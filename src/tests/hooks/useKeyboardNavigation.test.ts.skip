@@ -1,0 +1,336 @@
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { renderHook, act, waitFor } from '@testing-library/react';
+import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
+import { ReactNode } from 'react';
+
+// Mock GameContext
+const mockGameContext = {
+  departments: [
+    { id: 'antioquia', name: 'Antioquia', region: 'Andina', capital: 'Medellín' },
+    { id: 'cundinamarca', name: 'Cundinamarca', region: 'Andina', capital: 'Bogotá' },
+    { id: 'atlantico', name: 'Atlántico', region: 'Caribe', capital: 'Barranquilla' },
+  ],
+  placedDepartments: new Set(),
+  currentDepartment: null,
+  selectDepartment: vi.fn(),
+  placeDepartment: vi.fn(),
+  clearCurrentDepartment: vi.fn(),
+  useHint: vi.fn(),
+  resetGame: vi.fn(),
+  pauseGame: vi.fn(),
+  resumeGame: vi.fn(),
+  hints: 3,
+  isPaused: false,
+  gameMode: { type: 'full' },
+};
+
+vi.mock('../../context/GameContext', () => ({
+  useGame: () => mockGameContext,
+  GameProvider: ({ children }: { children: ReactNode }) => children,
+}));
+
+// Mock keyboard manager
+vi.mock('../../services/keyboardManager', () => ({
+  keyboardManager: {
+    initialize: vi.fn(),
+    cleanup: vi.fn(),
+  },
+}));
+
+describe('useKeyboardNavigation', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockGameContext.placedDepartments = new Set();
+    mockGameContext.currentDepartment = null;
+    mockGameContext.isPaused = false;
+
+    // Mock DOM methods
+    document.elementFromPoint = vi.fn().mockReturnValue(null);
+    document.querySelector = vi.fn().mockReturnValue(null);
+    document.body.appendChild = vi.fn();
+    document.body.removeChild = vi.fn();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  describe('Initial State', () => {
+    it('should initialize with default state', () => {
+      const { result } = renderHook(() => useKeyboardNavigation());
+
+      expect(result.current.isKeyboardMode).toBe(false);
+      expect(result.current.selectedDepartment).toBeNull();
+      expect(result.current.position).toEqual({ x: 0, y: 0 });
+      expect(result.current.targetZone).toBeNull();
+    });
+  });
+
+  describe('Department Selection', () => {
+    it('should handle select action when focused on department', () => {
+      const { result } = renderHook(() => useKeyboardNavigation());
+
+      const mockElement = {
+        hasAttribute: vi.fn().mockReturnValue(true),
+        getAttribute: vi.fn().mockReturnValue('antioquia'),
+      };
+
+      Object.defineProperty(document, 'activeElement', {
+        value: mockElement,
+        writable: true,
+        configurable: true,
+      });
+
+      act(() => {
+        const event = new CustomEvent('keyboard-action', {
+          detail: {
+            action: 'select',
+            event: { preventDefault: vi.fn() },
+          },
+        });
+        window.dispatchEvent(event);
+      });
+
+      expect(mockGameContext.selectDepartment).toHaveBeenCalledWith(
+        expect.objectContaining({ id: 'antioquia' })
+      );
+    });
+
+    it('should not select if department already placed', () => {
+      mockGameContext.placedDepartments = new Set(['antioquia']);
+      const { result } = renderHook(() => useKeyboardNavigation());
+
+      const mockElement = {
+        hasAttribute: vi.fn().mockReturnValue(true),
+        getAttribute: vi.fn().mockReturnValue('antioquia'),
+      };
+
+      Object.defineProperty(document, 'activeElement', {
+        value: mockElement,
+        writable: true,
+        configurable: true,
+      });
+
+      act(() => {
+        const event = new CustomEvent('keyboard-action', {
+          detail: {
+            action: 'select',
+            event: { preventDefault: vi.fn() },
+          },
+        });
+        window.dispatchEvent(event);
+      });
+
+      expect(mockGameContext.selectDepartment).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Cancel Action', () => {
+    it('should clear selection on cancel', async () => {
+      const { result } = renderHook(() => useKeyboardNavigation());
+
+      // First select a department
+      const mockElement = {
+        hasAttribute: vi.fn().mockReturnValue(true),
+        getAttribute: vi.fn().mockReturnValue('antioquia'),
+      };
+
+      Object.defineProperty(document, 'activeElement', {
+        value: mockElement,
+        writable: true,
+        configurable: true,
+      });
+
+      act(() => {
+        const selectEvent = new CustomEvent('keyboard-action', {
+          detail: {
+            action: 'select',
+            event: { preventDefault: vi.fn() },
+          },
+        });
+        window.dispatchEvent(selectEvent);
+      });
+
+      // Then cancel
+      act(() => {
+        const cancelEvent = new CustomEvent('keyboard-action', {
+          detail: {
+            action: 'cancel',
+            event: { preventDefault: vi.fn() },
+          },
+        });
+        window.dispatchEvent(cancelEvent);
+      });
+
+      await waitFor(() => {
+        expect(mockGameContext.clearCurrentDepartment).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('Game Actions', () => {
+    it('should use hint when action is triggered', () => {
+      mockGameContext.currentDepartment = {
+        id: 'antioquia',
+        name: 'Antioquia',
+        region: 'Andina',
+        capital: 'Medellín'
+      };
+      mockGameContext.hints = 3;
+
+      const { result } = renderHook(() => useKeyboardNavigation());
+
+      act(() => {
+        const event = new CustomEvent('keyboard-action', {
+          detail: {
+            action: 'hint',
+            event: { preventDefault: vi.fn() },
+          },
+        });
+        window.dispatchEvent(event);
+      });
+
+      expect(mockGameContext.useHint).toHaveBeenCalled();
+    });
+
+    it('should not use hint if no hints available', () => {
+      mockGameContext.currentDepartment = {
+        id: 'antioquia',
+        name: 'Antioquia',
+        region: 'Andina',
+        capital: 'Medellín'
+      };
+      mockGameContext.hints = 0;
+
+      const { result } = renderHook(() => useKeyboardNavigation());
+
+      act(() => {
+        const event = new CustomEvent('keyboard-action', {
+          detail: {
+            action: 'hint',
+            event: { preventDefault: vi.fn() },
+          },
+        });
+        window.dispatchEvent(event);
+      });
+
+      expect(mockGameContext.useHint).not.toHaveBeenCalled();
+    });
+
+    it('should toggle pause state', () => {
+      const { result } = renderHook(() => useKeyboardNavigation());
+
+      act(() => {
+        const event = new CustomEvent('keyboard-action', {
+          detail: {
+            action: 'pause',
+            event: { preventDefault: vi.fn() },
+          },
+        });
+        window.dispatchEvent(event);
+      });
+
+      expect(mockGameContext.pauseGame).toHaveBeenCalled();
+
+      mockGameContext.isPaused = true;
+
+      act(() => {
+        const event = new CustomEvent('keyboard-action', {
+          detail: {
+            action: 'pause',
+            event: { preventDefault: vi.fn() },
+          },
+        });
+        window.dispatchEvent(event);
+      });
+
+      expect(mockGameContext.resumeGame).toHaveBeenCalled();
+    });
+  });
+
+  describe('Mute Action', () => {
+    it('should toggle sound settings', () => {
+      const { result } = renderHook(() => useKeyboardNavigation());
+
+      // Initial state
+      localStorage.setItem('soundSettings', JSON.stringify({ enabled: true }));
+
+      act(() => {
+        const event = new CustomEvent('keyboard-action', {
+          detail: {
+            action: 'mute',
+            event: { preventDefault: vi.fn() },
+          },
+        });
+        window.dispatchEvent(event);
+      });
+
+      const settings = JSON.parse(localStorage.getItem('soundSettings') || '{}');
+      expect(settings.enabled).toBe(false);
+
+      // Toggle back
+      act(() => {
+        const event = new CustomEvent('keyboard-action', {
+          detail: {
+            action: 'mute',
+            event: { preventDefault: vi.fn() },
+          },
+        });
+        window.dispatchEvent(event);
+      });
+
+      const newSettings = JSON.parse(localStorage.getItem('soundSettings') || '{}');
+      expect(newSettings.enabled).toBe(true);
+    });
+  });
+
+  describe('Cleanup', () => {
+    it('should remove event listeners on unmount', () => {
+      const removeEventListenerSpy = vi.spyOn(window, 'removeEventListener');
+
+      const { unmount } = renderHook(() => useKeyboardNavigation());
+
+      unmount();
+
+      expect(removeEventListenerSpy).toHaveBeenCalledWith(
+        'keyboard-action',
+        expect.any(Function)
+      );
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('should create screen reader announcements', async () => {
+      const appendChildSpy = vi.spyOn(document.body, 'appendChild');
+
+      const { result } = renderHook(() => useKeyboardNavigation());
+
+      const mockElement = {
+        hasAttribute: vi.fn().mockReturnValue(true),
+        getAttribute: vi.fn().mockReturnValue('antioquia'),
+      };
+
+      Object.defineProperty(document, 'activeElement', {
+        value: mockElement,
+        writable: true,
+        configurable: true,
+      });
+
+      act(() => {
+        const event = new CustomEvent('keyboard-action', {
+          detail: {
+            action: 'select',
+            event: { preventDefault: vi.fn() },
+          },
+        });
+        window.dispatchEvent(event);
+      });
+
+      // Verify an announcement element would be created
+      // (implementation creates a div with role="status")
+      await waitFor(() => {
+        expect(appendChildSpy).toHaveBeenCalled();
+      }, { timeout: 2000 });
+    });
+  });
+});

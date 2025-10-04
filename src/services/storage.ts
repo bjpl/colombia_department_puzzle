@@ -36,6 +36,8 @@ export interface GameSession {
 }
 
 class StorageService {
+  private profileCounter = 0;
+
   private readonly STORAGE_KEYS = {
     PROFILES: 'colombia_puzzle_profiles',
     ACTIVE_PROFILE: 'colombia_puzzle_active_profile',
@@ -75,13 +77,14 @@ class StorageService {
   }
 
   createNewProfile(name: string): UserProfile {
+    const timestamp = Date.now();
     const profile: UserProfile = {
-      id: `profile_${Date.now()}`,
+      id: `profile_${timestamp}_${this.profileCounter++}`,
       name,
-      createdAt: Date.now(),
+      createdAt: timestamp,
       stats: {
         gamesPlayed: 0,
-        bestTime: Infinity,
+        bestTime: Number.MAX_SAFE_INTEGER,
         highScore: 0,
         totalScore: 0,
         perfectGames: 0,

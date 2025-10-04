@@ -77,6 +77,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
+        type="button"
         className={cn(
           // Base styles
           'inline-flex items-center justify-center',

@@ -1,0 +1,63 @@
+
+> colombia-departments-puzzle@1.0.0 test
+> vitest --run --coverage
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mC:/Users/brand/Development/Project_Workspace/active-development/colombia_puzzle_game[39m
+[2m      Coverage enabled with [22m[33mv8[39m
+
+ [32m✓[39m src/tests/colorConsistency.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/tests/utils/nameNormalizer.test.ts [2m ([22m[2m13 tests[22m[2m)[22m[90m 20[2mms[22m[39m
+ [33m❯[39m src/tests/services/storage.test.ts [2m ([22m[2m17 tests[22m [2m|[22m [31m2 failed[39m[2m)[22m[90m 39[2mms[22m[39m
+[31m   [33m❯[31m src/tests/services/storage.test.ts[2m > [22mStorageService[2m > [22mUser Profiles[2m > [22mshould handle multiple profiles[39m
+[31m     → expected [ { …(4) } ] to have a length of 3 but got 1[39m
+[31m   [33m❯[31m src/tests/services/storage.test.ts[2m > [22mStorageService[2m > [22mGame Sessions[2m > [22mshould filter sessions by profile ID[39m
+[31m     → expected [ { …(6) }, { …(6) } ] to have a length of 1 but got 2[39m
+ [32m✓[39m src/tests/utils/cn.test.ts [2m ([22m[2m12 tests[22m[2m)[22m[90m 17[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[1m[7m Failed Tests 2 [27m[22m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/services/storage.test.ts[2m > [22mStorageService[2m > [22mUser Profiles[2m > [22mshould handle multiple profiles
+[31m[1mAssertionError[22m: expected [ { …(4) } ] to have a length of 3 but got 1[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 3[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m src/tests/services/storage.test.ts:[2m66:24[22m[39m
+    [90m 64| [39m
+    [90m 65| [39m      [35mconst[39m profiles [33m=[39m storage[33m.[39m[34mgetProfiles[39m()[33m;[39m
+    [90m 66| [39m      [34mexpect[39m(profiles)[33m.[39m[34mtoHaveLength[39m([34m3[39m)[33m;[39m
+    [90m   | [39m                       [31m^[39m
+    [90m 67| [39m    })[33m;[39m
+    [90m 68| [39m  })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/tests/services/storage.test.ts[2m > [22mStorageService[2m > [22mGame Sessions[2m > [22mshould filter sessions by profile ID
+[31m[1mAssertionError[22m: expected [ { …(6) }, { …(6) } ] to have a length of 1 but got 2[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 1[39m
+[31m+ 2[39m
+
+[36m [2m❯[22m src/tests/services/storage.test.ts:[2m229:32[22m[39m
+    [90m227| [39m
+    [90m228| [39m      [35mconst[39m profile1Sessions [33m=[39m storage[33m.[39m[34mgetSessions[39m(profile1[33m.[39mid)[33m;[39m
+    [90m229| [39m      [34mexpect[39m(profile1Sessions)[33m.[39m[34mtoHaveLength[39m([34m1[39m)[33m;[39m
+    [90m   | [39m                               [31m^[39m
+    [90m230| [39m      [34mexpect[39m(profile1Sessions[[34m0[39m][33m.[39mscore)[33m.[39m[34mtoBe[39m([34m100[39m)[33m;[39m
+    [90m231| [39m    })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯[22m[39m
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m3 passed[39m[22m[90m (4)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m44 passed[39m[22m[90m (46)[39m
+[2m   Start at [22m 03:58:58
+[2m   Duration [22m 2.11s[2m (transform 209ms, setup 1.14s, collect 181ms, tests 82ms, environment 3.52s, prepare 1.05s)[22m
+
