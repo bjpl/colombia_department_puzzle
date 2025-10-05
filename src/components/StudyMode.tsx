@@ -104,16 +104,17 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
 
   const handleDepartmentClick = (dept: Department) => {
     setSelectedDepartment(dept);
-    setFlowState(prev => ({
-      ...prev,
-      studiedDepartments: new Set([...prev.studiedDepartments, dept.id])
-    }));
+    setFlowState(prev => {
+      const newStudiedDepartments = new Set([...prev.studiedDepartments, dept.id]);
 
-    // Smart phase progression
-    if (prev.studiedDepartments.size >= 5 && flowState.phase === 'explore') {
-      setFlowState(prev => ({ ...prev, phase: 'focus' }));
-      setShowQuickActions(true);
-    }
+      // Smart phase progression
+      if (newStudiedDepartments.size >= 5 && prev.phase === 'explore') {
+        setShowQuickActions(true);
+        return { ...prev, studiedDepartments: newStudiedDepartments, phase: 'focus' };
+      }
+
+      return { ...prev, studiedDepartments: newStudiedDepartments };
+    });
   };
 
   const handleRegionFocus = (region: string) => {
