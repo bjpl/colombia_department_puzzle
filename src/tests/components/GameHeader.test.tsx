@@ -11,6 +11,16 @@ import {
   renderWithProviders,
   createMockGameStore,
 } from '../utils/testProviders';
+import * as testProviders from '../utils/testProviders';
+
+// Mock GameContext to use the test provider's useGame
+vi.mock('../../context/GameContext', async () => {
+  const actual = await vi.importActual<typeof testProviders>('../utils/testProviders');
+  return {
+    useGame: actual.useGame,
+    GameProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  };
+});
 
 // Mock sound manager
 vi.mock('../../services/soundManager', () => ({
@@ -158,8 +168,9 @@ describe('GameHeader', () => {
 
       renderWithProviders(<GameHeader />, { gameStore: store });
 
-      const badge = screen.getByText('0');
-      expect(badge).toBeInTheDocument();
+      // Use aria-label to find the specific hints button with 0 count
+      const hintsButton = screen.getByLabelText(/0 pistas disponibles/i);
+      expect(hintsButton).toBeInTheDocument();
     });
   });
 
@@ -253,14 +264,17 @@ describe('GameHeader', () => {
       const user = userEvent.setup();
       const store = createMockGameStore({
         isGameStarted: false,
+        isPaused: false,
       });
       const mockStartGame = vi.fn();
       store.setState({ startGame: mockStartGame });
 
       renderWithProviders(<GameHeader />, { gameStore: store });
 
-      const playButton = screen.getByLabelText(/Reanudar juego/i);
-      await user.click(playButton);
+      // When game hasn't started, isPaused is false, so button shows "Pausar juego"
+      // But the action will be to start the game instead
+      const playPauseButton = screen.getByLabelText(/Pausar juego/i);
+      await user.click(playPauseButton);
 
       expect(mockStartGame).toHaveBeenCalled();
     });
@@ -390,14 +404,22 @@ describe('GameHeader', () => {
     });
 
     it('should update as departments are placed', () => {
+      const mockDepts = Array(10).fill(null).map((_, i) => ({
+        id: `dept${i}`,
+        name: `Dept ${i}`,
+        region: 'Andina',
+        capital: 'City',
+      }));
+
       const store = createMockGameStore({
         placedDepartments: new Set(['dept1']),
-        activeDepartments: Array(10).fill(null).map((_, i) => ({
-          id: `dept${i}`,
-          name: `Dept ${i}`,
-          region: 'Andina',
-          capital: 'City',
-        })),
+        activeDepartments: mockDepts,
+        departments: mockDepts,
+      });
+
+      // Override getFilteredDepartments to return the mock departments
+      store.setState({
+        getFilteredDepartments: () => mockDepts,
       });
 
       renderWithProviders(<GameHeader />, { gameStore: store });

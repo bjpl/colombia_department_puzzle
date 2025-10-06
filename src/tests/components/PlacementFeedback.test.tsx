@@ -38,7 +38,8 @@ describe('PlacementFeedback', () => {
     });
 
     it('should hide after 2 seconds', async () => {
-      const { rerender } = render(
+      const { act } = await import('@testing-library/react');
+      render(
         <PlacementFeedback
           show={true}
           isCorrect={true}
@@ -48,19 +49,12 @@ describe('PlacementFeedback', () => {
 
       expect(screen.getByText(/Correcto/i)).toBeInTheDocument();
 
-      // Fast-forward time
-      vi.advanceTimersByTime(2000);
-
-      await waitFor(() => {
-        rerender(
-          <PlacementFeedback
-            show={true}
-            isCorrect={true}
-            departmentName="Antioquia"
-          />
-        );
-        expect(screen.queryByText(/Correcto/i)).not.toBeInTheDocument();
+      // Fast-forward time and wait for updates
+      await act(async () => {
+        vi.runOnlyPendingTimers();
       });
+
+      expect(screen.queryByText(/Correcto/i)).not.toBeInTheDocument();
     });
   });
 
@@ -91,7 +85,7 @@ describe('PlacementFeedback', () => {
     });
 
     it('should use green background', () => {
-      render(
+      const { container } = render(
         <PlacementFeedback
           show={true}
           isCorrect={true}
@@ -99,8 +93,8 @@ describe('PlacementFeedback', () => {
         />
       );
 
-      const element = screen.getByText(/Correcto/i).closest('div');
-      expect(element).toHaveStyle({ backgroundColor: '#16a34a' });
+      const messageBox = container.querySelector('.rounded-lg.shadow-lg');
+      expect(messageBox).toHaveStyle({ backgroundColor: '#16a34a' });
     });
 
     it('should use white text', () => {
@@ -144,7 +138,7 @@ describe('PlacementFeedback', () => {
     });
 
     it('should use red background', () => {
-      render(
+      const { container } = render(
         <PlacementFeedback
           show={true}
           isCorrect={false}
@@ -152,8 +146,8 @@ describe('PlacementFeedback', () => {
         />
       );
 
-      const element = screen.getByText(/Intenta de nuevo/i).closest('div');
-      expect(element).toHaveStyle({ backgroundColor: '#dc2626' });
+      const messageBox = container.querySelector('.rounded-lg.shadow-lg');
+      expect(messageBox).toHaveStyle({ backgroundColor: '#dc2626' });
     });
 
     it('should show generic message when no department name', () => {
@@ -174,10 +168,9 @@ describe('PlacementFeedback', () => {
       );
 
       const element = container.firstChild as HTMLElement;
-      expect(element).toHaveStyle({
-        left: expect.any(String),
-        top: expect.any(String),
-      });
+      // Check that left and top styles exist and contain 'px'
+      expect(element.style.left).toMatch(/\d+px/);
+      expect(element.style.top).toMatch(/\d+px/);
     });
 
     it('should use custom position when provided', () => {
@@ -319,7 +312,7 @@ describe('PlacementFeedback', () => {
     });
 
     it('should have rounded corners', () => {
-      render(
+      const { container } = render(
         <PlacementFeedback
           show={true}
           isCorrect={true}
@@ -327,12 +320,14 @@ describe('PlacementFeedback', () => {
         />
       );
 
-      const messageBox = screen.getByText(/Correcto/i).closest('div');
-      expect(messageBox).toHaveClass('rounded-lg');
+      // Find the styled div (parent of flex container)
+      const messageBox = container.querySelector('.rounded-lg');
+      expect(messageBox).toBeInTheDocument();
+      expect(messageBox).toHaveClass('shadow-lg'); // Has both classes
     });
 
     it('should have shadow', () => {
-      render(
+      const { container } = render(
         <PlacementFeedback
           show={true}
           isCorrect={true}
@@ -340,13 +335,15 @@ describe('PlacementFeedback', () => {
         />
       );
 
-      const messageBox = screen.getByText(/Correcto/i).closest('div');
-      expect(messageBox).toHaveClass('shadow-lg');
+      const messageBox = container.querySelector('.shadow-lg');
+      expect(messageBox).toBeInTheDocument();
+      expect(messageBox).toHaveClass('rounded-lg'); // Has both classes
     });
   });
 
   describe('Re-triggering', () => {
     it('should show again when show prop changes', async () => {
+      const { act } = await import('@testing-library/react');
       const { rerender } = render(
         <PlacementFeedback
           show={true}
@@ -358,10 +355,11 @@ describe('PlacementFeedback', () => {
       expect(screen.getByText(/Correcto/i)).toBeInTheDocument();
 
       // Wait for it to disappear
-      vi.advanceTimersByTime(2000);
-      await waitFor(() => {
-        expect(screen.queryByText(/Correcto/i)).not.toBeInTheDocument();
+      await act(async () => {
+        vi.runOnlyPendingTimers();
       });
+
+      expect(screen.queryByText(/Correcto/i)).not.toBeInTheDocument();
 
       // Show again with different content
       rerender(
@@ -372,9 +370,7 @@ describe('PlacementFeedback', () => {
         />
       );
 
-      await waitFor(() => {
-        expect(screen.getByText(/Intenta de nuevo/i)).toBeInTheDocument();
-      });
+      expect(screen.getByText(/Intenta de nuevo/i)).toBeInTheDocument();
     });
 
     it('should update position when changed', () => {

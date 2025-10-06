@@ -142,30 +142,30 @@ describe('InteractiveTutorial', () => {
     });
 
     it('should show "Comenzar" button on last step', async () => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ delay: null });
       render(
         <InteractiveTutorial onComplete={mockOnComplete} onSkip={mockOnSkip} />
       );
 
-      const nextButton = screen.getByRole('button', { name: /Siguiente/i });
-
       // Click through all steps (6 total, so 5 clicks to get to last)
       for (let i = 0; i < 5; i++) {
+        const nextButton = await screen.findByRole('button', { name: /Siguiente/i });
         await user.click(nextButton);
-        await waitFor(() => {}, { timeout: 500 });
+        // Wait for animation to complete (300ms in component)
+        await new Promise(resolve => setTimeout(resolve, 350));
       }
 
       await waitFor(() => {
         expect(
           screen.getByRole('button', { name: /Comenzar/i })
         ).toBeInTheDocument();
-      });
+      }, { timeout: 1000 });
     });
   });
 
   describe('Step Content', () => {
     it('should show all 6 tutorial steps in sequence', async () => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ delay: null });
       render(
         <InteractiveTutorial onComplete={mockOnComplete} onSkip={mockOnSkip} />
       );
@@ -179,14 +179,16 @@ describe('InteractiveTutorial', () => {
         '¡Comienza!',
       ];
 
-      const nextButton = screen.getByRole('button', { name: /Siguiente/i });
-
       for (let i = 0; i < expectedTitles.length; i++) {
-        expect(screen.getByText(expectedTitles[i])).toBeInTheDocument();
+        await waitFor(() => {
+          expect(screen.getByText(expectedTitles[i])).toBeInTheDocument();
+        });
 
         if (i < expectedTitles.length - 1) {
+          const nextButton = await screen.findByRole('button', { name: /Siguiente/i });
           await user.click(nextButton);
-          await waitFor(() => {}, { timeout: 500 });
+          // Wait for animation to complete (300ms in component)
+          await new Promise(resolve => setTimeout(resolve, 350));
         }
       }
     });
@@ -210,45 +212,45 @@ describe('InteractiveTutorial', () => {
 
   describe('Completion', () => {
     it('should call onComplete when finishing tutorial', async () => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ delay: null });
       render(
         <InteractiveTutorial onComplete={mockOnComplete} onSkip={mockOnSkip} />
       );
 
-      const nextButton = screen.getByRole('button', { name: /Siguiente/i });
-
       // Click through to last step
       for (let i = 0; i < 5; i++) {
+        const nextButton = await screen.findByRole('button', { name: /Siguiente/i });
         await user.click(nextButton);
-        await waitFor(() => {}, { timeout: 500 });
+        // Wait for animation to complete (300ms in component)
+        await new Promise(resolve => setTimeout(resolve, 350));
       }
 
       // Click "Comenzar" button
       const startButton = await screen.findByRole('button', {
         name: /Comenzar/i,
-      });
+      }, { timeout: 1000 });
       await user.click(startButton);
 
       expect(mockOnComplete).toHaveBeenCalledTimes(1);
     });
 
     it('should save tutorial completion to storage', async () => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ delay: null });
       render(
         <InteractiveTutorial onComplete={mockOnComplete} onSkip={mockOnSkip} />
       );
 
-      const nextButton = screen.getByRole('button', { name: /Siguiente/i });
-
       // Complete tutorial
       for (let i = 0; i < 5; i++) {
+        const nextButton = await screen.findByRole('button', { name: /Siguiente/i });
         await user.click(nextButton);
-        await waitFor(() => {}, { timeout: 500 });
+        // Wait for animation to complete (300ms in component)
+        await new Promise(resolve => setTimeout(resolve, 350));
       }
 
       const startButton = await screen.findByRole('button', {
         name: /Comenzar/i,
-      });
+      }, { timeout: 1000 });
       await user.click(startButton);
 
       expect(storage.saveSetting).toHaveBeenCalledWith('tutorialShown', true);

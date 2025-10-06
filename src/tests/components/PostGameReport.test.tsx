@@ -4,14 +4,18 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import PostGameReport from '../../components/PostGameReport';
-import {
-  renderWithProviders,
-  createMockGameStore,
-} from '../utils/testProviders';
+import { createMockGameStore } from '../utils/testProviders';
 import { storage } from '../../services/storage';
+import React from 'react';
+
+// Mock GameContext
+const mockUseGame = vi.fn();
+vi.mock('../../context/GameContext', () => ({
+  useGame: () => mockUseGame(),
+}));
 
 // Mock storage
 vi.mock('../../services/storage', () => ({
@@ -61,14 +65,14 @@ describe('PostGameReport', () => {
         hints: 2,
         placedDepartments: new Set(['antioquia', 'cundinamarca']),
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText(/Juego Completado/i)).toBeInTheDocument();
@@ -78,14 +82,14 @@ describe('PostGameReport', () => {
       const gameStore = createMockGameStore({
         score: 3200,
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText('3200')).toBeInTheDocument();
@@ -96,14 +100,14 @@ describe('PostGameReport', () => {
       const gameStore = createMockGameStore({
         elapsedTime: 185, // 3:05
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText('3:05')).toBeInTheDocument();
@@ -118,14 +122,14 @@ describe('PostGameReport', () => {
           { id: 'antioquia', name: 'Antioquia', region: 'Andina', capital: 'Medellín' },
         ],
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       // Accuracy = correct / (attempts + correct)
@@ -136,14 +140,14 @@ describe('PostGameReport', () => {
       const gameStore = createMockGameStore({
         hints: 1, // Started with 3, used 2
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText('2')).toBeInTheDocument();
@@ -157,14 +161,14 @@ describe('PostGameReport', () => {
         attempts: 0,
         placedDepartments: new Set(['antioquia', 'cundinamarca']),
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText(/Perfecto/i)).toBeInTheDocument();
@@ -175,14 +179,14 @@ describe('PostGameReport', () => {
       const gameStore = createMockGameStore({
         hints: 3, // No hints used
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText(/Sin Ayuda/i)).toBeInTheDocument();
@@ -192,14 +196,14 @@ describe('PostGameReport', () => {
       const gameStore = createMockGameStore({
         elapsedTime: 250, // Under 300 seconds (5 minutes)
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText(/Velocista/i)).toBeInTheDocument();
@@ -209,14 +213,14 @@ describe('PostGameReport', () => {
       const gameStore = createMockGameStore({
         score: 3500, // Over 3000
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText(/Maestro/i)).toBeInTheDocument();
@@ -229,14 +233,14 @@ describe('PostGameReport', () => {
         attempts: 5,
         hints: 1,
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.queryByText(/Logros Obtenidos/i)).not.toBeInTheDocument();
@@ -248,14 +252,14 @@ describe('PostGameReport', () => {
       const gameStore = createMockGameStore({
         score: 3000, // Higher than mock profile's 2500
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText(/¡NUEVO!/i)).toBeInTheDocument();
@@ -265,14 +269,14 @@ describe('PostGameReport', () => {
       const gameStore = createMockGameStore({
         elapsedTime: 300, // Better than mock profile's 400
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText(/¡RÉCORD!/i)).toBeInTheDocument();
@@ -284,14 +288,14 @@ describe('PostGameReport', () => {
       const gameStore = createMockGameStore({
         placedDepartments: new Set(['antioquia', 'cundinamarca']),
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText(/Departamentos Correctos:/i)).toBeInTheDocument();
@@ -302,14 +306,14 @@ describe('PostGameReport', () => {
       const gameStore = createMockGameStore({
         attempts: 12,
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText(/Intentos Fallidos:/i)).toBeInTheDocument();
@@ -326,14 +330,14 @@ describe('PostGameReport', () => {
           capital: 'City',
         })),
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText(/Tiempo Promedio\/Depto:/i)).toBeInTheDocument();
@@ -350,14 +354,14 @@ describe('PostGameReport', () => {
           { id: 'cundinamarca', name: 'Cundinamarca', region: 'Andina', capital: 'Bogotá' },
         ],
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText(/Excelente trabajo/i)).toBeInTheDocument();
@@ -371,14 +375,14 @@ describe('PostGameReport', () => {
           { id: 'antioquia', name: 'Antioquia', region: 'Andina', capital: 'Medellín' },
         ],
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText(/Sigue practicando/i)).toBeInTheDocument();
@@ -388,14 +392,14 @@ describe('PostGameReport', () => {
       const gameStore = createMockGameStore({
         elapsedTime: 150, // Under 180 seconds
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText(/Increíble velocidad/i)).toBeInTheDocument();
@@ -405,14 +409,14 @@ describe('PostGameReport', () => {
   describe('Action Buttons', () => {
     it('should have Play Again button', () => {
       const gameStore = createMockGameStore();
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(
@@ -423,14 +427,14 @@ describe('PostGameReport', () => {
     it('should call onPlayAgain when clicked', async () => {
       const user = userEvent.setup();
       const gameStore = createMockGameStore();
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       const button = screen.getByRole('button', { name: /Jugar de Nuevo/i });
@@ -441,14 +445,14 @@ describe('PostGameReport', () => {
 
     it('should have Study Mode button', () => {
       const gameStore = createMockGameStore();
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(
@@ -459,14 +463,14 @@ describe('PostGameReport', () => {
     it('should call onStudyMode when clicked', async () => {
       const user = userEvent.setup();
       const gameStore = createMockGameStore();
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       const button = screen.getByRole('button', { name: /Modo Estudio/i });
@@ -477,14 +481,14 @@ describe('PostGameReport', () => {
 
     it('should have Close button', () => {
       const gameStore = createMockGameStore();
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText('✕')).toBeInTheDocument();
@@ -493,14 +497,14 @@ describe('PostGameReport', () => {
     it('should call onClose when close button clicked', async () => {
       const user = userEvent.setup();
       const gameStore = createMockGameStore();
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       const button = screen.getByRole('button', { name: '✕' });
@@ -513,15 +517,15 @@ describe('PostGameReport', () => {
   describe('Challenge Recommendations', () => {
     it('should show recommendations when onSelectMode provided', () => {
       const gameStore = createMockGameStore();
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
           onSelectMode={mockOnSelectMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(screen.getByText(/Select Challenge/i)).toBeInTheDocument();
@@ -530,15 +534,15 @@ describe('PostGameReport', () => {
     it('should hide recommendations when View Progress clicked', async () => {
       const user = userEvent.setup();
       const gameStore = createMockGameStore();
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
           onSelectMode={mockOnSelectMode}
-        />,
-        { gameStore }
+        />
       );
 
       const viewProgressButton = screen.getByText(/View Progress/i);
@@ -559,14 +563,14 @@ describe('PostGameReport', () => {
         attempts: 5,
         startTime: Date.now() - 300000,
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       expect(storage.saveSession).toHaveBeenCalled();
@@ -578,14 +582,14 @@ describe('PostGameReport', () => {
       const gameStore = createMockGameStore({
         score: 3500,
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       const scoreElement = screen.getByText('3500');
@@ -596,14 +600,14 @@ describe('PostGameReport', () => {
       const gameStore = createMockGameStore({
         score: 2200,
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       const scoreElement = screen.getByText('2200');
@@ -614,14 +618,14 @@ describe('PostGameReport', () => {
       const gameStore = createMockGameStore({
         score: 1500,
       });
+      mockUseGame.mockReturnValue(gameStore.getState());
 
-      renderWithProviders(
+      render(
         <PostGameReport
           onClose={mockOnClose}
           onPlayAgain={mockOnPlayAgain}
           onStudyMode={mockOnStudyMode}
-        />,
-        { gameStore }
+        />
       );
 
       const scoreElement = screen.getByText('1500');

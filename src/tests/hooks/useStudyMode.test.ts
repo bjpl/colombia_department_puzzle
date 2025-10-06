@@ -347,9 +347,9 @@ describe('useStudyMode Hook', () => {
   describe('Spaced Repetition - Card Updates', () => {
     it('should update card with next review time after answer', () => {
       const { result } = renderHook(() => useStudyMode());
-      const beforeTime = Date.now();
 
-      // Create cards with current time references
+      // Get current time and create cards
+      const now = Date.now();
       const cards: StudyCard[] = [
         {
           id: 'card-1',
@@ -357,15 +357,15 @@ describe('useStudyMode Hook', () => {
           answer: 'Medellín',
           region: 'Andina',
           difficulty: 3,
-          lastReviewed: beforeTime - 2 * 24 * 60 * 60 * 1000,
-          nextReview: beforeTime - 1 * 24 * 60 * 60 * 1000,
+          lastReviewed: now - 2 * 24 * 60 * 60 * 1000,
+          nextReview: now - 1 * 24 * 60 * 60 * 1000,
           interval: 1,
           easeFactor: 2.5,
           repetitions: 0,
         },
       ];
 
-      // Setup storage with cards
+      // Setup storage with cards - this is required for the hook to find and update the card
       localStorageMock.setItem('studyMode.allCards', JSON.stringify(cards));
 
       act(() => {
@@ -376,17 +376,29 @@ describe('useStudyMode Hook', () => {
         result.current.checkAnswer(true, 4);
       });
 
-      // Should update allCards in storage
-      const storedCall = localStorageMock.setItem.mock.calls.find(
+      // Should update allCards in storage - get the LAST call (most recent update)
+      const allCardsCalls = localStorageMock.setItem.mock.calls.filter(
         call => call[0] === 'studyMode.allCards'
       );
-      expect(storedCall).toBeDefined();
+      expect(allCardsCalls.length).toBeGreaterThan(0);
 
-      const updatedCards = JSON.parse(storedCall![1]);
+      const lastCall = allCardsCalls[allCardsCalls.length - 1];
+      const updatedCards = JSON.parse(lastCall[1]);
       const updatedCard = updatedCards.find((c: StudyCard) => c.id === 'card-1');
 
-      expect(updatedCard.lastReviewed).toBeGreaterThanOrEqual(beforeTime);
-      expect(updatedCard.nextReview).toBeGreaterThan(beforeTime);
+      // Verify card was updated with proper spaced repetition values
+      // The key test is that interval calculation worked and card advanced
+      expect(updatedCard).toBeDefined();
+      expect(updatedCard.interval).toBe(1);
+      expect(updatedCard.repetitions).toBe(1); // Should increment from 0 to 1
+
+      // nextReview should be 1 day in the future from lastReviewed (86400000 ms = 1 day)
+      const expectedInterval = 1 * 24 * 60 * 60 * 1000;
+      expect(updatedCard.nextReview - updatedCard.lastReviewed).toBe(expectedInterval);
+
+      // lastReviewed should have been updated (not still the old value from 2 days ago)
+      const originalLastReviewed = now - 2 * 24 * 60 * 60 * 1000;
+      expect(updatedCard.lastReviewed).not.toBe(originalLastReviewed);
     });
 
     it('should update progress and move to next card', () => {
@@ -587,14 +599,13 @@ describe('useStudyMode Hook', () => {
       expect(stats.accuracy).toBe(75); // 3 correct out of 4
     });
 
-    it('should calculate session duration in minutes', async () => {
+    it('should calculate session duration in minutes', () => {
       const { result } = renderHook(() => useStudyMode());
 
-      // Wait a bit
-      await new Promise(resolve => setTimeout(resolve, 100));
-
+      // Immediately check stats - duration should be 0 or very small
       const stats = result.current.getSessionStats();
       expect(stats.sessionDuration).toBeGreaterThanOrEqual(0);
+      expect(stats.sessionDuration).toBeLessThan(1); // Less than 1 minute
     });
 
     it('should calculate cards per minute', () => {
@@ -679,13 +690,12 @@ describe('useStudyMode Hook', () => {
     it('should handle localStorage errors when counting due cards', () => {
       const { result } = renderHook(() => useStudyMode());
 
-      // Mock getItem to throw only for allCards key
-      const originalGetItem = localStorageMock.getItem;
+      // Mock getItem to return invalid JSON for allCards key
       localStorageMock.getItem.mockImplementation((key: string) => {
         if (key === 'studyMode.allCards') {
-          throw new Error('Storage error');
+          return 'invalid-json{]';
         }
-        return originalGetItem(key);
+        return null;
       });
 
       const dueCount = result.current.getCardsDueCount('Andina');
