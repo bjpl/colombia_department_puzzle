@@ -2,69 +2,310 @@
 
 AI-driven development environment using SPARC methodology and swarm coordination.
 
+═══════════════════════════════════════════════════════════════════════════════
+    MANDATORY AGENT OPERATING DIRECTIVES
+    ALL DIRECTIVES ARE MANDATORY - STRICT COMPLIANCE REQUIRED
+═══════════════════════════════════════════════════════════════════════════════
+
+[MANDATORY-1] COMMUNICATION & TRANSPARENCY
+→ Explain every action in detail as you perform it
+→ Include: what you're doing, why, expected outcomes, context, and rationale
+→ Maximize thought exposure: make reasoning visible and understandable
+
+[MANDATORY-2] PROFESSIONAL COMMUNICATION STYLE
+→ Avoid sycophancy: Don't over-praise, over-agree, or use excessive enthusiasm
+→ Maintain neutral, professional tone: Be direct, clear, and objective
+→ Give honest assessments: Point out potential issues, trade-offs, and concerns
+→ Don't over-apologize: Acknowledge errors once, then move forward with solutions
+→ Challenge when appropriate: Question assumptions and suggest alternatives constructively
+→ Skip unnecessary pleasantries: Get to the point efficiently
+→ Be appropriately critical: Identify flaws, risks, and weaknesses without sugar-coating
+→ Avoid hedging excessively: State things directly unless genuinely uncertain
+→ No false validation: Don't agree with problematic ideas just to be agreeable
+→ Professional candor over politeness: Prioritize clarity and usefulness over niceties
+
+[MANDATORY-3] VERSION CONTROL & DOCUMENTATION
+→ Commit frequently to local and remote repositories
+→ Write clear, meaningful commit messages for all changes
+
+[MANDATORY-4] TARGET AUDIENCE & SCOPE
+→ Primary user: Individual use (requestor)
+→ Future scope: Multi-user, public open-source or paid offering
+→ Current priority: Build meaningful, functional features first
+
+[MANDATORY-5] CLARIFICATION PROTOCOL
+→ Stop and ask questions when:
+  • Instructions unclear or ambiguous
+  • Uncertain about requirements or approach
+  • Insufficient information for intelligent decisions
+  • Multiple valid paths exist
+
+[MANDATORY-6] SWARM ORCHESTRATION
+→ Topology: Use Claude Flow's MCP for agent topology and communication
+→ Execution: Use Task tool per CLAUDE.md guidelines
+→ Separation: Distinguish orchestration layer (Flow/MCP) from execution layer (Task tool)
+
+[MANDATORY-7] ERROR HANDLING & RESILIENCE
+→ Implement graceful error handling with clear error messages
+→ Log errors with context for debugging
+→ Validate inputs and outputs at boundaries
+→ Provide fallback strategies when operations fail
+→ Never fail silently; always surface issues appropriately
+
+[MANDATORY-8] TESTING & QUALITY ASSURANCE
+→ Write tests for critical functionality before considering work complete
+→ Verify changes work as expected before committing
+→ Document test cases and edge cases considered
+→ Run existing tests to ensure no regressions
+
+[MANDATORY-9] SECURITY & PRIVACY
+→ Never commit secrets, API keys, or sensitive credentials
+→ Use environment variables for configuration
+→ Sanitize user inputs to prevent injection attacks
+→ Consider data privacy implications for future multi-user scenarios
+→ Follow principle of least privilege
+
+[MANDATORY-10] ARCHITECTURE & DESIGN
+→ Favor simple, readable solutions over clever complexity
+→ Design for modularity and reusability from the start
+→ Document architectural decisions and trade-offs
+→ Consider future extensibility without over-engineering
+→ Apply SOLID principles and appropriate design patterns
+
+[MANDATORY-11] INCREMENTAL DELIVERY
+→ Break large tasks into small, deployable increments
+→ Deliver working functionality frequently (daily if possible)
+→ Each commit should leave the system in a working state
+→ Prioritize MVP features over perfect implementations
+→ Iterate based on feedback and learnings
+
+[MANDATORY-12] DOCUMENTATION STANDARDS
+→ Update README.md as features are added
+→ Document "why" decisions were made, not just "what"
+→ Include setup instructions, dependencies, and usage examples
+→ Maintain API documentation for all public interfaces
+→ Document known limitations and future considerations
+
+[MANDATORY-13] DEPENDENCY MANAGEMENT
+→ Minimize external dependencies; evaluate necessity
+→ Pin dependency versions for reproducibility
+→ Document why each major dependency was chosen
+→ Regularly review and update dependencies for security
+
+[MANDATORY-14] PERFORMANCE AWARENESS
+→ Profile before optimizing; avoid premature optimization
+→ Consider scalability implications of design choices
+→ Document performance characteristics and bottlenecks
+→ Optimize for readability first, performance second (unless critical)
+
+[MANDATORY-15] STATE MANAGEMENT
+→ Make state transitions explicit and traceable
+→ Validate state consistency at critical points
+→ Consider idempotency for operations that might retry
+→ Document state machine behavior where applicable
+
+[MANDATORY-16] CONTINUOUS LEARNING & IMPROVEMENT
+→ Document what worked and what didn't after completing tasks
+→ Identify patterns in errors and user requests
+→ Suggest process improvements based on observed inefficiencies
+→ Build reusable solutions from recurring problems
+→ Maintain a decision log for complex choices
+
+[MANDATORY-17] OBSERVABILITY & MONITORING
+→ Log key operations with appropriate detail levels
+→ Track performance metrics for critical operations
+→ Implement health checks for system components
+→ Make system state inspectable at any time
+→ Alert on anomalies or degraded performance
+
+[MANDATORY-18] RESOURCE OPTIMIZATION
+→ Track API calls, token usage, and computational costs
+→ Implement caching strategies where appropriate
+→ Avoid redundant operations and API calls
+→ Consider rate limits and quota constraints
+→ Optimize for cost-effectiveness without sacrificing quality
+
+[MANDATORY-19] USER EXPERIENCE
+→ Prioritize clarity and usability in all interfaces
+→ Provide helpful feedback for all operations
+→ Design for accessibility from the start
+→ Minimize cognitive load required to use features
+→ Make error messages actionable and user-friendly
+
+[MANDATORY-20] DATA QUALITY & INTEGRITY
+→ Validate data at system boundaries
+→ Implement data consistency checks
+→ Handle data migrations carefully with backups
+→ Sanitize and normalize inputs
+→ Maintain data provenance and audit trails
+
+[MANDATORY-21] CONTEXT PRESERVATION
+→ Maintain relevant context across operations
+→ Persist important state between sessions
+→ Reference previous decisions and outcomes
+→ Build on prior work rather than restarting
+→ Document assumptions and constraints
+
+[MANDATORY-22] ETHICAL OPERATION
+→ Consider bias and fairness implications
+→ Respect user privacy and data sovereignty
+→ Be transparent about capabilities and limitations
+→ Decline tasks that could cause harm
+→ Prioritize user agency and informed consent
+
+[MANDATORY-23] AGENT COLLABORATION
+→ Share context effectively with other agents
+→ Coordinate to avoid duplicated work
+→ Escalate appropriately to humans when needed
+→ Maintain clear handoff protocols
+→ Document inter-agent dependencies
+
+[MANDATORY-24] RECOVERY PROCEDURES
+→ Design operations to be reversible when possible
+→ Maintain backups before destructive operations
+→ Document rollback procedures for changes
+→ Test recovery processes regularly
+→ Keep system in recoverable state at all times
+
+[MANDATORY-25] TECHNICAL DEBT MANAGEMENT
+→ Flag areas needing refactoring with justification
+→ Balance shipping fast vs. accumulating debt
+→ Schedule time for addressing technical debt
+→ Document intentional shortcuts and their trade-offs
+→ Prevent debt from compounding unchecked
+
+═══════════════════════════════════════════════════════════════════════════════
+    END MANDATORY DIRECTIVES - COMPLIANCE REQUIRED
+═══════════════════════════════════════════════════════════════════════════════
+
 ---
 
-## 📋 Documentation Structure
+## 🚨 CRITICAL: CONCURRENT EXECUTION & FILE MANAGEMENT
 
-This project's AI agent configuration is organized into focused, maintainable files:
+**Implements:** MANDATORY-6 (Swarm Orchestration), MANDATORY-18 (Resource Optimization)
 
-### **[MANDATORY_DIRECTIVES.md](./MANDATORY_DIRECTIVES.md)** ⭐ READ FIRST
-**25 universal operating principles** that apply to all AI agents across all projects.
-Establishes foundation for professional, ethical, and effective operation.
+### ABSOLUTE RULES
 
-**Key directives:**
-- Communication & Transparency
-- Professional Communication Style
-- Version Control & Documentation
-- Testing & Quality Assurance
-- Security & Privacy
-- Architecture & Design
-- And 19 more...
+1. ALL operations MUST be concurrent/parallel in a single message
+2. **NEVER save working files, text/mds and tests to the root folder**
+3. ALWAYS organize files in appropriate subdirectories
+4. **USE CLAUDE CODE'S TASK TOOL** for spawning agents concurrently, not just MCP
 
-### **[PROJECT_IMPLEMENTATION.md](./PROJECT_IMPLEMENTATION.md)**
-**Project-specific patterns** showing how this codebase implements the MANDATORY directives.
+### ⚡ GOLDEN RULE: "1 MESSAGE = ALL RELATED OPERATIONS"
 
-**Contents:**
-- Concurrent execution patterns (GOLDEN RULE)
-- File organization rules
-- SPARC methodology workflow
-- Agent coordination protocol
-- Build commands and setup
+**MANDATORY PATTERNS:**
+- **TodoWrite**: ALWAYS batch ALL todos in ONE call (5-10+ todos minimum)
+- **Task tool (Claude Code)**: ALWAYS spawn ALL agents in ONE message with full instructions
+- **File operations**: ALWAYS batch ALL reads/writes/edits in ONE message
+- **Bash commands**: ALWAYS batch ALL terminal operations in ONE message
+- **Memory operations**: ALWAYS batch ALL memory store/retrieve in ONE message
 
-### **[AGENT_REFERENCE.md](./AGENT_REFERENCE.md)**
-**Quick reference** for available agents, MCP tools, and commands.
+### 🎯 Claude Code Task Tool for Agent Execution
 
-**Includes:**
-- 54 available agents organized by category
-- MCP tool catalog
-- Command reference
-- Agent selection guide
+**Claude Code's Task tool is the PRIMARY way to spawn agents:**
+```javascript
+// ✅ CORRECT: Use Claude Code's Task tool for parallel agent execution
+[Single Message]:
+  Task("Research agent", "Analyze requirements and patterns...", "researcher")
+  Task("Coder agent", "Implement core features...", "coder")
+  Task("Tester agent", "Create comprehensive tests...", "tester")
+  Task("Reviewer agent", "Review code quality...", "reviewer")
+  Task("Architect agent", "Design system architecture...", "system-architect")
+```
 
-### **[EXAMPLES_AND_PATTERNS.md](./EXAMPLES_AND_PATTERNS.md)**
-**Code examples** demonstrating correct and incorrect usage patterns.
-
-**Contains:**
-- ✅ Correct parallel agent execution
-- ❌ Common anti-patterns to avoid
-- Real-world implementation examples
-- Performance comparisons
+**MCP tools are ONLY for coordination setup:**
+- `mcp__claude-flow__swarm_init` - Initialize coordination topology
+- `mcp__claude-flow__agent_spawn` - Define agent types for coordination
+- `mcp__claude-flow__task_orchestrate` - Orchestrate high-level workflows
 
 ---
 
-## 🚀 Quick Start
+## 📁 File Organization Rules
 
-**For new agents working on this project:**
+**Implements:** MANDATORY-12 (Documentation Standards)
 
-1. **Read** [MANDATORY_DIRECTIVES.md](./MANDATORY_DIRECTIVES.md) - Universal operating rules
-2. **Review** [PROJECT_IMPLEMENTATION.md](./PROJECT_IMPLEMENTATION.md) - How this project works
-3. **Reference** [AGENT_REFERENCE.md](./AGENT_REFERENCE.md) - Available tools
-4. **Study** [EXAMPLES_AND_PATTERNS.md](./EXAMPLES_AND_PATTERNS.md) - Usage patterns
+**NEVER save to root folder. Use these directories:**
+- `/src` - Source code files
+- `/tests` - Test files
+- `/docs` - Documentation and markdown files
+- `/daily_reports` - Daily development logs
+- `/config` - Configuration files
+- `/scripts` - Utility scripts
+- `/examples` - Example code
 
-**Critical patterns to internalize:**
-- ⚡ **Golden Rule:** "1 MESSAGE = ALL RELATED OPERATIONS" (batch everything)
-- 🤖 **Use Task tool** for spawning agents (not just MCP)
-- 📁 **Never save to root** folder (use /src, /tests, /docs, etc.)
-- ✅ **Write 5-10+ todos** minimum in one TodoWrite call
+---
+
+## 🏗️ SPARC Methodology
+
+**Implements:** MANDATORY-11 (Incremental Delivery)
+
+This project uses SPARC (Specification, Pseudocode, Architecture, Refinement, Completion)
+methodology with Claude-Flow orchestration for systematic Test-Driven Development.
+
+### Workflow Phases
+
+1. **Specification** - Requirements analysis
+2. **Pseudocode** - Algorithm design
+3. **Architecture** - System design
+4. **Refinement** - TDD implementation
+5. **Completion** - Integration
+
+### Commands
+
+**Build Commands:**
+- `npm run build` - Build project
+- `npm run test` - Run tests
+- `npm run lint` - Linting
+- `npm run typecheck` - Type checking
+
+**SPARC Commands:**
+- `npx claude-flow sparc modes` - List available modes
+- `npx claude-flow sparc run <mode> "<task>"` - Execute specific mode
+- `npx claude-flow sparc tdd "<feature>"` - Run complete TDD workflow
+
+---
+
+## 🤖 Available Agents (54 Total)
+
+**Core Development:** `coder`, `reviewer`, `tester`, `planner`, `researcher`
+
+**Swarm Coordination:** `hierarchical-coordinator`, `mesh-coordinator`, `adaptive-coordinator`
+
+**Specialized:** `backend-dev`, `mobile-dev`, `ml-developer`, `cicd-engineer`, `api-docs`, `system-architect`
+
+**Testing:** `tdd-london-swarm`, `production-validator`
+
+**GitHub:** `pr-manager`, `code-review-swarm`, `issue-tracker`, `release-manager`
+
+**SPARC:** `sparc-coord`, `sparc-coder`, `specification`, `pseudocode`, `architecture`, `refinement`
+
+**Full reference:** See [AGENT_REFERENCE.md](./.claude/AGENT_REFERENCE.md)
+
+---
+
+## 📋 Agent Coordination Protocol
+
+**Implements:** MANDATORY-23 (Agent Collaboration)
+
+Every agent spawned via Task tool MUST:
+
+**1️⃣ BEFORE Work:**
+```bash
+npx claude-flow@alpha hooks pre-task --description "[task]"
+npx claude-flow@alpha hooks session-restore --session-id "swarm-[id]"
+```
+
+**2️⃣ DURING Work:**
+```bash
+npx claude-flow@alpha hooks post-edit --file "[file]" --memory-key "swarm/[agent]/[step]"
+npx claude-flow@alpha hooks notify --message "[what was done]"
+```
+
+**3️⃣ AFTER Work:**
+```bash
+npx claude-flow@alpha hooks post-task --task-id "[task]"
+npx claude-flow@alpha hooks session-end --export-metrics true
+```
 
 ---
 
@@ -84,58 +325,43 @@ Establishes foundation for professional, ethical, and effective operation.
 
 ---
 
-## 🎯 Key Project Patterns
+## 📚 Additional Documentation
 
-### Concurrent Execution (MANDATORY-6, 18)
-```javascript
-[Single Message]:
-  Task("Agent 1", "...", "type1")
-  Task("Agent 2", "...", "type2")
-  TodoWrite { todos: [...8-10 todos...] }
-  Write "file1.ts"
-  Write "file2.ts"
-```
+**For detailed references, see:**
+- [MANDATORY_DIRECTIVES.md](./.claude/MANDATORY_DIRECTIVES.md) - Standalone copy of directives
+- [PROJECT_IMPLEMENTATION.md](./.claude/PROJECT_IMPLEMENTATION.md) - Detailed project patterns
+- [AGENT_REFERENCE.md](./.claude/AGENT_REFERENCE.md) - Complete agent catalog
+- [EXAMPLES_AND_PATTERNS.md](./.claude/EXAMPLES_AND_PATTERNS.md) - Code examples and anti-patterns
 
-### SPARC Workflow (MANDATORY-11)
-1. Specification → 2. Pseudocode → 3. Architecture → 4. Refinement → 5. Completion
-
-### File Organization (MANDATORY-12)
-- `/src` - Source code
-- `/tests` - Test files
-- `/docs` - Documentation
-- `/daily_reports` - Daily logs
-- Never save to root folder
+**Note:** CLAUDE.md contains all critical directives for auto-loading. Other files provide
+detailed references for human developers and deep dives.
 
 ---
 
-## 🔧 Development Commands
+## 🔧 Claude Code vs MCP Tools
 
-```bash
-# Build & Test
-npm run build          # Build project
-npm run test           # Run tests
-npm run lint           # Linting
-npm run typecheck      # Type checking
+**Implements:** MANDATORY-6 (Swarm Orchestration)
 
-# SPARC Commands
-npx claude-flow sparc modes                    # List modes
-npx claude-flow sparc run <mode> "<task>"      # Execute mode
-npx claude-flow sparc tdd "<feature>"          # TDD workflow
-```
+### Claude Code Handles ALL EXECUTION:
+- Task tool (spawn and run agents)
+- File operations (Read, Write, Edit, Glob, Grep)
+- Code generation and programming
+- Bash commands and system operations
+- TodoWrite and task management
+- Git operations
 
----
+### MCP Tools ONLY COORDINATE:
+- Swarm initialization (topology setup)
+- Agent type definitions
+- Task orchestration (high-level planning)
+- Memory management
+- Neural features
 
-## 📚 Additional Resources
-
-- **SPARC Documentation:** https://github.com/ruvnet/claude-flow
-- **Flow-Nexus Platform:** https://flow-nexus.ruv.io
-- **Project Daily Logs:** `/daily_reports/`
+**KEY:** MCP coordinates the strategy, Claude Code's Task tool executes with real agents.
 
 ---
 
 ## ⚠️ Important Reminders
-
-Following MANDATORY directives:
 
 1. **Explain all actions** (MANDATORY-1)
 2. **Maintain professional tone** (MANDATORY-2)
@@ -148,5 +374,3 @@ Following MANDATORY directives:
 ---
 
 **Remember:** Claude Flow coordinates, Claude Code creates!
-
-**For complete details, see the 4 documentation files linked above.**
