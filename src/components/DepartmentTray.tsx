@@ -1,9 +1,11 @@
+import React from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
 import { useAccessibility } from '../context/AccessibilityContext';
 import { REGION_TAILWIND_CLASSES } from '../constants/regionColors';
 import { normalizeId } from '../utils/nameNormalizer';
 import { Department } from '../data/colombiaDepartments';
+import { TouchFeedback } from './TouchFeedback';
 import {
   Card,
   CardHeader,
@@ -17,7 +19,8 @@ import {
 } from '../design-system';
 
 // Ultra-compact mini chip for maximum map space
-function DraggableChip({ department }: { department: Department }) {
+// Mobile-optimized with 44px minimum height
+function DraggableChip({ department, isMobile = false }: { department: Department; isMobile?: boolean }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: department.id,
     data: department,
@@ -58,7 +61,7 @@ function DraggableChip({ department }: { department: Department }) {
     // Don't block Enter - let it trigger either keyboard nav or drag
   };
 
-  return (
+  const chipElement = (
     <Badge
       ref={setNodeRef}
       style={{
@@ -72,17 +75,22 @@ function DraggableChip({ department }: { department: Department }) {
         userSelect: 'none',
         fontSize: textStyles.caption.fontSize[0],
         fontWeight: textStyles.ui.medium.fontWeight, // Bolder for better readability
-        maxWidth: '75px',
-        padding: `${spacing[1]} ${spacing[2]}`,
+        // Mobile: 44px height, 48px min-width for proper touch targets
+        // Desktop: Compact size
+        minHeight: isMobile ? '44px' : undefined,
+        minWidth: isMobile ? '48px' : undefined,
+        maxWidth: isMobile ? '120px' : '75px',
+        padding: isMobile ? `${spacing[2]} ${spacing[3]}` : `${spacing[1]} ${spacing[2]}`,
         textShadow: '0 1px 2px rgba(0,0,0,0.2)' // Subtle shadow for better text readability
       }}
       {...listeners}
       {...attributes}
       variant="default"
-      size="sm"
+      size={isMobile ? 'md' : 'sm'}
       className={`
         inline-flex items-center transition-all duration-150
-        ${isDragging ? 'opacity-0' : 'hover:scale-105'}
+        ${isDragging ? 'opacity-0' : 'hover:scale-105 active:scale-95'}
+        ${isMobile ? 'snap-center' : ''}
       `}
       role="button"
       tabIndex={0}
@@ -96,6 +104,17 @@ function DraggableChip({ department }: { department: Department }) {
       </span>
     </Badge>
   );
+
+  // Wrap with touch feedback on mobile
+  if (isMobile) {
+    return (
+      <TouchFeedback type="tap" enabled={!isDragging}>
+        {chipElement}
+      </TouchFeedback>
+    );
+  }
+
+  return chipElement;
 }
 
 // Legacy full-size component (kept for compatibility)
@@ -201,11 +220,24 @@ function DraggableDepartment({ department, compact = false }: { department: Depa
 }
 
 interface DepartmentTrayProps {
-  layout?: 'horizontal' | 'vertical' | 'compact' | 'ultra-compact';
+  layout?: 'horizontal' | 'vertical' | 'compact' | 'ultra-compact' | 'mobile-scroll';
 }
 
 export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTrayProps) {
   const game = useGame();
+
+  // Detect if we should use mobile layout (viewport width < 768px)
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Use filtered departments from game state (respects regional mode)
   const activeDepartments = game.getFilteredDepartments();
@@ -286,7 +318,79 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
     return indexA - indexB;
   });
 
-  // Compact chip layout for minimal space usage
+  // Mobile horizontal scroll layout with larger touch targets
+  if (layout === 'mobile-scroll' || (layout === 'compact' && isMobile)) {
+    return (
+      <div
+        className="flex flex-col"
+        style={{ gap: spacing[3] }}
+        role="region"
+        aria-label="Departamentos disponibles para colocar"
+      >
+        {/* Region groups with mobile-optimized chips */}
+        {sortedRegionEntries.map(([region, depts]) => (
+          <div key={region} className="flex flex-col" style={{ gap: spacing[2] }}>
+            <h4
+              style={{
+                fontSize: textStyles.caption.fontSize[0],
+                fontWeight: textStyles.ui.medium.fontWeight,
+                color: colors.text.secondary,
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                paddingLeft: spacing[2]
+              }}
+              id={`mobile-region-${region}`}
+            >
+              {region} ({depts.length})
+            </h4>
+            <div
+              className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-2"
+              style={{
+                gap: spacing[2],
+                paddingLeft: spacing[2],
+                paddingRight: spacing[2],
+              }}
+              role="group"
+              aria-labelledby={`mobile-region-${region}`}
+            >
+              {depts.map(department => (
+                <DraggableChip
+                  key={department.id}
+                  department={department}
+                  isMobile={true}
+                />
+              ))}
+            </div>
+            {/* Scroll indicator dots */}
+            {depts.length > 3 && (
+              <div className="flex justify-center gap-1">
+                {Array.from({ length: Math.ceil(depts.length / 3) }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-1.5 h-1.5 rounded-full bg-gray-300"
+                    aria-hidden="true"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+
+        {/* Hide scrollbar styling */}
+        <style>{`
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+          .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+        `}</style>
+      </div>
+    );
+  }
+
+  // Compact chip layout for minimal space usage (desktop)
   if (layout === 'compact') {
     return (
       <div
@@ -321,6 +425,7 @@ export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTray
                 <DraggableChip
                   key={department.id}
                   department={department}
+                  isMobile={false}
                 />
               ))}
             </div>

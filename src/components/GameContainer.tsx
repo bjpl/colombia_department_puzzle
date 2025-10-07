@@ -28,6 +28,12 @@ import { useGameTimer } from '../hooks/useGameTimer';
 import { useEnhancedKeyboardNavigation } from '../hooks/useEnhancedKeyboardNavigation';
 import { keyboardManager } from '../services/keyboardManager';
 import KeyboardCursor from './KeyboardCursor';
+import MobileGameLayout from './MobileGameLayout';
+import { useMediaQuery } from '../hooks/useMediaQuery';
+import { MEDIA_QUERIES } from '../constants/responsive';
+// Touch Interaction from Agent 1
+import TouchModeAdapter from './TouchModeAdapter';
+import { prefersTouchMode } from '../utils/deviceDetection';
 import {
   Card,
   CardHeader,
@@ -45,6 +51,12 @@ export default function GameContainer() {
   const modal = useModalManager();
   const timer = useGameTimer();
   const sound = useSoundEffect();
+
+  // Responsive layout detection
+  const isMobile = useMediaQuery(MEDIA_QUERIES.mobile);
+
+  // Touch interaction detection (Agent 1)
+  const isTouchMode = prefersTouchMode();
 
   // Enhanced keyboard navigation for drag & drop
   const enhancedNav = useEnhancedKeyboardNavigation();
@@ -335,35 +347,8 @@ export default function GameContainer() {
 
   return (
     <GameLogicErrorBoundary>
-      <div
-        className="min-h-screen"
-        style={{
-          background: `linear-gradient(to bottom right, ${colors.brand[50]}, ${colors.success[50]})`
-        }}
-      >
-        <div
-          className="container mx-auto max-w-[1400px]"
-          style={{ padding: spacing[4] }}
-        >
-          <GameHeader
-            onGameMode={() => {
-              game.clearCurrentDepartment(); // Clear any active drag
-              modal.closeAllModals(); // Clear any queued modals first
-              setTimeout(() => modal.openModal('gameMode'), 0); // Open after clearing
-            }}
-            onStudyMode={() => {
-              game.clearCurrentDepartment(); // Clear any active drag
-              modal.closeAllModals(); // Clear any queued modals first
-              setHasUsedStudyMode(true); // Mark that study mode is being opened
-              setTimeout(() => modal.openModal('study'), 0); // Open after clearing
-            }}
-            onTutorial={() => {
-              game.clearCurrentDepartment(); // Clear any active drag
-              modal.closeAllModals(); // Clear any queued modals first
-              setTimeout(() => modal.openModal('tutorial'), 0); // Open after clearing
-            }}
-          />
-
+      {/* Mobile Layout - Full screen map with bottom sheet */}
+      {isMobile ? (
         <DndContext
           onDragStart={handleDragStart}
           onDragMove={handleDragMove}
@@ -372,18 +357,65 @@ export default function GameContainer() {
           collisionDetection={rectIntersection}
           autoScroll={false}
         >
-          {/* MAXIMIZED Layout: Full-screen map with minimal sidebars */}
+          {/* Touch Mode Adapter - enables tap-to-place on touch devices (Agent 1) */}
+          <TouchModeAdapter enabled={isTouchMode}>
+            <MobileGameLayout />
+          </TouchModeAdapter>
+
+          {/* Drag Overlay for visual feedback - only show during mouse drag */}
+          {game.isDraggingDepartment && <DragOverlay />}
+        </DndContext>
+      ) : (
+        // Desktop Layout - Original side-by-side layout
+        <div
+          className="min-h-screen"
+          style={{
+            background: `linear-gradient(to bottom right, ${colors.brand[50]}, ${colors.success[50]})`
+          }}
+        >
           <div
-            className="flex"
-            style={{
-              marginTop: spacing[4],
-              gap: spacing[3],
-              paddingLeft: spacing[4],
-              paddingRight: spacing[4],
-              height: 'calc(100vh - 140px)',
-              maxWidth: '100vw'
-            }}
+            className="container mx-auto max-w-[1400px]"
+            style={{ padding: spacing[4] }}
           >
+            <GameHeader
+              onGameMode={() => {
+                game.clearCurrentDepartment(); // Clear any active drag
+                modal.closeAllModals(); // Clear any queued modals first
+                setTimeout(() => modal.openModal('gameMode'), 0); // Open after clearing
+              }}
+              onStudyMode={() => {
+                game.clearCurrentDepartment(); // Clear any active drag
+                modal.closeAllModals(); // Clear any queued modals first
+                setHasUsedStudyMode(true); // Mark that study mode is being opened
+                setTimeout(() => modal.openModal('study'), 0); // Open after clearing
+              }}
+              onTutorial={() => {
+                game.clearCurrentDepartment(); // Clear any active drag
+                modal.closeAllModals(); // Clear any queued modals first
+                setTimeout(() => modal.openModal('tutorial'), 0); // Open after clearing
+              }}
+            />
+
+          <DndContext
+            onDragStart={handleDragStart}
+            onDragMove={handleDragMove}
+            onDragEnd={handleDragEnd}
+            onDragCancel={handleDragCancel}
+            collisionDetection={rectIntersection}
+            autoScroll={false}
+          >
+            {/* MAXIMIZED Layout: Full-screen map with minimal sidebars */}
+            <div
+              className="flex"
+              style={{
+                marginTop: spacing[4],
+                gap: spacing[3],
+                paddingLeft: spacing[4],
+                paddingRight: spacing[4],
+                height: 'calc(100vh - 140px)',
+                maxWidth: '100vw'
+              }}
+            >
 
             {/* Left Sidebar - Ultra-Compact Department Chips */}
             <ComponentErrorBoundary componentName="Department Tray">
@@ -508,44 +540,49 @@ export default function GameContainer() {
                 </CardContent>
               </Card>
             </ComponentErrorBoundary>
+            </div>
+
+            {/* Drag Overlay for visual feedback - only show during mouse drag */}
+            {game.isDraggingDepartment && <DragOverlay />}
+          </DndContext>
           </div>
+        </div>
+      )}
 
-          {/* Drag Overlay for visual feedback - only show during mouse drag */}
-          {game.isDraggingDepartment && <DragOverlay />}
-        </DndContext>
+      {/* Shared Components - Rendered for both mobile and desktop */}
 
-        {/* Placement Feedback */}
-        <PlacementFeedback {...placementFeedback} />
+      {/* Placement Feedback */}
+      <PlacementFeedback {...placementFeedback} />
 
-        {/* Screen Reader Announcements */}
-        <ScreenReaderAnnouncements />
+      {/* Screen Reader Announcements */}
+      <ScreenReaderAnnouncements />
 
-        {/* Keyboard Help Overlay */}
-        <KeyboardHelp />
+      {/* Keyboard Help Overlay */}
+      <KeyboardHelp />
 
-        {/* Visual keyboard cursor */}
-        <KeyboardCursor
-          position={enhancedNav.cursorPosition}
-          selectedDepartment={enhancedNav.selectedDepartment}
-          isActive={enhancedNav.isKeyboardMode}
-          targetZone={enhancedNav.targetZone}
+      {/* Visual keyboard cursor */}
+      <KeyboardCursor
+        position={enhancedNav.cursorPosition}
+        selectedDepartment={enhancedNav.selectedDepartment}
+        isActive={enhancedNav.isKeyboardMode}
+        targetZone={enhancedNav.targetZone}
+      />
+
+      {/* Mode Transition Animation */}
+      {showTransition && transitionConfig && (
+        <ModeTransition
+          from={transitionConfig.from}
+          to={transitionConfig.to}
+          mode={transitionConfig.mode}
+          onComplete={() => {
+            setShowTransition(false);
+            setTransitionConfig(null);
+          }}
         />
+      )}
 
-        {/* Mode Transition Animation */}
-        {showTransition && transitionConfig && (
-          <ModeTransition
-            from={transitionConfig.from}
-            to={transitionConfig.to}
-            mode={transitionConfig.mode}
-            onComplete={() => {
-              setShowTransition(false);
-              setTransitionConfig(null);
-            }}
-          />
-        )}
-
-        {/* Modals */}
-        {modal.isModalOpen('gameMode') && (
+      {/* Modals */}
+      {modal.isModalOpen('gameMode') && (
           <GameModeSelector
             onSelectMode={(mode) => {
               console.log('GameContainer: onSelectMode called with mode:', mode);
@@ -633,8 +670,6 @@ export default function GameContainer() {
             }}
           />
         )}
-        </div>
-      </div>
     </GameLogicErrorBoundary>
   );
 }

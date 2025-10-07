@@ -26,9 +26,15 @@ interface TutorialStep {
     x: string;
     y: string;
   };
+  animation?: 'celebration' | 'swipe-up' | 'tap';
+  waitForAction?: 'tap' | 'placement' | 'sheet-expand';
+  successMessage?: string;
+  target?: string;
+  highlightElement?: boolean;
+  duration?: number;
 }
 
-const tutorialSteps: TutorialStep[] = [
+const desktopTutorialSteps: TutorialStep[] = [
   {
     id: 1,
     title: "Bienvenido",
@@ -101,9 +107,68 @@ const tutorialSteps: TutorialStep[] = [
   }
 ];
 
+const mobileTutorialSteps: TutorialStep[] = [
+  {
+    id: 1,
+    title: "¡Bienvenido! 🎯",
+    content: "Este juego está optimizado para tu dispositivo táctil",
+    position: 'floating',
+    animation: 'celebration',
+    duration: 2000,
+  },
+  {
+    id: 2,
+    title: "Toca un departamento",
+    content: "Toca cualquier ficha de departamento en la parte inferior",
+    position: 'floating',
+    target: '.department-chip:first-child',
+    highlightElement: true,
+    waitForAction: 'tap',
+    successMessage: '¡Perfecto! ✓',
+  },
+  {
+    id: 3,
+    title: "Toca el mapa",
+    content: "Ahora toca en cualquier lugar del mapa para colocarlo",
+    position: 'floating',
+    target: '.map-container',
+    highlightElement: true,
+    waitForAction: 'placement',
+    successMessage: '¡Excelente! 🎉',
+  },
+  {
+    id: 4,
+    title: "Desliza para más",
+    content: "Desliza hacia arriba la bandeja inferior para ver todos los departamentos",
+    position: 'floating',
+    target: '.bottom-sheet-handle',
+    animation: 'swipe-up',
+    waitForAction: 'sheet-expand',
+    successMessage: '¡Estás listo! 🚀',
+  }
+];
+
 export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveTutorialProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobileCheck = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
+      const isSmallScreen = window.innerWidth < 768;
+      setIsMobile(mobileCheck || isSmallScreen);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const tutorialSteps = isMobile ? mobileTutorialSteps : desktopTutorialSteps;
   const step = tutorialSteps[currentStep];
 
   useEffect(() => {
@@ -122,7 +187,8 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
       }, 300);
     } else {
       // Mark tutorial as completed only when user finishes it
-      storage.saveSetting('tutorialShown', true);
+      const storageKey = isMobile ? 'tutorialShown-mobile' : 'tutorialShown';
+      storage.saveSetting(storageKey, true);
       onComplete();
     }
   };

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { ColorblindMode } from '../constants/accessibleColors';
 import { useAccessibility } from '../context/AccessibilityContext';
+import { useTouchFeedback } from '../hooks/useTouchFeedback';
 import {
   Button, Card, CardHeader, CardTitle, CardContent, Badge,
   colors, spacing, textStyles, shadows
@@ -24,6 +25,9 @@ export default function AccessibilitySettings({
     colorMode,
     setColorMode: updateColorMode
   } = useAccessibility();
+
+  // Touch feedback settings
+  const { settings: touchSettings, toggleHaptics, toggleAudio, isHapticsSupported } = useTouchFeedback();
 
   // Settings are now managed by the context, no need to load here
 
@@ -180,6 +184,53 @@ export default function AccessibilitySettings({
             <p className="text-sm text-neutral-600 mt-1">
               Ajusta los colores para diferentes tipos de daltonismo
             </p>
+          </div>
+
+          {/* Touch Feedback Settings */}
+          <div className="border-t border-neutral-200 pt-3 mt-3">
+            <h4 className="text-sm font-semibold text-neutral-600 mb-2">
+              Retroalimentación Táctil
+            </h4>
+
+            {/* Haptic Feedback Toggle */}
+            {isHapticsSupported && (
+              <div className="mb-3">
+                <label className="flex items-center justify-between">
+                  <span className="text-sm text-neutral-600">Vibración háptica</span>
+                  <input
+                    type="checkbox"
+                    checked={touchSettings.hapticsEnabled}
+                    onChange={toggleHaptics}
+                    className="w-10 h-6 rounded-full"
+                  />
+                </label>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Vibración cuando tocas elementos interactivos
+                </p>
+              </div>
+            )}
+
+            {!isHapticsSupported && (
+              <p className="text-xs text-neutral-500 mb-3">
+                La vibración háptica no está disponible en este dispositivo
+              </p>
+            )}
+
+            {/* Audio Feedback Toggle */}
+            <div className="mb-2">
+              <label className="flex items-center justify-between">
+                <span className="text-sm text-neutral-600">Efectos de sonido</span>
+                <input
+                  type="checkbox"
+                  checked={touchSettings.audioEnabled}
+                  onChange={toggleAudio}
+                  className="w-10 h-6 rounded-full"
+                />
+              </label>
+              <p className="text-xs text-neutral-500 mt-1">
+                Sonidos de clic al interactuar con botones
+              </p>
+            </div>
           </div>
 
 

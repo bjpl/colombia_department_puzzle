@@ -1,9 +1,17 @@
 import React, { forwardRef } from 'react';
 import { cn } from '../utils/cn';
+import { TouchFeedback } from '../../components/TouchFeedback';
+import { FeedbackType } from '../../hooks/useTouchFeedback';
 
 /**
  * Modern Button Component - Clean Linear/Vercel Style
- * Consistent design across all button instances
+ * Mobile-optimized with 44px minimum touch targets
+ * Includes touch feedback (haptics + visual ripple)
+ *
+ * Standards:
+ * - WCAG 2.5.5 (AAA): 44×44px minimum touch target
+ * - iOS HIG: 44×44pt minimum
+ * - Material Design: 48×48dp (we use 44 for consistency)
  */
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -13,6 +21,8 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
   fullWidth?: boolean;
+  touchFeedback?: boolean;
+  feedbackType?: FeedbackType;
 }
 
 const buttonVariants = {
@@ -54,9 +64,18 @@ const buttonVariants = {
 };
 
 const buttonSizes = {
-  sm: 'px-3 py-1.5 text-sm font-medium h-8',
-  md: 'px-4 py-2 text-sm font-medium h-10',
-  lg: 'px-6 py-2.5 text-base font-medium h-12',
+  // Mobile: Enforce 44px minimum height for touch targets
+  // Desktop: Can be smaller for better visual density
+  sm: 'px-3 py-1.5 text-sm font-medium min-h-[44px] md:min-h-[32px] md:h-8',
+  md: 'px-4 py-2 text-sm font-medium min-h-[44px] md:h-10',
+  lg: 'px-6 py-2.5 text-base font-medium min-h-[44px] md:h-12',
+};
+
+const iconOnlySizes = {
+  // Icon-only buttons: Exact 44×44px on mobile
+  sm: 'min-w-[44px] min-h-[44px] p-0 md:w-8 md:h-8 md:min-w-0 md:min-h-0',
+  md: 'min-w-[44px] min-h-[44px] p-0 md:w-10 md:h-10 md:min-w-0 md:min-h-0',
+  lg: 'min-w-[44px] min-h-[44px] p-0 md:w-12 md:h-12 md:min-w-0 md:min-h-0',
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -70,11 +89,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     fullWidth = false,
     children,
     disabled,
+    touchFeedback = true,
+    feedbackType = 'tap',
     ...props
   }, ref) => {
     const isDisabled = disabled || loading;
+    const isIconOnly = icon && !children;
 
-    return (
+    const buttonElement = (
       <button
         ref={ref}
         type="button"
@@ -86,11 +108,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           'focus:outline-none focus:ring-offset-white',
           'disabled:cursor-not-allowed disabled:opacity-60',
 
+          // Mobile touch feedback: Scale down slightly on active
+          'active:scale-[0.97] active:shadow-inner',
+
           // Variant styles
           buttonVariants[variant],
 
-          // Size styles
-          buttonSizes[size],
+          // Size styles - Different for icon-only vs text buttons
+          isIconOnly ? iconOnlySizes[size] : buttonSizes[size],
 
           // Full width
           fullWidth && 'w-full',
@@ -148,6 +173,21 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
       </button>
     );
+
+    // Wrap with touch feedback if enabled and not disabled
+    if (touchFeedback && !isDisabled) {
+      return (
+        <TouchFeedback
+          type={feedbackType}
+          enabled={touchFeedback}
+          className="inline-flex"
+        >
+          {buttonElement}
+        </TouchFeedback>
+      );
+    }
+
+    return buttonElement;
   }
 );
 

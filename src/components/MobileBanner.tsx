@@ -5,20 +5,22 @@ import {
 } from '../design-system';
 
 /**
- * CONCEPT: Mobile Device Detection and Desktop Redirect Banner
- * WHY: The game requires precise drag-and-drop interactions better suited for desktop
- * PATTERN: Responsive design pattern with graceful degradation for mobile users
+ * CONCEPT: Mobile Welcome Banner with Empowering Messaging
+ * WHY: Celebrate mobile users and guide them to the touch-optimized experience
+ * PATTERN: Positive onboarding that enables rather than discourages mobile play
  */
 
 export default function MobileBanner() {
   const [isMobile, setIsMobile] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
+  const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
-    // Check if user has previously dismissed the banner
-    const dismissed = localStorage.getItem('mobileBannerDismissed');
+    // Check if user has previously dismissed the welcome banner
+    const dismissed = localStorage.getItem('mobileWelcomeDismissed');
     if (dismissed === 'true') {
       setIsDismissed(true);
+      return;
     }
 
     // Detect mobile device
@@ -26,103 +28,109 @@ export default function MobileBanner() {
       const mobileCheck = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
       );
-
-      // Also check viewport width
       const isSmallScreen = window.innerWidth < 768;
+      const isMobileDevice = mobileCheck || isSmallScreen;
 
-      setIsMobile(mobileCheck || isSmallScreen);
+      setIsMobile(isMobileDevice);
+
+      // Show banner briefly for mobile users only
+      if (isMobileDevice && !dismissed) {
+        setShowBanner(true);
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          setShowBanner(false);
+          localStorage.setItem('mobileWelcomeDismissed', 'true');
+        }, 5000);
+      }
     };
 
     checkMobile();
-
-    // Re-check on resize
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const handleDismiss = () => {
+    setShowBanner(false);
     setIsDismissed(true);
-    localStorage.setItem('mobileBannerDismissed', 'true');
+    localStorage.setItem('mobileWelcomeDismissed', 'true');
   };
 
-  // Don't show if not mobile or already dismissed
-  if (!isMobile || isDismissed) {
+  // Don't show if not mobile, already dismissed, or banner hidden
+  if (!isMobile || isDismissed || !showBanner) {
     return null;
   }
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-blue-50 to-green-50 p-4"
-      role="dialog"
-      aria-labelledby="mobile-banner-title"
-      aria-describedby="mobile-banner-description"
+      className="fixed top-4 left-4 right-4 z-50 flex items-center justify-center animate-slideDown"
+      role="alert"
+      aria-live="polite"
+      aria-labelledby="mobile-welcome-title"
     >
-      <Card variant="default" className="max-w-md w-full p-8 text-center">
-        {/* Colombian Flag Colors as accent */}
-        <div className="flex justify-center mb-6">
-          <div className="w-full h-2 flex rounded-full overflow-hidden shadow-md">
-            <div className="flex-1 bg-yellow-400"></div>
-            <div className="flex-1 bg-blue-600"></div>
-            <div className="flex-1 bg-red-500"></div>
+      <Card variant="default" className="max-w-md w-full p-6 bg-gradient-to-r from-emerald-50 to-sky-50 border-2 border-emerald-200 shadow-2xl">
+        {/* Celebration Icon */}
+        <div className="flex items-start gap-4">
+          <div className="text-4xl flex-shrink-0">
+            🎉
           </div>
-        </div>
 
-        {/* Icon */}
-        <div className="text-6xl mb-4">
-          🖥️
-        </div>
+          <div className="flex-1">
+            <h2 id="mobile-welcome-title" className="text-xl font-bold text-gray-900 mb-2">
+              ¡Optimizado para móvil!
+            </h2>
 
-        <h1 id="mobile-banner-title" className="text-2xl font-bold text-gray-900 mb-4">
-          Mejor Experiencia en Desktop
-        </h1>
+            <p className="text-gray-700 mb-3 text-sm leading-relaxed">
+              Toca departamentos para jugar. Desliza para explorar. Todo optimizado para tu pantalla táctil.
+            </p>
 
-        <p id="mobile-banner-description" className="text-gray-600 mb-6 leading-relaxed">
-          El Rompecabezas de Colombia está optimizado para computadores de escritorio
-          donde puedes arrastrar y soltar los departamentos con precisión.
-        </p>
-
-        <Card variant="default" className="bg-blue-50 p-4 mb-6">
-          <p className="text-sm text-blue-900 font-medium mb-2">
-            📧 Envíate el enlace por correo
-          </p>
-          <p className="text-sm text-blue-600">
-            Visita este juego en tu computador para la mejor experiencia
-          </p>
-          <div className="mt-3 bg-white rounded p-2 px-3 font-mono text-sm text-gray-600 break-all">
-            {window.location.href}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleDismiss}
+              className="text-emerald-600 hover:text-emerald-700 font-medium text-sm"
+              aria-label="Cerrar mensaje de bienvenida"
+            >
+              Entendido ✓
+            </Button>
           </div>
-        </Card>
 
-        <div className="flex flex-col gap-3">
+          {/* Close button */}
           <Button
-            variant="primary"
-            size="lg"
+            variant="ghost"
+            size="sm"
             onClick={handleDismiss}
-            className="w-full bg-gradient-to-r from-emerald-500 to-sky-500 font-semibold shadow-lg"
-            aria-label="Continuar al juego en dispositivo móvil"
-          >
-            Continuar de Todos Modos
-          </Button>
-
-          <Button
-            variant="secondary"
-            size="lg"
-            onClick={() => {
-              // Copy URL to clipboard
-              navigator.clipboard.writeText(window.location.href);
-              alert('¡Enlace copiado al portapapeles!');
+            style={{
+              width: '28px',
+              height: '28px',
+              borderRadius: '50%',
+              padding: 0,
+              minWidth: 'unset'
             }}
-            className="w-full bg-white text-gray-600 border-2 border-gray-300 font-medium"
-            aria-label="Copiar enlace del juego al portapapeles"
+            aria-label="Cerrar"
           >
-            📋 Copiar Enlace
+            <svg style={{ width: '14px', height: '14px', color: colors.text.secondary }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
           </Button>
         </div>
-
-        <p className="text-sm text-gray-400 mt-6">
-          💡 Tip: El juego funciona mejor con un mouse o trackpad
-        </p>
       </Card>
+
+      <style>{`
+        @keyframes slideDown {
+          from {
+            transform: translateY(-100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+        .animate-slideDown {
+          animation: slideDown 0.3s ease-out;
+        }
+      `}</style>
     </div>
   );
 }

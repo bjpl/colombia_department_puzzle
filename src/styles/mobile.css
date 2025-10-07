@@ -1,0 +1,175 @@
+/**
+ * Mobile-First Responsive Styles
+ *
+ * These styles ensure optimal mobile experience with:
+ * - Safe area handling (iOS notch, Android gestures)
+ * - Touch-friendly targets
+ * - Smooth 60fps animations
+ * - Reduced motion support
+ */
+
+/* Safe Area Support - iOS Notch & Android Gestures */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .mobile-header {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .mobile-bottom-sheet {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Hardware Acceleration for Smooth Animations */
+.hw-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform;
+}
+
+/* Bottom Sheet Optimizations */
+.bottom-sheet-container {
+  /* Force GPU layer */
+  transform: translateZ(0);
+  will-change: transform;
+
+  /* Smooth transitions */
+  transition: transform 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.bottom-sheet-dragging {
+  /* No transition during drag for instant response */
+  transition: none;
+}
+
+/* Backdrop Blur Support */
+@supports (backdrop-filter: blur(8px)) {
+  .floating-header {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* Safari */
+  }
+}
+
+/* Fallback for browsers without backdrop-filter */
+@supports not (backdrop-filter: blur(8px)) {
+  .floating-header {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+  }
+}
+
+/* Touch Target Sizing - Minimum 44px per Apple/Google guidelines */
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+
+  /* Increase tap area with padding if element is smaller */
+  padding: max(0px, calc((44px - 100%) / 2));
+}
+
+/* Prevent Pull-to-Refresh on Mobile */
+body {
+  overscroll-behavior-y: contain;
+}
+
+/* Disable iOS Tap Highlight (we have custom feedback) */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Smooth Scrolling with Momentum */
+.smooth-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Prevent Text Selection During Drag */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .bottom-sheet-container {
+    transition: none !important;
+  }
+}
+
+/* Dark Mode Support (Future Enhancement) */
+@media (prefers-color-scheme: dark) {
+  .floating-header {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Landscape Orientation Adjustments */
+@media (orientation: landscape) and (max-height: 500px) {
+  .mobile-header {
+    height: 48px; /* Smaller header in landscape */
+  }
+
+  .bottom-sheet-collapsed {
+    height: 100px; /* Smaller collapsed state */
+  }
+}
+
+/* Tablet-Specific Adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Hybrid mode - can use either mobile or desktop layout */
+  .tablet-sidebar {
+    width: 320px;
+  }
+}
+
+/* High DPI Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Sharper borders on retina displays */
+  .bottom-sheet-container {
+    border-top: 0.5px solid rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Focus Visible (Keyboard Navigation) */
+.focus-visible:focus-visible {
+  outline: 3px solid #007AFF; /* iOS blue */
+  outline-offset: 2px;
+}
+
+/* Active States for Touch */
+.touch-active:active {
+  opacity: 0.7;
+  transform: scale(0.98);
+}
+
+/* Loading States */
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+.skeleton-loader {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}

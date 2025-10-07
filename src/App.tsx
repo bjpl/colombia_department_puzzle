@@ -6,6 +6,10 @@ import { AccessibilityProvider } from './context/AccessibilityContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import MobileBanner from './components/MobileBanner';
 import { keyboardManager } from './services/keyboardManager';
+// PWA Components from Agent 3
+import { InstallPrompt } from './components/InstallPrompt';
+import { UpdateNotification } from './components/UpdateNotification';
+import { OfflineIndicator } from './components/OfflineIndicator';
 
 function App() {
   useEffect(() => {
@@ -20,11 +24,21 @@ function App() {
         <AccessibilityProvider>
           <GameProvider>
             <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 overflow-x-hidden">
+              {/* PWA Status Indicators */}
+              <OfflineIndicator />
+              <UpdateNotification />
+
+              {/* Mobile Welcome Banner */}
               <MobileBanner />
+
+              {/* Main App */}
               <Routes>
                 <Route path="/" element={<GameContainer />} />
                 <Route path="*" element={<GameContainer />} />
               </Routes>
+
+              {/* PWA Install Prompt (shows after first game completion) */}
+              <InstallPrompt showAfterFirstGame={true} />
             </div>
           </GameProvider>
         </AccessibilityProvider>
