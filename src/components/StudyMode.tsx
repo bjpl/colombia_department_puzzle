@@ -323,10 +323,13 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                       padding="none"
                       hover
                       className={cn(
-                        'relative cursor-pointer overflow-hidden group transition-all',
-                        selectedDepartment?.id === dept.id && 'ring-2',
-                        selectedDepartment?.id === dept.id && `ring-[${colors.brand[500]}]`
+                        'relative cursor-pointer overflow-hidden group transition-all'
                       )}
+                      style={{
+                        boxShadow: selectedDepartment?.id === dept.id
+                          ? `0 0 0 2px ${colors.brand[500]}`
+                          : undefined
+                      }}
                     >
                       {/* Region color bar */}
                       <div
@@ -422,15 +425,17 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                             'text-left transition-all hover:scale-105 p-3 h-auto min-h-[70px]',
                             'border border-gray-200 rounded-lg relative',
                             flowState.studiedDepartments.has(dept.id) && 'bg-green-50 border-green-300',
-                            selectedDepartment?.id === dept.id && 'ring-2 scale-105 shadow-lg z-10',
-                            selectedDepartment?.id === dept.id && `ring-[${colors.brand[500]}]`
+                            selectedDepartment?.id === dept.id && 'scale-105 shadow-lg z-10'
                           )}
                           style={{
                             backgroundColor: flowState.studiedDepartments.has(dept.id)
                               ? 'rgb(240 253 244)'
                               : selectedDepartment?.id === dept.id
                               ? colors.brand[50]
-                              : 'white'
+                              : 'white',
+                            boxShadow: selectedDepartment?.id === dept.id
+                              ? `0 0 0 2px ${colors.brand[500]}`
+                              : undefined
                           }}
                         >
                           <div className="flex flex-col items-start gap-1">

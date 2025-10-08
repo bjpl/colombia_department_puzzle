@@ -146,7 +146,8 @@ function DraggableDepartment({ department, compact = false }: { department: Depa
         borderColor: colors.brand[400],
         borderWidth: '2px',
         cursor: 'move',
-        padding: compact ? spacing[2] : spacing[3]
+        padding: compact ? spacing[2] : spacing[3],
+        boxShadow: isDragging ? `0 0 0 4px ${colors.brand[400]}` : undefined
       }}
       {...listeners}
       {...attributes}
@@ -155,8 +156,7 @@ function DraggableDepartment({ department, compact = false }: { department: Depa
       hover
       className={`
         relative group transition-all duration-200
-        ${isDragging ? 'opacity-50 z-50 ring-4' : ''}
-        ${isDragging ? `ring-[${colors.brand[400]}]` : ''}
+        ${isDragging ? 'opacity-50 z-50' : ''}
         hover:scale-105
       `}
       role="button"
