@@ -180,6 +180,33 @@ AI-driven development environment using SPARC methodology and swarm coordination
 
 ---
 
+## 🔍 REQUIRED: Load Reference Documentation
+
+**MANDATORY:** At the start of every session, read these files to load detailed reference documentation:
+
+```
+Read ".claude/PROJECT_IMPLEMENTATION.md"
+Read ".claude/AGENT_REFERENCE.md"
+Read ".claude/EXAMPLES_AND_PATTERNS.md"
+```
+
+These files contain:
+- **PROJECT_IMPLEMENTATION.md**: Detailed project-specific patterns and full SPARC workflow
+- **AGENT_REFERENCE.md**: Complete catalog of 54 agents with usage guides
+- **EXAMPLES_AND_PATTERNS.md**: Real-world code examples and anti-patterns
+
+**Why this is required:** CLAUDE.md is auto-loaded but contains only summaries. Reference files
+provide detailed context needed for complex operations. Reading them ensures complete documentation
+is available throughout the session.
+
+**When to read:**
+- At session start (proactively)
+- Before spawning multiple agents (need full agent catalog)
+- Before complex SPARC workflows (need detailed methodology)
+- When examples are needed (need pattern reference)
+
+---
+
 ## 🚨 CRITICAL: CONCURRENT EXECUTION & FILE MANAGEMENT
 
 **Implements:** MANDATORY-6 (Swarm Orchestration), MANDATORY-18 (Resource Optimization)
