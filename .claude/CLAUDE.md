@@ -3,6 +3,27 @@
 AI-driven development environment using SPARC methodology and swarm coordination.
 
 ═══════════════════════════════════════════════════════════════════════════════
+    ⚠️ FIRST ACTION REQUIRED - READ REFERENCE FILES IMMEDIATELY
+═══════════════════════════════════════════════════════════════════════════════
+
+**BEFORE doing ANY work, read these files in parallel to load complete documentation:**
+
+```
+Read ".claude/PROJECT_IMPLEMENTATION.md"    (Detailed patterns, SPARC workflow)
+Read ".claude/AGENT_REFERENCE.md"          (54 agents, MCP tools, selection guide)
+Read ".claude/EXAMPLES_AND_PATTERNS.md"    (Code examples, anti-patterns, real cases)
+```
+
+**Why mandatory:** CLAUDE.md contains critical directives but only summaries of implementation
+details. Reference files provide the complete context needed for professional operation.
+
+**Read them at:**
+- Session start (before first action)
+- Before spawning agent swarms (need full catalog)
+- Before SPARC workflows (need detailed methodology)
+- When implementing patterns (need examples)
+
+═══════════════════════════════════════════════════════════════════════════════
     MANDATORY AGENT OPERATING DIRECTIVES
     ALL DIRECTIVES ARE MANDATORY - STRICT COMPLIANCE REQUIRED
 ═══════════════════════════════════════════════════════════════════════════════
@@ -177,33 +198,6 @@ AI-driven development environment using SPARC methodology and swarm coordination
 ═══════════════════════════════════════════════════════════════════════════════
     END MANDATORY DIRECTIVES - COMPLIANCE REQUIRED
 ═══════════════════════════════════════════════════════════════════════════════
-
----
-
-## 🔍 REQUIRED: Load Reference Documentation
-
-**MANDATORY:** At the start of every session, read these files to load detailed reference documentation:
-
-```
-Read ".claude/PROJECT_IMPLEMENTATION.md"
-Read ".claude/AGENT_REFERENCE.md"
-Read ".claude/EXAMPLES_AND_PATTERNS.md"
-```
-
-These files contain:
-- **PROJECT_IMPLEMENTATION.md**: Detailed project-specific patterns and full SPARC workflow
-- **AGENT_REFERENCE.md**: Complete catalog of 54 agents with usage guides
-- **EXAMPLES_AND_PATTERNS.md**: Real-world code examples and anti-patterns
-
-**Why this is required:** CLAUDE.md is auto-loaded but contains only summaries. Reference files
-provide detailed context needed for complex operations. Reading them ensures complete documentation
-is available throughout the session.
-
-**When to read:**
-- At session start (proactively)
-- Before spawning multiple agents (need full agent catalog)
-- Before complex SPARC workflows (need detailed methodology)
-- When examples are needed (need pattern reference)
 
 ---
 
