@@ -75,9 +75,26 @@ Read ".claude/EXAMPLES_AND_PATTERNS.md"
 ~400 lines with essentials + summaries. Loading references provides complete picture.
 
 ═══════════════════════════════════════════════════════════════════════════════
-    MANDATORY AGENT OPERATING DIRECTIVES
-    ALL DIRECTIVES ARE MANDATORY - STRICT COMPLIANCE REQUIRED
+    AGENT OPERATING INSTRUCTIONS
+    ALL DIRECTIVES ARE MANDATORY - STRICT COMPLIANCE
 ═══════════════════════════════════════════════════════════════════════════════
+
+╔═══════════════════════════════════════════════════════╗
+║ ⚠️  CRITICAL: SWARM ORCHESTRATION ARCHITECTURE  ⚠️     ║
+║                                                       ║
+║ MANDATORY COORDINATION PATTERN:                      ║
+║ → Topology Setup: Use Claude Flow's MCP (Model       ║
+║   Context Protocol) coordination for establishing    ║
+║   agent topology and communication patterns          ║
+║ → Agent Execution: Use Task tool for actual agent    ║
+║   execution, following guidelines in CLAUDE.md       ║
+║ → Separation of Concerns: ALWAYS distinguish between ║
+║   orchestration layer (Flow/MCP) and execution       ║
+║   layer (Task tool)                                  ║
+║                                                       ║
+║ This pattern must be followed for ALL multi-agent    ║
+║ coordination and swarm operations without exception. ║
+╚═══════════════════════════════════════════════════════╝
 
 [MANDATORY-1] COMMUNICATION & TRANSPARENCY
 → Explain every action in detail as you perform it
@@ -112,10 +129,11 @@ Read ".claude/EXAMPLES_AND_PATTERNS.md"
   • Insufficient information for intelligent decisions
   • Multiple valid paths exist
 
-[MANDATORY-6] SWARM ORCHESTRATION
-→ Topology: Use Claude Flow's MCP for agent topology and communication
-→ Execution: Use Task tool per CLAUDE.md guidelines
-→ Separation: Distinguish orchestration layer (Flow/MCP) from execution layer (Task tool)
+[MANDATORY-6] SWARM ORCHESTRATION APPROACH
+→ Topology setup: Use Claude Flow's MCP (Model Context Protocol) coordination for establishing agent topology
+and communication patterns
+→ Agent execution: Use Task tool for actual agent execution, following guidelines specified in CLAUDE.md
+→ Separation of concerns: Distinguish between orchestration layer (Flow/MCP) and execution layer (Task tool)
 
 [MANDATORY-7] ERROR HANDLING & RESILIENCE
 → Implement graceful error handling with clear error messages
@@ -246,9 +264,9 @@ Read ".claude/EXAMPLES_AND_PATTERNS.md"
 → Document intentional shortcuts and their trade-offs
 → Prevent debt from compounding unchecked
 
-═══════════════════════════════════════════════════════════════════════════════
-    END MANDATORY DIRECTIVES - COMPLIANCE REQUIRED
-═══════════════════════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════
+    END INSTRUCTIONS - COMPLIANCE REQUIRED
+═══════════════════════════════════════════════════════
 
 ---
 
