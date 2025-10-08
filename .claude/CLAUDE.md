@@ -9,19 +9,70 @@ AI-driven development environment using SPARC methodology and swarm coordination
 **BEFORE doing ANY work, read these files in parallel to load complete documentation:**
 
 ```
-Read ".claude/PROJECT_IMPLEMENTATION.md"    (Detailed patterns, SPARC workflow)
-Read ".claude/AGENT_REFERENCE.md"          (54 agents, MCP tools, selection guide)
-Read ".claude/EXAMPLES_AND_PATTERNS.md"    (Code examples, anti-patterns, real cases)
+Read ".claude/PROJECT_IMPLEMENTATION.md"
+Read ".claude/AGENT_REFERENCE.md"
+Read ".claude/EXAMPLES_AND_PATTERNS.md"
 ```
 
-**Why mandatory:** CLAUDE.md contains critical directives but only summaries of implementation
-details. Reference files provide the complete context needed for professional operation.
+---
 
-**Read them at:**
-- Session start (before first action)
-- Before spawning agent swarms (need full catalog)
-- Before SPARC workflows (need detailed methodology)
-- When implementing patterns (need examples)
+## 🔍 KEYWORD-TRIGGERED REFERENCE LOADING
+
+**If you see ANY of these keywords/scenarios, read the corresponding reference file:**
+
+### 📘 PROJECT_IMPLEMENTATION.md
+**Condensed:** Concurrent execution patterns, file org rules, SPARC workflow, agent hooks, MCP setup
+
+**Read when user mentions:**
+- "concurrent", "parallel", "batch", "swarm coordination"
+- "SPARC", "specification", "pseudocode", "architecture", "refinement"
+- "hooks", "pre-task", "post-task", "session"
+- "file organization", "directory structure", "where to save"
+- "MCP setup", "claude-flow", "topology"
+- "batching", "golden rule", "one message"
+- Spawning multiple agents
+- Complex multi-step workflows
+- Test-driven development setup
+
+### 📗 AGENT_REFERENCE.md
+**Condensed:** Complete catalog of 54 agents, MCP tool reference, agent selection guides, performance benchmarks
+
+**Read when user mentions:**
+- "which agent", "what agent", "available agents"
+- "agent for [task]", "how to [pick/choose/select] agent"
+- Specific agent names: "coder", "tester", "reviewer", "planner", etc.
+- "MCP tools", "swarm_init", "agent_spawn"
+- "backend", "mobile", "ML", "CI/CD" (specialized agents)
+- "GitHub", "PR", "issue", "release" (GitHub agents)
+- "consensus", "distributed", "Byzantine" (consensus agents)
+- "performance", "benchmark", "optimization" (performance agents)
+- Need agent for specific technology/domain
+
+### 📙 EXAMPLES_AND_PATTERNS.md
+**Condensed:** Real mobile v1.0 implementation, correct vs incorrect patterns, performance comparisons, anti-patterns
+
+**Read when user mentions:**
+- "example", "how to", "show me", "demonstrate"
+- "pattern", "best practice", "anti-pattern"
+- "what's wrong", "why doesn't this work"
+- "performance comparison", "faster approach"
+- "mobile support" (has detailed mobile v1.0 case study)
+- "4-hour implementation", "parallel speedup"
+- Need to see working code
+- Learning how to use agents properly
+
+### 🔄 PROACTIVE LOADING
+
+**Always read ALL reference files when:**
+- Session just started (first action)
+- User asks complex multi-part question
+- About to spawn 3+ agents
+- Implementing new major feature
+- Need performance optimization
+- Uncertainty about which pattern to use
+
+**Why this matters:** Reference files contain 700+ lines of detailed context. CLAUDE.md has
+~400 lines with essentials + summaries. Loading references provides complete picture.
 
 ═══════════════════════════════════════════════════════════════════════════════
     MANDATORY AGENT OPERATING DIRECTIVES
