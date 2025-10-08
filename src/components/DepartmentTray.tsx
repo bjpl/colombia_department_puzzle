@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
 import { useAccessibility } from '../context/AccessibilityContext';
@@ -20,7 +20,8 @@ import {
 
 // Ultra-compact mini chip for maximum map space
 // Mobile-optimized with 44px minimum height
-function DraggableChip({ department, isMobile = false }: { department: Department; isMobile?: boolean }) {
+// Memoized to prevent unnecessary re-renders
+const DraggableChip = memo(({ department, isMobile = false }: { department: Department; isMobile?: boolean }) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: department.id,
     data: department,
@@ -115,10 +116,15 @@ function DraggableChip({ department, isMobile = false }: { department: Departmen
   }
 
   return chipElement;
-}
+}, (prev, next) => {
+  // Only re-render if department ID or mobile flag changed
+  return prev.department.id === next.department.id && prev.isMobile === next.isMobile;
+});
+DraggableChip.displayName = 'DraggableChip';
 
 // Legacy full-size component (kept for compatibility)
-function DraggableDepartment({ department, compact = false }: { department: Department; compact?: boolean }) {
+// Memoized to prevent unnecessary re-renders
+const DraggableDepartment = memo(({ department, compact = false }: { department: Department; compact?: boolean }) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: department.id,
     data: department,
@@ -217,7 +223,11 @@ function DraggableDepartment({ department, compact = false }: { department: Depa
       </span>
     </Card>
   );
-}
+}, (prev, next) => {
+  // Only re-render if department ID or compact flag changed
+  return prev.department.id === next.department.id && prev.compact === next.compact;
+});
+DraggableDepartment.displayName = 'DraggableDepartment';
 
 interface DepartmentTrayProps {
   layout?: 'horizontal' | 'vertical' | 'compact' | 'ultra-compact' | 'mobile-scroll';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, memo, useCallback } from 'react';
 import { Department, colombiaDepartments } from '../data/colombiaDepartments';
 import { useGame } from '../context/GameContext';
 import { GameModeConfig } from './GameModeSelector';
@@ -37,6 +37,183 @@ interface StudyFlowState {
   quizCorrect: number;
   quizTotal: number;
 }
+
+// Memoized RegionButton component to prevent unnecessary re-renders
+const RegionButton = memo(({
+  region,
+  departmentCount,
+  isSelected,
+  onSelect
+}: {
+  region: string;
+  departmentCount: number;
+  isSelected: boolean;
+  onSelect: () => void;
+}) => (
+  <Button
+    onClick={onSelect}
+    variant={isSelected ? 'primary' : 'secondary'}
+    size="sm"
+    className="whitespace-nowrap"
+  >
+    {region} ({departmentCount})
+  </Button>
+));
+RegionButton.displayName = 'RegionButton';
+
+// Memoized DepartmentCard component for card view
+const DepartmentCard = memo(({
+  dept,
+  isSelected,
+  isStudied,
+  onClick
+}: {
+  dept: Department;
+  isSelected: boolean;
+  isStudied: boolean;
+  onClick: () => void;
+}) => (
+  <Card
+    onClick={onClick}
+    variant="default"
+    padding="none"
+    hover
+    className={cn(
+      'relative cursor-pointer overflow-hidden group transition-all'
+    )}
+    style={{
+      boxShadow: isSelected
+        ? `0 0 0 2px ${colors.brand[500]}`
+        : undefined
+    }}
+  >
+    {/* Region color bar */}
+    <div
+      className="w-full h-1"
+      style={{
+        backgroundColor: REGION_COLORS[dept.region] || 'rgb(229 231 235)'
+      }}
+    />
+
+    <CardContent className="p-3">
+      <CardHeader className="flex-row justify-between items-start mb-1">
+        <CardTitle className="text-lg font-semibold text-gray-900">
+          {dept.name}
+        </CardTitle>
+        {isStudied && (
+          <span className="text-green-500">✓</span>
+        )}
+      </CardHeader>
+      <CardDescription className="text-sm text-gray-600 mb-0.5">
+        Capital: {dept.capital}
+      </CardDescription>
+      <p className="text-xs text-gray-500">
+        {dept.region}
+      </p>
+
+      {/* Quick stats on hover */}
+      <div
+        className="border-t opacity-0 group-hover:opacity-100 transition-opacity"
+        style={{
+          marginTop: spacing[3],
+          paddingTop: spacing[3],
+          borderColor: colors.gray[100]
+        }}
+      >
+        <div
+          className="flex justify-between"
+          style={{
+            fontSize: textStyles.caption.fontSize[0],
+            color: colors.text.secondary
+          }}
+        >
+          <span>Área: {dept.area.toLocaleString()} km²</span>
+          <span>Pop: {(dept.population / 1000000).toFixed(1)}M</span>
+        </div>
+      </div>
+    </CardContent>
+
+    {/* Study progress indicator */}
+    {isStudied && (
+      <Badge
+        variant="success"
+        size="sm"
+        className="absolute"
+        style={{
+          top: spacing[2],
+          right: spacing[2]
+        }}
+      >
+        Estudiado
+      </Badge>
+    )}
+  </Card>
+), (prev, next) => {
+  // Custom comparison: only re-render if relevant props changed
+  return (
+    prev.dept.id === next.dept.id &&
+    prev.isSelected === next.isSelected &&
+    prev.isStudied === next.isStudied
+  );
+});
+DepartmentCard.displayName = 'DepartmentCard';
+
+// Memoized DepartmentButton component for grid view
+const DepartmentButton = memo(({
+  dept,
+  isSelected,
+  isStudied,
+  onClick
+}: {
+  dept: Department;
+  isSelected: boolean;
+  isStudied: boolean;
+  onClick: () => void;
+}) => (
+  <Button
+    onClick={onClick}
+    variant={isStudied ? 'secondary' : 'ghost'}
+    className={cn(
+      'text-left transition-all hover:scale-105 p-3 h-auto min-h-[70px]',
+      'border border-gray-200 rounded-lg relative',
+      isStudied && 'bg-green-50 border-green-300',
+      isSelected && 'scale-105 shadow-lg z-10'
+    )}
+    style={{
+      backgroundColor: isStudied
+        ? 'rgb(240 253 244)'
+        : isSelected
+        ? colors.brand[50]
+        : 'white',
+      boxShadow: isSelected
+        ? `0 0 0 2px ${colors.brand[500]}`
+        : undefined
+    }}
+  >
+    <div className="flex flex-col items-start gap-1">
+      <div className="text-sm font-semibold text-gray-900 leading-tight">
+        {dept.name}
+      </div>
+      <div className="text-xs text-gray-500">
+        Capital: {dept.capital}
+      </div>
+      <div
+        className="text-xs font-medium"
+        style={{ color: REGION_COLORS[dept.region] || colors.text.secondary }}
+      >
+        {dept.region}
+      </div>
+    </div>
+  </Button>
+), (prev, next) => {
+  // Custom comparison for grid buttons
+  return (
+    prev.dept.id === next.dept.id &&
+    prev.isSelected === next.isSelected &&
+    prev.isStudied === next.isStudied
+  );
+});
+DepartmentButton.displayName = 'DepartmentButton';
 
 // Smart recommendations based on study progress
 const getRecommendedMode = (studiedDepts: Set<string>, allDepts: Department[]): GameModeConfig => {
@@ -138,19 +315,26 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
     }));
   };
 
-  // Group departments by region
-  const departmentsByRegion = colombiaDepartments.reduce((acc, dept) => {
-    if (!acc[dept.region]) acc[dept.region] = [];
-    acc[dept.region].push(dept);
-    return acc;
-  }, {} as Record<string, Department[]>);
+  // Group departments by region - memoized to prevent recalculation
+  const departmentsByRegion = useMemo(() => {
+    return colombiaDepartments.reduce((acc, dept) => {
+      if (!acc[dept.region]) acc[dept.region] = [];
+      acc[dept.region].push(dept);
+      return acc;
+    }, {} as Record<string, Department[]>);
+  }, []); // colombiaDepartments is static, no dependencies
 
-  // Filter by focused region if set
-  const displayDepartments = flowState.focusedRegion
-    ? { [flowState.focusedRegion]: departmentsByRegion[flowState.focusedRegion] }
-    : departmentsByRegion;
+  // Filter by focused region if set - memoized based on focused region
+  const displayDepartments = useMemo(() => {
+    return flowState.focusedRegion
+      ? { [flowState.focusedRegion]: departmentsByRegion[flowState.focusedRegion] }
+      : departmentsByRegion;
+  }, [flowState.focusedRegion, departmentsByRegion]);
 
-  const studyProgress = (flowState.studiedDepartments.size / colombiaDepartments.length) * 100;
+  // Study progress - memoized based on studied departments count
+  const studyProgress = useMemo(() => {
+    return (flowState.studiedDepartments.size / colombiaDepartments.length) * 100;
+  }, [flowState.studiedDepartments.size]);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-3">
@@ -299,99 +483,28 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                 Todas las Regiones
               </Button>
               {Object.keys(departmentsByRegion).map(region => (
-                <Button
+                <RegionButton
                   key={region}
-                  onClick={() => handleRegionFocus(region)}
-                  variant={flowState.focusedRegion === region ? 'primary' : 'secondary'}
-                  size="sm"
-                  className="whitespace-nowrap"
-                >
-                  {region} ({departmentsByRegion[region].length})
-                </Button>
+                  region={region}
+                  departmentCount={departmentsByRegion[region].length}
+                  isSelected={flowState.focusedRegion === region}
+                  onSelect={() => handleRegionFocus(region)}
+                />
               ))}
             </div>
 
-            {/* Enhanced Card View */}
+            {/* Enhanced Card View - using memoized DepartmentCard components */}
             {viewMode === 'cards' && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {Object.entries(displayDepartments).flatMap(([region, depts]) =>
                   depts.map(dept => (
-                    <Card
+                    <DepartmentCard
                       key={dept.id}
+                      dept={dept}
+                      isSelected={selectedDepartment?.id === dept.id}
+                      isStudied={flowState.studiedDepartments.has(dept.id)}
                       onClick={() => handleDepartmentClick(dept)}
-                      variant="default"
-                      padding="none"
-                      hover
-                      className={cn(
-                        'relative cursor-pointer overflow-hidden group transition-all'
-                      )}
-                      style={{
-                        boxShadow: selectedDepartment?.id === dept.id
-                          ? `0 0 0 2px ${colors.brand[500]}`
-                          : undefined
-                      }}
-                    >
-                      {/* Region color bar */}
-                      <div
-                        className="w-full h-1"
-                        style={{
-                          backgroundColor: REGION_COLORS[dept.region] || 'rgb(229 231 235)'
-                        }}
-                      />
-
-                      <CardContent className="p-3">
-                        <CardHeader className="flex-row justify-between items-start mb-1">
-                          <CardTitle className="text-lg font-semibold text-gray-900">
-                            {dept.name}
-                          </CardTitle>
-                          {flowState.studiedDepartments.has(dept.id) && (
-                            <span className="text-green-500">✓</span>
-                          )}
-                        </CardHeader>
-                        <CardDescription className="text-sm text-gray-600 mb-0.5">
-                          Capital: {dept.capital}
-                        </CardDescription>
-                        <p className="text-xs text-gray-500">
-                          {dept.region}
-                        </p>
-
-                        {/* Quick stats on hover */}
-                        <div
-                          className="border-t opacity-0 group-hover:opacity-100 transition-opacity"
-                          style={{
-                            marginTop: spacing[3],
-                            paddingTop: spacing[3],
-                            borderColor: colors.gray[100]
-                          }}
-                        >
-                          <div
-                            className="flex justify-between"
-                            style={{
-                              fontSize: textStyles.caption.fontSize[0],
-                              color: colors.text.secondary
-                            }}
-                          >
-                            <span>Área: {dept.area.toLocaleString()} km²</span>
-                            <span>Pop: {(dept.population / 1000000).toFixed(1)}M</span>
-                          </div>
-                        </div>
-                      </CardContent>
-
-                      {/* Study progress indicator */}
-                      {flowState.studiedDepartments.has(dept.id) && (
-                        <Badge
-                          variant="success"
-                          size="sm"
-                          className="absolute"
-                          style={{
-                            top: spacing[2],
-                            right: spacing[2]
-                          }}
-                        >
-                          Estudiado
-                        </Badge>
-                      )}
-                    </Card>
+                    />
                   ))
                 )}
               </div>
@@ -414,45 +527,16 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                       </div>
                     </div>
 
-                    {/* Department grid with clear spacing from label */}
+                    {/* Department grid with clear spacing from label - using memoized DepartmentButton */}
                     <div className="grid grid-cols-3 gap-3">
                       {depts.map(dept => (
-                        <Button
+                        <DepartmentButton
                           key={dept.id}
+                          dept={dept}
+                          isSelected={selectedDepartment?.id === dept.id}
+                          isStudied={flowState.studiedDepartments.has(dept.id)}
                           onClick={() => handleDepartmentClick(dept)}
-                          variant={flowState.studiedDepartments.has(dept.id) ? 'secondary' : 'ghost'}
-                          className={cn(
-                            'text-left transition-all hover:scale-105 p-3 h-auto min-h-[70px]',
-                            'border border-gray-200 rounded-lg relative',
-                            flowState.studiedDepartments.has(dept.id) && 'bg-green-50 border-green-300',
-                            selectedDepartment?.id === dept.id && 'scale-105 shadow-lg z-10'
-                          )}
-                          style={{
-                            backgroundColor: flowState.studiedDepartments.has(dept.id)
-                              ? 'rgb(240 253 244)'
-                              : selectedDepartment?.id === dept.id
-                              ? colors.brand[50]
-                              : 'white',
-                            boxShadow: selectedDepartment?.id === dept.id
-                              ? `0 0 0 2px ${colors.brand[500]}`
-                              : undefined
-                          }}
-                        >
-                          <div className="flex flex-col items-start gap-1">
-                            <div className="text-sm font-semibold text-gray-900 leading-tight">
-                              {dept.name}
-                            </div>
-                            <div className="text-xs text-gray-500">
-                              Capital: {dept.capital}
-                            </div>
-                            <div
-                              className="text-xs font-medium"
-                              style={{ color: REGION_COLORS[dept.region] || colors.text.secondary }}
-                            >
-                              {dept.region}
-                            </div>
-                          </div>
-                        </Button>
+                        />
                       ))}
                     </div>
                   </div>

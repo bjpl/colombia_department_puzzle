@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, lazy, Suspense } from 'react';
 import { DndContext, DragEndEvent, DragStartEvent, DragMoveEvent, rectIntersection } from '@dnd-kit/core';
 import { Department } from '../data/colombiaDepartments';
 import MapCanvas from './MapCanvas';
@@ -9,7 +9,9 @@ import DragOverlay from './DragOverlay';
 import PlacementFeedback from './PlacementFeedback';
 import ScreenReaderAnnouncements from './ScreenReaderAnnouncements';
 import { useGame } from '../context/GameContext';
-import StudyMode from './StudyMode';
+// Lazy load StudyMode for better initial bundle size (~14 KB savings)
+const StudyMode = lazy(() => import('./StudyMode'));
+import StudyModeLoading from './StudyModeLoading';
 import { useSoundEffect } from '../services/soundManager';
 import PostGameReport from './PostGameReport';
 import InteractiveTutorial from './InteractiveTutorial';
@@ -622,27 +624,29 @@ export default function GameContainer() {
           />
         )}
         {modal.isModalOpen('study') && (
-          <StudyMode
-            onClose={() => {
-              game.clearCurrentDepartment();
-              setHasUsedStudyMode(true); // Mark that study mode was used
-              modal.closeAllModals(); // Use closeAllModals to clear any queued modals
-            }}
-            onStartGame={() => {
-              game.clearCurrentDepartment();
-              modal.closeModal();
-              setTransitionConfig({ from: 'study', to: 'game', mode: game.gameMode });
-              setShowTransition(true);
-              setTimeout(() => game.resetGame(), 500);
-            }}
-            onSelectMode={(mode) => {
-              game.setGameMode(mode);
-              modal.closeModal();
-              setTransitionConfig({ from: 'study', to: 'game', mode });
-              setShowTransition(true);
-              setTimeout(() => game.resetGame(), 500);
-            }}
-          />
+          <Suspense fallback={<StudyModeLoading />}>
+            <StudyMode
+              onClose={() => {
+                game.clearCurrentDepartment();
+                setHasUsedStudyMode(true); // Mark that study mode was used
+                modal.closeAllModals(); // Use closeAllModals to clear any queued modals
+              }}
+              onStartGame={() => {
+                game.clearCurrentDepartment();
+                modal.closeModal();
+                setTransitionConfig({ from: 'study', to: 'game', mode: game.gameMode });
+                setShowTransition(true);
+                setTimeout(() => game.resetGame(), 500);
+              }}
+              onSelectMode={(mode) => {
+                game.setGameMode(mode);
+                modal.closeModal();
+                setTransitionConfig({ from: 'study', to: 'game', mode });
+                setShowTransition(true);
+                setTimeout(() => game.resetGame(), 500);
+              }}
+            />
+          </Suspense>
         )}
         {modal.isModalOpen('postGame') && (
           <PostGameReport
