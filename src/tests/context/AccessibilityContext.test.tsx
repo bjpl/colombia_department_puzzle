@@ -9,12 +9,12 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { ReactNode } from 'react';
-import { ColorblindMode } from '../../constants/accessibleColors';
 import {
+  ColorblindMode,
   ACCESSIBLE_REGION_COLORS,
   COLORBLIND_PALETTES,
   getAccessibleRegionColor
-} from '../../constants/accessibleColorsFixed';
+} from '../../design-system/themes/regions';
 
 // Mock localStorage
 const localStorageMock = (() => {

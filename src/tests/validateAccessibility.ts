@@ -1,5 +1,5 @@
 // WCAG AAA Accessibility Validation Script
-import { COLORBLIND_PALETTES, getContrastRatio } from '../constants/accessibleColorsFixed';
+import { COLORBLIND_PALETTES, getContrastRatio } from '../design-system/themes/regions';
 
 const WHITE = '#FFFFFF';
 const REQUIRED_RATIO = 7.0; // WCAG AAA standard

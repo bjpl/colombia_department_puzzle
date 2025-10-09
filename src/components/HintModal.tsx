@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { colombiaDepartments } from '../data/colombiaDepartments';
-import { REGION_STYLES as regionColors } from '../constants/regionColors';
+import { REGION_STYLES as regionColors } from '../design-system/themes/regions';
 import {
   Card,
   CardHeader,

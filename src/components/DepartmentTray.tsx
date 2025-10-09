@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
 import { useAccessibility } from '../context/AccessibilityContext';
-import { REGION_TAILWIND_CLASSES } from '../constants/regionColors';
+import { REGION_TAILWIND_CLASSES } from '../design-system/themes/regions';
 import { normalizeId } from '../utils/nameNormalizer';
 import { Department } from '../data/colombiaDepartments';
 import { TouchFeedback } from './TouchFeedback';

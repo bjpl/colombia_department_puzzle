@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { ColorblindMode } from '../constants/accessibleColors';
 import {
+  ColorblindMode,
   ACCESSIBLE_REGION_COLORS,
   COLORBLIND_PALETTES,
   getAccessibleRegionColor
-} from '../constants/accessibleColorsFixed';
+} from '../design-system/themes/regions';
 
 interface AccessibilityContextType {
   colorMode: ColorblindMode;

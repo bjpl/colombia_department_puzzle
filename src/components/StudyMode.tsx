@@ -4,7 +4,7 @@ import { useGame } from '../context/GameContext';
 import { GameModeConfig } from './GameModeSelector';
 import StudyModeMap from './StudyModeMap';
 import { storage } from '../services/storage';
-import { REGION_COLORS } from '../constants/regionColors';
+import { REGION_COLORS } from '../design-system/themes/regions';
 import { getMemoryAid } from '../data/memoryAids';
 import { getDepartmentEducation } from '../data/departmentEducation';
 import { getRegionalNarrative } from '../data/regionalNarratives';
