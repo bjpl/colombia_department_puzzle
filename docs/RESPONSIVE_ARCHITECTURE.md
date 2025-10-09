@@ -77,7 +77,7 @@ const viewport = useViewportCategory(); // 'mobile' | 'tablet' | 'desktop'
 interface BottomSheetProps {
   children: ReactNode;
   initialSnapPoint?: 'collapsed' | 'half' | 'full';
-  onSnapChange?: (snapPoint: SnapPoint) => void;
+  onSnapPointChange?: (snapPoint: SnapPoint) => void;
   className?: string;
 }
 ```

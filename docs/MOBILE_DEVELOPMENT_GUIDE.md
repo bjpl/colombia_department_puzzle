@@ -58,11 +58,11 @@ import { isTouchDevice } from '../utils/deviceDetection';
 Use the built-in touch target validator:
 
 ```tsx
-import { validateTouchTargets } from '../utils/touchTargetValidator';
+import { reportTouchTargetViolations } from '../utils/touchTargetValidator';
 
 // In development/testing
 if (import.meta.env.DEV) {
-  validateTouchTargets(); // Logs validation results to console
+  reportTouchTargetViolations(); // Logs validation results to console
 }
 ```
 
@@ -251,17 +251,17 @@ workbox: {
 import { usePWA } from '../hooks/usePWA';
 
 function App() {
-  const { canInstall, installPWA, isInstalled } = usePWA();
+  const { isInstallable, promptInstall, isInstalled } = usePWA();
 
   const handleInstallPrompt = async () => {
-    if (canInstall) {
-      await installPWA();
+    if (isInstallable) {
+      await promptInstall();
     }
   };
 
   return (
     <>
-      {canInstall && <InstallPrompt onInstall={handleInstallPrompt} />}
+      {isInstallable && <InstallPrompt onInstall={handleInstallPrompt} />}
     </>
   );
 }
@@ -285,13 +285,10 @@ return (
 
 ```tsx
 // Prompt user when new version available
-const { needsUpdate, updateServiceWorker } = usePWA();
+const { updateAvailable } = usePWA();
 
-{needsUpdate && (
-  <UpdateNotification
-    onUpdate={updateServiceWorker}
-    onDismiss={() => {/* Handle dismiss */}}
-  />
+{updateAvailable && (
+  <UpdateNotification />
 )}
 ```
 

@@ -247,9 +247,11 @@ const debouncedSearch = useDebounced(searchTerm, 300);
 
 ### Test Coverage
 
-- **Minimum:** 90% overall coverage
+- **Current:** 92.4% overall coverage (844/914 passing unit tests)
+- **Target:** 95% overall coverage
 - **Required:** All new features must include tests
 - **Critical paths:** 100% coverage
+- **E2E Tests:** 9 Playwright spec files
 
 ### Writing Tests
 

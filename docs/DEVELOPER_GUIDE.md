@@ -330,6 +330,213 @@ Check:
    }
    ```
 
+## Lighthouse CI & Performance Monitoring
+
+### Performance Budgets
+
+The project uses Lighthouse CI to enforce performance budgets on every build. The budgets are defined in `lighthouse-budget.json` at the project root.
+
+**Current Budgets:**
+
+| Resource Type | Budget (KB) | Notes |
+|--------------|-------------|-------|
+| JavaScript | 200 | Total JavaScript bundle |
+| CSS | 20 | Stylesheets |
+| Images | 50 | Image assets |
+| Fonts | 50 | Web fonts |
+| Total | 350 | All resources combined |
+
+**Performance Metrics:**
+
+| Metric | Budget | Target |
+|--------|--------|--------|
+| First Contentful Paint (FCP) | 2000ms | <2s |
+| Largest Contentful Paint (LCP) | 2500ms | <2.5s |
+| Time to Interactive (TTI) | 3500ms | <3.5s |
+| Cumulative Layout Shift (CLS) | 0.1 | <0.1 |
+| First Input Delay (FID) | 100ms | <100ms |
+
+### Running Lighthouse Locally
+
+**1. Using Chrome DevTools:**
+```bash
+# Start production preview
+npm run build
+npm run preview
+
+# Open Chrome DevTools (F12)
+# Navigate to "Lighthouse" tab
+# Select categories: Performance, Accessibility, Best Practices, SEO
+# Click "Analyze page load"
+```
+
+**2. Using Lighthouse CLI:**
+```bash
+# Install Lighthouse globally
+npm install -g lighthouse
+
+# Build and preview your app
+npm run build
+npm run preview
+
+# Run Lighthouse (in a new terminal)
+lighthouse http://localhost:4173 --view
+
+# Run with budget checks
+lighthouse http://localhost:4173 --budget-path=lighthouse-budget.json --view
+```
+
+**3. Using npm script (recommended):**
+```bash
+# Run Lighthouse with budget validation
+npm run lighthouse
+
+# Output will show:
+# ✓ Passed budgets
+# ✗ Failed budgets (with details)
+```
+
+### Lighthouse CI in GitHub Actions
+
+Lighthouse CI runs automatically on every pull request:
+
+```yaml
+# .github/workflows/lighthouse-ci.yml
+name: Lighthouse CI
+on: [pull_request]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v9
+        with:
+          budgetPath: ./lighthouse-budget.json
+          uploadArtifacts: true
+```
+
+**What happens on PR:**
+1. App is built and deployed to temporary URL
+2. Lighthouse runs performance audit
+3. Results are compared against budgets
+4. PR is blocked if budgets are exceeded
+5. Detailed report is posted as PR comment
+
+### Interpreting Lighthouse Results
+
+**Score Ranges:**
+- 90-100: ✅ Good (Green)
+- 50-89: ⚠️ Needs Improvement (Orange)
+- 0-49: ❌ Poor (Red)
+
+**Key Metrics Explained:**
+
+**First Contentful Paint (FCP):** Time until first text/image appears
+- Target: <2s
+- Impact: User sees page is loading
+
+**Largest Contentful Paint (LCP):** Time until main content is visible
+- Target: <2.5s
+- Impact: User sees useful content
+
+**Cumulative Layout Shift (CLS):** Visual stability score
+- Target: <0.1
+- Impact: Content doesn't jump around
+
+**Time to Interactive (TTI):** When page becomes fully interactive
+- Target: <3.5s
+- Impact: User can interact with page
+
+### Troubleshooting Budget Violations
+
+**JavaScript bundle too large:**
+```bash
+# Analyze bundle composition
+npm run build
+npx vite-bundle-visualizer
+
+# Solutions:
+# - Enable code splitting
+# - Lazy load heavy components
+# - Remove unused dependencies
+# - Use dynamic imports
+```
+
+**Images too large:**
+```bash
+# Compress images
+npm install --save-dev imagemin
+
+# Use modern formats (WebP, AVIF)
+# Implement responsive images
+# Lazy load images below fold
+```
+
+**Poor LCP score:**
+```bash
+# Preload critical assets
+<link rel="preload" as="image" href="/map-background.svg">
+<link rel="preload" as="font" href="/fonts/main.woff2">
+
+# Optimize images
+# Remove render-blocking resources
+# Use CDN for static assets
+```
+
+### Updating Performance Budgets
+
+Edit `lighthouse-budget.json` to adjust budgets:
+
+```json
+{
+  "resourceSizes": [
+    {
+      "resourceType": "script",
+      "budget": 250  // Increase if needed
+    }
+  ],
+  "timings": [
+    {
+      "metric": "interactive",
+      "budget": 4000  // Adjust based on requirements
+    }
+  ]
+}
+```
+
+**When to adjust budgets:**
+- ✅ After adding critical features (document in commit)
+- ✅ Based on real user metrics
+- ❌ Just to make CI pass (fix the issue instead!)
+
+### Performance Monitoring in Production
+
+**Track Core Web Vitals:**
+```typescript
+// Add to src/main.tsx
+import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+
+function sendToAnalytics(metric) {
+  // Send to your analytics service
+  console.log(metric);
+}
+
+getCLS(sendToAnalytics);
+getFID(sendToAnalytics);
+getFCP(sendToAnalytics);
+getLCP(sendToAnalytics);
+getTTFB(sendToAnalytics);
+```
+
+**Resources:**
+- [Lighthouse Documentation](https://developer.chrome.com/docs/lighthouse/)
+- [Web Vitals](https://web.dev/vitals/)
+- [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci)
+
+---
+
 ## Building for Production
 
 ### 1. Build the Application
