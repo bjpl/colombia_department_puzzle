@@ -4,8 +4,7 @@ import { ColorblindMode } from '../constants/accessibleColors';
 import { useAccessibility } from '../context/AccessibilityContext';
 import { useTouchFeedback } from '../hooks/useTouchFeedback';
 import {
-  Button, Card, CardHeader, CardTitle, CardContent, Badge,
-  colors, spacing, textStyles, shadows
+  Button, Card, CardContent, Badge
 } from '../design-system';
 
 interface AccessibilitySettingsProps {
@@ -167,10 +166,11 @@ export default function AccessibilitySettings({
 
           {/* Color Vision Mode */}
           <div className="mb-4">
-            <label className="block text-sm font-semibold text-neutral-600 mb-2">
+            <label htmlFor="color-mode-select" className="block text-sm font-semibold text-neutral-600 mb-2">
               Modo de visión de color
             </label>
             <select
+              id="color-mode-select"
               value={colorMode}
               onChange={(e) => handleColorModeChange(e.target.value as ColorblindMode)}
               className="w-full py-2 px-3 border-2 border-neutral-300 rounded-md text-base"

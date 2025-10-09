@@ -1,0 +1,9 @@
+dist
+node_modules
+*.config.js
+*.config.ts
+coverage
+.github
+public
+daily_reports
+docs

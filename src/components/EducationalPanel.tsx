@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useGame } from '../context/GameContext';
 import HintModal from './HintModal';
 import {
-  Button, Card, CardHeader, CardTitle, CardContent, Badge,
-  colors, spacing, textStyles, shadows
+  Button, Card, CardTitle, CardContent, Badge,
+  colors, spacing, textStyles
 } from '../design-system';
 
 interface EducationalPanelProps {
@@ -57,7 +57,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
         />
       )}
 
-      <aside style={{ display: 'flex', flexDirection: 'column', gap: spacing[4] }} role="complementary" aria-label="Panel educativo">
+      <aside style={{ display: 'flex', flexDirection: 'column', gap: spacing[4] }} aria-label="Panel educativo">
       {/* Current department info */}
       {game.currentDepartment && (
         <Card variant="default" style={{ padding: compact ? spacing[3] : spacing[6] }} aria-labelledby="selected-dept-heading">

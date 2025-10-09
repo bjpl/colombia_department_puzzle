@@ -1,0 +1,39 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./src"],
+  "entryPointStrategy": "expand",
+  "out": "./docs/api",
+  "exclude": [
+    "**/*+(.test|.spec).+(ts|tsx|js)",
+    "**/tests/**/*",
+    "**/node_modules/**",
+    "**/*.d.ts"
+  ],
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeInternal": false,
+  "readme": "none",
+  "plugin": [],
+  "theme": "default",
+  "name": "Colombia Departments Puzzle - API Documentation",
+  "includeVersion": true,
+  "categorizeByGroup": true,
+  "defaultCategory": "Components",
+  "categoryOrder": [
+    "Components",
+    "Hooks",
+    "Context",
+    "Services",
+    "Utils",
+    "Types",
+    "*"
+  ],
+  "sort": ["source-order"],
+  "validation": {
+    "notExported": false,
+    "invalidLink": true,
+    "notDocumented": false
+  },
+  "githubPages": false,
+  "hideGenerator": false
+}

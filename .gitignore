@@ -65,3 +65,4 @@ scripts/*.log
 # Archive and temporary files
 docs/archive/*.json
 temp_*/
+docs/api/
