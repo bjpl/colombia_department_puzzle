@@ -196,46 +196,56 @@ export const REGION_LIGHT_CLASSES: Record<string, string> = {
 };
 
 // Colorblind-safe palettes with WCAG AAA compliance
+// Based on Wong (2011), Okabe & Ito (2008), and colorblind design research
+// All palettes validated for WCAG AAA (7:1+ contrast), maximized RGB distance
 export const COLORBLIND_PALETTES: Record<ColorblindMode, Record<string, string>> = {
   'normal': {
-    'Andina': '#14532D',     // Darker forest green (9.1:1)
-    'Caribe': '#1E40AF',     // Royal blue (9.4:1)
-    'Pacífico': '#7C2D12',   // Dark maroon (9.8:1)
-    'Orinoquía': '#92400E',  // Darker amber (7.1:1)
-    'Amazonía': '#115E59',   // Darker teal (7.2:1)
-    'Insular': '#6B21A8'     // Purple (7.3:1)
+    // Original WCAG AAA palette - excellent diversity and contrast
+    'Andina': '#14532D',     // Darker forest green (9.1:1 contrast)
+    'Caribe': '#1E40AF',     // Royal blue (9.4:1 contrast)
+    'Pacífico': '#7C2D12',   // Dark maroon (9.8:1 contrast)
+    'Orinoquía': '#92400E',  // Darker amber (7.1:1 contrast)
+    'Amazonía': '#115E59',   // Darker teal (7.2:1 contrast)
+    'Insular': '#6B21A8'     // Purple (7.3:1 contrast)
   },
   'protanopia': {
-    'Andina': '#1E40AF',     // Royal blue
-    'Caribe': '#115E75',     // Darker teal-blue (7.3:1)
-    'Pacífico': '#6B21A8',   // Purple (8.7:1)
-    'Orinoquía': '#92400E',  // Darker amber (7.1:1)
-    'Amazonía': '#155E75',   // Dark teal-blue
-    'Insular': '#4C1D95'     // Indigo
+    // Wong (2011) hues - darkened for WCAG AAA compliance
+    // Avoids red-green confusion, uses blue-yellow-purple spectrum
+    'Andina': '#004C7F',     // Strong Blue (9.0:1) - darkened Wong #0072B2
+    'Caribe': '#2E5A6B',     // Teal-blue (7.5:1) - darkened Wong #56B4E9
+    'Pacífico': '#7D3C5D',   // Reddish Purple (7.8:1) - darkened Wong #CC79A7
+    'Orinoquía': '#8B3A00',  // Vermillion (7.8:1) - darkened Wong #D55E00
+    'Amazonía': '#005A3C',   // Bluish Green (8.3:1) - darkened Wong #009E73
+    'Insular': '#5C3A8C'     // Purple (8.6:1) - distinct violet-purple
   },
   'deuteranopia': {
-    'Andina': '#1E40AF',     // Royal blue (8.7:1)
-    'Caribe': '#115E75',     // Darker teal-blue (7.3:1)
-    'Pacífico': '#6B21A8',   // Purple (8.7:1)
-    'Orinoquía': '#92400E',  // Darker amber (7.1:1)
-    'Amazonía': '#155E75',   // Dark teal-blue (7.3:1)
-    'Insular': '#4C1D95'     // Indigo (11.0:1)
+    // Same as protanopia (both confuse red-green similarly)
+    'Andina': '#004C7F',     // Strong Blue (9.0:1)
+    'Caribe': '#2E5A6B',     // Teal-blue (7.5:1)
+    'Pacífico': '#7D3C5D',   // Reddish Purple (7.8:1)
+    'Orinoquía': '#8B3A00',  // Vermillion (7.8:1)
+    'Amazonía': '#005A3C',   // Bluish Green (8.3:1)
+    'Insular': '#5C3A8C'     // Purple (8.6:1)
   },
   'tritanopia': {
-    'Andina': '#14532D',     // Darker forest green (9.1:1)
-    'Caribe': '#166534',     // Dark green variant
-    'Pacífico': '#991B1B',   // Dark red
-    'Orinoquía': '#7C2D12',  // Dark maroon
-    'Amazonía': '#14532D',   // Darker green
-    'Insular': '#92400E'     // Dark brown
+    // Red-green-brown axis - optimized for blue-blindness
+    // Avoids blue-yellow confusion per Brettel et al. (1997)
+    'Andina': '#2D5016',     // Olive Green (9.2:1)
+    'Caribe': '#8B0000',     // Dark Red (10.0:1)
+    'Pacífico': '#6B1D12',   // Dark Maroon (11.6:1)
+    'Orinoquía': '#7C4600',  // Dark Amber (7.7:1)
+    'Amazonía': '#115E59',   // Dark Teal (7.6:1)
+    'Insular': '#4A5016'     // Darker Olive (8.6:1)
   },
   'monochrome': {
-    'Andina': '#1F2937',     // Gray 800
-    'Caribe': '#52525B',     // Gray 600
-    'Pacífico': '#0A0A0B',   // Gray 950 (darkest)
-    'Orinoquía': '#52525B',  // Gray 600 (7.7:1)
-    'Amazonía': '#27272A',   // Gray 800 variant
-    'Insular': '#3F3F46'     // Gray 700
+    // Even grayscale progression for total color blindness
+    // All colors meet WCAG AAA (7:1+) with distinct RGB values
+    'Pacífico': '#0D0D0D',   // RGB(13) - 19.4:1 - darkest
+    'Andina': '#1F1F1F',     // RGB(31) - 16.5:1
+    'Amazonía': '#2E2E2E',   // RGB(46) - 13.8:1
+    'Caribe': '#404040',     // RGB(64) - 10.0:1
+    'Insular': '#525252',    // RGB(82) - 7.7:1
+    'Orinoquía': '#595959'   // RGB(89) - 7.1:1 - lightest meeting AAA
   }
 };
 
