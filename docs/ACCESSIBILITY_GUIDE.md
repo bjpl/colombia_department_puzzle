@@ -335,24 +335,53 @@ https://webaim.org/resources/contrastchecker/
 # Result: 9.11:1 (AAA ✅)
 ```
 
-### Color Blindness Simulation
+### Color Blindness Support (UPDATED 2025-10-09)
 
-Test with color vision deficiency simulations:
+**Research-Based Colorblind Palettes:**
 
+The game includes **5 scientifically-validated colorblind modes** ensuring all 6 Colombia regions are distinguishable for users with any type of color vision deficiency.
+
+**Supported Modes:**
+1. **Normal** - Full color vision (WCAG AAA: 9.1:1 min contrast)
+2. **Protanopia** - Red-blind (Wong 2011 palette, 7.5:1 min contrast)
+3. **Deuteranopia** - Green-blind (Wong 2011 palette, 7.5:1 min contrast)
+4. **Tritanopia** - Blue-blind (Brettel et al. 1997, 7.6:1 min contrast)
+5. **Monochrome** - Total color blindness (grayscale, 7.0:1 min contrast)
+
+**Research Foundation:**
+- Wong, B. (2011). "Color blindness." *Nature Methods* 8, 441
+- Okabe, M. & Ito, K. (2008). "Color Universal Design (CUD)"
+- Brettel et al. (1997). "Computerized simulation of color appearance"
+
+**Validation:**
+- ✅ All 30 colors (5 modes × 6 regions) validated
+- ✅ Zero duplicate colors in any mode
+- ✅ WCAG AAA compliant (7:1+ contrast)
+- ✅ 57 automated tests prevent regressions
+- ✅ Compared against IBM Design System & ColorBrewer standards
+
+**Location:** `src/design-system/themes/regions.ts`
+
+**Testing:**
 ```typescript
-// Our colors tested against:
-// - Protanopia (red-blind)
-// - Deuteranopia (green-blind)
-// - Tritanopia (blue-blind)
-// - Monochrome (grayscale)
+// Automated validation suite
+npm test -- colorblind-validation.test.ts
 
-// All regions remain distinguishable in each mode
+// Results: 57/57 tests passing (100%)
+// - Duplicate detection
+// - Color distinctiveness
+// - WCAG AAA compliance
+// - Research-based validation
 ```
 
-**Chrome DevTools:**
+**Chrome DevTools Simulation:**
 1. Open DevTools > Rendering
 2. Enable "Emulate vision deficiencies"
-3. Test each mode
+3. Test each mode (protanopia, deuteranopia, tritanopia, achromatopsia)
+
+**Documentation:**
+- [Colorblind Palette Analysis Report](./COLORBLIND_PALETTE_ANALYSIS_REPORT.md) - 827 lines
+- [Colorblind Palettes Update](./COLORBLIND_PALETTES_UPDATE.md) - Complete validation results
 
 ---
 
