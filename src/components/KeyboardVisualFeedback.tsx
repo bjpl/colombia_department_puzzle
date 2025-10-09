@@ -155,7 +155,7 @@ export default function KeyboardVisualFeedback() {
         </Card>
       ))}
 
-      <style jsx>{`
+      <style>{`
         @keyframes slideInLeft {
           from {
             transform: translateX(-100%);
@@ -234,6 +234,6 @@ export function KeyboardFeedbackToggle() {
           }}
         />
       </Button>
-    </div>
+    </Card>
   );
 }

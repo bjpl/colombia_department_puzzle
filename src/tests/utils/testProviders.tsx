@@ -250,15 +250,23 @@ export function renderWithProviders(
   let Wrapper: React.ComponentType<{ children: ReactNode }>;
 
   if (providerType === 'game') {
-    Wrapper = ({ children }) => <GameProvider store={gameStore}>{children}</GameProvider>;
+    const GameProviderWrapper = ({ children }: { children: ReactNode }) =>
+      <GameProvider store={gameStore}>{children}</GameProvider>;
+    GameProviderWrapper.displayName = 'GameProviderWrapper';
+    Wrapper = GameProviderWrapper;
   } else if (providerType === 'accessibility') {
-    Wrapper = ({ children }) => <AccessibilityProvider store={accessibilityStore}>{children}</AccessibilityProvider>;
+    const AccessibilityProviderWrapper = ({ children }: { children: ReactNode }) =>
+      <AccessibilityProvider store={accessibilityStore}>{children}</AccessibilityProvider>;
+    AccessibilityProviderWrapper.displayName = 'AccessibilityProviderWrapper';
+    Wrapper = AccessibilityProviderWrapper;
   } else {
-    Wrapper = ({ children }) => (
+    const AllProvidersWrapper = ({ children }: { children: ReactNode }) => (
       <AllProviders gameStore={gameStore} accessibilityStore={accessibilityStore}>
         {children}
       </AllProviders>
     );
+    AllProvidersWrapper.displayName = 'AllProvidersWrapper';
+    Wrapper = AllProvidersWrapper;
   }
 
   return render(ui, { wrapper: Wrapper, ...renderOptions });

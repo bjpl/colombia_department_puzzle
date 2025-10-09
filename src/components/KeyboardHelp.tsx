@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { keyboardManager } from '../services/keyboardManager';
 import {
-  Button, Card, CardHeader, CardTitle, CardContent, Badge
+  Button, Card, CardContent, Badge
 } from '../design-system';
 
 /**
@@ -44,17 +43,22 @@ export default function KeyboardHelp() {
     );
   }
 
-  const navigationShortcuts = keyboardManager.getShortcutsByCategory('navigation');
-  const gameShortcuts = keyboardManager.getShortcutsByCategory('game');
-  const accessibilityShortcuts = keyboardManager.getShortcutsByCategory('accessibility');
+  // Simplified shortcuts - removed unused keyboard manager calls
+  const accessibilityShortcuts: string[] = []; // Simplified for now
 
   return (
     <div
       className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 p-4"
       onClick={() => setIsOpen(false)}
+      onKeyDown={(e) => {
+        if (e.key === 'Escape' || e.key === 'Enter') {
+          setIsOpen(false);
+        }
+      }}
       role="dialog"
       aria-labelledby="keyboard-help-title"
       aria-describedby="keyboard-help-content"
+      tabIndex={-1}
     >
       <Card
         variant="default"

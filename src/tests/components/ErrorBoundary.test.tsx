@@ -112,7 +112,7 @@ describe('ErrorBoundary', () => {
     it('should show error details in development mode', () => {
       const originalEnv = import.meta.env.DEV;
 
-      // @ts-ignore - mocking env
+      // @ts-expect-error - mocking env for testing purposes
       import.meta.env.DEV = true;
 
       render(
@@ -124,7 +124,7 @@ describe('ErrorBoundary', () => {
       // Look for details element
       const details = screen.queryByText(/detalles del error/i);
 
-      // @ts-ignore - restore env
+      // @ts-expect-error - restore env for testing purposes
       import.meta.env.DEV = originalEnv;
     });
   });
@@ -225,7 +225,7 @@ describe('ErrorBoundary', () => {
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
       const originalEnv = import.meta.env.DEV;
 
-      // @ts-ignore
+      // @ts-expect-error - mocking env for testing purposes
       import.meta.env.DEV = true;
 
       render(
@@ -237,7 +237,7 @@ describe('ErrorBoundary', () => {
       // Error should be logged
       expect(consoleSpy).toHaveBeenCalled();
 
-      // @ts-ignore
+      // @ts-expect-error - restore env for testing purposes
       import.meta.env.DEV = originalEnv;
       consoleSpy.mockRestore();
     });

@@ -844,7 +844,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                           {memoryAid.rhyme && (
                             <div className="bg-pink-50 p-3 rounded-lg">
                               <h5 className="font-semibold text-pink-800 text-sm mb-1">Rima:</h5>
-                              <p className="text-sm text-pink-700 italic">"{memoryAid.rhyme}"</p>
+                              <p className="text-sm text-pink-700 italic">&ldquo;{memoryAid.rhyme}&rdquo;</p>
                             </div>
                           )}
                         </div>

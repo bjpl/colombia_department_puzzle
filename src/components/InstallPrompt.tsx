@@ -131,8 +131,8 @@ export function InstallPrompt({
                   </p>
                   <ol className="text-sm text-blue-100 space-y-1 list-decimal list-inside">
                     <li>Tap the Share button <Share className="inline h-4 w-4" /></li>
-                    <li>Scroll down and tap "Add to Home Screen"</li>
-                    <li>Tap "Add" in the top-right corner</li>
+                    <li>Scroll down and tap &ldquo;Add to Home Screen&rdquo;</li>
+                    <li>Tap &ldquo;Add&rdquo; in the top-right corner</li>
                   </ol>
                 </div>
               </div>

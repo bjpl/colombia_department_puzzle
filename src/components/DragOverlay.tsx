@@ -2,17 +2,12 @@ import { DragOverlay as DndDragOverlay } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
 import { useAccessibility } from '../context/AccessibilityContext';
 import {
-  colors, spacing, textStyles, shadows
+  colors
 } from '../design-system';
 
 export default function DragOverlay() {
   const game = useGame();
-  const { getRegionColor, colorMode } = useAccessibility();
-
-  console.log('DragOverlay render:', {
-    currentDepartment: game.currentDepartment?.name,
-    isDragging: game.isDraggingDepartment
-  });
+  const { getRegionColor } = useAccessibility();
 
   // Only show for mouse dragging, not keyboard navigation
   if (!game.currentDepartment || !game.isDraggingDepartment) {

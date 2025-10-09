@@ -39,12 +39,12 @@ export function OfflineIndicator() {
           {justWentOnline ? (
             <>
               <Wifi className="h-4 w-4" />
-              <span>You're back online!</span>
+              <span>You&apos;re back online!</span>
             </>
           ) : (
             <>
               <WifiOff className="h-4 w-4" />
-              <span>You're offline - Using cached content</span>
+              <span>You&apos;re offline - Using cached content</span>
             </>
           )}
         </div>

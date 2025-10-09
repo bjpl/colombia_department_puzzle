@@ -2,17 +2,7 @@ import { useEffect, useState } from 'react';
 import { colombiaDepartments } from '../data/colombiaDepartments';
 import { REGION_STYLES as regionColors } from '../design-system/themes/regions';
 import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  Badge,
-  Button,
-  Modal,
-  colors,
-  spacing,
-  textStyles,
-  shadows
+  Button
 } from '../design-system';
 
 interface HintModalProps {
@@ -840,6 +830,14 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
       <div
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            onClose();
+          }
+        }}
+        role="button"
+        tabIndex={-1}
+        aria-label="Cerrar modal"
       />
 
       {/* Modal */}

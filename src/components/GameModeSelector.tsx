@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
-  Button, Card, CardHeader, CardTitle, CardContent, Badge,
-  colors, spacing, textStyles, shadows, radius
+  Button, Card, CardContent, Badge,
+  colors, spacing, textStyles, radius
 } from '../design-system';
 
 interface GameModeSelectorProps {
@@ -32,25 +32,15 @@ const REGIONS = [
 ];
 
 export default function GameModeSelector({ onSelectMode, onClose, userStats }: GameModeSelectorProps) {
-  const [selectedMode, setSelectedMode] = useState<'full' | 'region' | 'study' | null>(null);
   const [selectedRegions, setSelectedRegions] = useState<Set<string>>(new Set());
   const [showRegionSelector, setShowRegionSelector] = useState(false);
 
   const getTotalStars = () => userStats?.totalStars || 0;
 
-  const isRegionUnlocked = (region: typeof REGIONS[0]) => {
-    // All regions are now unlocked for free practice
-    return true;
-  };
-
   const handleModeSelect = (mode: 'full' | 'region' | 'study') => {
-    console.log('GameModeSelector: handleModeSelect called with mode:', mode);
-    setSelectedMode(mode);
     if (mode === 'region') {
-      console.log('GameModeSelector: Showing region selector');
       setShowRegionSelector(true);
     } else {
-      console.log('GameModeSelector: Calling onSelectMode with mode:', mode);
       onSelectMode({ type: mode });
     }
   };
@@ -66,13 +56,11 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
   };
 
   const confirmRegionSelection = () => {
-    console.log('GameModeSelector: confirmRegionSelection called with regions:', Array.from(selectedRegions));
     if (selectedRegions.size > 0) {
       const config = {
         type: 'region' as const,
         selectedRegions: Array.from(selectedRegions)
       };
-      console.log('GameModeSelector: Calling onSelectMode with config:', config);
       onSelectMode(config);
     }
   };
@@ -182,7 +170,6 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
                 {REGIONS.map(region => {
-                  const isUnlocked = isRegionUnlocked(region);
                   const isSelected = selectedRegions.has(region.id);
                   const progress = userStats?.regionProgress.get(region.id);
 

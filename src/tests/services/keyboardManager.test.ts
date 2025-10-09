@@ -12,14 +12,14 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { keyboardManager } from '../../services/keyboardManager';
 
 describe('keyboardManager Service', () => {
-  let eventListeners: Map<string, Function>;
+  let eventListeners: Map<string, (...args: any[]) => any>;
 
   beforeEach(() => {
     eventListeners = new Map();
 
     // Mock addEventListener to capture listeners
     vi.spyOn(window, 'addEventListener').mockImplementation((event, handler) => {
-      eventListeners.set(event, handler as Function);
+      eventListeners.set(event, handler as (...args: any[]) => any);
     });
   });
 

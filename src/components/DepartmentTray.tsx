@@ -2,20 +2,14 @@ import React, { memo } from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import { useGame } from '../context/GameContext';
 import { useAccessibility } from '../context/AccessibilityContext';
-import { REGION_TAILWIND_CLASSES } from '../design-system/themes/regions';
-import { normalizeId } from '../utils/nameNormalizer';
 import { Department } from '../data/colombiaDepartments';
 import { TouchFeedback } from './TouchFeedback';
 import {
   Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
   Badge,
   colors,
   spacing,
-  textStyles,
-  shadows
+  textStyles
 } from '../design-system';
 
 // Ultra-compact mini chip for maximum map space
@@ -26,7 +20,7 @@ const DraggableChip = memo(({ department, isMobile = false }: { department: Depa
     id: department.id,
     data: department,
   });
-  const { getRegionColor, colorMode } = useAccessibility();
+  const { getRegionColor } = useAccessibility();
 
   // Dynamic background color based on accessibility settings
   const backgroundColor = getRegionColor(department.region);
@@ -38,13 +32,6 @@ const DraggableChip = memo(({ department, isMobile = false }: { department: Depa
     backgroundColor: backgroundColor,
   } : {
     backgroundColor: backgroundColor,
-  };
-
-  // Determine text color based on background for proper contrast
-  const needsLightText = (color: string): boolean => {
-    // Colors that need white text for contrast
-    const darkColors = ['black', 'blue-800', 'purple-800', 'green-800', 'cyan-800'];
-    return darkColors.includes(color.toUpperCase());
   };
 
   // All our WCAG AAA colors are designed to work with white text (7:1+ contrast)

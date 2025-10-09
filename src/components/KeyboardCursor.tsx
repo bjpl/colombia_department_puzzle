@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
 import { Department } from '../types/game';
 import {
-  colors, spacing, textStyles, shadows, radius
+  spacing, textStyles, shadows, radius
 } from '../design-system';
 
 /**
@@ -23,15 +22,7 @@ export default function KeyboardCursor({
   isActive,
   targetZone
 }: KeyboardCursorProps) {
-  const [showPulse, setShowPulse] = useState(false);
-
-  useEffect(() => {
-    if (targetZone) {
-      setShowPulse(true);
-      const timer = setTimeout(() => setShowPulse(false), 500);
-      return () => clearTimeout(timer);
-    }
-  }, [targetZone]);
+  // Removed unused showPulse state
 
   // Only show cursor for keyboard navigation, not mouse drag
   if (!isActive || !selectedDepartment) {

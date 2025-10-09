@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef, lazy, Suspense } from 'react';
 import { DndContext, DragEndEvent, DragStartEvent, DragMoveEvent, rectIntersection } from '@dnd-kit/core';
-import { Department } from '../data/colombiaDepartments';
 import MapCanvas from './MapCanvas';
 import DepartmentTray from './DepartmentTray';
 import GameHeader from './GameHeader';
@@ -19,16 +18,12 @@ import GameModeSelector, { GameModeConfig } from './GameModeSelector';
 // Removed QuickStartFlow - using InteractiveTutorial for simplicity
 import ModeTransition from './ModeTransition';
 import KeyboardHelp from './KeyboardHelp';
-import ScrollIndicator from './ScrollIndicator';
 import MapErrorBoundary from './MapErrorBoundary';
 import GameLogicErrorBoundary from './GameLogicErrorBoundary';
 import ComponentErrorBoundary from './ComponentErrorBoundary';
-import { normalizeId, departmentNameMap } from '../utils/nameNormalizer';
-import { storage } from '../services/storage';
 import { useModalManager } from '../hooks/useModalManager';
 import { useGameTimer } from '../hooks/useGameTimer';
 import { useEnhancedKeyboardNavigation } from '../hooks/useEnhancedKeyboardNavigation';
-import { keyboardManager } from '../services/keyboardManager';
 import KeyboardCursor from './KeyboardCursor';
 import MobileGameLayout from './MobileGameLayout';
 import { useMediaQuery } from '../hooks/useMediaQuery';
@@ -74,7 +69,6 @@ export default function GameContainer() {
   // Enhanced flow states
   const [showTransition, setShowTransition] = useState(false);
   const [transitionConfig, setTransitionConfig] = useState<{ from: string; to: string; mode: GameModeConfig } | null>(null);
-  const [hasUsedStudyMode, setHasUsedStudyMode] = useState(false);
 
   // Clean up any lingering DOM elements from old keyboard navigation
   useEffect(() => {
@@ -388,7 +382,6 @@ export default function GameContainer() {
               onStudyMode={() => {
                 game.clearCurrentDepartment(); // Clear any active drag
                 modal.closeAllModals(); // Clear any queued modals first
-                setHasUsedStudyMode(true); // Mark that study mode is being opened
                 setTimeout(() => modal.openModal('study'), 0); // Open after clearing
               }}
               onTutorial={() => {
@@ -628,7 +621,6 @@ export default function GameContainer() {
             <StudyMode
               onClose={() => {
                 game.clearCurrentDepartment();
-                setHasUsedStudyMode(true); // Mark that study mode was used
                 modal.closeAllModals(); // Use closeAllModals to clear any queued modals
               }}
               onStartGame={() => {

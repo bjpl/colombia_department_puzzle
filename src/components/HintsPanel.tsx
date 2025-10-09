@@ -2,7 +2,7 @@ import { useGame } from '../context/GameContext';
 import { useProgressiveHints } from '../hooks/useProgressiveHints';
 import {
   Button, Card, CardHeader, CardTitle, CardContent, Badge,
-  colors, spacing, textStyles, shadows
+  colors, spacing, textStyles
 } from '../design-system';
 
 export default function HintsPanel() {

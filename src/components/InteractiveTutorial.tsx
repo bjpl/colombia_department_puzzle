@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { storage } from '../services/storage';
 import {
-  Button, Card, CardHeader, CardTitle, CardContent, Badge,
-  colors, spacing, textStyles, shadows, radius
+  Button, Badge,
+  colors, spacing, textStyles, radius
 } from '../design-system';
 
 interface InteractiveTutorialProps {
@@ -203,6 +203,23 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
     }
   };
 
+  const handleStepClick = (index: number) => {
+    if (index !== currentStep) {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentStep(index);
+        setIsAnimating(false);
+      }, 300);
+    }
+  };
+
+  const handleStepKeyDown = (event: React.KeyboardEvent, index: number) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleStepClick(index);
+    }
+  };
+
   // Calculate card position based on anchor or centered
   const getCardStyle = () => {
     if (step.position === 'floating') {
@@ -388,10 +405,16 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
               >
                 {currentStep + 1}
               </Badge>
-              <div style={{ display: 'flex', gap: spacing[1] }}>
+              <div style={{ display: 'flex', gap: spacing[1] }} role="group" aria-label="Tutorial progress">
                 {tutorialSteps.map((_, index) => (
                   <div
                     key={index}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => handleStepClick(index)}
+                    onKeyDown={(e) => handleStepKeyDown(e, index)}
+                    aria-label={`Go to step ${index + 1} of ${tutorialSteps.length}`}
+                    aria-current={index === currentStep ? 'step' : undefined}
                     style={{
                       height: '4px',
                       borderRadius: radius.full,
@@ -401,9 +424,30 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
                         ? 'linear-gradient(to right, rgb(14 165 233), rgb(16 185 129))'
                         : index < currentStep
                         ? colors.success
-                        : colors.gray[300]
+                        : colors.gray[300],
+                      cursor: 'pointer',
+                      minWidth: '44px',
+                      minHeight: '44px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: spacing[2]
                     }}
-                  />
+                  >
+                    <div
+                      style={{
+                        height: '4px',
+                        borderRadius: radius.full,
+                        width: index === currentStep ? '32px' : '4px',
+                        background: index === currentStep
+                          ? 'linear-gradient(to right, rgb(14 165 233), rgb(16 185 129))'
+                          : index < currentStep
+                          ? colors.success
+                          : colors.gray[300],
+                        transition: 'all 0.3s'
+                      }}
+                    />
+                  </div>
                 ))}
               </div>
             </div>

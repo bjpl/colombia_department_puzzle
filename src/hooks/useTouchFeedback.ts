@@ -71,7 +71,7 @@ class AudioFeedbackManager {
     if (this.initialized) return;
 
     try {
-      // @ts-ignore - AudioContext is supported in modern browsers
+      // @ts-expect-error - webkitAudioContext is for Safari/older WebKit browsers
       this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
       this.initialized = true;
     } catch (error) {
