@@ -14,6 +14,13 @@ Welcome to the comprehensive documentation for the Colombia Departments Puzzle G
 - [**Component API**](COMPONENT_API.md) - Detailed component reference
 - [**SPARC Map Rendering**](SPARC_MAP_RENDERING.md) - Map rendering specifications
 
+### Design System & Style
+- [**Design System Guide**](DESIGN_SYSTEM_GUIDE.md) - Complete design system usage ✨ NEW
+- [**Style Guide**](STYLE_GUIDE.md) - Code and visual style standards ✨ NEW
+- [**Design Tokens Reference**](DESIGN_TOKENS_REFERENCE.md) - Quick token reference ✨ NEW
+- [**Design System Migration Plan**](DESIGN_SYSTEM_MIGRATION_PLAN.md) - Migration progress
+- [**FAQ**](FAQ.md) - Frequently asked questions ✨ NEW
+
 ### Archive
 - [**Archive Folder**](archive/) - Historical documentation and reports
 - [**System Design**](architecture/system_design.md) - Original architecture plans
@@ -53,7 +60,10 @@ An interactive educational web application that teaches players the geography of
 - [Setup Instructions](DEVELOPER_GUIDE.md#initial-setup)
 - [Component Reference](COMPONENT_API.md)
 - [Architecture Overview](architecture/current_architecture.md)
+- [Design System Guide](DESIGN_SYSTEM_GUIDE.md)
+- [Style Guide](STYLE_GUIDE.md)
 - [Contributing Guidelines](DEVELOPER_GUIDE.md#contributing-guidelines)
+- [FAQ](FAQ.md)
 
 ### For Contributors
 - [GitHub Repository](https://github.com/bjpl/colombia_department_puzzle)
@@ -150,8 +160,8 @@ For help or questions:
 
 ---
 
-**Last Updated**: December 2024
+**Last Updated**: October 2025
 **Version**: 1.0.0
-**Status**: Stable Release
+**Status**: Production (Mobile v1.0)
 
 *Made with ❤️ for learning Colombian geography*
