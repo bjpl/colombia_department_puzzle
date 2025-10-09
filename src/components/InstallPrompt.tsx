@@ -104,7 +104,7 @@ export function InstallPrompt({
         transitionDuration: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? '0s' : '500ms'
       }}
     >
-      <div className="mx-auto max-w-2xl p-4">
+      <div className="mx-auto w-full max-w-[95vw] sm:max-w-md md:max-w-lg lg:max-w-2xl p-4">
         <div className="relative rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-2xl">
           {/* Dismiss button */}
           <button

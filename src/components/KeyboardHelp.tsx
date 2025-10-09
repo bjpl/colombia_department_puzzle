@@ -58,7 +58,7 @@ export default function KeyboardHelp() {
     >
       <Card
         variant="default"
-        className="max-w-2xl w-full max-h-[80vh] overflow-y-auto"
+        className="w-full max-w-[95vw] sm:max-w-md md:max-w-lg lg:max-w-2xl max-h-[80vh] overflow-y-auto"
         onClick={e => e.stopPropagation()}
       >
         <CardContent className="p-6">

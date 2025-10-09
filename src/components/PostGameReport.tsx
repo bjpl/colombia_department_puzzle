@@ -148,55 +148,55 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSe
   const earnedAchievements = achievements.filter(a => a.earned);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50 p-4">
-      <Card variant="default" className="w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50 p-2 sm:p-4">
+      <Card variant="default" className="w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] flex flex-col overflow-hidden">
         {/* Header */}
-        <CardHeader className="bg-gradient-to-r from-emerald-500 to-sky-500 text-white p-6">
+        <CardHeader className="bg-gradient-to-r from-emerald-500 to-sky-500 text-white p-3 sm:p-6 flex-shrink-0">
           <div className="flex justify-between items-center">
             <div>
-              <CardTitle className="text-2xl font-bold">🎉 ¡Juego Completado!</CardTitle>
-              <p className="text-sm opacity-90 mt-1">
+              <CardTitle className="text-xl sm:text-2xl font-bold">🎉 ¡Juego Completado!</CardTitle>
+              <p className="text-xs sm:text-sm opacity-90 mt-1">
                 Has completado el rompecabezas de Colombia
               </p>
             </div>
             <Button
               variant="ghost"
               onClick={onClose}
-              className="text-white/80 text-lg"
+              className="text-white/80 text-lg flex-shrink-0"
             >
               ✕
             </Button>
           </div>
         </CardHeader>
 
-        <CardContent className="p-6 overflow-y-auto flex-1 min-h-0">
+        <CardContent className="p-3 sm:p-6 overflow-y-auto flex-1 min-h-0">
           {/* Main Statistics */}
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <Card variant="default" className="bg-sky-50 text-center p-4">
-              <div className={`text-2xl font-bold ${getScoreColor(gameStats.finalScore)}`}>
+          <div className="grid grid-cols-2 gap-2 sm:gap-4 mb-4 sm:mb-6">
+            <Card variant="default" className="bg-sky-50 text-center p-2 sm:p-4">
+              <div className={`text-lg sm:text-2xl font-bold ${getScoreColor(gameStats.finalScore)}`}>
                 {gameStats.finalScore}
                 {isNewHighScore && <Badge variant="primary" className="text-xs ml-1 bg-yellow-500">¡NUEVO!</Badge>}
               </div>
               <div className="text-xs text-gray-600 mt-1">Puntuación Final</div>
             </Card>
 
-            <Card variant="default" className="bg-green-50 text-center p-4">
-              <div className="text-2xl font-bold text-green-600">
+            <Card variant="default" className="bg-green-50 text-center p-2 sm:p-4">
+              <div className="text-lg sm:text-2xl font-bold text-green-600">
                 {formatTime(gameStats.totalTime)}
                 {isNewBestTime && <Badge variant="primary" className="text-xs ml-1 bg-yellow-500">¡RÉCORD!</Badge>}
               </div>
               <div className="text-xs text-gray-600 mt-1">Tiempo Total</div>
             </Card>
 
-            <Card variant="default" className="bg-purple-50 text-center p-4">
-              <div className="text-2xl font-bold text-purple-600">
+            <Card variant="default" className="bg-purple-50 text-center p-2 sm:p-4">
+              <div className="text-lg sm:text-2xl font-bold text-purple-600">
                 {gameStats.accuracy}%
               </div>
               <div className="text-xs text-gray-600 mt-1">Precisión</div>
             </Card>
 
-            <Card variant="default" className="bg-yellow-50 text-center p-4">
-              <div className="text-2xl font-bold text-yellow-600">
+            <Card variant="default" className="bg-yellow-50 text-center p-2 sm:p-4">
+              <div className="text-lg sm:text-2xl font-bold text-yellow-600">
                 {gameStats.hintsUsed}
               </div>
               <div className="text-xs text-gray-600 mt-1">Pistas Usadas</div>
@@ -205,9 +205,9 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSe
 
           {/* Achievements Section */}
           {earnedAchievements.length > 0 && (
-            <div className="mb-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-3">🏆 Logros Obtenidos</h3>
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3">
+            <div className="mb-4 sm:mb-6">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2 sm:mb-3">🏆 Logros Obtenidos</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-2 sm:gap-3">
                 {earnedAchievements.map(achievement => (
                   <Card
                     key={achievement.id}
@@ -292,12 +292,12 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSe
           )}
 
           {/* Action Buttons */}
-          <div className="flex justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4">
             <Button
               variant="primary"
               size="lg"
               onClick={onPlayAgain}
-              className="bg-gradient-to-r from-sky-500 to-emerald-500 font-semibold transition-all"
+              className="bg-gradient-to-r from-sky-500 to-emerald-500 font-semibold transition-all w-full sm:w-auto"
             >
               🎮 Jugar de Nuevo
             </Button>
@@ -305,7 +305,7 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSe
               variant="secondary"
               size="lg"
               onClick={onStudyMode}
-              className="bg-purple-600 text-white font-semibold"
+              className="bg-purple-600 text-white font-semibold w-full sm:w-auto"
             >
               📚 Modo Estudio
             </Button>
@@ -316,7 +316,7 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSe
                 // Share functionality placeholder
                 alert('Compartir funcionalidad próximamente');
               }}
-              className="bg-gray-200 text-gray-600 font-semibold"
+              className="bg-gray-200 text-gray-600 font-semibold w-full sm:w-auto"
             >
               📤 Compartir
             </Button>

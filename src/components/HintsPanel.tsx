@@ -74,7 +74,7 @@ export default function HintsPanel() {
             <div>
               <div style={{ fontWeight: 'semibold', fontSize: textStyles.body.small.fontSize[0] }}>🔤 Primera Letra</div>
               <div style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>
-                Muestra "{game.currentDepartment.name[0]}..." en el mapa
+                Muestra &ldquo;{game.currentDepartment.name[0]}...&rdquo; en el mapa
               </div>
             </div>
             <div>
@@ -121,7 +121,7 @@ export default function HintsPanel() {
         <Card variant="default" style={{ marginTop: spacing[3], padding: spacing[2], backgroundColor: '#e0f2fe', border: `1px solid ${colors.brand[300]}` }}>
           <div style={{ fontSize: textStyles.body.small.fontSize[0], color: '#075985', fontWeight: 'medium' }}>
             {hints.activeHint === 'region' && '🗺️ Región resaltada en el mapa'}
-            {hints.activeHint === 'letter' && `🔤 Busca "${game.currentDepartment.name[0]}..." en la región`}
+            {hints.activeHint === 'letter' && `🔤 Busca \u201C${game.currentDepartment.name[0]}...\u201D en la región`}
             {hints.activeHint === 'flash' && '✨ ¡Mira el departamento destellando!'}
           </div>
         </Card>

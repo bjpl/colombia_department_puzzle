@@ -342,12 +342,12 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
         }`}
         style={getCardStyle()}
       >
-        <div className="relative">
+        <div className="relative max-h-[80vh] overflow-y-auto">
           {/* Card glow effect */}
           <div className="absolute -inset-1 bg-gradient-to-r from-sky-500 to-green-500 rounded-2xl blur-xl opacity-20" />
 
           {/* Main card */}
-          <div className="relative bg-white/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/20 p-6 max-w-sm">
+          <div className="relative bg-white/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/20 p-4 sm:p-6 w-full max-w-[95vw] sm:max-w-sm">
             {/* Close button */}
             <Button
               variant="ghost"

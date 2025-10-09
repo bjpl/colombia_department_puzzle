@@ -337,11 +337,11 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
   }, [flowState.studiedDepartments.size]);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-3">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-3">
       <Card
         variant="elevated"
         padding="none"
-        className={cn("w-full max-w-7xl h-[90vh] flex flex-col overflow-hidden shadow-2xl")}
+        className={cn("w-full max-w-7xl max-h-[95vh] sm:max-h-[90vh] flex flex-col overflow-hidden shadow-2xl")}
       >
         {/* Enhanced Header with Flow Indicators */}
         <div
@@ -465,10 +465,10 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
           </div>
         )}
 
-        <div className="flex flex-1 min-h-0">
+        <div className="flex flex-col md:flex-row flex-1 min-h-0">
           {/* Left Panel - Interactive Department Explorer */}
           <div
-            className="flex-1 overflow-y-auto border-r border-gray-200 p-3"
+            className="flex-1 overflow-y-auto border-r border-gray-200 p-2 sm:p-3 min-h-0"
           >
             {/* Region Filter Tabs */}
             <div
@@ -558,11 +558,11 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
 
           {/* Right Panel - Smart Information Display */}
           <div
-            className="w-1/3 overflow-hidden flex flex-col bg-gray-50"
+            className="w-full md:w-1/3 flex flex-col bg-gray-50 min-h-0"
           >
             {selectedDepartment ? (
               <div
-                className="flex-1 overflow-y-auto flex flex-col p-3 gap-3"
+                className="flex-1 overflow-y-auto flex flex-col p-2 sm:p-3 gap-3 min-h-0"
               >
                 {/* Department Header Card */}
                 <Card

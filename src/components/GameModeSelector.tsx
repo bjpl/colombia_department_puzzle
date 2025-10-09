@@ -79,7 +79,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
 
   return (
     <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50 p-4" style={{ backgroundColor: colors.overlay }}>
-      <Card variant="default" className="max-w-4xl w-full max-h-[90vh] overflow-auto transition-all">
+      <Card variant="default" className="w-full max-w-[95vw] sm:max-w-md md:max-w-2xl lg:max-w-4xl max-h-[90vh] overflow-auto transition-all">
         <CardContent className="p-8">
           <div className="flex justify-between items-start mb-6">
             <div>

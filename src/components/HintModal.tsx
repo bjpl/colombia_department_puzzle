@@ -438,7 +438,7 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
               )}
               <div className="mt-3 bg-sky-50 rounded p-2">
                 <p className="text-xs text-sky-700">
-                  💡 Tip: Usa el botón "Mostrar Regiones" en el mapa para ver los colores
+                  💡 Tip: Usa el botón &ldquo;Mostrar Regiones&rdquo; en el mapa para ver los colores
                 </p>
               </div>
             </div>
@@ -598,7 +598,7 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
                 {departmentName === 'Bogotá D.C.' && (
                   <p className="text-gray-700">
                     Centro del país, pequeño punto dentro de Cundinamarca,
-                    busca el "hueco" en medio de Cundinamarca
+                    busca el &ldquo;hueco&rdquo; en medio de Cundinamarca
                   </p>
                 )}
                 {/* Specific directional guidance for ALL remaining departments */}
@@ -671,7 +671,7 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
                 {departmentName === 'Cundinamarca' && (
                   <p className="text-gray-700">
                     Centro del país, forma de C que rodea a Bogotá,
-                    entre Boyacá y Tolima, busca el "donut" con hueco
+                    entre Boyacá y Tolima, busca el &ldquo;donut&rdquo; con hueco
                   </p>
                 )}
                 {departmentName === 'Guainía' && (
@@ -854,7 +854,7 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
         } rounded-3xl blur-2xl opacity-30 animate-pulse`} />
 
         {/* Card */}
-        <div className="relative bg-white rounded-2xl shadow-2xl p-8 max-w-md mx-auto">
+        <div className="relative bg-white rounded-2xl shadow-2xl p-4 sm:p-8 w-full max-w-[95vw] sm:max-w-md mx-auto">
           {/* Close button */}
           <Button
             variant="ghost"
