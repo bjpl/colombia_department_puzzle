@@ -39,7 +39,7 @@ import '../styles/mobile.css';
  */
 export default function MobileGameLayout() {
   const game = useGame();
-  const [sheetSnap, setSheetSnap] = useState<SnapPoint>('collapsed');
+  const [_sheetSnap, setSheetSnap] = useState<SnapPoint>('collapsed');
 
   // Calculate remaining departments
   const remainingCount = game.departments.filter(

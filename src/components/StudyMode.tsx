@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, memo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, memo } from 'react';
 import { Department, colombiaDepartments } from '../data/colombiaDepartments';
 import { useGame } from '../context/GameContext';
 import { GameModeConfig } from './GameModeSelector';
@@ -305,7 +305,8 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
     }
   };
 
-  const handleQuickQuiz = (dept: Department) => {
+  // Reserved for future quiz functionality
+  const _handleQuickQuiz = (dept: Department) => {
     // Simple quiz: Is this department in the focused region?
     const correct = dept.region === flowState.focusedRegion;
     setFlowState(prev => ({

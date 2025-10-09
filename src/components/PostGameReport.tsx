@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useGame } from '../context/GameContext';
 import { storage, GameSession } from '../services/storage';
-import { Department, colombiaDepartments } from '../data/colombiaDepartments';
 import NextChallengeRecommender from './NextChallengeRecommender';
 import { GameModeConfig } from './GameModeSelector';
 import {
@@ -34,7 +33,6 @@ export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSe
   const game = useGame();
   const [isNewHighScore, setIsNewHighScore] = useState(false);
   const [isNewBestTime, setIsNewBestTime] = useState(false);
-  const [departmentStats, setDepartmentStats] = useState<Map<string, DepartmentStats>>(new Map());
   const [showRecommendations, setShowRecommendations] = useState(true);
 
   // Calculate game statistics

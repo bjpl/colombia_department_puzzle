@@ -111,11 +111,13 @@ export function TouchFeedback({
   }, [createRipple]);
 
   return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       ref={containerRef}
       className={`relative overflow-hidden ${className}`}
       onTouchStart={handleTouchStart}
       onMouseDown={handleMouseDown}
+      role="presentation"
       style={{
         WebkitTapHighlightColor: 'transparent', // Remove default mobile tap highlight
       }}

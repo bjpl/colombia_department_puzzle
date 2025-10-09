@@ -158,7 +158,7 @@ export default function OptimizedColombiaMap() {
   const [showRegionColors, setShowRegionColors] = useState(false); // New state for region colors
   const svgRef = useRef<SVGSVGElement>(null);
   const game = useGame();
-  const { getRegionColor, colorMode } = useAccessibility(); // Get accessibility context
+  const { getRegionColor, colorMode: _colorMode } = useAccessibility(); // Get accessibility context
   const isDragging = game.isDraggingDepartment; // Use the actual dragging state
 
   useEffect(() => {
@@ -198,7 +198,7 @@ export default function OptimizedColombiaMap() {
   };
 
   // Memoize projection and path generator with MAXIMIZED sizing
-  const { projection, pathGenerator, width, height } = useMemo(() => {
+  const { projection: _projection, pathGenerator, width, height } = useMemo(() => {
     // Calculate optimal dimensions based on viewport
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;

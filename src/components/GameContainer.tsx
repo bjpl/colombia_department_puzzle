@@ -458,33 +458,8 @@ export default function GameContainer() {
                   className="overflow-y-auto scroll-smooth"
                   style={{ maxHeight: 'calc(100vh - 200px)', overflowX: 'hidden' }}
                   id="department-scroll-container"
-                  onKeyDown={(e) => {
-                    // Only allow scrolling if not in keyboard navigation mode (moving a department)
-                    if (enhancedNav.isKeyboardMode || enhancedNav.navigationMode === 'moving') {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      return; // Don't scroll when moving a department with arrow keys
-                    }
-
-                    // Arrow keys for scrolling within the container
-                    if (e.key === 'ArrowUp') {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      e.currentTarget.scrollTop -= 50;
-                    } else if (e.key === 'ArrowDown') {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      e.currentTarget.scrollTop += 50;
-                    } else if (e.key === 'Home') {
-                      e.preventDefault();
-                      e.currentTarget.scrollTop = 0;
-                    } else if (e.key === 'End') {
-                      e.preventDefault();
-                      e.currentTarget.scrollTop = e.currentTarget.scrollHeight;
-                    }
-                  }}
-                  tabIndex={-1}
-                  aria-label="Lista de departamentos. Use las flechas arriba/abajo para desplazarse"
+                  role="region"
+                  aria-label="Lista de departamentos"
                 >
                   <DepartmentTray layout="ultra-compact" />
 

@@ -50,21 +50,26 @@ export default function KeyboardHelp() {
     <div
       className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 p-4"
       onClick={() => setIsOpen(false)}
-      onKeyDown={(e) => {
-        if (e.key === 'Escape' || e.key === 'Enter') {
-          setIsOpen(false);
-        }
-      }}
-      role="dialog"
-      aria-labelledby="keyboard-help-title"
-      aria-describedby="keyboard-help-content"
-      tabIndex={-1}
+      role="presentation"
     >
-      <Card
-        variant="default"
-        className="w-full max-w-[95vw] sm:max-w-md md:max-w-lg lg:max-w-2xl max-h-[80vh] overflow-y-auto"
-        onClick={e => e.stopPropagation()}
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+      <div
+        role="dialog"
+        aria-labelledby="keyboard-help-title"
+        aria-describedby="keyboard-help-content"
+        aria-modal="true"
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') {
+            e.stopPropagation();
+            setIsOpen(false);
+          }
+        }}
       >
+        <Card
+          variant="default"
+          className="w-full max-w-[95vw] sm:max-w-md md:max-w-lg lg:max-w-2xl max-h-[80vh] overflow-y-auto"
+          onClick={e => e.stopPropagation()}
+        >
         <CardContent className="p-6">
         <div className="flex justify-between items-center mb-4">
           <h2 id="keyboard-help-title" className="text-2xl font-bold text-gray-900">
@@ -147,6 +152,7 @@ export default function KeyboardHelp() {
         </div>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }
