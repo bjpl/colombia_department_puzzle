@@ -16,13 +16,18 @@ import { useState, useEffect } from 'react';
 export function useMediaQuery(query: string): boolean {
   // Initialize with current match state (prevents hydration mismatch in SSR)
   const [matches, setMatches] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
-    return window.matchMedia(query).matches;
+    if (typeof window === 'undefined' || !window.matchMedia) return false;
+    const mediaQuery = window.matchMedia(query);
+    return mediaQuery ? mediaQuery.matches : false;
   });
 
   useEffect(() => {
+    // Guard against environments without matchMedia support
+    if (!window.matchMedia) return;
+
     // Create media query list
     const mediaQueryList = window.matchMedia(query);
+    if (!mediaQueryList) return;
 
     // Update state when query match changes
     const handleChange = (event: MediaQueryListEvent) => {

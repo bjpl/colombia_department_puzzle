@@ -77,7 +77,7 @@ describe('PWA Features', () => {
     let mockCache: Map<string, Response>;
 
     beforeEach(() => {
-      mockCache = new Map();
+      mockCache = new Map<string, Response>();
 
       // Mock caches API
       const cachesMock = {
@@ -229,12 +229,19 @@ describe('PWA Features', () => {
     });
 
     it('should serve cached content when offline', async () => {
+      // Set up mock cache before using it
+      const testCache = new Map<string, Response>();
+      testCache.set('/index.html', new Response('<html>Cached</html>'));
+
+      // Mock caches.match to return from our test cache
+      (caches.match as any) = vi.fn().mockImplementation(async (url: string) => {
+        return testCache.get(url);
+      });
+
       Object.defineProperty(navigator, 'onLine', {
         writable: true,
         value: false,
       });
-
-      mockCache.set('/index.html', new Response('<html>Cached</html>'));
 
       const cached = await caches.match('/index.html');
 

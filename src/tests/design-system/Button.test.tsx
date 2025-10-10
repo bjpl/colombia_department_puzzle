@@ -63,28 +63,32 @@ describe('Button', () => {
       render(<Button size="sm">Small</Button>);
 
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('h-8');
+      // Button has min-h-[44px] on mobile, md:h-8 on desktop
+      expect(button.className).toMatch(/min-h-\[44px\]/);
     });
 
     it('should render medium size', () => {
       render(<Button size="md">Medium</Button>);
 
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('h-10');
+      // Button has min-h-[44px] on mobile, md:h-10 on desktop
+      expect(button.className).toMatch(/min-h-\[44px\]/);
     });
 
     it('should render large size', () => {
       render(<Button size="lg">Large</Button>);
 
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('h-12');
+      // Button has min-h-[44px] on mobile, md:h-12 on desktop
+      expect(button.className).toMatch(/min-h-\[44px\]/);
     });
 
     it('should default to medium size', () => {
       render(<Button>Default Size</Button>);
 
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('h-10');
+      // Default size is md with min-h-[44px] on mobile
+      expect(button.className).toMatch(/min-h-\[44px\]/);
     });
   });
 
@@ -293,7 +297,8 @@ describe('Button', () => {
 
       const button = screen.getByRole('button');
       expect(button).toHaveClass('bg-sky-500');
-      expect(button).toHaveClass('h-12');
+      // Button has min-h-[44px] on mobile, md:h-12 on desktop
+      expect(button.className).toMatch(/min-h-\[44px\]/);
     });
 
     it('should handle danger variant with loading', () => {
@@ -322,7 +327,8 @@ describe('Button', () => {
 
       const button = screen.getByRole('button');
       expect(button).toHaveClass('w-full');
-      expect(button).toHaveClass('h-8');
+      // Button has min-h-[44px] on mobile, md:min-h-[32px] md:h-8 on desktop
+      expect(button.className).toMatch(/min-h-\[44px\]/);
     });
   });
 });

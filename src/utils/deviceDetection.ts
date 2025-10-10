@@ -48,8 +48,15 @@ export interface DeviceCapabilities {
  * @returns True if device has coarse pointer (touch)
  */
 export function isTouchDevice(): boolean {
+  // Guard against missing matchMedia (test environments)
+  if (!window.matchMedia) {
+    // Fallback: check for touch events support
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  }
+
   // Primary detection: pointer media query
-  if (window.matchMedia('(pointer: coarse)').matches) {
+  const mediaQuery = window.matchMedia('(pointer: coarse)');
+  if (mediaQuery && mediaQuery.matches) {
     return true;
   }
 
@@ -67,11 +74,21 @@ export function isTouchDevice(): boolean {
  * @returns PointerType enum value
  */
 export function getPointerType(): PointerType {
-  if (window.matchMedia('(pointer: coarse)').matches) {
+  // Guard against missing matchMedia (test environments)
+  if (!window.matchMedia) {
+    // Fallback to touch detection
+    return ('ontouchstart' in window || navigator.maxTouchPoints > 0)
+      ? PointerType.COARSE
+      : PointerType.FINE;
+  }
+
+  const coarseQuery = window.matchMedia('(pointer: coarse)');
+  if (coarseQuery && coarseQuery.matches) {
     return PointerType.COARSE;
   }
 
-  if (window.matchMedia('(pointer: fine)').matches) {
+  const fineQuery = window.matchMedia('(pointer: fine)');
+  if (fineQuery && fineQuery.matches) {
     return PointerType.FINE;
   }
 
@@ -84,7 +101,14 @@ export function getPointerType(): PointerType {
  * @returns True if device has hover capability
  */
 export function supportsHover(): boolean {
-  return window.matchMedia('(hover: hover)').matches;
+  // Guard against missing matchMedia (test environments)
+  if (!window.matchMedia) {
+    // Assume no hover support in test environments
+    return false;
+  }
+
+  const hoverQuery = window.matchMedia('(hover: hover)');
+  return hoverQuery ? hoverQuery.matches : false;
 }
 
 /**

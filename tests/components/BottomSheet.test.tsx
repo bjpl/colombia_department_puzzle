@@ -85,7 +85,7 @@ describe('BottomSheet Component', () => {
 
       await waitFor(() => {
         expect(onSnapChange).toHaveBeenCalledWith('half');
-      });
+      }, { timeout: 1000 });
     });
   });
 

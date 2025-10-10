@@ -45,7 +45,8 @@ describe('HintModal', () => {
     it('should render close button', () => {
       render(<HintModal {...defaultProps} />);
 
-      const closeButton = screen.getByLabelText(/cerrar/i);
+      // Use aria-label to find the specific close button (not the backdrop)
+      const closeButton = screen.getByLabelText('Cerrar');
       expect(closeButton).toBeInTheDocument();
     });
 
@@ -305,7 +306,8 @@ describe('HintModal', () => {
 
       render(<HintModal {...defaultProps} onClose={onClose} />);
 
-      const closeButton = screen.getByLabelText(/cerrar/i);
+      // Use aria-label to find the specific close button (not the backdrop)
+      const closeButton = screen.getByLabelText('Cerrar');
       await user.click(closeButton);
 
       expect(onClose).toHaveBeenCalledTimes(1);
@@ -458,7 +460,7 @@ describe('HintModal', () => {
     it('should have close button with aria-label', () => {
       render(<HintModal {...defaultProps} />);
 
-      const closeButton = screen.getByLabelText(/cerrar/i);
+      const closeButton = screen.getByLabelText('Cerrar');
       expect(closeButton).toHaveAccessibleName();
     });
 

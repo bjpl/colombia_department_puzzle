@@ -1,4 +1,4 @@
-import { expect, afterEach, vi } from 'vitest';
+import { expect, afterEach, vi, beforeEach } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 
@@ -27,17 +27,25 @@ const localStorageMock = (() => {
 
 global.localStorage = localStorageMock as Storage;
 
-// Mock window.matchMedia
+// Mock window.matchMedia - must be set before any imports use it
+const matchMediaMock = vi.fn().mockImplementation((query: string) => ({
+  matches: false,
+  media: query,
+  onchange: null,
+  addListener: vi.fn(),
+  removeListener: vi.fn(),
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
+  dispatchEvent: vi.fn(),
+}));
+
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: vi.fn().mockImplementation(query => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: vi.fn(),
-    removeListener: vi.fn(),
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  })),
+  configurable: true,
+  value: matchMediaMock,
+});
+
+// Reset matchMedia mock before each test
+beforeEach(() => {
+  matchMediaMock.mockClear();
 });

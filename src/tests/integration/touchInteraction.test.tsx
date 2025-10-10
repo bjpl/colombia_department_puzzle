@@ -7,7 +7,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { TouchModeAdapter } from '../../components/TouchModeAdapter';
-import { GameProvider } from '../../context/GameContext';
+import { AllProviders } from '../utils/testProviders';
 import DepartmentTray from '../../components/DepartmentTray';
 import MapCanvas from '../../components/MapCanvas';
 import { prefersTouchMode } from '../../utils/deviceDetection';
@@ -73,11 +73,11 @@ describe('Touch Interaction Integration Tests', () => {
   describe('Tap-to-select workflow', () => {
     it('should select chip when tapped in touch mode', async () => {
       const TestComponent = () => (
-        <GameProvider>
+        <AllProviders>
           <TouchModeAdapter enabled={true}>
             <DepartmentTray layout="ultra-compact" />
           </TouchModeAdapter>
-        </GameProvider>
+        </AllProviders>
       );
 
       render(<TestComponent />);
@@ -116,11 +116,11 @@ describe('Touch Interaction Integration Tests', () => {
 
     it('should deselect chip when tapped again', async () => {
       const TestComponent = () => (
-        <GameProvider>
+        <AllProviders>
           <TouchModeAdapter enabled={true}>
             <DepartmentTray layout="ultra-compact" />
           </TouchModeAdapter>
-        </GameProvider>
+        </AllProviders>
       );
 
       render(<TestComponent />);
@@ -155,11 +155,11 @@ describe('Touch Interaction Integration Tests', () => {
 
     it('should switch selection when tapping different chip', async () => {
       const TestComponent = () => (
-        <GameProvider>
+        <AllProviders>
           <TouchModeAdapter enabled={true}>
             <DepartmentTray layout="ultra-compact" />
           </TouchModeAdapter>
-        </GameProvider>
+        </AllProviders>
       );
 
       render(<TestComponent />);
@@ -200,11 +200,11 @@ describe('Touch Interaction Integration Tests', () => {
   describe('Visual feedback', () => {
     it('should show visual feedback on selected chip', async () => {
       const TestComponent = () => (
-        <GameProvider>
+        <AllProviders>
           <TouchModeAdapter enabled={true}>
             <DepartmentTray layout="ultra-compact" />
           </TouchModeAdapter>
-        </GameProvider>
+        </AllProviders>
       );
 
       render(<TestComponent />);
@@ -239,11 +239,11 @@ describe('Touch Interaction Integration Tests', () => {
 
     it('should respond to tap within 100ms', async () => {
       const TestComponent = () => (
-        <GameProvider>
+        <AllProviders>
           <TouchModeAdapter enabled={true}>
             <DepartmentTray layout="ultra-compact" />
           </TouchModeAdapter>
-        </GameProvider>
+        </AllProviders>
       );
 
       render(<TestComponent />);
@@ -281,11 +281,11 @@ describe('Touch Interaction Integration Tests', () => {
       vi.useFakeTimers();
 
       const TestComponent = () => (
-        <GameProvider>
+        <AllProviders>
           <TouchModeAdapter enabled={true}>
             <DepartmentTray layout="ultra-compact" />
           </TouchModeAdapter>
-        </GameProvider>
+        </AllProviders>
       );
 
       render(<TestComponent />);
@@ -323,11 +323,11 @@ describe('Touch Interaction Integration Tests', () => {
       (prefersTouchMode as any).mockReturnValue(false);
 
       const TestComponent = () => (
-        <GameProvider>
+        <AllProviders>
           <TouchModeAdapter enabled={false}>
             <DepartmentTray layout="ultra-compact" />
           </TouchModeAdapter>
-        </GameProvider>
+        </AllProviders>
       );
 
       render(<TestComponent />);
@@ -367,11 +367,11 @@ describe('Touch Interaction Integration Tests', () => {
       window.addEventListener('screen-reader-announcement', eventSpy);
 
       const TestComponent = () => (
-        <GameProvider>
+        <AllProviders>
           <TouchModeAdapter enabled={true}>
             <DepartmentTray layout="ultra-compact" />
           </TouchModeAdapter>
-        </GameProvider>
+        </AllProviders>
       );
 
       render(<TestComponent />);
@@ -399,11 +399,11 @@ describe('Touch Interaction Integration Tests', () => {
 
     it('should have minimum 44px touch targets', async () => {
       const TestComponent = () => (
-        <GameProvider>
+        <AllProviders>
           <TouchModeAdapter enabled={true}>
             <DepartmentTray layout="ultra-compact" />
           </TouchModeAdapter>
-        </GameProvider>
+        </AllProviders>
       );
 
       render(<TestComponent />);
@@ -438,11 +438,11 @@ describe('Touch Interaction Integration Tests', () => {
         const handleTap = () => trackEvent();
 
         return (
-          <GameProvider>
+          <AllProviders>
             <TouchModeAdapter enabled={true} onTouchModeActive={handleTap}>
               <DepartmentTray layout="ultra-compact" />
             </TouchModeAdapter>
-          </GameProvider>
+          </AllProviders>
         );
       };
 

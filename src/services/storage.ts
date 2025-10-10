@@ -168,6 +168,28 @@ class StorageService {
     localStorage.setItem(this.STORAGE_KEYS.SETTINGS, JSON.stringify(settings));
   }
 
+  // Generic key-value storage methods
+  get<T>(key: string): T | null {
+    const data = localStorage.getItem(key);
+    if (!data) return null;
+
+    try {
+      return JSON.parse(data) as T;
+    } catch {
+      // If parsing fails, return as string
+      return data as unknown as T;
+    }
+  }
+
+  set<T>(key: string, value: T): void {
+    const data = typeof value === 'string' ? value : JSON.stringify(value);
+    localStorage.setItem(key, data);
+  }
+
+  remove(key: string): void {
+    localStorage.removeItem(key);
+  }
+
   // Clear all data
   clearAllData(): void {
     Object.values(this.STORAGE_KEYS).forEach(key => {

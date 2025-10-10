@@ -7,10 +7,15 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderHook, act, waitFor } from '@testing-library/react';
 import { useEnhancedKeyboardNavigation } from '../../hooks/useEnhancedKeyboardNavigation';
 import { ReactNode } from 'react';
-import {
-  GameProvider,
-  createMockGameStore,
-} from '../utils/testProviders';
+import { createMockGameStore } from '../utils/testProviders';
+
+// Mock the GameContext module before importing the hook
+vi.mock('../../context/GameContext', () => ({
+  useGame: vi.fn(),
+  GameProvider: ({ children }: { children: ReactNode }) => children,
+}));
+
+import { useGame } from '../../context/GameContext';
 
 // Mock window dimensions
 Object.defineProperty(window, 'innerWidth', {
@@ -47,6 +52,10 @@ describe('useEnhancedKeyboardNavigation', () => {
       placedDepartments: new Set(),
     });
 
+    // Get the game state and mock useGame
+    const mockGameState = gameStore();
+    (useGame as any).mockReturnValue(mockGameState);
+
     // Mock DOM methods
     document.elementFromPoint = vi.fn(() => null);
     document.elementsFromPoint = vi.fn(() => []);
@@ -60,42 +69,29 @@ describe('useEnhancedKeyboardNavigation', () => {
   afterEach(() => {
     vi.restoreAllMocks();
   });
-
-  const wrapper = ({ children }: { children: ReactNode }) => (
-    <GameProvider store={gameStore}>{children}</GameProvider>
-  );
-
-  describe('Initial State', () => {
+describe('Initial State', () => {
     it('should initialize with idle mode', () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       expect(result.current.isKeyboardMode).toBe(false);
       expect(result.current.navigationMode).toBe('idle');
     });
 
     it('should initialize with no selected department', () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       expect(result.current.selectedDepartment).toBeNull();
     });
 
     it('should initialize cursor at center', () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       expect(result.current.cursorPosition.x).toBe(window.innerWidth / 2);
       expect(result.current.cursorPosition.y).toBe(window.innerHeight / 2);
     });
 
     it('should initialize with no target zone', () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       expect(result.current.targetZone).toBeNull();
     });
@@ -103,7 +99,7 @@ describe('useEnhancedKeyboardNavigation', () => {
 
   describe('Department Selection', () => {
     it('should select department with Enter key', async () => {
-      renderHook(() => useEnhancedKeyboardNavigation(), { wrapper });
+      renderHook(() => useEnhancedKeyboardNavigation());
 
       const mockElement = document.createElement('button');
       mockElement.setAttribute('data-department-id', 'antioquia');
@@ -135,9 +131,7 @@ describe('useEnhancedKeyboardNavigation', () => {
     });
 
     it('should start in moving mode after selection', async () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       const mockElement = document.createElement('button');
       mockElement.setAttribute('data-department-id', 'antioquia');
@@ -179,13 +173,11 @@ describe('useEnhancedKeyboardNavigation', () => {
         placedDepartments: new Set(['antioquia']),
       });
 
-      const localWrapper = ({ children }: { children: ReactNode }) => (
-        <GameProvider store={store}>{children}</GameProvider>
-      );
+      // Update mock to use new store state
+      const localState = store();
+      (useGame as any).mockReturnValue(localState);
 
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper: localWrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       const mockElement = document.createElement('button');
       mockElement.setAttribute('data-department-id', 'antioquia');
@@ -216,9 +208,7 @@ describe('useEnhancedKeyboardNavigation', () => {
 
   describe('Arrow Key Movement', () => {
     it('should move cursor up with ArrowUp', async () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       // First select a department to enter moving mode
       const mockElement = document.createElement('button');
@@ -255,9 +245,7 @@ describe('useEnhancedKeyboardNavigation', () => {
     });
 
     it('should move cursor down with ArrowDown', async () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       // Enter moving mode
       const mockElement = document.createElement('button');
@@ -294,9 +282,7 @@ describe('useEnhancedKeyboardNavigation', () => {
     });
 
     it('should move cursor left with ArrowLeft', async () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       // Enter moving mode
       const mockElement = document.createElement('button');
@@ -333,9 +319,7 @@ describe('useEnhancedKeyboardNavigation', () => {
     });
 
     it('should move cursor right with ArrowRight', async () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       // Enter moving mode
       const mockElement = document.createElement('button');
@@ -372,9 +356,7 @@ describe('useEnhancedKeyboardNavigation', () => {
     });
 
     it('should constrain cursor to viewport bounds', async () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       // Enter moving mode
       const mockElement = document.createElement('button');
@@ -414,9 +396,7 @@ describe('useEnhancedKeyboardNavigation', () => {
 
   describe('Movement Speed Modifiers', () => {
     it('should move faster with Shift key', async () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       // Enter moving mode
       const mockElement = document.createElement('button');
@@ -459,9 +439,7 @@ describe('useEnhancedKeyboardNavigation', () => {
     });
 
     it('should move slower with Ctrl key', async () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       // Enter moving mode
       const mockElement = document.createElement('button');
@@ -506,9 +484,7 @@ describe('useEnhancedKeyboardNavigation', () => {
 
   describe('Drop Zone Detection', () => {
     it('should detect drop zones at cursor position', async () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       const mockDropZone = document.createElement('div');
       mockDropZone.setAttribute('data-department-drop-zone', 'antioquia');
@@ -550,7 +526,7 @@ describe('useEnhancedKeyboardNavigation', () => {
     });
 
     it('should set global keyboard nav target', async () => {
-      renderHook(() => useEnhancedKeyboardNavigation(), { wrapper });
+      renderHook(() => useEnhancedKeyboardNavigation());
 
       const mockDropZone = document.createElement('div');
       mockDropZone.setAttribute('data-department-drop-zone', 'cundinamarca');
@@ -593,7 +569,7 @@ describe('useEnhancedKeyboardNavigation', () => {
       const mockPlaceDepartment = vi.fn();
       gameStore.setState({ placeDepartment: mockPlaceDepartment });
 
-      renderHook(() => useEnhancedKeyboardNavigation(), { wrapper });
+      renderHook(() => useEnhancedKeyboardNavigation());
 
       // Setup drop zone
       const mockDropZone = document.createElement('div');
@@ -641,7 +617,7 @@ describe('useEnhancedKeyboardNavigation', () => {
       const eventSpy = vi.fn();
       window.addEventListener('placement-feedback', eventSpy);
 
-      renderHook(() => useEnhancedKeyboardNavigation(), { wrapper });
+      renderHook(() => useEnhancedKeyboardNavigation());
 
       const mockDropZone = document.createElement('div');
       mockDropZone.setAttribute('data-department-drop-zone', 'antioquia');
@@ -688,9 +664,7 @@ describe('useEnhancedKeyboardNavigation', () => {
 
   describe('Cancel Action', () => {
     it('should cancel with Escape key', async () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       // Enter moving mode
       const mockButton = document.createElement('button');
@@ -727,7 +701,7 @@ describe('useEnhancedKeyboardNavigation', () => {
     });
 
     it('should clear global keyboard target on cancel', async () => {
-      renderHook(() => useEnhancedKeyboardNavigation(), { wrapper });
+      renderHook(() => useEnhancedKeyboardNavigation());
 
       (window as any).__keyboardNavTarget = 'antioquia';
 
@@ -764,9 +738,7 @@ describe('useEnhancedKeyboardNavigation', () => {
 
   describe('Tab Navigation', () => {
     it('should allow Tab to work naturally', async () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       act(() => {
         const event = new KeyboardEvent('keydown', { key: 'Tab' });
@@ -779,7 +751,7 @@ describe('useEnhancedKeyboardNavigation', () => {
     });
 
     it('should not prevent default Tab behavior', () => {
-      renderHook(() => useEnhancedKeyboardNavigation(), { wrapper });
+      renderHook(() => useEnhancedKeyboardNavigation());
 
       const preventDefault = vi.fn();
       const event = new KeyboardEvent('keydown', { key: 'Tab' });
@@ -795,9 +767,7 @@ describe('useEnhancedKeyboardNavigation', () => {
 
   describe('Input Field Protection', () => {
     it('should not trigger in input fields', () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       const input = document.createElement('input');
 
@@ -815,9 +785,7 @@ describe('useEnhancedKeyboardNavigation', () => {
     });
 
     it('should not trigger in textarea', () => {
-      const { result } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { result } = renderHook(() => useEnhancedKeyboardNavigation());
 
       const textarea = document.createElement('textarea');
 
@@ -838,9 +806,7 @@ describe('useEnhancedKeyboardNavigation', () => {
     it('should remove event listeners on unmount', () => {
       const removeEventListenerSpy = vi.spyOn(window, 'removeEventListener');
 
-      const { unmount } = renderHook(() => useEnhancedKeyboardNavigation(), {
-        wrapper,
-      });
+      const { unmount } = renderHook(() => useEnhancedKeyboardNavigation());
 
       unmount();
 
