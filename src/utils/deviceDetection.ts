@@ -8,6 +8,7 @@
  */
 
 import { storage } from '../services/storage';
+import { BREAKPOINTS } from '../constants/responsive';
 
 const STORAGE_KEY = 'preferred-interaction-mode';
 
@@ -123,9 +124,9 @@ export function getDeviceCapabilities(): DeviceCapabilities {
 
   // Screen size breakpoints (matches design system)
   const width = window.innerWidth;
-  const isMobile = width < 768;
-  const isTablet = width >= 768 && width < 1024;
-  const isDesktop = width >= 1024;
+  const isMobile = width <= BREAKPOINTS.mobile.max; // 1023px - ALL phones including landscape
+  const isTablet = width >= BREAKPOINTS.tablet.min && width <= BREAKPOINTS.tablet.max; // 1024-1279px
+  const isDesktop = width >= BREAKPOINTS.desktop.min; // 1280px+
 
   return {
     hasTouch,
