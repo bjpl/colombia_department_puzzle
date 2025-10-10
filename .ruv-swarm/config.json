@@ -1,0 +1,18 @@
+{
+  "dataPath": "./data",
+  "persistence": {
+    "enabled": true,
+    "type": "local",
+    "basePath": "./.ruv-swarm"
+  },
+  "wasm": {
+    "enabled": true,
+    "memoryAllocation": 48
+  },
+  "features": {
+    "neural_networks": true,
+    "forecasting": true,
+    "cognitive_diversity": true,
+    "simd_support": true
+  }
+}
