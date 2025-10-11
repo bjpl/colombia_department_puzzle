@@ -190,6 +190,20 @@ colombia_puzzle_game/
     └── tailwind.config.js
 ```
 
+## 📚 API Documentation
+
+Comprehensive TypeDoc-generated API documentation is available in the `docs/api/` directory. The documentation covers:
+
+- **Components**: All React components with props and usage examples
+- **Hooks**: Custom React hooks for game functionality
+- **Contexts**: State management contexts (GameContext, AccessibilityContext)
+- **Services**: Core services (storage, sound manager)
+- **Data**: Department definitions and game data structures
+
+**View the documentation:**
+- Open `docs/api/index.html` in your browser after cloning
+- Or generate fresh docs: `npm run docs:api`
+
 ### Contributing
 
 Contributions are welcome! Please follow the SPARC methodology for new features:

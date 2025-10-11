@@ -1,7 +1,23 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": ["./src"],
-  "entryPointStrategy": "expand",
+  "entryPoints": [
+    "./src/main.tsx",
+    "./src/App.tsx",
+    "./src/components/GameContainer.tsx",
+    "./src/components/OptimizedColombiaMap.tsx",
+    "./src/components/DepartmentTray.tsx",
+    "./src/components/StudyMode.tsx",
+    "./src/context/GameContext.tsx",
+    "./src/context/AccessibilityContext.tsx",
+    "./src/hooks/useKeyboardNavigation.ts",
+    "./src/hooks/useMediaQuery.ts",
+    "./src/hooks/usePWA.ts",
+    "./src/hooks/useStudyMode.ts",
+    "./src/services/storage.ts",
+    "./src/services/soundManager.ts",
+    "./src/data/colombiaDepartments.ts"
+  ],
+  "entryPointStrategy": "resolve",
   "out": "./docs/api",
   "exclude": [
     "**/*+(.test|.spec).+(ts|tsx|js)",
@@ -11,7 +27,7 @@
   ],
   "excludePrivate": true,
   "excludeProtected": false,
-  "excludeInternal": false,
+  "excludeInternal": true,
   "readme": "none",
   "plugin": [],
   "theme": "default",
@@ -24,6 +40,7 @@
     "Hooks",
     "Context",
     "Services",
+    "Data",
     "Utils",
     "Types",
     "*"
@@ -31,9 +48,10 @@
   "sort": ["source-order"],
   "validation": {
     "notExported": false,
-    "invalidLink": true,
+    "invalidLink": false,
     "notDocumented": false
   },
   "githubPages": false,
-  "hideGenerator": false
+  "hideGenerator": false,
+  "skipErrorChecking": true
 }

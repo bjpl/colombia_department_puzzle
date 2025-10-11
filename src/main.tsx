@@ -15,8 +15,6 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
         scope: '/colombia_department_puzzle/',
       })
       .then((registration) => {
-        console.log('PWA: Service Worker registered', registration.scope);
-
         // Check for updates periodically (every hour)
         setInterval(() => {
           registration.update();
@@ -31,10 +29,7 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
                 newWorker.state === 'installed' &&
                 navigator.serviceWorker.controller
               ) {
-                // New content available, notify user
-                console.log('PWA: New content available, please refresh');
-
-                // Dispatch custom event for UI to show update notification
+                // New content available, notify user via custom event
                 window.dispatchEvent(
                   new CustomEvent('swUpdateAvailable', {
                     detail: { registration },

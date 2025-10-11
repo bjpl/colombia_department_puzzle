@@ -153,14 +153,12 @@ export function useEnhancedKeyboardNavigation() {
           if (element && element.hasAttribute('data-department-drop-zone')) {
             zoneId = element.getAttribute('data-department-drop-zone');
             detectionMethod = 'direct-element';
-            console.log('✅ Direct hit on element:', zoneId);
             break;
           } else if (element) {
             const dropZone = element.closest('[data-department-drop-zone]');
             if (dropZone) {
               zoneId = dropZone.getAttribute('data-department-drop-zone');
               detectionMethod = 'closest-parent';
-              console.log('✅ Found via closest parent:', zoneId);
               break;
             }
           }
@@ -182,7 +180,6 @@ export function useEnhancedKeyboardNavigation() {
               insideZone = zone;
               zoneId = zone.getAttribute('data-department-drop-zone');
               detectionMethod = 'inside-bounds';
-              console.log('✅ Cursor inside bounds of:', zoneId);
               break;  // Prioritize being inside bounds
             }
 
@@ -201,40 +198,18 @@ export function useEnhancedKeyboardNavigation() {
           if (!zoneId && bestMatch && bestMatchDistance < 40) {  // Reduced from 50
             zoneId = bestMatch.getAttribute('data-department-drop-zone');
             detectionMethod = 'proximity-fallback';
-            console.log('⚠️ Using proximity fallback:', zoneId, 'distance:', Math.round(bestMatchDistance));
 
             // Optional: Snap to center when very close (within 20 pixels) and using Ctrl
             if (bestMatchDistance < 20 && ctrlKey) {
               const rect = bestMatch.getBoundingClientRect();
               newX = rect.left + rect.width / 2;
               newY = rect.top + rect.height / 2;
-              console.log('🎯 Snapping to center of zone:', zoneId);
             }
           }
         }
 
         // Only show target zone if it's not already placed
         const finalZoneId = zoneId && !gameRef.current.placedDepartments.has(zoneId) ? zoneId : null;
-
-        // Enhanced logging for debugging
-        if (finalZoneId !== navStateRef.current.targetZone) {
-          const dept = gameRef.current.departments.find(d => d.id === finalZoneId);
-          const prevDept = gameRef.current.departments.find(d => d.id === navStateRef.current.targetZone);
-
-          console.log(`🎯 Target changed: ${prevDept?.name || navStateRef.current.targetZone} → ${dept?.name || finalZoneId}`);
-          console.log(`   Zone ID: ${navStateRef.current.targetZone} → ${finalZoneId}`);
-          console.log(`   Detection: ${detectionMethod}`);
-          console.log(`   Position: (${Math.round(newX)}, ${Math.round(newY)})`);
-
-          // Debug: Log what element is actually at this position
-          if (finalZoneId) {
-            const targetElement = document.querySelector(`[data-department-drop-zone="${finalZoneId}"]`);
-            if (targetElement) {
-              const rect = targetElement.getBoundingClientRect();
-              console.log(`   Zone bounds: (${Math.round(rect.left)}, ${Math.round(rect.top)}) - (${Math.round(rect.right)}, ${Math.round(rect.bottom)})`);
-            }
-          }
-        }
 
         setNavState(prev => ({
           ...prev,
@@ -304,12 +279,6 @@ export function useEnhancedKeyboardNavigation() {
           }
         } else if (navStateRef.current.mode === 'moving' && navStateRef.current.selectedDepartment) {
           // Place department
-          console.log('Placing department:', {
-            targetZone: navStateRef.current.targetZone,
-            departmentId: navStateRef.current.selectedDepartment.id,
-            cursorPosition: navStateRef.current.cursorPosition
-          });
-
           const isCorrect = navStateRef.current.targetZone === navStateRef.current.selectedDepartment.id;
 
           if (navStateRef.current.targetZone) {
@@ -322,7 +291,6 @@ export function useEnhancedKeyboardNavigation() {
             gameRef.current.placeDepartment(navStateRef.current.selectedDepartment.id, isCorrect);
 
             // Trigger placement feedback using custom event
-            console.log('Dispatching placement-feedback event', { isCorrect, departmentName: navStateRef.current.selectedDepartment.name });
             window.dispatchEvent(new CustomEvent('placement-feedback', {
               detail: {
                 show: true,

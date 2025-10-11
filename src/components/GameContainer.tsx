@@ -75,7 +75,6 @@ export default function GameContainer() {
     // Remove any stuck keyboard navigation indicators
     const oldIndicator = document.getElementById('keyboard-nav-indicator');
     if (oldIndicator) {
-      console.log('Removing old keyboard navigation indicator');
       oldIndicator.remove();
     }
 
@@ -83,14 +82,12 @@ export default function GameContainer() {
     const blueBoxes = document.querySelectorAll('.bg-sky-500.text-white.px-3.py-2.rounded-lg');
     blueBoxes.forEach(box => {
       if (box.textContent?.includes('Caquetá') || box.querySelector('.text-2xl')) {
-        console.log('Removing stuck blue box:', box.textContent);
         box.remove();
       }
     });
 
     // Reset any stuck drag state
     if (game.isDraggingDepartment && !game.currentDepartment) {
-      console.log('Resetting stuck drag state');
       game.setIsDragging(false);
     }
 
@@ -99,7 +96,6 @@ export default function GameContainer() {
     dragOverlays.forEach(overlay => {
       const parent = overlay.parentElement;
       if (parent && parent.style.position === 'fixed' && parent.style.zIndex) {
-        console.log('Removing stuck DragOverlay:', overlay.textContent);
         parent.remove();
       }
     });
@@ -109,7 +105,6 @@ export default function GameContainer() {
   useEffect(() => {
     // Reset drag state if it's stuck
     if (game.isDraggingDepartment && !game.currentDepartment) {
-      console.log('Resetting stuck drag state on mount');
       game.setIsDragging(false);
     }
   }, []); // Only run once on mount
@@ -170,7 +165,6 @@ export default function GameContainer() {
   // Listen for placement feedback from keyboard navigation
   useEffect(() => {
     const handlePlacementFeedback = (event: CustomEvent) => {
-      console.log('Received placement-feedback event:', event.detail);
       const { show, isCorrect, departmentName, position } = event.detail;
 
       // Reset first to ensure re-trigger
@@ -218,7 +212,6 @@ export default function GameContainer() {
 
     const departmentId = event.active.id as string;
     const department = game.departments.find(d => d.id === departmentId);
-    console.log('[DEBUG] Drag start:', { departmentId, department });
     if (department) {
       game.selectDepartment(department);
       game.setIsDragging(true); // Set dragging state to true
@@ -264,13 +257,6 @@ export default function GameContainer() {
                                game.activeDepartments?.find(d => d.id === draggedId) ||
                                active.data?.current;
 
-      console.log('[DEBUG] Drag end department resolution:', {
-        draggedId,
-        currentDept: game.currentDepartment,
-        foundDept: game.departments.find(d => d.id === draggedId),
-        draggedDepartment
-      });
-
       // Get a readable department name - ALWAYS provide something
       let departmentName = '';
       if (draggedDepartment?.name) {
@@ -284,8 +270,6 @@ export default function GameContainer() {
       } else {
         departmentName = 'el departamento';
       }
-
-      console.log('[DEBUG] Final department name:', departmentName);
 
       // Check if the placement is correct - simple comparison now
       const isCorrect = draggedId === targetId;
@@ -555,21 +539,19 @@ export default function GameContainer() {
       {modal.isModalOpen('gameMode') && (
           <GameModeSelector
             onSelectMode={(mode) => {
-              console.log('GameContainer: onSelectMode called with mode:', mode);
               try {
                 if (mode.type === 'study') {
-                  console.log('GameContainer: Opening study mode');
                   // Open Study Mode instead of starting game
                   modal.closeModal();
                   modal.openModal('study');
                 } else {
-                  console.log('GameContainer: Starting game with mode:', mode);
                   // Start game with selected mode
                   game.setGameMode(mode);
                   modal.closeModal();
                   game.resetGame();
                 }
               } catch (error) {
+                // Keep console.error for production error handling
                 console.error('GameContainer: Error in onSelectMode:', error);
               }
             }}

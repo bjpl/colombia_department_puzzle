@@ -1,0 +1,200 @@
+ × src/tests/mobile/performance.test.ts > Mobile Performance > Animation Performance > should run animations at 60fps 69ms
+   → expected 62.45662985599205 to be less than or equal to 62
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Animation Performance > should maintain smooth bottom sheet animations 4ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Animation Performance > should handle concurrent animations efficiently 6ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Touch Feedback Latency > should provide visual feedback within 100ms 8ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Touch Feedback Latency > should apply active states without delay 13ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Touch Feedback Latency > should measure ripple effect timing 2ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Load Performance > should measure initial render time 4ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Load Performance > should optimize image loading 1ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Load Performance > should defer non-critical resources 2ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Load Performance > should measure script parsing time 3ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Memory Management > should handle large datasets efficiently 1ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Memory Management > should clean up event listeners 7ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Memory Management > should prevent memory leaks from timers 3ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Memory Management > should handle component unmounting gracefully 1ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Interaction Performance > should handle rapid user inputs 3ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Interaction Performance > should debounce expensive operations 1ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Interaction Performance > should throttle scroll events 0ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Bundle Size and Resources > should lazy load components 11ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Bundle Size and Resources > should use code splitting for routes 0ms
+ ✓ src/tests/mobile/performance.test.ts > Mobile Performance > Bundle Size and Resources > should compress text resources 0ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Service Worker Registration > should register service worker 5ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Service Worker Registration > should handle registration failure gracefully 1ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Service Worker Registration > should check for existing service worker 1ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Cache Management > should cache app shell (Tier 0) 4ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Cache Management > should cache on demand (Tier 1) 3ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Cache Management > should retrieve from cache first 6ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Cache Management > should fall back to network if not cached 5ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Cache Management > should clean up old caches 5ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Offline Functionality > should detect online status 3ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Offline Functionality > should detect offline status 0ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Offline Functionality > should handle online event 1ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Offline Functionality > should handle offline event 0ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Offline Functionality > should serve cached content when offline 1ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Offline Functionality > should show offline indicator 2ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Install Prompt > should capture beforeinstallprompt event 0ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Install Prompt > should show install prompt after first game (Android) 0ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Install Prompt > should handle install prompt acceptance 0ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Install Prompt > should handle install prompt dismissal 0ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Install Prompt > should show iOS install instructions 0ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Install Prompt > should detect if app is installed (standalone mode) 0ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Manifest Validation > should have valid manifest link 12ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Manifest Validation > should validate manifest structure 1ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Manifest Validation > should have theme color meta tag 6ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Manifest Validation > should have viewport meta tag 3ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Manifest Validation > should have apple-touch-icon 3ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Update Handling > should detect service worker update 1ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Update Handling > should prompt user to reload on update 1ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Update Handling > should skip waiting on user confirmation 1ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Background Sync > should queue actions when offline 1ms
+ ✓ src/tests/mobile/pwa.test.ts > PWA Features > Background Sync > should process queue when back online 1ms
+stdout | src/tests/context/AccessibilityContext.test.tsx
+Region Color Accessibility Validation: [
+--
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Initial State > should initialize with default state 19ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Initial State > should load selectedRegion from localStorage on mount 6ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Initial State > should load progress from localStorage on mount 5ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Initial State > should load study queue from localStorage on mount 7ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Initial State > should handle localStorage errors gracefully 6ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > localStorage Persistence > should persist selectedRegion to localStorage when changed 15ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > localStorage Persistence > should persist progress to localStorage when updated 7ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > localStorage Persistence > should persist study queue to localStorage when changed 5ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > localStorage Persistence > should not persist empty study queue 3ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Study Session Initialization > should initialize session with due cards for region 2ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Study Session Initialization > should filter cards by region 6ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Study Session Initialization > should only include due cards (nextReview <= now) 5ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Study Session Initialization > should sort cards by overdue priority 4ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Study Session Initialization > should sort by difficulty when both are overdue 3ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Study Session Initialization > should reset progress when starting new session 5ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Selected Region Management > should allow clearing selected region 4ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Spaced Repetition - Card Updates > should update card with next review time after answer 3ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Spaced Repetition - Card Updates > should update progress and move to next card 2ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Spaced Repetition - Card Updates > should not update cards if none in storage 2ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Progress Tracking > should increment completedCards on answer 3ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Progress Tracking > should increment correctAnswers on correct answer 3ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Progress Tracking > should increment incorrectAnswers on wrong answer 4ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Progress Tracking > should increment streak on correct answer 3ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Progress Tracking > should reset streak on incorrect answer 4ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Progress Tracking > should move to next card after checking answer 5ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Card Queue Management > should move to next card when nextCard is called 6ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Card Queue Management > should clear currentCard when queue is empty 3ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Card Queue Management > should indicate session is active when currentCard exists 5ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Card Queue Management > should indicate session is inactive when no currentCard 4ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Card Queue Management > should indicate cards remaining when queue not empty 8ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Session Statistics > should calculate accuracy percentage 5ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Session Statistics > should calculate session duration in minutes 2ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Session Statistics > should calculate cards per minute 4ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Session Statistics > should count remaining cards 2ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Session Statistics > should indicate session is complete when queue empty 5ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Session Statistics > should handle zero completed cards gracefully 3ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Due Cards Counting > should count due cards for a region 4ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Due Cards Counting > should not count cards that are not due yet 4ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Due Cards Counting > should return 0 when no cards in storage 3ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Due Cards Counting > should handle localStorage errors when counting due cards 2ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Session Reset > should reset all session state 3ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Session Reset > should reset session start time 3ms
+ ✓ src/tests/hooks/useStudyMode.test.ts > useStudyMode Hook > Selected Region Management > should update selected region 2ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Initialization > should initialize with normal color mode 3ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Initialization > should load saved settings from localStorage 2ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Initialization > should handle missing localStorage gracefully 1ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Initialization > should handle corrupted localStorage data 5ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Color Mode Switching > should switch to protanopia mode 5ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Color Mode Switching > should switch to deuteranopia mode 1ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Color Mode Switching > should switch to tritanopia mode 2ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Color Mode Switching > should switch to monochrome mode 1ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Color Mode Switching > should return to normal mode 1ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Color Mode Switching > should persist color mode to localStorage 1ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Color Mode Switching > should set data-color-mode attribute on document 1ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Color Mode Switching > should update document attribute when mode changes 1ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Region Color Functions > should get region color in normal mode 0ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Region Color Functions > should get different colors for each region 1ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Region Color Functions > should use colorblind palette in protanopia mode 0ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Region Color Functions > should use colorblind palette in deuteranopia mode 0ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Region Color Functions > should use grayscale in monochrome mode 0ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Region Color Functions > should apply opacity to hex colors 0ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Region Color Functions > should return hex color when opacity is 1 1ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Region Color Functions > should convert hex to rgba correctly 0ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Region Color Functions > should handle unknown region with default color 0ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Text Color Function > should return white text for WCAG AAA compliance 0ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Text Color Function > should return white for all background colors 0ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Settings Persistence > should save settings when color mode changes 0ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Settings Persistence > should persist multiple color mode changes 0ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Settings Persistence > should restore last saved color mode 0ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Color Palette Validation > should have all regions in normal palette 0ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Color Palette Validation > should have all regions in protanopia palette 1ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Color Palette Validation > should have all regions in deuteranopia palette 1ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Color Palette Validation > should have all regions in tritanopia palette 1ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Color Palette Validation > should have all regions in monochrome palette 1ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Color Palette Validation > should have distinct colors in each palette 1ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - ACCESSIBLE_REGION_COLORS > should have complete color schemes for all regions 7ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - ACCESSIBLE_REGION_COLORS > should have patterns and icons for regions 2ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - ACCESSIBLE_REGION_COLORS > should have valid gradient syntax 2ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Edge Cases > should handle rapid mode switching 1ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Edge Cases > should handle zero opacity 1ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Edge Cases > should handle opacity edge values 0ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Edge Cases > should return consistent colors across calls 0ms
+ ✓ src/tests/context/AccessibilityContext.test.tsx > AccessibilityContext - Edge Cases > should maintain color consistency after mode switch and back 0ms
+stdout | src/design-system/themes/__tests__/colorblind-validation.test.ts
+Region Color Accessibility Validation: [
+--
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > performance > should handle rapid pointer events without lag 18ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > initialization > should initialize with inactive state 26ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > performance > should respond to tap within 100ms 4ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > initialization > should provide all required handlers 2ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > tap gesture > should detect tap gesture on touch device 5ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > tap gesture > should detect tap gesture on mouse device 3ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > tap gesture > should NOT detect tap if moved too far 4ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > tap gesture > should NOT detect tap if held too long 4ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > long press gesture > should detect long press after 500ms 4ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > long press gesture > should cancel long press if moved too much 2ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > drag gesture > should detect drag start after threshold movement 3ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > drag gesture > should send drag move events during drag 3ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > drag gesture > should send drag end event on pointer up 2ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > swipe gesture > should detect swipe with fast movement 2ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > swipe gesture > should NOT detect swipe if too slow 9ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > pointer capture > should capture pointer on down 13ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > pointer capture > should release pointer on up 4ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > pointer capture > should release pointer on cancel 3ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > multi-touch handling > should ignore second pointer when one is active 3ms
+ ✓ src/tests/hooks/useTouchGestures.test.ts > useTouchGestures > multi-touch handling > should ignore move events from wrong pointer 2ms
+stderr | src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > Monochrome-Specific: Lightness Progression > monochrome: should have distinct grayscale values
+⚠️ Small RGB step: 82 → 89 (7 units)
+--
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > Critical: Duplicate Detection > normal: should have NO duplicate colors (CRITICAL) 3ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > Critical: Duplicate Detection > protanopia: should have NO duplicate colors (CRITICAL) 1ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > Critical: Duplicate Detection > deuteranopia: should have NO duplicate colors (CRITICAL) 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > Critical: Duplicate Detection > tritanopia: should have NO duplicate colors (CRITICAL) 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > Critical: Duplicate Detection > monochrome: should have NO duplicate colors (CRITICAL) 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > Critical: Color Distinctiveness > normal: all color pairs should be sufficiently distinct 1ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > Critical: Color Distinctiveness > protanopia: all color pairs should be sufficiently distinct 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > Critical: Color Distinctiveness > deuteranopia: all color pairs should be sufficiently distinct 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > Critical: Color Distinctiveness > tritanopia: all color pairs should be sufficiently distinct 1ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > Critical: Color Distinctiveness > monochrome: all color pairs should be sufficiently distinct 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > normal - Andina: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > normal - Caribe: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > normal - Pacífico: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > normal - Orinoquía: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > normal - Amazonía: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > normal - Insular: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > protanopia - Andina: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > protanopia - Caribe: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > protanopia - Pacífico: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > protanopia - Orinoquía: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > protanopia - Amazonía: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > protanopia - Insular: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > deuteranopia - Andina: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > deuteranopia - Caribe: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > deuteranopia - Pacífico: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > deuteranopia - Orinoquía: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > deuteranopia - Amazonía: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > deuteranopia - Insular: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > tritanopia - Andina: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > tritanopia - Caribe: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > tritanopia - Pacífico: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > tritanopia - Orinoquía: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > tritanopia - Amazonía: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > tritanopia - Insular: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > monochrome - Andina: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > monochrome - Caribe: should have 7:1+ contrast against white 0ms
+ ✓ src/design-system/themes/__tests__/colorblind-validation.test.ts > Colorblind Palette Validation > WCAG AAA Compliance (7:1 Contrast) > monochrome - Pacífico: should have 7:1+ contrast against white 0ms
