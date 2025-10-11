@@ -2,9 +2,9 @@
   "permissions": {
     "allow": [
       "mcp__ruv-swarm",
-      "mcp__claude-flow"
+      "mcp__claude-flow@alpha",
+      "mcp__flow-nexus"
     ],
     "deny": []
-  },
-  "outputStyle": "learning-maximizer-2"
+  }
 }
