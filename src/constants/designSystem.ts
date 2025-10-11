@@ -1,6 +1,14 @@
 /**
  * Colombia Puzzle Game - Modern Design System
  *
+ * @deprecated This file is deprecated. Use the consolidated design system instead:
+ *   - Colors: import from 'src/design-system/tokens/colors'
+ *   - Use Tailwind classes: bg-gray-700, text-region-andina-900, etc.
+ *   - For semantic colors: import from 'src/design-system/themes/regions'
+ *
+ * This file is kept for backward compatibility during migration.
+ * All new code should use the design-system directory.
+ *
  * Design Philosophy:
  * - Clean, minimal interface inspired by Linear, Vercel, Stripe
  * - Subtle depth through careful shadow usage
@@ -8,6 +16,8 @@
  * - Accessibility-first with WCAG AAA compliance
  * - Performance through CSS variables and minimal complexity
  */
+
+console.warn('[DEPRECATED] src/constants/designSystem.ts is deprecated. Use src/design-system/ instead.');
 
 // ============================================
 // COLOR SYSTEM

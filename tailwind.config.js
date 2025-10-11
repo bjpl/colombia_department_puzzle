@@ -27,6 +27,88 @@ module.exports = {
           blue: '#003893',
           red: '#CE1126'
         },
+        // Colombia regions - WCAG AAA compliant (7:1+ contrast)
+        // Source: src/design-system/themes/regions.ts
+        region: {
+          andina: {
+            50: '#f0fdf4',
+            100: '#dcfce7',
+            200: '#bbf7d0',
+            300: '#86efac',
+            400: '#4ade80',
+            500: '#16A34A',  // tertiary
+            600: '#15803d',
+            700: '#15803d',
+            800: '#166534',
+            900: '#14532D',  // primary - 9.1:1 contrast
+            950: '#052e16',
+          },
+          caribe: {
+            50: '#eff6ff',
+            100: '#dbeafe',
+            200: '#bfdbfe',
+            300: '#93c5fd',
+            400: '#60a5fa',
+            500: '#2563EB',  // tertiary
+            600: '#2563eb',
+            700: '#1d4ed8',
+            800: '#1E3A8A',  // secondary
+            900: '#1E40AF',  // primary - 9.4:1 contrast
+            950: '#172554',
+          },
+          pacifico: {
+            50: '#fef2f2',
+            100: '#fee2e2',
+            200: '#fecaca',
+            300: '#fca5a5',
+            400: '#f87171',
+            500: '#B91C1C',  // tertiary
+            600: '#dc2626',
+            700: '#b91c1c',
+            800: '#7F1D1D',  // secondary
+            900: '#7C2D12',  // primary - 9.8:1 contrast
+            950: '#450A0A',
+          },
+          orinoquia: {
+            50: '#fffbeb',
+            100: '#fef3c7',
+            200: '#fde68a',
+            300: '#fcd34d',
+            400: '#fbbf24',
+            500: '#CA8A04',  // tertiary
+            600: '#d97706',
+            700: '#A16207',  // mid
+            800: '#92400E',  // primary/secondary - 7.1:1 contrast
+            900: '#78350f',
+            950: '#713F12',
+          },
+          amazonia: {
+            50: '#f0fdfa',
+            100: '#ccfbf1',
+            200: '#99f6e4',
+            300: '#5eead4',
+            400: '#2dd4bf',
+            500: '#14B8A6',  // tertiary
+            600: '#0d9488',
+            700: '#0F766E',  // mid
+            800: '#115E59',  // primary/secondary - 7.2:1 contrast
+            900: '#134e4a',
+            950: '#042f2e',
+          },
+          insular: {
+            50: '#faf5ff',
+            100: '#f3e8ff',
+            200: '#e9d5ff',
+            300: '#d8b4fe',
+            400: '#c084fc',
+            500: '#7E22CE',  // tertiary
+            600: '#a855f7',
+            700: '#9333ea',
+            800: '#581C87',  // secondary
+            900: '#6B21A8',  // primary - 7.3:1 contrast
+            950: '#4A1D6F',
+          },
+        },
         // Additional semantic colors
         success: {
           50: '#f0fdf4',

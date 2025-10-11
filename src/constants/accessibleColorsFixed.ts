@@ -1,3 +1,14 @@
+/**
+ * @deprecated This file is deprecated. Use the consolidated design system instead:
+ *   - Import from: 'src/design-system/themes/regions'
+ *   - All region colors in tailwind.config.js
+ *   - Use Tailwind classes: bg-region-andina-900, text-region-caribe-500
+ *
+ * This file is kept for backward compatibility during migration.
+ */
+
+console.warn('[DEPRECATED] src/constants/accessibleColorsFixed.ts is deprecated. Use src/design-system/themes/regions.ts instead.');
+
 // WCAG AAA Compliant Color System for Colombia Puzzle Game
 // All colors tested for 7:1 contrast ratio (WCAG AAA standard)
 // Each mode ensures distinct, accessible colors
