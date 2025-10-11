@@ -115,7 +115,8 @@ export function auditTouchTargets(
 }
 
 /**
- * Console report of touch target violations
+ * Console report of touch target violations (for development/testing)
+ * Note: This function is intentionally kept for development debugging and test reporting
  */
 export function reportTouchTargetViolations(
   container: HTMLElement = document.body
@@ -123,20 +124,23 @@ export function reportTouchTargetViolations(
   const audit = auditTouchTargets(container);
   const violations = audit.filter(item => !item.isValid);
 
-  if (violations.length === 0) {
-    console.log('✅ All touch targets meet 44×44px minimum');
-    return;
-  }
+  // Only log in development mode
+  if (import.meta.env?.DEV) {
+    if (violations.length === 0) {
+      console.log('✅ All touch targets meet 44×44px minimum');
+      return;
+    }
 
-  console.group(`❌ ${violations.length} touch target violations found`);
-  violations.forEach(({ element, dimensions }) => {
-    console.log(
-      `Element: ${element.tagName} ${element.className}`,
-      `Size: ${dimensions.width.toFixed(1)}×${dimensions.height.toFixed(1)}px`,
-      element
-    );
-  });
-  console.groupEnd();
+    console.group(`❌ ${violations.length} touch target violations found`);
+    violations.forEach(({ element, dimensions }) => {
+      console.log(
+        `Element: ${element.tagName} ${element.className}`,
+        `Size: ${dimensions.width.toFixed(1)}×${dimensions.height.toFixed(1)}px`,
+        element
+      );
+    });
+    console.groupEnd();
+  }
 }
 
 /**

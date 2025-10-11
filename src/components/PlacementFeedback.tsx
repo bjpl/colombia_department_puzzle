@@ -20,7 +20,6 @@ export default function PlacementFeedback({
 
   useEffect(() => {
     if (show) {
-      console.log('PlacementFeedback: Showing feedback', { isCorrect, departmentName, position });
       setIsVisible(true);
       const timer = setTimeout(() => {
         setIsVisible(false);

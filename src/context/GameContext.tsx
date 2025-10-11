@@ -190,7 +190,6 @@ const useGameStore = create<GameState>((set, get) => ({
 
   // Regional mode actions
   setGameMode: (mode: GameModeConfig) => {
-    console.log('GameContext: setGameMode called with:', mode);
     const state = get();
     let activeDepartments: Department[];
 

@@ -15,7 +15,6 @@ function App() {
   useEffect(() => {
     // Initialize keyboard manager - singleton ensures it's only done once
     keyboardManager.setEnabled(true);
-    console.log('Keyboard shortcuts initialized');
   }, []);
 
   return (

@@ -1,3 +1,14 @@
+/**
+ * @deprecated This file is deprecated. Use the consolidated design system instead:
+ *   - Import from: 'src/design-system/themes/regions'
+ *   - Import from: 'src/design-system/tokens/colors'
+ *   - Use Tailwind classes: bg-region-andina-900
+ *
+ * This file is kept for backward compatibility during migration.
+ */
+
+console.warn('[DEPRECATED] src/constants/modernAccessibleColors.ts is deprecated. Use src/design-system/ instead.');
+
 // Modern Beautiful Accessible Color System for Colombia Puzzle Game
 // Inspired by contemporary design trends while maintaining WCAG AAA compliance
 

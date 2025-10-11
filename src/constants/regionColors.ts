@@ -1,3 +1,14 @@
+/**
+ * @deprecated This file is deprecated. Use the consolidated design system instead:
+ *   - Import from: 'src/design-system/themes/regions'
+ *   - Tailwind classes: bg-region-andina-900, text-region-caribe-500
+ *   - Single source of truth in tailwind.config.js
+ *
+ * This file is kept for backward compatibility during migration.
+ */
+
+console.warn('[DEPRECATED] src/constants/regionColors.ts is deprecated. Use src/design-system/themes/regions.ts instead.');
+
 // Shared region color constants used across the application
 // Modern, beautiful, and WCAG AAA compliant colors
 

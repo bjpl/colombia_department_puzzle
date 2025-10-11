@@ -303,15 +303,19 @@ export function validateAccessibility(): boolean {
     });
   });
 
-  if (import.meta.env?.DEV) {
+  // Only log validation results during test runs or when explicitly requested
+  // This keeps production console clean while preserving test output
+  if (import.meta.env?.DEV && import.meta.env?.MODE === 'test') {
     console.log('Region Color Accessibility Validation:', results);
   }
 
   return allPass;
 }
 
-// Export validation in development
+// Run validation in development (logged only in test mode)
 if (typeof window !== 'undefined' && import.meta.env?.DEV) {
   const isAccessible = validateAccessibility();
-  console.log(`All region colors are WCAG AAA compliant: ${isAccessible}`);
+  if (import.meta.env?.MODE === 'test') {
+    console.log(`All region colors are WCAG AAA compliant: ${isAccessible}`);
+  }
 }

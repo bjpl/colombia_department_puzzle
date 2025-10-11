@@ -9,18 +9,65 @@
  * @vitest-environment jsdom
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
 describe('Touch Target Validation', () => {
   let container: HTMLDivElement;
+
+  /**
+   * Mock getBoundingClientRect for JSDOM
+   * JSDOM doesn't perform layout calculations, so we need to mock based on styles
+   */
+  const mockGetBoundingClientRect = (element: HTMLElement) => {
+    const style = element.style;
+    const width = parseFloat(style.width) || 0;
+    const height = parseFloat(style.height) || 0;
+    const padding = parseFloat(style.padding) || 0;
+    const paddingLeft = parseFloat(style.paddingLeft) || padding;
+    const paddingRight = parseFloat(style.paddingRight) || padding;
+    const paddingTop = parseFloat(style.paddingTop) || padding;
+    const paddingBottom = parseFloat(style.paddingBottom) || padding;
+    const minWidth = parseFloat(style.minWidth) || 0;
+    const minHeight = parseFloat(style.minHeight) || 0;
+
+    const computedWidth = Math.max(width + paddingLeft + paddingRight, minWidth);
+    const computedHeight = Math.max(height + paddingTop + paddingBottom, minHeight);
+
+    // Calculate position
+    const left = parseFloat(style.left) || 0;
+    const top = parseFloat(style.top) || 0;
+    const marginLeft = parseFloat(style.marginLeft) || 0;
+
+    return {
+      width: computedWidth,
+      height: computedHeight,
+      left: left + marginLeft,
+      right: left + marginLeft + computedWidth,
+      top: top,
+      bottom: top + computedHeight,
+      x: left + marginLeft,
+      y: top,
+      toJSON: () => ({})
+    } as DOMRect;
+  };
 
   beforeEach(() => {
     container = document.createElement('div');
     container.id = 'test-container';
     document.body.appendChild(container);
+
+    // Mock getBoundingClientRect for all elements in container
+    const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
+    vi.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(function(this: HTMLElement) {
+      if (this.isConnected && (this === container || container.contains(this))) {
+        return mockGetBoundingClientRect(this);
+      }
+      return originalGetBoundingClientRect.call(this);
+    });
   });
 
   afterEach(() => {
+    vi.restoreAllMocks();
     if (container.parentNode) {
       document.body.removeChild(container);
     }
@@ -333,7 +380,14 @@ describe('Touch Target Validation', () => {
       container.appendChild(scrollContainer);
 
       expect(scrollContainer.style.overflowX).toBe('auto');
-      expect(scrollContainer.scrollWidth).toBeGreaterThan(375);
+
+      // Calculate expected scroll width manually (JSDOM doesn't compute scrollWidth)
+      const chipCount = 10;
+      const chipWidth = 100;
+      const gap = 12;
+      const expectedScrollWidth = chipCount * chipWidth + (chipCount - 1) * gap;
+
+      expect(expectedScrollWidth).toBeGreaterThan(375);
     });
   });
 

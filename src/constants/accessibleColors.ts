@@ -1,3 +1,14 @@
+/**
+ * @deprecated This file is deprecated. Use the consolidated design system instead:
+ *   - Import from: 'src/design-system/themes/accessibility'
+ *   - Import from: 'src/design-system/themes/regions'
+ *   - All colors available via Tailwind: bg-region-andina-900
+ *
+ * This file is kept for backward compatibility during migration.
+ */
+
+console.warn('[DEPRECATED] src/constants/accessibleColors.ts is deprecated. Use src/design-system/themes/ instead.');
+
 // Accessible Color System for Colombia Puzzle Game
 // WCAG AAA compliant with colorblind-safe palettes
 
