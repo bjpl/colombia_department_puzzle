@@ -66,3 +66,5 @@ scripts/*.log
 docs/archive/*.json
 temp_*/
 docs/api/
+claude-flow
+deployment_sprint/
