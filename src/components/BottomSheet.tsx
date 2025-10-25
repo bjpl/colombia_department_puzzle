@@ -81,15 +81,15 @@ export default function BottomSheet({
     const half = getSnapPointValue('half');
     const full = getSnapPointValue('full');
 
-    // Fast swipe up - go to next snap point
-    if (velocity < -MOBILE_LAYOUT.velocityThreshold) {
+    // Fast swipe up (positive velocity) - expand to next snap point
+    if (velocity > MOBILE_LAYOUT.velocityThreshold) {
       if (currentSnap === 'collapsed') return 'half';
       if (currentSnap === 'half') return 'full';
       return 'full';
     }
 
-    // Fast swipe down - go to previous snap point
-    if (velocity > MOBILE_LAYOUT.velocityThreshold) {
+    // Fast swipe down (negative velocity) - collapse to previous snap point
+    if (velocity < -MOBILE_LAYOUT.velocityThreshold) {
       if (currentSnap === 'full') return 'half';
       if (currentSnap === 'half') return 'collapsed';
       return 'collapsed';

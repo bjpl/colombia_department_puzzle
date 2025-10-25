@@ -135,8 +135,8 @@ export default function MobileGameLayout() {
       <main
         className="flex-1"
         style={{
-          marginTop: MOBILE_LAYOUT.headerHeight,
-          height: `calc(100vh - ${MOBILE_LAYOUT.headerHeight}px)`,
+          marginTop: `calc(${MOBILE_LAYOUT.headerHeight}px + ${SAFE_AREA.top})`,
+          height: `calc(100vh - ${MOBILE_LAYOUT.headerHeight}px - ${SAFE_AREA.top})`,
           overflow: 'hidden',
           position: 'relative',
         }}

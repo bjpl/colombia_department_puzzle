@@ -69,20 +69,22 @@ export function useMediaQuery(query: string): boolean {
  * const viewport = useViewportCategory();
  * if (viewport === 'mobile') { ... }
  */
+import { BREAKPOINTS } from '../constants/responsive';
+
 export function useViewportCategory(): 'mobile' | 'tablet' | 'desktop' {
   const [category, setCategory] = useState<'mobile' | 'tablet' | 'desktop'>(() => {
     if (typeof window === 'undefined') return 'desktop';
     const width = window.innerWidth;
-    if (width <= 767) return 'mobile';
-    if (width <= 1023) return 'tablet';
+    if (width <= BREAKPOINTS.mobile.max) return 'mobile';  // 1023px - catches landscape phones
+    if (width <= BREAKPOINTS.tablet.max) return 'tablet';  // 1279px
     return 'desktop';
   });
 
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-      if (width <= 767) setCategory('mobile');
-      else if (width <= 1023) setCategory('tablet');
+      if (width <= BREAKPOINTS.mobile.max) setCategory('mobile');
+      else if (width <= BREAKPOINTS.tablet.max) setCategory('tablet');
       else setCategory('desktop');
     };
 

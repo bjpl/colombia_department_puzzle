@@ -56,8 +56,8 @@ export const BOTTOM_SHEET_SNAP_POINTS = {
  */
 export const MOBILE_LAYOUT = {
   headerHeight: 56, // px - Standard mobile app header
-  dragHandleHeight: 32, // px - Touch target for handle
-  dragHandleWidth: 32, // px
+  dragHandleHeight: 44, // px - Touch target for handle (WCAG AAA compliant - 44px minimum)
+  dragHandleWidth: 44, // px - Touch target width (WCAG AAA compliant - 44px minimum)
   backdropBlur: 8, // px - For floating header
   transitionDuration: 300, // ms - Smooth but not sluggish
   swipeThreshold: 50, // px - Minimum drag distance to trigger snap

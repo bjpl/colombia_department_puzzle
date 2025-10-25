@@ -4,6 +4,7 @@ import { useGame } from '../context/GameContext';
 import { useAccessibility } from '../context/AccessibilityContext';
 import { Department } from '../data/colombiaDepartments';
 import { TouchFeedback } from './TouchFeedback';
+import { BREAKPOINTS } from '../constants/responsive';
 import {
   Card,
   Badge,
@@ -223,12 +224,12 @@ interface DepartmentTrayProps {
 export default function DepartmentTray({ layout = 'horizontal' }: DepartmentTrayProps) {
   const game = useGame();
 
-  // Detect if we should use mobile layout (viewport width < 768px)
+  // Detect if we should use mobile layout (use centralized breakpoint constant)
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth <= BREAKPOINTS.mobile.max); // Use constant (1023px)
     };
 
     checkMobile();
