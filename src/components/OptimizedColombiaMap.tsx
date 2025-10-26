@@ -197,15 +197,20 @@ export default function OptimizedColombiaMap() {
     }
   };
 
-  // Memoize projection and path generator with MAXIMIZED sizing
+  // Memoize projection and path generator with responsive sizing
   const { projection: _projection, pathGenerator, width, height } = useMemo(() => {
     // Calculate optimal dimensions based on viewport
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
 
-    // MAXIMIZE map size - only accounting for small sidebars (2x 208px) and minimal padding
-    const w = Math.max(viewportWidth - 450, 1000); // Much larger map, minimum 1000px
-    const h = Math.max(viewportHeight - 200, 650); // Use most of vertical space
+    // Responsive sizing: mobile vs desktop
+    const isMobile = viewportWidth < 768;
+    const w = isMobile
+      ? viewportWidth - 32 // Mobile: full width minus small padding
+      : Math.max(viewportWidth - 450, 1000); // Desktop: larger map, minimum 1000px
+    const h = isMobile
+      ? viewportHeight - 200 // Mobile: account for header + bottom sheet peek
+      : Math.max(viewportHeight - 200, 650); // Desktop: use most of vertical space
 
     // Increase scale significantly for a larger map display
     const scale = Math.min(w, h) * 3.2; // Increased from 2.5 to 3.2

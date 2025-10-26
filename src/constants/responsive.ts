@@ -20,18 +20,18 @@
  */
 export const BREAKPOINTS = {
   mobile: {
-    max: 1023, // Increased to catch phones in landscape (was 767)
+    max: 767, // Standard mobile breakpoint - phones only
     minTouchTarget: 44, // Apple Human Interface Guidelines
     spacing: 16, // Comfortable for thumbs
   },
   tablet: {
-    min: 1024, // Now starts at old desktop breakpoint
-    max: 1279, // Standard tablet/small laptop range
+    min: 768, // iPads and tablets
+    max: 1023, // Standard tablet range
     minTouchTarget: 44, // Still touch-first
     spacing: 20, // Slightly more room
   },
   desktop: {
-    min: 1280, // Large screens only (was 1024)
+    min: 1024, // Desktop and laptops
     minTouchTarget: 32, // Mouse precision allows smaller targets
     spacing: 24, // Generous spacing
   },
@@ -127,14 +127,13 @@ export const Z_INDEX = {
  *
  * Pre-formatted for use in CSS or matchMedia()
  *
- * CRITICAL: Mobile query now catches all phones including landscape mode
- * - Phones in portrait: 320-430px (always mobile)
- * - Phones in landscape: 640-932px (now detected as mobile!)
- * - Tablets: 1024-1279px
- * - Desktop: 1280px+
+ * Breakpoint Strategy:
+ * - Mobile: 0-767px (phones in portrait and landscape)
+ * - Tablet: 768-1023px (iPads, Android tablets)
+ * - Desktop: 1024px+ (laptops, desktops)
  */
 export const MEDIA_QUERIES = {
-  mobile: `(max-width: ${BREAKPOINTS.mobile.max}px)`, // Now 1023px - catches phone landscape
+  mobile: `(max-width: ${BREAKPOINTS.mobile.max}px)`, // 767px - phones only
   tablet: `(min-width: ${BREAKPOINTS.tablet.min}px) and (max-width: ${BREAKPOINTS.tablet.max}px)`,
   desktop: `(min-width: ${BREAKPOINTS.desktop.min}px)`,
   touch: '(hover: none) and (pointer: coarse)',
