@@ -10,11 +10,22 @@ import { keyboardManager } from './services/keyboardManager';
 import { InstallPrompt } from './components/InstallPrompt';
 import { UpdateNotification } from './components/UpdateNotification';
 import { OfflineIndicator } from './components/OfflineIndicator';
+// Version management
+import { checkVersionChange, logVersionInfo } from './utils/version';
 
 function App() {
   useEffect(() => {
     // Initialize keyboard manager - singleton ensures it's only done once
     keyboardManager.setEnabled(true);
+
+    // Check for version changes and clear caches if needed
+    const versionChanged = checkVersionChange();
+    if (versionChanged) {
+      console.log('[App] Version change detected - caches cleared');
+    }
+
+    // Log version info for debugging
+    logVersionInfo();
   }, []);
 
   return (

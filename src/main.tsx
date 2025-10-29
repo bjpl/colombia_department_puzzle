@@ -13,6 +13,7 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
     navigator.serviceWorker
       .register('/colombia_department_puzzle/sw.js', {
         scope: '/colombia_department_puzzle/',
+        updateViaCache: 'none', // Force SW to always check for updates
       })
       .then((registration) => {
         // Check for updates periodically (every hour)
