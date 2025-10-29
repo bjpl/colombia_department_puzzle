@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Modern neutral grays
+        // Modern neutral grays (from design-system/tokens/colors.ts)
         gray: {
           50: '#fafafa',
           100: '#f5f5f5',
@@ -20,6 +20,19 @@ module.exports = {
           800: '#262626',
           900: '#171717',
           950: '#0a0a0a',
+        },
+        // Brand colors (from design-system/tokens/colors.ts)
+        brand: {
+          50: '#eff6ff',
+          100: '#dbeafe',
+          200: '#bfdbfe',
+          300: '#93c5fd',
+          400: '#60a5fa',
+          500: '#3b82f6', // Primary blue
+          600: '#2563eb',
+          700: '#1d4ed8',
+          800: '#1e40af',
+          900: '#1e3a8a',
         },
         // Colombia theme colors (preserved)
         colombia: {
@@ -145,6 +158,35 @@ module.exports = {
           700: '#b91c1c',
           800: '#991b1b',
           900: '#7f1d1d',
+        },
+        // Surface colors (from design-system/tokens/colors.ts)
+        surface: {
+          background: '#ffffff',
+          muted: '#fafafa',
+          subtle: '#f5f5f5',
+          ui: '#f0f0f0',
+          border: '#e5e5e5',
+          ring: '#e0e7ff',
+        },
+        // Interactive states (from design-system/tokens/colors.ts)
+        interactive: {
+          primary: '#3b82f6',
+          'primary-hover': '#2563eb',
+          'primary-active': '#1d4ed8',
+          secondary: '#f5f5f5',
+          'secondary-hover': '#e5e5e5',
+          'secondary-active': '#d4d4d4',
+        },
+        // Text colors (from design-system/tokens/colors.ts)
+        text: {
+          primary: '#171717',
+          secondary: '#525252',
+          tertiary: '#a3a3a3',
+          inverse: '#ffffff',
+          brand: '#3b82f6',
+          success: '#16a34a',
+          warning: '#d97706',
+          error: '#dc2626',
         },
       },
       fontFamily: {

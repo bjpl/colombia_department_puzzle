@@ -11,9 +11,10 @@ import { useGame } from '../context/GameContext';
 // Lazy load StudyMode for better initial bundle size (~14 KB savings)
 const StudyMode = lazy(() => import('./StudyMode'));
 import StudyModeLoading from './StudyModeLoading';
+// Lazy load InteractiveTutorial - shown once per user (~15-20 KB savings)
+const InteractiveTutorial = lazy(() => import('./InteractiveTutorial'));
 import { useSoundEffect } from '../services/soundManager';
 import PostGameReport from './PostGameReport';
-import InteractiveTutorial from './InteractiveTutorial';
 import GameModeSelector, { GameModeConfig } from './GameModeSelector';
 // Removed QuickStartFlow - using InteractiveTutorial for simplicity
 import ModeTransition from './ModeTransition';
@@ -564,14 +565,20 @@ export default function GameContainer() {
           />
         )}
         {modal.isModalOpen('tutorial') && (
-          <InteractiveTutorial
-            onComplete={() => {
-              modal.closeAllModals(); // Simply close without showing any other modal
-            }}
-            onSkip={() => {
-              modal.closeAllModals(); // Simply close without showing any other modal
-            }}
-          />
+          <Suspense fallback={
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+              <div className="animate-pulse text-white text-lg">Cargando tutorial...</div>
+            </div>
+          }>
+            <InteractiveTutorial
+              onComplete={() => {
+                modal.closeAllModals(); // Simply close without showing any other modal
+              }}
+              onSkip={() => {
+                modal.closeAllModals(); // Simply close without showing any other modal
+              }}
+            />
+          </Suspense>
         )}
         {modal.isModalOpen('study') && (
           <Suspense fallback={<StudyModeLoading />}>
