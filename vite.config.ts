@@ -3,9 +3,10 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
-  // Inject build timestamp for version tracking
+  // Inject build timestamp and cache-busting version for aggressive cache invalidation
   define: {
     __BUILD_DATE__: JSON.stringify(new Date().toISOString()),
+    __CACHE_VERSION__: JSON.stringify(`v${Date.now()}`), // Unique cache version per build
   },
   plugins: [
     react(),
@@ -17,6 +18,14 @@ export default defineConfig({
         // Define caching strategies - exclude large GeoJSON files from precaching
         globPatterns: ['**/*.{js,css,html,png,svg,woff,woff2}'],
         globIgnores: ['**/data/*.json'], // Don't precache large GeoJSON files
+
+        // Inject unique cache version
+        additionalManifestEntries: [
+          {
+            url: '/cache-version.json',
+            revision: `${Date.now()}`, // Force cache bust on every build
+          },
+        ],
 
         // Runtime caching for different resource types
         runtimeCaching: [

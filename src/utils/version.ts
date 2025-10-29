@@ -7,11 +7,15 @@
  * - Build timestamp tracking for debugging
  */
 
-export const APP_VERSION = '1.0.0';
+export const APP_VERSION = '1.1.0'; // Bumped to force cache invalidation
 
 /**
  * Checks if the application version has changed since the last load.
- * If a version change is detected, clears all application caches.
+ * If a version change is detected, performs aggressive cache invalidation:
+ * - Clears all Cache Storage caches
+ * - Unregisters all service workers
+ * - Clears localStorage cache markers
+ * - Forces a hard reload
  *
  * @returns true if version changed and caches were cleared, false otherwise
  */
@@ -21,23 +25,8 @@ export function checkVersionChange(): boolean {
   if (stored !== APP_VERSION) {
     console.log(`[Version] App version changed: ${stored || 'none'} → ${APP_VERSION}`);
 
-    // Clear all caches on version change
-    if ('caches' in window) {
-      caches.keys().then(names => {
-        console.log(`[Version] Clearing ${names.length} cache(s):`, names);
-        names.forEach(name => {
-          caches.delete(name).then(success => {
-            if (success) {
-              console.log(`[Version] ✓ Cleared cache: ${name}`);
-            } else {
-              console.warn(`[Version] ✗ Failed to clear cache: ${name}`);
-            }
-          });
-        });
-      }).catch(error => {
-        console.error('[Version] Failed to clear caches:', error);
-      });
-    }
+    // Perform nuclear cache invalidation
+    performNuclearCacheInvalidation();
 
     // Update stored version
     localStorage.setItem('app_version', APP_VERSION);
@@ -45,6 +34,58 @@ export function checkVersionChange(): boolean {
   }
 
   return false;
+}
+
+/**
+ * Nuclear cache invalidation: Clears ALL caches and forces reload
+ * This is the most aggressive cache-busting strategy
+ */
+async function performNuclearCacheInvalidation(): Promise<void> {
+  console.log('[Version] 🚨 Performing NUCLEAR cache invalidation...');
+
+  try {
+    // Step 1: Unregister ALL service workers
+    if ('serviceWorker' in navigator) {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      console.log(`[Version] Found ${registrations.length} service worker(s) to unregister`);
+
+      await Promise.all(
+        registrations.map(async (registration) => {
+          const success = await registration.unregister();
+          console.log(`[Version] ${success ? '✓' : '✗'} Unregistered SW: ${registration.scope}`);
+          return success;
+        })
+      );
+    }
+
+    // Step 2: Clear ALL Cache Storage caches
+    if ('caches' in window) {
+      const cacheNames = await caches.keys();
+      console.log(`[Version] Clearing ${cacheNames.length} cache(s):`, cacheNames);
+
+      await Promise.all(
+        cacheNames.map(async (name) => {
+          const success = await caches.delete(name);
+          console.log(`[Version] ${success ? '✓' : '✗'} Cleared cache: ${name}`);
+          return success;
+        })
+      );
+    }
+
+    // Step 3: Clear localStorage cache markers
+    localStorage.removeItem('mobileWelcomeDismissed');
+
+    console.log('[Version] ✓ Nuclear cache invalidation complete');
+
+    // Step 4: Force hard reload after short delay
+    setTimeout(() => {
+      console.log('[Version] 🔄 Forcing hard reload...');
+      window.location.reload();
+    }, 500);
+
+  } catch (error) {
+    console.error('[Version] ✗ Nuclear cache invalidation failed:', error);
+  }
 }
 
 /**

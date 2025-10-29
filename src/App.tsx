@@ -12,6 +12,8 @@ import { UpdateNotification } from './components/UpdateNotification';
 import { OfflineIndicator } from './components/OfflineIndicator';
 // Version management
 import { checkVersionChange, logVersionInfo } from './utils/version';
+// Cache debugging utilities (only in development)
+import { registerDebugUtils } from './utils/cacheDebug';
 
 function App() {
   useEffect(() => {
@@ -26,6 +28,11 @@ function App() {
 
     // Log version info for debugging
     logVersionInfo();
+
+    // Register cache debug utilities (available in console)
+    if (import.meta.env.DEV || window.location.search.includes('debug')) {
+      registerDebugUtils();
+    }
   }, []);
 
   return (
