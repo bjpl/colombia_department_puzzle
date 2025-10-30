@@ -20,18 +20,18 @@
  */
 export const BREAKPOINTS = {
   mobile: {
-    max: 767, // Standard mobile breakpoint - phones only
+    max: 1023, // Increased to catch phones in landscape mode (640-932px)
     minTouchTarget: 44, // Apple Human Interface Guidelines
     spacing: 16, // Comfortable for thumbs
   },
   tablet: {
-    min: 768, // iPads and tablets
-    max: 1023, // Standard tablet range
+    min: 1024, // iPads and tablets (1024px+)
+    max: 1279, // Standard tablet range
     minTouchTarget: 44, // Still touch-first
     spacing: 20, // Slightly more room
   },
   desktop: {
-    min: 1024, // Desktop and laptops
+    min: 1280, // Large desktop screens
     minTouchTarget: 32, // Mouse precision allows smaller targets
     spacing: 24, // Generous spacing
   },
@@ -128,12 +128,14 @@ export const Z_INDEX = {
  * Pre-formatted for use in CSS or matchMedia()
  *
  * Breakpoint Strategy:
- * - Mobile: 0-767px (phones in portrait and landscape)
- * - Tablet: 768-1023px (iPads, Android tablets)
- * - Desktop: 1024px+ (laptops, desktops)
+ * - Mobile: 0-1023px (phones in portrait AND landscape modes)
+ *   - Portrait: 320-430px (iPhone mini to Plus)
+ *   - Landscape: 640-932px (rotated phones)
+ * - Tablet: 1024-1279px (iPads, Android tablets)
+ * - Desktop: 1280px+ (laptops, desktops, large screens)
  */
 export const MEDIA_QUERIES = {
-  mobile: `(max-width: ${BREAKPOINTS.mobile.max}px)`, // 767px - phones only
+  mobile: `(max-width: ${BREAKPOINTS.mobile.max}px)`, // 1023px - ALL phones including landscape
   tablet: `(min-width: ${BREAKPOINTS.tablet.min}px) and (max-width: ${BREAKPOINTS.tablet.max}px)`,
   desktop: `(min-width: ${BREAKPOINTS.desktop.min}px)`,
   touch: '(hover: none) and (pointer: coarse)',
@@ -147,11 +149,11 @@ export const MEDIA_QUERIES = {
  */
 
 /**
- * Check if viewport is mobile size
+ * Check if viewport is mobile size (includes phones in landscape mode)
  */
 export function isMobileViewport(): boolean {
   if (typeof window === 'undefined') return false;
-  return window.innerWidth <= BREAKPOINTS.mobile.max;
+  return window.innerWidth <= BREAKPOINTS.mobile.max; // <= 1023px
 }
 
 /**
@@ -160,7 +162,7 @@ export function isMobileViewport(): boolean {
 export function isTabletViewport(): boolean {
   if (typeof window === 'undefined') return false;
   const width = window.innerWidth;
-  return width >= BREAKPOINTS.tablet.min && width <= BREAKPOINTS.tablet.max;
+  return width >= BREAKPOINTS.tablet.min && width <= BREAKPOINTS.tablet.max; // 1024-1279px
 }
 
 /**
@@ -168,18 +170,19 @@ export function isTabletViewport(): boolean {
  */
 export function isDesktopViewport(): boolean {
   if (typeof window === 'undefined') return false;
-  return window.innerWidth >= BREAKPOINTS.desktop.min;
+  return window.innerWidth >= BREAKPOINTS.desktop.min; // >= 1280px
 }
 
 /**
  * Get current viewport category
+ * Returns 'mobile' for all phones (portrait & landscape), 'tablet' for iPads, 'desktop' for large screens
  */
 export function getViewportCategory(): 'mobile' | 'tablet' | 'desktop' {
   if (typeof window === 'undefined') return 'desktop';
   const width = window.innerWidth;
-  if (width <= BREAKPOINTS.mobile.max) return 'mobile';
-  if (width <= BREAKPOINTS.tablet.max) return 'tablet';
-  return 'desktop';
+  if (width <= BREAKPOINTS.mobile.max) return 'mobile'; // <= 1023px
+  if (width <= BREAKPOINTS.tablet.max) return 'tablet'; // 1024-1279px
+  return 'desktop'; // >= 1280px
 }
 
 /**
