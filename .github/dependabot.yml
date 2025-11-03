@@ -1,0 +1,68 @@
+version: 2
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+
+    # Security updates
+    security-advisories:
+      enabled: true
+
+    # Automatically merge minor and patch updates
+    auto-merge:
+      enabled: true
+      update-types:
+        - "minor"
+        - "patch"
+
+    # Versioning strategy
+    versioning-strategy: increase-if-necessary
+
+    # Labels for PRs
+    labels:
+      - "dependencies"
+      - "security"
+
+    # Assignees and reviewers
+    assignees:
+      - "bjpl"
+
+    # Commit message prefix
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(dev-deps)"
+      include: "scope"
+
+    # Group updates
+    groups:
+      react:
+        patterns:
+          - "react*"
+      testing:
+        patterns:
+          - "@testing-library/*"
+          - "@playwright/*"
+          - "vitest"
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # GitHub Actions updates
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(ci)"

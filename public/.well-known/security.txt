@@ -1,0 +1,37 @@
+Contact: https://github.com/bjpl/colombia_department_puzzle/security/advisories/new
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en, es
+Canonical: https://colombia-puzzle.vercel.app/.well-known/security.txt
+
+# Security Policy
+
+## Reporting Security Issues
+
+If you discover a security vulnerability, please report it via GitHub Security Advisories:
+https://github.com/bjpl/colombia_department_puzzle/security/advisories/new
+
+Please do NOT create public GitHub issues for security vulnerabilities.
+
+## Scope
+
+This security policy applies to:
+- The Colombia Departments Puzzle web application
+- All client-side code and dependencies
+- Authentication and data storage mechanisms
+
+## Out of Scope
+
+- Third-party services (Supabase, Vercel, Google Analytics, Sentry)
+- Issues requiring physical access to user devices
+- Social engineering attacks
+
+## Safe Harbor
+
+We support responsible disclosure. Researchers who:
+- Make a good faith effort to avoid privacy violations
+- Comply with this policy
+- Report vulnerabilities promptly
+
+will not face legal action for their security research.
+
+Thank you for helping keep Colombia Departments Puzzle secure!
