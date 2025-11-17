@@ -22,6 +22,32 @@ An interactive educational puzzle game to learn all 33 departments of Colombia (
 **Version**: 1.0.0
 **Status**: VERY ACTIVE - 10 commits in last 30 days
 
+## Live Demo
+
+**Deployed Application:** [View Live Demo](https://bjpl.github.io/colombia_department_puzzle)
+
+This project demonstrates interactive educational game development using modern web technologies and SPARC methodology. The implementation showcases D3-geo geographic projections, accessible drag-and-drop mechanics, and comprehensive game features including progressive web app capabilities.
+
+## Technical Overview
+
+**Key Technologies:**
+- React 18 with TypeScript 5.9 for robust type safety
+- Vite 7.1 for lightning-fast development and builds
+- D3-geo 3.1.0 for accurate geographic projections
+- @dnd-kit/core 6.1.0 for accessible drag-and-drop
+- Zustand 4.4 for efficient state management
+- Supabase 2.75.0 for backend services
+- Vitest 3.2 with 1,792 comprehensive tests
+
+**Implementation Highlights:**
+- Real GeoJSON map data with accurate Colombian department boundaries
+- Smooth drag-and-drop mechanics with visual feedback
+- Multiple game modes: Complete Colombia, Regional Practice, Time Challenge, Progression
+- Progressive hint system with three difficulty levels
+- Achievement system with badges for speed, accuracy, and persistence
+- PWA with offline support and mobile optimization
+- SPARC methodology for systematic feature development
+
 ## Features
 
 ### Core Gameplay
@@ -45,14 +71,62 @@ An interactive educational puzzle game to learn all 33 departments of Colombia (
 - Multiple layout options for department trays
 - Robust error boundaries for uninterrupted gameplay
 
-## Installation
+## Exploring the Code
 
-### Prerequisites
-- Node.js 18+ and npm/yarn
-- Modern web browser (Chrome, Firefox, Safari, Edge)
+The project demonstrates systematic game development using SPARC methodology:
 
-### Setup
+```
+colombia_puzzle_game/
+├── src/                    # Source code
+│   ├── components/         # React components
+│   ├── context/           # State management
+│   ├── data/             # GeoJSON and game data
+│   ├── hooks/           # Custom React hooks
+│   ├── services/        # Business logic
+│   └── utils/          # Utilities and algorithms
+├── docs/               # Documentation
+├── scripts/            # Utility scripts
+└── .claude/            # Claude Flow configuration
+```
 
+**Architecture Highlights:**
+- Component-based React architecture with TypeScript
+- D3-geo integration for accurate geographic rendering
+- Zustand for performant state management
+- Service layer pattern for business logic separation
+- Comprehensive error boundaries for graceful failure handling
+- PWA architecture with service worker for offline capability
+
+**Game Mechanics Demonstrate:**
+- Interactive drag-and-drop with collision detection
+- Six regional focus modes for targeted learning
+- Progressive difficulty with dynamic scoring system
+- Educational content integration (capitals, regions, facts)
+- Achievement tracking and performance analytics
+
+**SPARC Methodology Implementation:**
+1. **Specification** - Document requirements and user stories
+2. **Pseudocode** - Design algorithms before implementation
+3. **Architecture** - Plan system structure and patterns
+4. **Refinement** - Implement with quality focus
+5. **Completion** - Polish and comprehensive testing
+
+**For Technical Review:**
+
+Those interested in the implementation details can explore:
+- `/src/components` for React component architecture
+- `/src/services` for game logic and algorithms
+- `/docs` for SPARC methodology documentation
+- Test files demonstrating 1,792 comprehensive tests
+
+<details>
+<summary>Local Development Setup (Optional)</summary>
+
+**Prerequisites:**
+- Node.js 18+
+- Modern web browser
+
+**Setup:**
 ```bash
 # Clone repository
 git clone https://github.com/bjpl/colombia_department_puzzle.git
@@ -65,34 +139,18 @@ npm install
 npm run dev
 ```
 
-Open browser and navigate to http://localhost:5173
+Open browser at http://localhost:5173
 
-## Usage
-
-### Development Server
-
+**Available Scripts:**
 ```bash
-# Start development server
-npm run dev
+npm run dev              # Development server
+npm run build            # Production build
+npm run deploy           # Deploy to GitHub Pages
+npm run test             # Run tests
+npm run typecheck        # Type checking
 ```
 
-### Building for Production
-
-```bash
-# Build for production
-npm run build
-```
-
-The built files will be in the dist directory, ready for deployment.
-
-### Deployment
-
-```bash
-# Build and deploy to GitHub Pages
-npm run deploy
-```
-
-The game will be available at https://bjpl.github.io/colombia_department_puzzle
+</details>
 
 ## Project Structure
 
