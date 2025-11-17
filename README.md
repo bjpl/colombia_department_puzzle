@@ -1,305 +1,208 @@
-# 🇨🇴 Colombia Departments Puzzle Game
+# Colombia Departments Puzzle Game
 
-An interactive educational puzzle game to learn all 33 departments of Colombia (32 departments + Bogotá D.C.) through engaging drag-and-drop gameplay with multiple game modes and difficulty levels.
+An interactive educational puzzle game for learning Colombian geography through drag-and-drop gameplay.
 
-## 🎮 Features
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Learning Objectives](#learning-objectives)
+- [Game Mechanics](#game-mechanics)
+- [Technology Stack](#technology-stack)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Overview
+
+An interactive educational puzzle game to learn all 33 departments of Colombia (32 departments plus Bogotá D.C.) through engaging drag-and-drop gameplay with multiple game modes and difficulty levels. Built with SPARC methodology and Claude Flow symbiotic architecture.
+
+**Version**: 1.0.0
+**Status**: VERY ACTIVE - 10 commits in last 30 days
+
+## Features
 
 ### Core Gameplay
-- **Interactive Drag & Drop**: Smooth, intuitive drag-and-drop mechanics using @dnd-kit
-- **Multiple Game Modes**:
-  - Complete Colombia (all 33 departments)
-  - Regional Practice (focus on specific regions)
-  - Time Challenge Mode
-  - Progression Mode (unlock regions as you improve)
-- **Educational Content**: Learn capitals, regions, and interesting facts about each department
-- **Real GeoJSON Map**: Accurate geographic boundaries using official Colombia GeoJSON data
+- Smooth, intuitive drag-and-drop mechanics using @dnd-kit
+- Multiple game modes: Complete Colombia, Regional Practice, Time Challenge, Progression Mode
+- Educational content with capitals, regions, and interesting facts
+- Real GeoJSON map with accurate geographic boundaries
 
 ### Learning Tools
-- **Study Mode**: Interactive exploration of departments without time pressure
-- **Progressive Hint System**:
-  - Level 1: Show region
-  - Level 2: Highlight first letter
-  - Level 3: Flash location on map
-- **Post-Game Reports**: Detailed performance analytics and recommendations
-- **Achievement System**: Earn badges for speed, accuracy, and persistence
+- Study mode for interactive exploration without time pressure
+- Progressive hint system with three levels
+- Post-game reports with detailed performance analytics
+- Achievement system with badges for speed, accuracy, and persistence
 
 ### User Experience
-- **Progressive Web App (PWA)**: Offline support and installable on mobile devices
-- **Responsive Design**: Mobile-optimized (landscape/portrait modes)
-- **Security Hardening**: Comprehensive security features implemented
-- **Cache Management**: Efficient caching for performance
-- **Accessibility**: Screen reader support and keyboard navigation
-- **Sound Effects**: Optional audio feedback for actions
-- **Multiple Layouts**: Compact, ultra-compact, horizontal, and vertical department trays
-- **Error Recovery**: Robust error boundaries for uninterrupted gameplay
+- Progressive Web App with offline support
+- Responsive design optimized for mobile (landscape/portrait modes)
+- Security hardening with comprehensive features
+- Accessibility support with screen reader and keyboard navigation
+- Optional sound effects for actions
+- Multiple layout options for department trays
+- Robust error boundaries for uninterrupted gameplay
 
-## 🚀 Getting Started
+## Installation
 
 ### Prerequisites
-
 - Node.js 18+ and npm/yarn
 - Modern web browser (Chrome, Firefox, Safari, Edge)
 
-### Installation
+### Setup
 
-1. Clone the repository:
 ```bash
+# Clone repository
 git clone https://github.com/bjpl/colombia_department_puzzle.git
 cd colombia_department_puzzle
-```
 
-2. Install dependencies:
-```bash
+# Install dependencies
 npm install
-```
 
-3. Start the development server:
-```bash
+# Start development server
 npm run dev
 ```
 
-4. Open your browser and navigate to `http://localhost:5173`
+Open browser and navigate to http://localhost:5173
+
+## Usage
+
+### Development Server
+
+```bash
+# Start development server
+npm run dev
+```
 
 ### Building for Production
 
 ```bash
+# Build for production
 npm run build
 ```
 
-The built files will be in the `dist` directory, ready for deployment.
+The built files will be in the dist directory, ready for deployment.
 
-## 🏗️ Architecture
-
-This project uses the **SPARC methodology** with **Claude Flow** and **ruv-swarm** symbiotic architecture:
-
-- **Specification**: Clear requirements for each feature
-- **Pseudocode**: Algorithm design before implementation
-- **Architecture**: Systems thinking for scalable design
-- **Refinement**: Iterative improvement and optimization
-- **Completion**: Polish and deployment readiness
-
-### Technology Stack
-
-- **React 18** with TypeScript 5.9 for robust type safety
-- **Vite 7.1** for lightning-fast development
-- **D3-geo 3.1.0** for geographic projections
-- **@dnd-kit/core 6.1.0** for accessible drag-and-drop
-- **Zustand 4.4** for efficient state management
-- **Supabase 2.75.0** for backend services
-- **React Router 7.9.4** for navigation
-- **Vitest 3.2 + Playwright 1.56** for comprehensive testing
-
-## 🎯 Learning Objectives
-
-Players will learn:
-- Names and locations of all 33 Colombian departments (including Bogotá D.C.)
-- Capital cities of each department
-- Six geographic regions:
-  - **Andina**: Central mountainous region
-  - **Caribe**: Northern coastal region
-  - **Pacífica**: Western coastal region
-  - **Orinoquía**: Eastern plains
-  - **Amazonía**: Southern rainforest
-  - **Insular**: Island territories (San Andrés y Providencia)
-- Spatial relationships and borders between departments
-- Cultural and geographic diversity of Colombia
-
-## 📊 Project Status
-
-**Version:** 1.0.0
-**Status:** VERY ACTIVE - 10 commits in last 30 days
-**Build:** ✅ Production Ready
-**Stack:** React 18, TypeScript 5.9, Vite 7.1
-**Tests:** Vitest 3.2 + Playwright 1.56 (1,792 tests)
-**Deployment:** Vercel + GitHub Pages
-**Accessibility:** ✅ WCAG AAA compliant
-
-**Recent Updates (Last 30 Days):**
-- ✅ Comprehensive security hardening
-- ✅ Mobile optimization (landscape/portrait layouts)
-- ✅ Cache management system implemented
-- ✅ PWA enhancements with offline support
-- ✅ Testing infrastructure improvements
-
-## 📊 Game Mechanics
-
-### Basic Gameplay
-1. **Select**: Choose a department from the organized tray
-2. **Drag**: Move the department piece across the screen
-3. **Drop**: Release on the correct location on the map
-4. **Feedback**: Instant visual and audio confirmation
-5. **Learn**: View educational info about placed departments
-6. **Complete**: Place all departments to finish the game
-
-### Scoring System
-- **Base Score**: 100 points per correct placement
-- **Attempt Penalty**: -10 points per incorrect attempt
-- **Minimum Score**: 10 points per department
-- **Hint Costs**:
-  - Region hint: -10 points
-  - Letter hint: -20 points
-  - Location flash: -50 points
-- **Achievement Bonuses**:
-  - Perfect game (no mistakes): +500 points
-  - Speed run (<5 minutes): +300 points
-  - No hints used: +200 points
-
-## 🛠️ Development
-
-### Project Structure
-
-```
-colombia_puzzle_game/
-├── src/                    # Source code
-│   ├── components/         # React components
-│   │   ├── GameContainer.tsx    # Main game orchestrator
-│   │   ├── OptimizedColombiaMap.tsx # GeoJSON map renderer
-│   │   ├── DepartmentTray.tsx   # Draggable department chips
-│   │   ├── StudyMode.tsx        # Study mode interface
-│   │   ├── PostGameReport.tsx   # Game completion analytics
-│   │   ├── GameModeSelector.tsx # Mode selection interface
-│   │   └── [Error boundaries]   # Robust error handling
-│   ├── context/           # State management
-│   │   └── GameContext.tsx     # Zustand game state
-│   ├── data/             # Game data
-│   │   ├── colombiaDepartments.ts # Department definitions
-│   │   └── colombia.geojson    # Geographic boundaries
-│   ├── constants/        # Configuration
-│   │   ├── gameConstants.ts   # Game settings
-│   │   └── regionColors.ts    # Region styling
-│   ├── hooks/           # Custom React hooks
-│   ├── services/        # Business logic
-│   │   ├── storage.ts         # Profile & progress
-│   │   └── soundManager.ts    # Audio system
-│   ├── utils/          # Utilities
-│   │   └── nameNormalizer.ts  # ID normalization
-│   └── App.tsx         # Application root
-├── docs/               # Documentation
-│   ├── architecture/   # System design docs
-│   ├── archive/        # Historical docs
-│   ├── README.md       # Documentation index
-│   ├── DEVELOPER_GUIDE.md    # Developer setup
-│   ├── COMPONENT_API.md      # API reference
-│   └── GAME_MECHANICS.md     # Game rules
-├── scripts/            # Utility scripts
-│   ├── test-*.js       # Test scripts
-│   └── flow-*.bat/sh   # Analysis scripts
-├── .claude/            # Claude Flow config
-│   ├── CLAUDE.md       # Claude instructions
-│   └── claude-flow.*   # Flow configurations
-├── public/            # Static assets
-│   └── data/         # GeoJSON files
-└── [Config files]     # Root configurations
-    ├── package.json
-    ├── vite.config.ts
-    ├── tsconfig.json
-    └── tailwind.config.js
-```
-
-## 📚 API Documentation
-
-Comprehensive TypeDoc-generated API documentation is available in the `docs/api/` directory. The documentation covers:
-
-- **Components**: All React components with props and usage examples
-- **Hooks**: Custom React hooks for game functionality
-- **Contexts**: State management contexts (GameContext, AccessibilityContext)
-- **Services**: Core services (storage, sound manager)
-- **Data**: Department definitions and game data structures
-
-**View the documentation:**
-- Open `docs/api/index.html` in your browser after cloning
-- Or generate fresh docs: `npm run docs:api`
-
-### Contributing
-
-Contributions are welcome! Please follow the SPARC methodology for new features:
-1. Document specifications
-2. Design algorithms in pseudocode
-3. Plan architecture with systems thinking
-4. Implement with quality refinements
-5. Polish and test thoroughly
-
-## 📈 Performance Optimizations
-
-### Current Optimizations
-- **Optimized SVG Rendering**: Efficient path rendering with D3-geo
-- **Memoized Components**: React.memo for expensive renders
-- **Debounced Interactions**: Smooth drag operations
-- **Lazy State Updates**: Batched Zustand updates
-- **Error Boundaries**: Isolated component failures
-- **Responsive Scaling**: Adaptive viewport calculations
-
-### Bundle Optimizations
-- **Tree Shaking**: Removed unused dependencies
-- **Code Splitting**: Dynamic imports for modals
-- **Asset Optimization**: Compressed GeoJSON data
-- **Production Build**: Minified and optimized output
-
-## 🌟 Implemented Features
-
-- [x] Actual GeoJSON map with accurate boundaries
-- [x] Multiple difficulty levels (regions, time challenges)
-- [x] Achievement system with badges
-- [x] Sound effects for interactions
-- [x] Study mode for learning
-- [x] Progress tracking and analytics
-- [x] Post-game performance reports
-- [x] Regional practice modes
-
-## 🚀 Future Enhancements
-
-- [ ] Multiplayer competition mode
-- [ ] Background music tracks
-- [ ] Additional mini-games (capitals quiz, flag matching)
-- [ ] Historical timeline mode
-- [ ] Export/share progress reports
-- [ ] Leaderboards and social features
-- [ ] Mobile app versions (iOS/Android)
-- [ ] Voice pronunciation guide
-
-## 📄 License
-
-MIT License - feel free to use this project for educational purposes!
-
-## 🙏 Acknowledgments
-
-- Colombian geographic data from DANE (Departamento Administrativo Nacional de Estadística)
-- Built with the power of Claude Flow and ruv-swarm symbiotic architecture
-- Inspired by educational gaming best practices
-
-## 🧪 Testing
-
-```bash
-# Run tests (when implemented)
-npm run test
-
-# Type checking
-npm run typecheck
-
-# Linting
-npm run lint
-```
-
-## 🚢 Deployment
-
-The game is configured for GitHub Pages deployment:
+### Deployment
 
 ```bash
 # Build and deploy to GitHub Pages
 npm run deploy
 ```
 
-The game will be available at: https://bjpl.github.io/colombia_department_puzzle
+The game will be available at https://bjpl.github.io/colombia_department_puzzle
 
-## 🤝 Support
+## Project Structure
 
-For questions, bug reports, or feature requests:
-- Open an issue on [GitHub](https://github.com/bjpl/colombia_department_puzzle/issues)
-- Check existing issues for solutions
-- Provide detailed reproduction steps for bugs
+```
+colombia_puzzle_game/
+├── src/                    # Source code
+│   ├── components/         # React components
+│   ├── context/           # State management
+│   ├── data/             # Game data
+│   ├── constants/        # Configuration
+│   ├── hooks/           # Custom React hooks
+│   ├── services/        # Business logic
+│   └── utils/          # Utilities
+├── docs/               # Documentation
+├── scripts/            # Utility scripts
+├── .claude/            # Claude Flow config
+├── public/            # Static assets
+└── [Config files]     # Root configurations
+```
 
----
+## Learning Objectives
 
-**Made with ❤️ for learning Colombian geography**
+Players will learn:
+- Names and locations of all 33 Colombian departments (including Bogotá D.C.)
+- Capital cities of each department
+- Six geographic regions: Andina, Caribe, Pacífica, Orinoquía, Amazonía, Insular
+- Spatial relationships and borders between departments
+- Cultural and geographic diversity of Colombia
 
-*Version 1.0.0 - Stable Release*
+## Game Mechanics
+
+### Basic Gameplay
+1. Select a department from the organized tray
+2. Drag the department piece across the screen
+3. Release on the correct location on the map
+4. Receive instant visual and audio confirmation
+5. View educational information about placed departments
+6. Complete the game by placing all departments
+
+### Scoring System
+- Base Score: 100 points per correct placement
+- Attempt Penalty: -10 points per incorrect attempt
+- Minimum Score: 10 points per department
+- Hint Costs: Region hint (-10), Letter hint (-20), Location flash (-50)
+- Achievement Bonuses: Perfect game (+500), Speed run (+300), No hints (+200)
+
+## Technology Stack
+
+### Frontend
+- React 18 with TypeScript 5.9 for robust type safety
+- Vite 7.1 for lightning-fast development
+- D3-geo 3.1.0 for geographic projections
+- @dnd-kit/core 6.1.0 for accessible drag-and-drop
+- Zustand 4.4 for efficient state management
+
+### Backend Services
+- Supabase 2.75.0 for backend services
+- React Router 7.9.4 for navigation
+
+### Testing
+- Vitest 3.2 for testing
+- Playwright 1.56 for end-to-end testing
+- 1,792 total tests
+
+## Development
+
+### Available Scripts
+
+```bash
+# Development
+npm run dev              # Start development server
+npm run build            # Build for production
+npm run preview          # Preview production build
+
+# Testing
+npm run test             # Run tests
+npm run typecheck        # Type checking
+npm run lint             # Linting
+
+# Deployment
+npm run deploy           # Deploy to GitHub Pages
+```
+
+### Performance Optimizations
+
+#### Current Optimizations
+- Optimized SVG rendering with efficient path rendering
+- Memoized components with React.memo
+- Debounced interactions for smooth drag operations
+- Lazy state updates with batched Zustand updates
+- Error boundaries for isolated component failures
+- Responsive scaling with adaptive viewport calculations
+
+#### Bundle Optimizations
+- Tree shaking to remove unused dependencies
+- Code splitting with dynamic imports
+- Asset optimization with compressed GeoJSON data
+- Production build with minified and optimized output
+
+## Contributing
+
+Contributions are welcome. Please follow the SPARC methodology for new features.
+
+### Development Workflow
+1. Document specifications
+2. Design algorithms in pseudocode
+3. Plan architecture with systems thinking
+4. Implement with quality refinements
+5. Polish and test thoroughly
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
