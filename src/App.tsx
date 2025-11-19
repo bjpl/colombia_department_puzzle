@@ -40,6 +40,19 @@ function App() {
       <BrowserRouter basename="/colombia_department_puzzle">
         <AccessibilityProvider>
           <GameProvider>
+            {/* WCAG 2.4.1 Level A: Skip Links for Keyboard Navigation */}
+            <div className="skip-links">
+              <a href="#main-content" className="skip-link">
+                Saltar al contenido principal
+              </a>
+              <a href="#department-tray" className="skip-link">
+                Saltar a departamentos
+              </a>
+              <a href="#colombia-map" className="skip-link">
+                Saltar al mapa
+              </a>
+            </div>
+
             <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 overflow-x-hidden">
               {/* PWA Status Indicators */}
               <OfflineIndicator />

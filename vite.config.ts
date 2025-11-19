@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
+import * as fs from 'fs';
+import * as path from 'path';
 
 export default defineConfig({
   // Inject build timestamp and cache-busting version for aggressive cache invalidation
