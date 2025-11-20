@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/optimize-build.js",
+    "build:analyze": "vite build && node scripts/optimize-build.js && du -sh dist",
     "preview": "vite preview",
     "test": "vitest",
     "test:e2e": "playwright test",

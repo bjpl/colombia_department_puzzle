@@ -25,6 +25,32 @@
     @apply ring-4 ring-blue-400 ring-opacity-50;
   }
 
+  /* Skip Links for Keyboard Navigation (WCAG 2.4.1 Level A) */
+  .skip-links {
+    position: relative;
+    z-index: 9999;
+  }
+
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #000;
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 0 0 4px 0;
+    z-index: 10000;
+    transition: top 0.2s ease;
+  }
+
+  .skip-link:focus {
+    top: 0;
+    outline: 3px solid #0056b3;
+    outline-offset: 2px;
+  }
+
   /* Screen reader only text - visually hidden but accessible */
   .sr-only {
     position: absolute;
