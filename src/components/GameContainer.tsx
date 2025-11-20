@@ -14,8 +14,11 @@ import StudyModeLoading from './StudyModeLoading';
 // Lazy load InteractiveTutorial - shown once per user (~15-20 KB savings)
 const InteractiveTutorial = lazy(() => import('./InteractiveTutorial'));
 import { useSoundEffect } from '../services/soundManager';
-import PostGameReport from './PostGameReport';
-import GameModeSelector, { GameModeConfig } from './GameModeSelector';
+// Lazy load PostGameReport - only shown after game completion (~25 KB savings)
+const PostGameReport = lazy(() => import('./PostGameReport'));
+// Lazy load GameModeSelector - only shown when user selects mode (~20 KB savings)
+const GameModeSelector = lazy(() => import('./GameModeSelector'));
+import type { GameModeConfig } from './GameModeSelector';
 // Removed QuickStartFlow - using InteractiveTutorial for simplicity
 import ModeTransition from './ModeTransition';
 import KeyboardHelp from './KeyboardHelp';
@@ -538,6 +541,11 @@ export default function GameContainer() {
 
       {/* Modals */}
       {modal.isModalOpen('gameMode') && (
+        <Suspense fallback={
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+            <div className="animate-pulse text-white text-lg">Cargando modos...</div>
+          </div>
+        }>
           <GameModeSelector
             onSelectMode={(mode) => {
               try {
@@ -563,6 +571,7 @@ export default function GameContainer() {
               totalStars: game.totalStars
             }}
           />
+        </Suspense>
         )}
         {modal.isModalOpen('tutorial') && (
           <Suspense fallback={
@@ -605,7 +614,12 @@ export default function GameContainer() {
           </Suspense>
         )}
         {modal.isModalOpen('postGame') && (
-          <PostGameReport
+          <Suspense fallback={
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+              <div className="animate-pulse text-white text-lg">Cargando reporte...</div>
+            </div>
+          }>
+            <PostGameReport
             onClose={() => {
               game.clearCurrentDepartment();
               modal.closeModal();
@@ -629,6 +643,7 @@ export default function GameContainer() {
               setTimeout(() => game.resetGame(), 500);
             }}
           />
+          </Suspense>
         )}
     </GameLogicErrorBoundary>
   );

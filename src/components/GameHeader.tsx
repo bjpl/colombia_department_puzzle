@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useGame } from '../context/GameContext';
 import { useSoundEffect } from '../services/soundManager';
 import { Button, Badge, Progress } from '../design-system';
-import AccessibilitySettings from './AccessibilitySettings';
+// Lazy load AccessibilitySettings - only shown when user opens settings (~10 KB savings)
+const AccessibilitySettings = lazy(() => import('./AccessibilitySettings'));
 import {
   Play,
   Pause,
@@ -173,7 +174,19 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
             />
 
             {/* Accessibility Settings */}
-            <AccessibilitySettings />
+            <Suspense fallback={
+              <Button
+                variant="secondary"
+                className="p-2 bg-white shadow-md border-2 border-neutral-300 opacity-50"
+                aria-label="Cargando configuración..."
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="animate-pulse">
+                  <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2" />
+                </svg>
+              </Button>
+            }>
+              <AccessibilitySettings />
+            </Suspense>
           </div>
         </div>
       </div>
