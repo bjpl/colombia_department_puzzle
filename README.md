@@ -26,7 +26,7 @@ An interactive educational puzzle game to learn all 33 departments of Colombia (
 
 **Deployed Application:** [View Live Demo](https://bjpl.github.io/colombia_department_puzzle)
 
-This project demonstrates interactive educational game development using modern web technologies and SPARC methodology. The implementation showcases D3-geo geographic projections, accessible drag-and-drop mechanics, and comprehensive game features including progressive web app capabilities.
+This project demonstrates interactive educational game development for geographic learning, focusing specifically on Colombian geography. Unlike general puzzle games, this implementation emphasizes culturally relevant educational content including regional information, capital cities, and Colombia-specific facts that support meaningful learning outcomes.
 
 ## Technical Overview
 
@@ -41,12 +41,12 @@ This project demonstrates interactive educational game development using modern 
 
 **Implementation Highlights:**
 - Real GeoJSON map data with accurate Colombian department boundaries
-- Smooth drag-and-drop mechanics with visual feedback
-- Multiple game modes: Complete Colombia, Regional Practice, Time Challenge, Progression
-- Progressive hint system with three difficulty levels
-- Achievement system with badges for speed, accuracy, and persistence
-- PWA with offline support and mobile optimization
-- SPARC methodology for systematic feature development
+- D3-geo 3.1.0 for precise geographic projections
+- @dnd-kit for accessible drag-and-drop with keyboard navigation
+- Six regional focus modes targeting specific geographic areas
+- Educational content integration (capitals, regions, cultural facts)
+- PWA with offline support for classroom and low-connectivity use
+- Comprehensive test suite with 1,792 tests
 
 ## Features
 
