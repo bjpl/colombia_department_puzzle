@@ -2,24 +2,50 @@
 
 Welcome to the comprehensive documentation for the Colombia Departments Puzzle Game. This educational game helps players learn the geography of Colombia through interactive gameplay.
 
+## Documentation Structure
+
+```
+docs/
+├── README.md                    # This index file
+├── api/                         # API documentation
+├── architecture/                # System design documents
+├── guides/                      # User guides
+├── development/                 # Development documentation
+│   ├── daily-reports/           # Daily development reports
+│   └── startup-reports/         # Dev startup analysis reports
+├── testing/                     # Test documentation
+├── deployment/                  # Deployment guides
+└── archive/                     # Historical reports
+```
+
 ## 📚 Documentation Index
 
 ### Getting Started
 - [**README**](../README.md) - Project overview and quick start guide
-- [**Developer Guide**](DEVELOPER_GUIDE.md) - Complete setup and development instructions
-- [**Game Mechanics**](GAME_MECHANICS.md) - Detailed gameplay rules and systems
+- [**Developer Guide**](guides/DEVELOPER_GUIDE.md) - Complete setup and development instructions
+- [**Game Mechanics**](guides/GAME_MECHANICS.md) - Detailed gameplay rules and systems
+- [**Contributing Guide**](CONTRIBUTING.md) - How to contribute
 
 ### Technical Documentation
 - [**Current Architecture**](architecture/current_architecture.md) - System design and structure
-- [**Component API**](COMPONENT_API.md) - Detailed component reference
-- [**SPARC Map Rendering**](SPARC_MAP_RENDERING.md) - Map rendering specifications
+- [**Component API**](guides/COMPONENT_API.md) - Detailed component reference
+- [**SPARC Map Rendering**](sparc/SPARC_MAP_RENDERING.md) - Map rendering specifications
 
 ### Design System & Style
-- [**Design System Guide**](DESIGN_SYSTEM_GUIDE.md) - Complete design system usage ✨ NEW
-- [**Style Guide**](STYLE_GUIDE.md) - Code and visual style standards ✨ NEW
-- [**Design Tokens Reference**](DESIGN_TOKENS_REFERENCE.md) - Quick token reference ✨ NEW
-- [**Design System Migration Plan**](DESIGN_SYSTEM_MIGRATION_PLAN.md) - Migration progress
-- [**FAQ**](FAQ.md) - Frequently asked questions ✨ NEW
+- [**Design System Guide**](guides/DESIGN_SYSTEM_GUIDE.md) - Complete design system usage
+- [**Style Guide**](guides/STYLE_GUIDE.md) - Code and visual style standards
+- [**Design Tokens Reference**](guides/DESIGN_TOKENS_REFERENCE.md) - Quick token reference
+- [**Design System Migration Plan**](guides/DESIGN_SYSTEM_MIGRATION_PLAN.md) - Migration progress
+- [**FAQ**](FAQ.md) - Frequently asked questions
+
+### Mobile & Testing
+- [**Mobile Testing Checklist**](MOBILE_TESTING_CHECKLIST.md)
+- [**Mobile Cache Clear Instructions**](MOBILE_CACHE_CLEAR_INSTRUCTIONS.md)
+- [**Mobile Investigation Report**](MOBILE_INVESTIGATION_REPORT.md)
+
+### Development Reports
+- [**Daily Reports**](development/daily-reports/) - Day-by-day development logs
+- [**Startup Reports**](development/startup-reports/) - Session analyses
 
 ### Archive
 - [**Archive Folder**](archive/) - Historical documentation and reports
