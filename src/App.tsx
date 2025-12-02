@@ -22,7 +22,8 @@ function App() {
 
     // Check for version changes and clear caches if needed
     const versionChanged = checkVersionChange();
-    if (versionChanged) {
+    if (versionChanged && import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
       console.log('[App] Version change detected - caches cleared');
     }
 

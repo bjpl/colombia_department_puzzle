@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef, lazy, Suspense } from 'react';
-import { DndContext, DragEndEvent, DragStartEvent, DragMoveEvent, rectIntersection } from '@dnd-kit/core';
+import { useEffect, useState, lazy, Suspense } from 'react';
+import { DndContext, rectIntersection } from '@dnd-kit/core';
 import MapCanvas from './MapCanvas';
 import DepartmentTray from './DepartmentTray';
 import GameHeader from './GameHeader';
@@ -19,22 +19,24 @@ const PostGameReport = lazy(() => import('./PostGameReport'));
 // Lazy load GameModeSelector - only shown when user selects mode (~20 KB savings)
 const GameModeSelector = lazy(() => import('./GameModeSelector'));
 import type { GameModeConfig } from './GameModeSelector';
-// Removed QuickStartFlow - using InteractiveTutorial for simplicity
 import ModeTransition from './ModeTransition';
 import KeyboardHelp from './KeyboardHelp';
 import MapErrorBoundary from './MapErrorBoundary';
 import GameLogicErrorBoundary from './GameLogicErrorBoundary';
 import ComponentErrorBoundary from './ComponentErrorBoundary';
-import { useModalManager } from '../hooks/useModalManager';
 import { useGameTimer } from '../hooks/useGameTimer';
 import { useEnhancedKeyboardNavigation } from '../hooks/useEnhancedKeyboardNavigation';
 import KeyboardCursor from './KeyboardCursor';
 import MobileGameLayout from './MobileGameLayout';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 import { MEDIA_QUERIES } from '../constants/responsive';
-// Touch Interaction from Agent 1
+// Touch Interaction
 import TouchModeAdapter from './TouchModeAdapter';
 import { prefersTouchMode } from '../utils/deviceDetection';
+// Extracted hooks for drag handling and modal orchestration (SPARC: Refinement)
+import { useDragHandlers } from '../hooks/useDragHandlers';
+import { useModalOrchestration, MODAL_NAMES } from '../hooks/useModalOrchestration';
+import { TIMING } from '../constants/gameConfig';
 import {
   Card,
   CardHeader,
@@ -49,26 +51,23 @@ import {
 
 export default function GameContainer() {
   const game = useGame();
-  const modal = useModalManager();
   const timer = useGameTimer();
   const sound = useSoundEffect();
+
+  // Modal orchestration with safe state management (extracted hook)
+  const { safeOpenModal, safeCloseModal, safeCloseAllModals, isModalOpen } = useModalOrchestration();
+
+  // Drag handlers with placement feedback (extracted hook)
+  const { placementFeedback, setPlacementFeedback, handlers: dragHandlers } = useDragHandlers();
 
   // Responsive layout detection
   const isMobile = useMediaQuery(MEDIA_QUERIES.mobile);
 
-  // Touch interaction detection (Agent 1)
+  // Touch interaction detection
   const isTouchMode = prefersTouchMode();
 
   // Enhanced keyboard navigation for drag & drop
   const enhancedNav = useEnhancedKeyboardNavigation();
-  const [placementFeedback, setPlacementFeedback] = useState({
-    show: false,
-    isCorrect: false,
-    departmentName: '',
-    position: { x: 0, y: 0 }
-  });
-  const [hasDraggedDistance, setHasDraggedDistance] = useState(false);
-  const dragStartPos = useRef<{ x: number; y: number } | null>(null);
 
   // Enhanced flow states
   const [showTransition, setShowTransition] = useState(false);
@@ -105,13 +104,7 @@ export default function GameContainer() {
     });
   }, []);
 
-  // Reset stuck drag state on mount only
-  useEffect(() => {
-    // Reset drag state if it's stuck
-    if (game.isDraggingDepartment && !game.currentDepartment) {
-      game.setIsDragging(false);
-    }
-  }, []); // Only run once on mount
+  // Note: Drag state reset is now handled by useDragHandlers hook
 
   // Initialize sound system on first user interaction
   useEffect(() => {
@@ -204,140 +197,24 @@ export default function GameContainer() {
 
   // Show post-game report when game completes
   useEffect(() => {
-    if (game.isGameComplete && !modal.isModalOpen('postGame')) {
-      modal.openModal('postGame');
+    if (game.isGameComplete && !isModalOpen(MODAL_NAMES.POST_GAME)) {
+      safeOpenModal(MODAL_NAMES.POST_GAME);
       sound.playSound('win');
     }
-  }, [game.isGameComplete]);
+  }, [game.isGameComplete, isModalOpen, safeOpenModal, sound]);
 
-  const handleDragStart = (event: DragStartEvent) => {
-    // Clear any keyboard navigation state when starting mouse drag
-    (window as any).__keyboardNavTarget = null;
-
-    const departmentId = event.active.id as string;
-    const department = game.departments.find(d => d.id === departmentId);
-    if (department) {
-      game.selectDepartment(department);
-      game.setIsDragging(true); // Set dragging state to true
-      sound.playSound('pickup', 0.5);
-    }
-    // Store initial position to track if actual dragging occurs
-    dragStartPos.current = {
-      x: event.active.rect.current.translated?.left || 0,
-      y: event.active.rect.current.translated?.top || 0
-    };
-    setHasDraggedDistance(false);
-  };
-
-  const handleDragMove = (event: DragMoveEvent) => {
-    // Check if user has dragged more than 5 pixels (threshold for actual drag)
-    if (!hasDraggedDistance && dragStartPos.current) {
-      const currentX = event.active.rect.current.translated?.left || 0;
-      const currentY = event.active.rect.current.translated?.top || 0;
-      const distance = Math.sqrt(
-        Math.pow(currentX - dragStartPos.current.x, 2) +
-        Math.pow(currentY - dragStartPos.current.y, 2)
-      );
-      if (distance > 5) {
-        setHasDraggedDistance(true);
-      }
-    }
-  };
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-
-    // Always clear dragging state when drag ends
-    game.setIsDragging(false);
-
-    if (over) {
-      // Get the IDs directly - they should now match
-      const draggedId = active.id as string;
-      const targetId = over.id as string;
-
-      // Get the department data - try all possible sources
-      const draggedDepartment = game.currentDepartment ||
-                               game.departments.find(d => d.id === draggedId) ||
-                               game.activeDepartments?.find(d => d.id === draggedId) ||
-                               active.data?.current;
-
-      // Get a readable department name - ALWAYS provide something
-      let departmentName = '';
-      if (draggedDepartment?.name) {
-        departmentName = draggedDepartment.name;
-      } else if (draggedId) {
-        // Format the ID as a readable name (e.g., "la-guajira" -> "La Guajira")
-        departmentName = draggedId
-          .split('-')
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(' ');
-      } else {
-        departmentName = 'el departamento';
-      }
-
-      // Check if the placement is correct - simple comparison now
-      const isCorrect = draggedId === targetId;
-
-      // Show placement feedback
-      const rect = (event.over as DragEndEvent['over'] & { rect?: DOMRect })?.rect;
-      // Reset feedback first to ensure it shows on consecutive attempts
-      setPlacementFeedback(prev => ({ ...prev, show: false }));
-
-      // Then show new feedback after a brief delay
-      setTimeout(() => {
-        setPlacementFeedback({
-          show: true,
-          isCorrect,
-          departmentName: departmentName,
-          position: rect ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 } : { x: window.innerWidth / 2, y: window.innerHeight / 2 }
-        });
-      }, 10);
-
-      if (isCorrect) {
-        // Correct placement - use the department ID
-        game.placeDepartment(draggedId, true);
-        sound.playSound('correct');
-      } else {
-        // Incorrect placement
-        game.placeDepartment(draggedId, false);
-        sound.playSound('incorrect');
-      }
-    } else {
-      // No target - user cancelled the drag or dropped in empty space
-      // Only clear if user actually dragged (not just clicked)
-      if (hasDraggedDistance) {
-        game.clearCurrentDepartment();
-      }
-      // If just clicked without dragging, keep the department selected
-    }
-
-    // Reset drag tracking
-    setHasDraggedDistance(false);
-    dragStartPos.current = null;
-  };
-
-  const handleDragCancel = () => {
-    // User pressed ESC or drag was cancelled
-    // Always clear dragging state
-    game.setIsDragging(false);
-    // Only clear selection if actually dragged
-    if (hasDraggedDistance) {
-      game.clearCurrentDepartment();
-    }
-    // Reset drag tracking
-    setHasDraggedDistance(false);
-    dragStartPos.current = null;
-  };
+  // Note: Drag handlers (handleDragStart, handleDragMove, handleDragEnd, handleDragCancel)
+  // are now provided by useDragHandlers hook via dragHandlers object
 
   return (
     <GameLogicErrorBoundary>
       {/* Mobile Layout - Full screen map with bottom sheet */}
       {isMobile ? (
         <DndContext
-          onDragStart={handleDragStart}
-          onDragMove={handleDragMove}
-          onDragEnd={handleDragEnd}
-          onDragCancel={handleDragCancel}
+          onDragStart={dragHandlers.onDragStart}
+          onDragMove={dragHandlers.onDragMove}
+          onDragEnd={dragHandlers.onDragEnd}
+          onDragCancel={dragHandlers.onDragCancel}
           collisionDetection={rectIntersection}
           autoScroll={false}
         >
@@ -362,28 +239,16 @@ export default function GameContainer() {
             style={{ padding: spacing[4] }}
           >
             <GameHeader
-              onGameMode={() => {
-                game.clearCurrentDepartment(); // Clear any active drag
-                modal.closeAllModals(); // Clear any queued modals first
-                setTimeout(() => modal.openModal('gameMode'), 0); // Open after clearing
-              }}
-              onStudyMode={() => {
-                game.clearCurrentDepartment(); // Clear any active drag
-                modal.closeAllModals(); // Clear any queued modals first
-                setTimeout(() => modal.openModal('study'), 0); // Open after clearing
-              }}
-              onTutorial={() => {
-                game.clearCurrentDepartment(); // Clear any active drag
-                modal.closeAllModals(); // Clear any queued modals first
-                setTimeout(() => modal.openModal('tutorial'), 0); // Open after clearing
-              }}
+              onGameMode={() => safeOpenModal(MODAL_NAMES.GAME_MODE)}
+              onStudyMode={() => safeOpenModal(MODAL_NAMES.STUDY)}
+              onTutorial={() => safeOpenModal(MODAL_NAMES.TUTORIAL)}
             />
 
           <DndContext
-            onDragStart={handleDragStart}
-            onDragMove={handleDragMove}
-            onDragEnd={handleDragEnd}
-            onDragCancel={handleDragCancel}
+            onDragStart={dragHandlers.onDragStart}
+            onDragMove={dragHandlers.onDragMove}
+            onDragEnd={dragHandlers.onDragEnd}
+            onDragCancel={dragHandlers.onDragCancel}
             collisionDetection={rectIntersection}
             autoScroll={false}
           >
@@ -428,7 +293,7 @@ export default function GameContainer() {
                       color: colors.text.primary
                     }}
                   >
-                    🧩 Departamentos
+                    <span aria-hidden="true">🧩 </span>Departamentos
                   </CardTitle>
                   <Badge
                     variant="info"
@@ -460,6 +325,7 @@ export default function GameContainer() {
                       fontSize: '10px',
                       color: colors.text.tertiary
                     }}
+                    aria-hidden="true"
                   >
                     ↑↓ Flechas para scroll
                   </div>
@@ -539,8 +405,8 @@ export default function GameContainer() {
         />
       )}
 
-      {/* Modals */}
-      {modal.isModalOpen('gameMode') && (
+      {/* Modals - using useModalOrchestration hook for safe state management */}
+      {isModalOpen(MODAL_NAMES.GAME_MODE) && (
         <Suspense fallback={
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
             <div className="animate-pulse text-white text-lg">Cargando modos...</div>
@@ -550,97 +416,81 @@ export default function GameContainer() {
             onSelectMode={(mode) => {
               try {
                 if (mode.type === 'study') {
-                  // Open Study Mode instead of starting game
-                  modal.closeModal();
-                  modal.openModal('study');
+                  safeCloseModal();
+                  safeOpenModal(MODAL_NAMES.STUDY);
                 } else {
-                  // Start game with selected mode
                   game.setGameMode(mode);
-                  modal.closeModal();
+                  safeCloseModal();
                   game.resetGame();
                 }
               } catch (error) {
-                // Keep console.error for production error handling
                 console.error('GameContainer: Error in onSelectMode:', error);
               }
             }}
-            onClose={() => modal.closeModal()}
+            onClose={() => safeCloseModal()}
             userStats={{
-              unlockedRegions: new Set(['Insular', 'Pacífica', 'Orinoquía', 'Amazonía', 'Caribe', 'Andina']), // All regions unlocked
+              unlockedRegions: new Set(['Insular', 'Pacífica', 'Orinoquía', 'Amazonía', 'Caribe', 'Andina']),
               regionProgress: game.regionProgress,
               totalStars: game.totalStars
             }}
           />
         </Suspense>
         )}
-        {modal.isModalOpen('tutorial') && (
+        {isModalOpen(MODAL_NAMES.TUTORIAL) && (
           <Suspense fallback={
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
               <div className="animate-pulse text-white text-lg">Cargando tutorial...</div>
             </div>
           }>
             <InteractiveTutorial
-              onComplete={() => {
-                modal.closeAllModals(); // Simply close without showing any other modal
-              }}
-              onSkip={() => {
-                modal.closeAllModals(); // Simply close without showing any other modal
-              }}
+              onComplete={() => safeCloseAllModals()}
+              onSkip={() => safeCloseAllModals()}
             />
           </Suspense>
         )}
-        {modal.isModalOpen('study') && (
+        {isModalOpen(MODAL_NAMES.STUDY) && (
           <Suspense fallback={<StudyModeLoading />}>
             <StudyMode
-              onClose={() => {
-                game.clearCurrentDepartment();
-                modal.closeAllModals(); // Use closeAllModals to clear any queued modals
-              }}
+              onClose={() => safeCloseAllModals()}
               onStartGame={() => {
-                game.clearCurrentDepartment();
-                modal.closeModal();
+                safeCloseModal();
                 setTransitionConfig({ from: 'study', to: 'game', mode: game.gameMode });
                 setShowTransition(true);
-                setTimeout(() => game.resetGame(), 500);
+                setTimeout(() => game.resetGame(), TIMING.modeTransitionMs);
               }}
               onSelectMode={(mode) => {
                 game.setGameMode(mode);
-                modal.closeModal();
+                safeCloseModal();
                 setTransitionConfig({ from: 'study', to: 'game', mode });
                 setShowTransition(true);
-                setTimeout(() => game.resetGame(), 500);
+                setTimeout(() => game.resetGame(), TIMING.modeTransitionMs);
               }}
             />
           </Suspense>
         )}
-        {modal.isModalOpen('postGame') && (
+        {isModalOpen(MODAL_NAMES.POST_GAME) && (
           <Suspense fallback={
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
               <div className="animate-pulse text-white text-lg">Cargando reporte...</div>
             </div>
           }>
             <PostGameReport
-            onClose={() => {
-              game.clearCurrentDepartment();
-              modal.closeModal();
-            }}
+            onClose={() => safeCloseModal()}
             onPlayAgain={() => {
-              game.clearCurrentDepartment();
-              modal.closeModal();
+              safeCloseModal();
               game.resetGame();
             }}
             onStudyMode={() => {
-              game.clearCurrentDepartment();
-              modal.closeModal();
-              modal.openModal('study');
+              safeCloseModal();
+              safeOpenModal(MODAL_NAMES.STUDY);
               game.resetGame();
             }}
             onSelectMode={(mode) => {
               game.setGameMode(mode);
-              modal.closeModal();
+              safeCloseModal();
               setTransitionConfig({ from: 'complete', to: 'next', mode });
               setShowTransition(true);
-              setTimeout(() => game.resetGame(), 500);
+              setTimeout(() => game.resetGame(), TIMING.modeTransitionMs);
             }}
           />
           </Suspense>

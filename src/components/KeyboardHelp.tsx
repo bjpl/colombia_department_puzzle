@@ -73,7 +73,7 @@ export default function KeyboardHelp() {
         <CardContent className="p-6">
         <div className="flex justify-between items-center mb-4">
           <h2 id="keyboard-help-title" className="text-2xl font-bold text-gray-900">
-            ⌨️ Atajos de Teclado
+            <span aria-hidden="true">⌨️ </span>Atajos de Teclado
           </h2>
           <Button
             variant="ghost"
@@ -90,7 +90,7 @@ export default function KeyboardHelp() {
         <div id="keyboard-help-content" className="flex flex-col gap-4">
           {/* Navigation Section */}
           <Card variant="default" className="p-4">
-            <h3 className="font-semibold text-lg text-gray-600 mb-2">🎮 Navegación</h3>
+            <h3 className="font-semibold text-lg text-gray-600 mb-2"><span aria-hidden="true">🎮 </span>Navegación</h3>
             <div className="grid grid-cols-2 gap-2 text-sm">
               <KeyBinding keys={['Tab']} description="Navegar entre elementos" />
               <KeyBinding keys={['Shift', 'Tab']} description="Navegar hacia atrás" />
@@ -101,51 +101,49 @@ export default function KeyboardHelp() {
 
           {/* Movement Section */}
           <Card variant="default" className="p-4">
-            <h3 className="font-semibold text-lg text-gray-600 mb-2">🏃 Movimiento</h3>
+            <h3 className="font-semibold text-lg text-gray-600 mb-2"><span aria-hidden="true">🏃 </span>Movimiento</h3>
             <div className="grid grid-cols-2 gap-2 text-sm">
               <KeyBinding keys={['↑', '↓', '←', '→']} description="Mover departamento" />
               <KeyBinding keys={['Shift', '+ Flechas']} description="Mover más rápido" />
             </div>
           </Card>
 
-          {/* Game Controls Section */}
+          {/* Game Controls Section - WCAG 2.1.4 compliant with Alt modifiers */}
           <Card variant="default" className="p-4">
-            <h3 className="font-semibold text-lg text-gray-600 mb-2">⚡ Controles del Juego</h3>
+            <h3 className="font-semibold text-lg text-gray-600 mb-2"><span aria-hidden="true">⚡ </span>Controles del Juego</h3>
             <div className="grid grid-cols-2 gap-2 text-sm">
-              <KeyBinding keys={['P']} description="Pausar/Reanudar" />
-              <KeyBinding keys={['R']} description="Reiniciar juego" />
-              <KeyBinding keys={['H']} description="Usar pista" />
-              <KeyBinding keys={['M']} description="Silenciar sonido" />
+              <KeyBinding keys={['Alt', 'P']} description="Pausar/Reanudar" />
+              <KeyBinding keys={['Alt', 'R']} description="Reiniciar juego" />
+              <KeyBinding keys={['Alt', 'H']} description="Usar pista" />
+              <KeyBinding keys={['Alt', 'M']} description="Silenciar sonido" />
               <KeyBinding keys={['F1', '?']} description="Mostrar esta ayuda" />
             </div>
           </Card>
 
-          {/* Region Navigation Section */}
+          {/* Region Navigation Section - WCAG 2.1.4 compliant with Alt modifiers */}
           <Card variant="default" className="p-4">
-            <h3 className="font-semibold text-lg text-gray-600 mb-2">🗺️ Navegación por Regiones</h3>
+            <h3 className="font-semibold text-lg text-gray-600 mb-2"><span aria-hidden="true">🗺️ </span>Navegación por Regiones</h3>
             <div className="grid grid-cols-2 gap-2 text-sm">
-              <KeyBinding keys={['1']} description="Región Andina" />
-              <KeyBinding keys={['2']} description="Región Caribe" />
-              <KeyBinding keys={['3']} description="Región Pacífico" />
-              <KeyBinding keys={['4']} description="Región Orinoquía" />
-              <KeyBinding keys={['5']} description="Región Amazonía" />
-              <KeyBinding keys={['6']} description="Región Insular" />
+              <KeyBinding keys={['Alt', '1']} description="Región Andina" />
+              <KeyBinding keys={['Alt', '2']} description="Región Caribe" />
+              <KeyBinding keys={['Alt', '3']} description="Región Pacífico" />
+              <KeyBinding keys={['Alt', '4']} description="Región Orinoquía" />
+              <KeyBinding keys={['Alt', '5']} description="Región Amazonía" />
+              <KeyBinding keys={['Alt', '6']} description="Región Insular" />
             </div>
           </Card>
 
-          {/* Accessibility */}
-          {accessibilityShortcuts.length > 0 && (
-            <Card variant="default" className="p-4">
-              <h3 className="font-semibold text-lg text-gray-600 mb-2">♿ Accesibilidad</h3>
-              <div className="grid grid-cols-2 gap-2 text-sm">
-                <KeyBinding keys={['Alt', 'A']} description="Configuración de accesibilidad" />
-              </div>
-            </Card>
-          )}
+          {/* Accessibility - Always show */}
+          <Card variant="default" className="p-4">
+            <h3 className="font-semibold text-lg text-gray-600 mb-2"><span aria-hidden="true">♿ </span>Accesibilidad</h3>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <KeyBinding keys={['Alt', 'A']} description="Configuración de accesibilidad" />
+            </div>
+          </Card>
 
           <Card variant="default" className="mt-6 p-4 bg-blue-50">
             <p className="text-sm text-blue-800">
-              💡 <strong>Tip:</strong> El juego es completamente accesible con teclado.
+              <span aria-hidden="true">💡 </span><strong>Tip:</strong> El juego es completamente accesible con teclado.
               Los lectores de pantalla anunciarán automáticamente el progreso.
             </p>
           </Card>

@@ -74,7 +74,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
       // Listen for auth state changes
       const { data: { subscription } } = supabase.auth.onAuthStateChange(
         async (event: string, session: Session | null) => {
-          console.log('Auth state changed:', event);
+          if (import.meta.env.DEV) {
+            // eslint-disable-next-line no-console
+            console.log('Auth state changed:', event);
+          }
 
           const user = session?.user || null;
 
@@ -91,7 +94,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
             localStorage.removeItem('supabase.auth.token');
           } else if (event === 'TOKEN_REFRESHED') {
             // Session was automatically refreshed
-            console.log('Session token refreshed');
+            if (import.meta.env.DEV) {
+              // eslint-disable-next-line no-console
+              console.log('Session token refreshed');
+            }
           }
         }
       );

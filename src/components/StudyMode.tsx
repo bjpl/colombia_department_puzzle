@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, memo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Department, colombiaDepartments } from '../data/colombiaDepartments';
 import { useGame } from '../context/GameContext';
 import { GameModeConfig } from './GameModeSelector';
@@ -16,13 +16,18 @@ import {
   CardTitle,
   CardContent,
   CardDescription,
-  Badge,
-  colors,
-  spacing,
-  textStyles,
-  shadows
 } from '../design-system';
 import { cn } from '../design-system/utils/cn';
+
+// Import extracted study components
+import {
+  RegionButton,
+  DepartmentCard,
+  DepartmentButton,
+  getRecommendedMode,
+  initialStudyFlowState,
+} from './study';
+import type { StudyFlowState } from './study';
 
 interface StudyModeProps {
   onClose: () => void;
@@ -30,242 +35,9 @@ interface StudyModeProps {
   onSelectMode?: (mode: GameModeConfig) => void;
 }
 
-interface StudyFlowState {
-  phase: 'explore' | 'focus' | 'quiz' | 'ready';
-  studiedDepartments: Set<string>;
-  focusedRegion: string | null;
-  quizCorrect: number;
-  quizTotal: number;
-}
-
-// Memoized RegionButton component to prevent unnecessary re-renders
-const RegionButton = memo(({
-  region,
-  departmentCount,
-  isSelected,
-  onSelect
-}: {
-  region: string;
-  departmentCount: number;
-  isSelected: boolean;
-  onSelect: () => void;
-}) => (
-  <Button
-    onClick={onSelect}
-    variant={isSelected ? 'primary' : 'secondary'}
-    size="sm"
-    className="whitespace-nowrap"
-  >
-    {region} ({departmentCount})
-  </Button>
-));
-RegionButton.displayName = 'RegionButton';
-
-// Memoized DepartmentCard component for card view
-const DepartmentCard = memo(({
-  dept,
-  isSelected,
-  isStudied,
-  onClick
-}: {
-  dept: Department;
-  isSelected: boolean;
-  isStudied: boolean;
-  onClick: () => void;
-}) => (
-  <Card
-    onClick={onClick}
-    variant="default"
-    padding="none"
-    hover
-    className={cn(
-      'relative cursor-pointer overflow-hidden group transition-all'
-    )}
-    style={{
-      boxShadow: isSelected
-        ? `0 0 0 2px ${colors.brand[500]}`
-        : undefined
-    }}
-  >
-    {/* Region color bar */}
-    <div
-      className="w-full h-1"
-      style={{
-        backgroundColor: REGION_COLORS[dept.region] || 'rgb(229 231 235)'
-      }}
-    />
-
-    <CardContent className="p-3">
-      <CardHeader className="flex-row justify-between items-start mb-1">
-        <CardTitle className="text-lg font-semibold text-gray-900">
-          {dept.name}
-        </CardTitle>
-        {isStudied && (
-          <span className="text-green-500">✓</span>
-        )}
-      </CardHeader>
-      <CardDescription className="text-sm text-gray-600 mb-0.5">
-        Capital: {dept.capital}
-      </CardDescription>
-      <p className="text-xs text-gray-500">
-        {dept.region}
-      </p>
-
-      {/* Quick stats on hover */}
-      <div
-        className="border-t opacity-0 group-hover:opacity-100 transition-opacity"
-        style={{
-          marginTop: spacing[3],
-          paddingTop: spacing[3],
-          borderColor: colors.gray[100]
-        }}
-      >
-        <div
-          className="flex justify-between"
-          style={{
-            fontSize: textStyles.caption.fontSize[0],
-            color: colors.text.secondary
-          }}
-        >
-          <span>Área: {dept.area.toLocaleString()} km²</span>
-          <span>Pop: {(dept.population / 1000000).toFixed(1)}M</span>
-        </div>
-      </div>
-    </CardContent>
-
-    {/* Study progress indicator */}
-    {isStudied && (
-      <Badge
-        variant="success"
-        size="sm"
-        className="absolute"
-        style={{
-          top: spacing[2],
-          right: spacing[2]
-        }}
-      >
-        Estudiado
-      </Badge>
-    )}
-  </Card>
-), (prev, next) => {
-  // Custom comparison: only re-render if relevant props changed
-  return (
-    prev.dept.id === next.dept.id &&
-    prev.isSelected === next.isSelected &&
-    prev.isStudied === next.isStudied
-  );
-});
-DepartmentCard.displayName = 'DepartmentCard';
-
-// Memoized DepartmentButton component for grid view
-const DepartmentButton = memo(({
-  dept,
-  isSelected,
-  isStudied,
-  onClick
-}: {
-  dept: Department;
-  isSelected: boolean;
-  isStudied: boolean;
-  onClick: () => void;
-}) => (
-  <Button
-    onClick={onClick}
-    variant={isStudied ? 'secondary' : 'ghost'}
-    className={cn(
-      'text-left transition-all hover:scale-105 p-3 h-auto min-h-[70px]',
-      'border border-gray-200 rounded-lg relative',
-      isStudied && 'bg-green-50 border-green-300',
-      isSelected && 'scale-105 shadow-lg z-10'
-    )}
-    style={{
-      backgroundColor: isStudied
-        ? 'rgb(240 253 244)'
-        : isSelected
-        ? colors.brand[50]
-        : 'white',
-      boxShadow: isSelected
-        ? `0 0 0 2px ${colors.brand[500]}`
-        : undefined
-    }}
-  >
-    <div className="flex flex-col items-start gap-1">
-      <div className="text-sm font-semibold text-gray-900 leading-tight">
-        {dept.name}
-      </div>
-      <div className="text-xs text-gray-500">
-        Capital: {dept.capital}
-      </div>
-      <div
-        className="text-xs font-medium"
-        style={{ color: REGION_COLORS[dept.region] || colors.text.secondary }}
-      >
-        {dept.region}
-      </div>
-    </div>
-  </Button>
-), (prev, next) => {
-  // Custom comparison for grid buttons
-  return (
-    prev.dept.id === next.dept.id &&
-    prev.isSelected === next.isSelected &&
-    prev.isStudied === next.isStudied
-  );
-});
-DepartmentButton.displayName = 'DepartmentButton';
-
-// Smart recommendations based on study progress
-const getRecommendedMode = (studiedDepts: Set<string>, allDepts: Department[]): GameModeConfig => {
-  const studiedByRegion = new Map<string, number>();
-
-  allDepts.forEach(dept => {
-    if (studiedDepts.has(dept.id)) {
-      const count = studiedByRegion.get(dept.region) || 0;
-      studiedByRegion.set(dept.region, count + 1);
-    }
-  });
-
-  // Find regions with >50% studied
-  const readyRegions: string[] = [];
-  const regionSizes = new Map<string, number>();
-
-  allDepts.forEach(dept => {
-    const count = regionSizes.get(dept.region) || 0;
-    regionSizes.set(dept.region, count + 1);
-  });
-
-  studiedByRegion.forEach((studied, region) => {
-    const total = regionSizes.get(region) || 0;
-    if (studied / total > 0.5) {
-      readyRegions.push(region);
-    }
-  });
-
-  if (readyRegions.length === 0) {
-    // Start with easiest region
-    return { type: 'region', selectedRegions: ['Insular'] };
-  } else if (readyRegions.length === 1) {
-    // Practice the ready region
-    return { type: 'region', selectedRegions: readyRegions };
-  } else if (readyRegions.length > 3) {
-    // Ready for full game
-    return { type: 'full' };
-  } else {
-    // Practice multiple regions
-    return { type: 'region', selectedRegions: readyRegions };
-  }
-};
-
 export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyModeProps) {
   const game = useGame();
-  const [flowState, setFlowState] = useState<StudyFlowState>({
-    phase: 'explore',
-    studiedDepartments: new Set(),
-    focusedRegion: null,
-    quizCorrect: 0,
-    quizTotal: 0
-  });
+  const [flowState, setFlowState] = useState<StudyFlowState>(initialStudyFlowState);
   const [selectedDepartment, setSelectedDepartment] = useState<Department | null>(null);
   const [viewMode, setViewMode] = useState<'grid' | 'map' | 'cards'>('cards');
   const [showQuickActions, setShowQuickActions] = useState(false);
@@ -338,7 +110,12 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
   }, [flowState.studiedDepartments.size]);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-3">
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-3"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="study-mode-title"
+    >
       <Card
         variant="elevated"
         padding="none"
@@ -351,9 +128,10 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
           <div className="flex justify-between items-center">
             <div>
               <h2
+                id="study-mode-title"
                 className="text-3xl font-bold leading-tight text-white"
               >
-                📚 Modo de Estudio Mejorado
+                <span aria-hidden="true">📚 </span>Modo de Estudio Mejorado
               </h2>
               <p
                 className="text-sm text-white opacity-90"

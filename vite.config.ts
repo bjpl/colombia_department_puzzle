@@ -21,6 +21,10 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,png,svg,woff,woff2}'],
         globIgnores: ['**/data/*.json'], // Don't precache large GeoJSON files
 
+        // Offline fallback page
+        navigateFallback: '/colombia_department_puzzle/offline.html',
+        navigateFallbackDenylist: [/^\/api/, /\.(js|css|png|svg|json)$/],
+
         // Inject unique cache version
         additionalManifestEntries: [
           {
