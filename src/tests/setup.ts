@@ -1,10 +1,20 @@
-import { afterEach, vi, beforeEach } from 'vitest';
+import { afterEach, vi, beforeEach, afterAll } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
+
+// Ensure window is defined for jsdom environment
+if (typeof window === 'undefined') {
+  (global as Record<string, unknown>).window = {};
+}
 
 // Cleanup after each test
 afterEach(() => {
   cleanup();
+});
+
+// Handle cleanup errors gracefully
+afterAll(() => {
+  vi.restoreAllMocks();
 });
 
 // Mock localStorage

@@ -180,7 +180,7 @@ jobs:
 
       - name: Check .env is gitignored
         run: |
-          if ! grep -q "^\.env$" .gitignore; then
+          if ! grep -qE "^\.env($|\s)" .gitignore; then
             echo "❌ .env not in .gitignore!"
             exit 1
           fi
