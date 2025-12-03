@@ -46,16 +46,17 @@ test.describe('Hint System', () => {
     expect(hasHintCount || true).toBeTruthy();
   });
 
-  test('should deduct score when using hint', async ({ page }) => {
-    // Get initial score
-    const scoreText = await page.locator('text=/score/i').textContent().catch(() => 'Score: 0');
-
+  test('should respond to hint shortcut', async ({ page }) => {
     // Use hint (keyboard shortcut H or button)
     await page.keyboard.press('h');
     await page.waitForTimeout(500);
 
-    // Verify game didn't crash
+    // Verify game didn't crash and is still functional
     await expect(page.locator('body')).toBeVisible();
+
+    // Press Escape to close any hint modal that might have opened
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(200);
   });
 
   test('should show different hint types', async ({ page }) => {
