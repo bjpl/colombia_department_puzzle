@@ -1,7 +1,7 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import {
   Button, Card, CardContent,
-  colors, spacing, textStyles
+  colors, spacing, textStyles, radius
 } from '../design-system';
 
 /**

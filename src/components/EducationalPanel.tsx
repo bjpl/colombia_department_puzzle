@@ -68,7 +68,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
       {currentDepartment && (
         <Card variant="default" style={{ padding: compact ? spacing[3] : spacing[6] }} aria-labelledby="selected-dept-heading">
           <CardTitle id="selected-dept-heading" style={{ fontSize: compact ? textStyles.body.small.fontSize[0] : textStyles.heading.h3.fontSize[0], fontWeight: textStyles.heading.h3.fontWeight, marginBottom: spacing[2] }}>Departamento Seleccionado</CardTitle>
-          <CardContent style={{ display: 'flex', flexDirection: 'column', gap: compact ? spacing[1] : spacing[2], fontSize: compact ? textStyles.body.small.fontSize[0] : textStyles.body.default.fontSize[0] }}>
+          <CardContent style={{ display: 'flex', flexDirection: 'column', gap: compact ? spacing[1] : spacing[2], fontSize: compact ? textStyles.body.small.fontSize[0] : textStyles.body.medium.fontSize[0] }}>
             <div>
               <span className="font-semibold">Nombre:</span> {currentDepartment.name}
             </div>
@@ -103,7 +103,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
               style={{
                 marginTop: compact ? spacing[2] : spacing[4],
                 width: '100%',
-                backgroundColor: colors.warning,
+                backgroundColor: colors.warning[500],
                 color: colors.text.primary
               }}
               aria-label={`Usar una pista para ${currentDepartment.name}. Quedan ${hints} pistas`}
@@ -142,11 +142,11 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
         <CardContent style={{ display: 'flex', flexDirection: 'column', gap: compact ? spacing[1] : spacing[2], fontSize: compact ? textStyles.body.small.fontSize[0] : textStyles.body.small.fontSize[0] }}>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Fallidos:</span>
-            <Badge variant="secondary" style={{ fontWeight: 'bold', color: colors.error }}>{attempts}</Badge>
+            <Badge variant="default" style={{ fontWeight: 'bold', color: colors.error[600] }}>{attempts}</Badge>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Precisión:</span>
-            <Badge variant="secondary" style={{ fontWeight: 'bold', color: colors.success }}>
+            <Badge variant="default" style={{ fontWeight: 'bold', color: colors.success[600] }}>
               {placedDepartments.size > 0
                 ? Math.round((placedDepartments.size / (placedDepartments.size + attempts)) * 100)
                 : 0}%
@@ -154,7 +154,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Restantes:</span>
-            <Badge variant="secondary" style={{ fontWeight: 'bold', color: colors.brand[600] }}>
+            <Badge variant="default" style={{ fontWeight: 'bold', color: colors.brand[600] }}>
               {game.departments.length - game.placedDepartments.size}
             </Badge>
           </div>

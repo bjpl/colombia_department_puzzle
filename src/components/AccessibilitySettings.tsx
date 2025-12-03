@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { ColorblindMode } from '../design-system/themes/accessibility';
 import { useAccessibility } from '../context/AccessibilityContext';
@@ -241,15 +241,15 @@ export default function AccessibilitySettings({
             </h4>
             <ul className="text-sm text-neutral-600 flex flex-col gap-1">
               <li>
-                <Badge variant="secondary" className="bg-neutral-100 border border-neutral-300 rounded-sm">Tab</Badge>
+                <Badge variant="default" className="bg-neutral-100 border border-neutral-300 rounded-sm">Tab</Badge>
                 {' '}Navegar entre elementos
               </li>
               <li>
-                <Badge variant="secondary" className="bg-neutral-100 border border-neutral-300 rounded-sm">Enter</Badge>
+                <Badge variant="default" className="bg-neutral-100 border border-neutral-300 rounded-sm">Enter</Badge>
                 {' '}Seleccionar elemento
               </li>
               <li>
-                <Badge variant="secondary" className="bg-neutral-100 border border-neutral-300 rounded-sm">Esc</Badge>
+                <Badge variant="default" className="bg-neutral-100 border border-neutral-300 rounded-sm">Esc</Badge>
                 {' '}Cerrar diálogos
               </li>
             </ul>

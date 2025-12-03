@@ -149,9 +149,9 @@ describe('useViewportCategory Hook', () => {
     const { result, rerender } = renderHook(() => useViewportCategory());
     expect(result.current).toBe('mobile');
 
-    // Simulate resize to desktop
+    // Simulate resize to desktop (1280+ is desktop per breakpoints)
     act(() => {
-      window.innerWidth = 1200;
+      window.innerWidth = 1280;
       window.dispatchEvent(new Event('resize'));
     });
 
@@ -165,13 +165,13 @@ describe('useViewportCategory Hook', () => {
   it('should debounce resize events', async () => {
     const { result, rerender } = renderHook(() => useViewportCategory());
 
-    // Rapid resize events
+    // Rapid resize events (final value 1280 = desktop per breakpoints)
     act(() => {
       window.innerWidth = 375;
       window.dispatchEvent(new Event('resize'));
       window.innerWidth = 800;
       window.dispatchEvent(new Event('resize'));
-      window.innerWidth = 1024;
+      window.innerWidth = 1280;
       window.dispatchEvent(new Event('resize'));
     });
 
