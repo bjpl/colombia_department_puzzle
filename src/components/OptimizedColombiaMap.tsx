@@ -7,8 +7,7 @@ import { normalizeId } from '../utils/nameNormalizer';
 import { colombiaDepartments } from '../data/colombiaDepartments';
 // Region colors are now handled by the AccessibilityContext
 import {
-  Button, Card, CardHeader, CardTitle, CardContent, Badge,
-  colors, spacing, textStyles, shadows
+  Button, Card, Badge
 } from '../design-system';
 
 interface GeoFeature {

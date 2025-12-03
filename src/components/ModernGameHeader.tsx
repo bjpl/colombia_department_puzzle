@@ -32,6 +32,7 @@ export default function ModernGameHeader({
   const [soundEnabled, setSoundEnabled] = useState(true);
 
   // Initialize sound state from storage
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const settings = sound.settings;
     setSoundEnabled(settings.enabled);

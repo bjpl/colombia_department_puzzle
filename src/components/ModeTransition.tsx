@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { GameModeConfig } from './GameModeSelector';
-import {
-  colors, spacing, textStyles, animations
-} from '../design-system';
 
 interface ModeTransitionProps {
   from: string;

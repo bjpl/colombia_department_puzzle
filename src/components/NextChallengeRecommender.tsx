@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { GameModeConfig } from './GameModeSelector';
 import {
-  Button, Card, CardHeader, CardTitle, CardContent, Badge,
-  colors, spacing, textStyles, shadows
+  Button, Card, CardHeader, CardTitle, CardContent,
+  colors, spacing, textStyles
 } from '../design-system';
 
 interface NextChallengeRecommenderProps {
