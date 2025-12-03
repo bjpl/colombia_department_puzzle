@@ -18,7 +18,8 @@ export default function MiniDepartmentShape({
   height = 60,
   className = ''
 }: MiniDepartmentShapeProps) {
-  const [geoData, setGeoData] = useState<GeoJSON.FeatureCollection | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [geoData, setGeoData] = useState<any>(null);
   const { getRegionColor } = useAccessibility();
 
   useEffect(() => {
@@ -35,7 +36,8 @@ export default function MiniDepartmentShape({
     // Find the feature for this department
     const normalizedSearchName = normalizeId(departmentName);
 
-    const departmentFeature = geoData.features.find((feature: GeoJSON.Feature) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const departmentFeature = geoData.features.find((feature: any) => {
       // The optimized GeoJSON uses "name" property
       const featureName = normalizeId(feature.properties.name || feature.properties.NOMBRE_DPT || '');
       return featureName === normalizedSearchName;
