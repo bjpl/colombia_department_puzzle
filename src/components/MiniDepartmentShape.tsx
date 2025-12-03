@@ -18,8 +18,8 @@ export default function MiniDepartmentShape({
   height = 60,
   className = ''
 }: MiniDepartmentShapeProps) {
-  const [geoData, setGeoData] = useState<any>(null);
-  const { getRegionColor, colorMode } = useAccessibility();
+  const [geoData, setGeoData] = useState<GeoJSON.FeatureCollection | null>(null);
+  const { getRegionColor } = useAccessibility();
 
   useEffect(() => {
     // Load the optimized GeoJSON data (which has actual shapes, not just bounding boxes)
@@ -35,7 +35,7 @@ export default function MiniDepartmentShape({
     // Find the feature for this department
     const normalizedSearchName = normalizeId(departmentName);
 
-    const departmentFeature = geoData.features.find((feature: any) => {
+    const departmentFeature = geoData.features.find((feature: GeoJSON.Feature) => {
       // The optimized GeoJSON uses "name" property
       const featureName = normalizeId(feature.properties.name || feature.properties.NOMBRE_DPT || '');
       return featureName === normalizedSearchName;
@@ -86,7 +86,7 @@ export default function MiniDepartmentShape({
     const region = department?.region || '';
     // Use the new WCAG AAA compliant color system
     return region ? getRegionColor(region) : colors.gray[300];
-  }, [departmentName, getRegionColor, colorMode]);
+  }, [departmentName, getRegionColor]);
 
   // Show loading or error state
   if (!pathData) {

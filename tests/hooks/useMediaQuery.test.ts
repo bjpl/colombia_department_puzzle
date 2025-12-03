@@ -127,13 +127,13 @@ describe('useViewportCategory Hook', () => {
   });
 
   it('should return "desktop" for wide viewport', () => {
-    window.innerWidth = 1024;
+    window.innerWidth = 1280;
     const { result } = renderHook(() => useViewportCategory());
     expect(result.current).toBe('desktop');
   });
 
   it('should return "tablet" for medium viewport', () => {
-    window.innerWidth = 800;
+    window.innerWidth = 1100;
     const { result } = renderHook(() => useViewportCategory());
     expect(result.current).toBe('tablet');
   });

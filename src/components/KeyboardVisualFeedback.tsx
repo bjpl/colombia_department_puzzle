@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import {
-  Button, Card, CardHeader, CardTitle, CardContent, Badge,
-  colors, spacing, textStyles, shadows, radius
+  Button, Card,
+  colors, spacing, textStyles, radius
 } from '../design-system';
 
 /**
@@ -54,7 +54,7 @@ export default function KeyboardVisualFeedback() {
     };
   }, [showKeys]);
 
-  const formatKeyDisplay = (shortcut: any): string => {
+  const formatKeyDisplay = (shortcut: { key: string; modifiers?: { ctrl?: boolean; alt?: boolean; shift?: boolean } } | null): string => {
     if (!shortcut) return '';
     const parts = [];
     if (shortcut.modifiers?.ctrl) parts.push('Ctrl');

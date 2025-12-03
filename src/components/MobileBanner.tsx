@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
-  Button, Card, CardHeader, CardTitle, CardContent, Badge,
-  colors, spacing, textStyles, shadows
+  Button, Card,
+  colors
 } from '../design-system';
 
 /**
