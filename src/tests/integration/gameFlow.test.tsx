@@ -77,7 +77,7 @@ describe('Game Flow Integration', () => {
       const initialHints = game.current.hints;
 
       act(() => {
-        game.current.useHint();
+        game.current.consumeHint();
       });
 
       expect(game.current.hints).toBe(initialHints - 1);
@@ -118,7 +118,7 @@ describe('Game Flow Integration', () => {
       act(() => {
         game.current.selectDepartment(colombiaDepartments[0]);
         game.current.placeDepartment(colombiaDepartments[0].id, true);
-        game.current.useHint();
+        game.current.consumeHint();
       });
 
       expect(game.current.placedDepartments.size).toBe(1);

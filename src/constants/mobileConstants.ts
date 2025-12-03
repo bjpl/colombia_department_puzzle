@@ -8,15 +8,22 @@
  */
 
 /**
- * Responsive breakpoints (matches Tailwind defaults)
+ * Responsive breakpoints
+ * NOTE: For responsive layout breakpoints, use BREAKPOINTS from './responsive.ts'
+ * These are Tailwind-style utility breakpoints for CSS classes only
+ * The canonical breakpoints for mobile/tablet/desktop detection are in responsive.ts
  */
-export const BREAKPOINTS = {
+export const TAILWIND_BREAKPOINTS = {
   sm: 640,   // Small devices (phones, 640px and up)
   md: 768,   // Medium devices (tablets, 768px and up)
   lg: 1024,  // Large devices (desktops, 1024px and up)
   xl: 1280,  // Extra large devices (1280px and up)
   '2xl': 1536, // 2X Extra large devices (1536px and up)
 } as const;
+
+// Re-export from responsive.ts for backwards compatibility
+// Use these for all responsive layout decisions
+export { BREAKPOINTS, isMobileViewport, isTabletViewport, isDesktopViewport, getViewportCategory } from './responsive';
 
 /**
  * Touch target standards

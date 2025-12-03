@@ -37,7 +37,7 @@ interface GameState {
   selectDepartment: (department: Department) => void;
   clearCurrentDepartment: () => void;
   setIsDragging: (isDragging: boolean) => void;
-  useHint: () => void;
+  consumeHint: () => void;
   deductPoints: (points: number) => void;
   resetGame: () => void;
   updateElapsedTime: (time: number) => void;
@@ -123,7 +123,7 @@ const useGameStore = create<GameState>((set, get) => ({
     });
   },
 
-  useHint: () => {
+  consumeHint: () => {
     set((state) => ({
       hints: Math.max(0, state.hints - 1),
       score: Math.max(0, state.score - 50)
@@ -333,7 +333,7 @@ export const useGameActions = () => useGameStore(state => ({
   selectDepartment: state.selectDepartment,
   clearCurrentDepartment: state.clearCurrentDepartment,
   setIsDragging: state.setIsDragging,
-  useHint: state.useHint,
+  consumeHint: state.consumeHint,
   deductPoints: state.deductPoints,
   resetGame: state.resetGame,
   startGame: state.startGame,

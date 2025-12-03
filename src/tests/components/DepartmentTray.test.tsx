@@ -55,7 +55,7 @@ function createDefaultGameState(overrides?: any) {
     selectDepartment: vi.fn(),
     clearCurrentDepartment: vi.fn(),
     setIsDragging: vi.fn(),
-    useHint: vi.fn(),
+    consumeHint: vi.fn(),
     deductPoints: vi.fn(),
     resetGame: vi.fn(),
     updateElapsedTime: vi.fn(),

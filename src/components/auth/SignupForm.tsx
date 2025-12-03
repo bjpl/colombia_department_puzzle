@@ -106,7 +106,7 @@ export default function SignupForm({
               Please check your email to verify your account.
             </p>
             <p className="text-xs text-gray-500">
-              Didn't receive the email? Check your spam folder or contact support.
+              Didn&apos;t receive the email? Check your spam folder or contact support.
             </p>
           </div>
         </CardContent>

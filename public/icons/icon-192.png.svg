@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <!-- Colombia Flag Colors Background -->
+  <rect width="192" height="96" fill="#FCD116"/>
+  <rect y="96" width="192" height="48" fill="#003893"/>
+  <rect y="144" width="192" height="48" fill="#CE1126"/>
+
+  <!-- Puzzle Piece Overlay -->
+  <g transform="translate(32, 32)">
+    <!-- Main puzzle piece shape -->
+    <path d="M20 0 h88 v30 c0 12 20 12 20 0 v-30 h0 v128 h-30 c-12 0 -12 -20 0 -20 h30 v0 h-128 v-30 c0 -12 -20 -12 -20 0 v30 h0 v-128 h30 c12 0 12 20 0 20 h-30 z"
+          fill="white"
+          fill-opacity="0.9"
+          stroke="#003893"
+          stroke-width="3"/>
+
+    <!-- Colombia map silhouette simplified -->
+    <path d="M64 25 c-15 5 -25 15 -30 30 c-3 10 0 20 5 28 c5 8 12 15 22 18 c10 3 22 2 32 -3 c10 -5 18 -14 22 -25 c4 -11 2 -24 -5 -33 c-7 -9 -18 -15 -30 -16 c-6 0 -11 1 -16 1 z"
+          fill="#003893"
+          fill-opacity="0.8"/>
+  </g>
+
+  <!-- Text -->
+  <text x="96" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    COLOMBIA
+  </text>
+</svg>

@@ -106,7 +106,7 @@ export default function AuthModal({
         <div className="text-center text-sm text-gray-600">
           {activeTab === 'login' ? (
             <p>
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <button
                 onClick={() => setActiveTab('signup')}
                 className="text-sky-600 hover:text-sky-800 font-medium underline min-h-[44px] inline-flex items-center px-2"

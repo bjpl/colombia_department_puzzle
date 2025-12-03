@@ -105,7 +105,7 @@ export default function LoginForm({
               Check Your Email
             </h3>
             <p className="text-sm text-gray-600 mb-4">
-              We've sent a magic link to <strong>{email}</strong>. Click the link to sign in.
+              We&apos;ve sent a magic link to <strong>{email}</strong>. Click the link to sign in.
             </p>
             <Button
               variant="secondary"

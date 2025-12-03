@@ -53,8 +53,8 @@ export function InstallPrompt({
           }
         };
 
-        window.addEventListener('gameCompleted' as any, handler);
-        return () => window.removeEventListener('gameCompleted' as any, handler);
+        window.addEventListener('gameCompleted', handler as EventListener);
+        return () => window.removeEventListener('gameCompleted', handler as EventListener);
       } else {
         // User has completed a game before
         setShouldShow(isInstallable || isIOS);

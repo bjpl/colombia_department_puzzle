@@ -43,7 +43,7 @@ interface GameState {
   selectDepartment: (department: Department) => void;
   clearCurrentDepartment: () => void;
   setIsDragging: (isDragging: boolean) => void;
-  useHint: () => void;
+  consumeHint: () => void;
   deductPoints: (points: number) => void;
   resetGame: () => void;
   updateElapsedTime: (time: number) => void;
@@ -127,7 +127,7 @@ function createTestGameStore(initialState?: Partial<GameState>) {
       });
     },
 
-    useHint: () => {
+    consumeHint: () => {
       set((state) => ({
         hints: Math.max(0, state.hints - 1),
         score: Math.max(0, state.score - 50)
@@ -487,7 +487,7 @@ describe('GameContext - Hints and Score Deduction', () => {
     expect(result.current.hints).toBe(3);
 
     act(() => {
-      result.current.useHint();
+      result.current.consumeHint();
     });
 
     expect(result.current.hints).toBe(2);
@@ -499,10 +499,10 @@ describe('GameContext - Hints and Score Deduction', () => {
     const { result } = renderHook(() => store());
 
     act(() => {
-      result.current.useHint();
-      result.current.useHint();
-      result.current.useHint();
-      result.current.useHint(); // Extra, should not go negative
+      result.current.consumeHint();
+      result.current.consumeHint();
+      result.current.consumeHint();
+      result.current.consumeHint(); // Extra, should not go negative
     });
 
     expect(result.current.hints).toBe(0);
@@ -515,7 +515,7 @@ describe('GameContext - Hints and Score Deduction', () => {
     expect(result.current.score).toBe(0);
 
     act(() => {
-      result.current.useHint();
+      result.current.consumeHint();
     });
 
     expect(result.current.score).toBe(0); // Should not go negative
@@ -667,7 +667,7 @@ describe('GameContext - Game State Management', () => {
     act(() => {
       result.current.selectDepartment(colombiaDepartments[0]);
       result.current.placeDepartment(colombiaDepartments[0].id, true);
-      result.current.useHint();
+      result.current.consumeHint();
       result.current.updateElapsedTime(5000);
     });
 

@@ -102,6 +102,7 @@ export default function GameContainer() {
         parent.remove();
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Note: Drag state reset is now handled by useDragHandlers hook
@@ -124,6 +125,7 @@ export default function GameContainer() {
       document.removeEventListener('click', initSoundOnInteraction);
       document.removeEventListener('touchstart', initSoundOnInteraction);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Sync timer with game state
@@ -139,6 +141,7 @@ export default function GameContainer() {
     } else if (game.isGameComplete && timer.isRunning) {
       timer.stopTimer();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [game.isGameStarted, game.isPaused, game.isGameComplete]);
 
   // Update game elapsed time
@@ -146,6 +149,7 @@ export default function GameContainer() {
     if (timer.elapsedTime !== game.elapsedTime) {
       game.updateElapsedTime(timer.elapsedTime);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timer.elapsedTime]);
 
   // Reset timer when game is reset
@@ -154,6 +158,7 @@ export default function GameContainer() {
     if (game.elapsedTime === 0 && !game.isGameStarted && (timer.isRunning || timer.elapsedTime > 0)) {
       timer.resetTimer();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [game.elapsedTime, game.isGameStarted]);
 
   // Removed automatic tutorial display to prevent modal queue issues
@@ -183,6 +188,7 @@ export default function GameContainer() {
     return () => {
       window.removeEventListener('placement-feedback', handlePlacementFeedback as EventListener);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Clear drag state when window loses focus
@@ -193,6 +199,7 @@ export default function GameContainer() {
 
     window.addEventListener('blur', handleBlur);
     return () => window.removeEventListener('blur', handleBlur);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Show post-game report when game completes

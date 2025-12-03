@@ -79,24 +79,38 @@ const DepartmentPath = memo(({
     return '1'; // Default thin border
   }, [isOver, isDragging, isKeyboardTarget]);
 
+  // WCAG 2.4.7: Focus Visible - ensure keyboard focus is clearly visible
+  const focusStyles = useMemo(() => ({
+    // Focus ring for keyboard navigation - high visibility purple outline
+    outline: isKeyboardTarget ? '3px solid rgb(147, 51, 234)' : 'none',
+    outlineOffset: isKeyboardTarget ? '2px' : '0',
+    // Ensure focus is visible even on colored backgrounds
+    filter: isKeyboardTarget ? 'drop-shadow(0 0 6px rgba(147, 51, 234, 0.8))' : 'none',
+  }), [isKeyboardTarget]);
+
   return (
     <path
       d={pathString}
       fill={departmentColor}
       stroke={strokeColor}
       strokeWidth={strokeWidth}
-      opacity={isPlaced ? 0.9 : isKeyboardTarget ? 0.8 : isOver ? 0.95 : 0.7}
+      opacity={isPlaced ? 0.9 : isKeyboardTarget ? 0.85 : isOver ? 0.95 : 0.7}
       className={`transition-all duration-200 cursor-inherit pointer-events-auto ${
         isKeyboardTarget
-          ? 'animate-pulse drop-shadow-[0_0_4px_rgba(147,51,234,0.5)]'
+          ? 'animate-pulse'
           : isOver && isDragging
             ? 'drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]'
             : ''
       }`}
       style={{
         strokeDasharray: isKeyboardTarget ? '8 4' : 'none',
-        strokeLinecap: isKeyboardTarget ? 'round' : 'butt'
+        strokeLinecap: isKeyboardTarget ? 'round' : 'butt',
+        ...focusStyles
       }}
+      // WCAG 1.1.1: Provide accessible name for screen readers
+      aria-label={`Departamento ${feature.properties.name}${isPlaced ? ' - colocado' : ''}${isKeyboardTarget ? ' - seleccionado con teclado' : ''}`}
+      role="img"
+      tabIndex={isKeyboardTarget ? 0 : -1}
     />
   );
 });

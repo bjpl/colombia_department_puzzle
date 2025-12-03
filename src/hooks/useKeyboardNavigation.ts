@@ -156,7 +156,7 @@ export function useKeyboardNavigation() {
         // Game actions
         case 'hint': {
           if (game.hints > 0 && game.currentDepartment) {
-            game.useHint();
+            game.consumeHint();
             announceToScreenReader(`Pista usada. ${game.hints} pistas restantes.`);
           }
           break;

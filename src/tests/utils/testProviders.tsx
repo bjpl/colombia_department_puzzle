@@ -43,7 +43,7 @@ interface GameState {
   selectDepartment: (department: Department) => void;
   clearCurrentDepartment: () => void;
   setIsDragging: (isDragging: boolean) => void;
-  useHint: () => void;
+  consumeHint: () => void;
   deductPoints: (points: number) => void;
   resetGame: () => void;
   updateElapsedTime: (time: number) => void;
@@ -118,7 +118,7 @@ export function createMockGameStore(initialState?: Partial<GameState>) {
 
     clearCurrentDepartment: () => set({ currentDepartment: null, isDraggingDepartment: false }),
     setIsDragging: (isDragging: boolean) => set({ isDraggingDepartment: isDragging }),
-    useHint: () => set((state) => ({ hints: Math.max(0, state.hints - 1), score: Math.max(0, state.score - 50) })),
+    consumeHint: () => set((state) => ({ hints: Math.max(0, state.hints - 1), score: Math.max(0, state.score - 50) })),
     deductPoints: (points: number) => set((state) => ({ score: Math.max(0, state.score - points) })),
 
     resetGame: () => set({

@@ -16,7 +16,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
   const currentDepartment = useCurrentDepartment();
   const attempts = useAttempts();
   const placedDepartments = usePlacedDepartments();
-  const { useHint, clearCurrentDepartment } = useGameActions();
+  const { consumeHint, clearCurrentDepartment } = useGameActions();
 
   const [showHintModal, setShowHintModal] = useState(false);
   const [currentHintLevel, setCurrentHintLevel] = useState(1);
@@ -40,7 +40,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
       if (newAttempts >= 3) hintLevel = 3;
 
       setCurrentHintLevel(hintLevel);
-      useHint();
+      consumeHint();
       setShowHintModal(true);
     }
   };

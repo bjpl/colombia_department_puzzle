@@ -26,21 +26,21 @@ class KeyboardManager {
     { key: ' ', action: 'select', description: 'Seleccionar/Activar', category: 'navigation' },
     { key: 'Escape', action: 'cancel', description: 'Cancelar/Cerrar', category: 'navigation' },
 
-    // Game Controls
-    { key: 'p', action: 'pause', description: 'Pausar/Reanudar', category: 'game' },
-    { key: 'P', action: 'pause', description: 'Pausar/Reanudar', category: 'game' },
-    { key: 'r', action: 'restart', description: 'Reiniciar juego', category: 'game' },
-    { key: 'R', action: 'restart', description: 'Reiniciar juego', category: 'game' },
-    { key: 'h', action: 'hint', description: 'Usar pista', category: 'game' },
-    { key: 'H', action: 'hint', description: 'Usar pista', category: 'game' },
-    { key: 'm', action: 'mute', description: 'Silenciar/Activar sonido', category: 'game' },
-    { key: 'M', action: 'mute', description: 'Silenciar/Activar sonido', category: 'game' },
+    // Game Controls - WCAG 2.1.4 compliant (require Alt modifier to avoid screen reader conflicts)
+    { key: 'p', altKey: true, action: 'pause', description: 'Pausar/Reanudar (Alt+P)', category: 'game' },
+    { key: 'P', altKey: true, action: 'pause', description: 'Pausar/Reanudar (Alt+P)', category: 'game' },
+    { key: 'r', altKey: true, action: 'restart', description: 'Reiniciar juego (Alt+R)', category: 'game' },
+    { key: 'R', altKey: true, action: 'restart', description: 'Reiniciar juego (Alt+R)', category: 'game' },
+    { key: 'h', altKey: true, action: 'hint', description: 'Usar pista (Alt+H)', category: 'game' },
+    { key: 'H', altKey: true, action: 'hint', description: 'Usar pista (Alt+H)', category: 'game' },
+    { key: 'm', altKey: true, action: 'mute', description: 'Silenciar/Activar sonido (Alt+M)', category: 'game' },
+    { key: 'M', altKey: true, action: 'mute', description: 'Silenciar/Activar sonido (Alt+M)', category: 'game' },
 
     // Help
     { key: '?', action: 'help', description: 'Mostrar ayuda', category: 'game' },
     { key: 'F1', action: 'help', description: 'Mostrar ayuda', category: 'game' },
 
-    // Movement
+    // Movement - Arrow keys don't conflict with screen readers
     { key: 'ArrowUp', action: 'move-up', description: 'Mover arriba', category: 'game' },
     { key: 'ArrowDown', action: 'move-down', description: 'Mover abajo', category: 'game' },
     { key: 'ArrowLeft', action: 'move-left', description: 'Mover izquierda', category: 'game' },
@@ -52,16 +52,16 @@ class KeyboardManager {
     { key: 'ArrowLeft', shiftKey: true, action: 'move-left-fast', description: 'Mover izquierda rápido', category: 'game' },
     { key: 'ArrowRight', shiftKey: true, action: 'move-right-fast', description: 'Mover derecha rápido', category: 'game' },
 
-    // Region Quick Access
-    { key: '1', action: 'region-1', description: 'Región Andina', category: 'game' },
-    { key: '2', action: 'region-2', description: 'Región Caribe', category: 'game' },
-    { key: '3', action: 'region-3', description: 'Región Pacífico', category: 'game' },
-    { key: '4', action: 'region-4', description: 'Región Orinoquía', category: 'game' },
-    { key: '5', action: 'region-5', description: 'Región Amazonía', category: 'game' },
-    { key: '6', action: 'region-6', description: 'Región Insular', category: 'game' },
+    // Region Quick Access - WCAG 2.1.4 compliant (require Alt modifier)
+    { key: '1', altKey: true, action: 'region-1', description: 'Región Andina (Alt+1)', category: 'game' },
+    { key: '2', altKey: true, action: 'region-2', description: 'Región Caribe (Alt+2)', category: 'game' },
+    { key: '3', altKey: true, action: 'region-3', description: 'Región Pacífico (Alt+3)', category: 'game' },
+    { key: '4', altKey: true, action: 'region-4', description: 'Región Orinoquía (Alt+4)', category: 'game' },
+    { key: '5', altKey: true, action: 'region-5', description: 'Región Amazonía (Alt+5)', category: 'game' },
+    { key: '6', altKey: true, action: 'region-6', description: 'Región Insular (Alt+6)', category: 'game' },
 
     // Accessibility
-    { key: 'a', altKey: true, action: 'accessibility', description: 'Configuración de accesibilidad', category: 'accessibility' },
+    { key: 'a', altKey: true, action: 'accessibility', description: 'Configuración de accesibilidad (Alt+A)', category: 'accessibility' },
   ];
 
   private constructor() {
