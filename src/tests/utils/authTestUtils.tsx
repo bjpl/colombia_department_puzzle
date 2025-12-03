@@ -13,7 +13,7 @@
 import React, { ReactNode } from 'react';
 import { vi } from 'vitest';
 import type { User, Session } from '@supabase/supabase-js';
-import type { AuthContextType, AuthState } from '../../types/auth';
+import type { AuthContextType } from '../../types/auth';
 
 /**
  * Create mock User object

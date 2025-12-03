@@ -1,4 +1,4 @@
-import React, { createContext, useContext, ReactNode } from 'react';
+import { createContext, useContext, ReactNode } from 'react';
 import { TranslationKeys, esCOTranslations, getTranslation, interpolate, pluralize, formatColombianNumber } from './translations';
 
 interface TranslationContextValue {
@@ -83,7 +83,7 @@ export function useCulturalTranslations() {
 
 // Specialized hooks for complex translations
 export function useRegionTranslations() {
-  const { translations, t } = useTranslations();
+  const { translations } = useTranslations();
 
   const getRegionName = (regionKey: keyof typeof translations.regions.names): string => {
     return translations.regions.names[regionKey];
@@ -106,7 +106,7 @@ export function useRegionTranslations() {
 }
 
 export function useGameHeaderTranslations() {
-  const { translations, t, formatNumber } = useTranslations();
+  const { translations, formatNumber } = useTranslations();
 
   const getModeDisplay = (mode: string, regions?: string[]): string => {
     switch (mode) {
@@ -143,7 +143,7 @@ export function useGameHeaderTranslations() {
 }
 
 export function useHintModalTranslations() {
-  const { translations, t } = useTranslations();
+  const { translations } = useTranslations();
 
   const getHintCost = (level: number): string => {
     const costs = {

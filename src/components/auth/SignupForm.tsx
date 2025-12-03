@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Lock, User, Check, X } from 'lucide-react';
+import { Mail, Lock, User } from 'lucide-react';
 import { Button, Input, Card, CardContent } from '../../design-system';
 import { cn } from '../../design-system/utils/cn';
 import { useAuth } from '../../hooks/useAuth';
@@ -7,12 +7,6 @@ import { useAuth } from '../../hooks/useAuth';
 export interface SignupFormProps {
   onSuccess?: () => void;
   className?: string;
-}
-
-interface PasswordStrength {
-  score: number; // 0-4
-  label: string;
-  color: string;
 }
 
 export default function SignupForm({

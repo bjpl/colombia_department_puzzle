@@ -9,8 +9,6 @@ import { BaseService } from '../BaseService';
 import type {
   GameSession,
   GameStats,
-  Achievement,
-  LeaderboardEntry,
 } from '../../types/auth';
 
 /**
@@ -403,10 +401,6 @@ export class GameStatsService extends BaseService {
     } catch (error) {
       console.error('Failed to save sync queue:', error);
     }
-  }
-
-  private isSupabaseEnabled(): boolean {
-    return import.meta.env.VITE_ENABLE_SUPABASE_AUTH === 'true';
   }
 
   private mapToGameSession(data: any): GameSession {

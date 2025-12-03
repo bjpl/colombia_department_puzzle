@@ -16,6 +16,7 @@ import {
   CardTitle,
   CardContent,
   CardDescription,
+  colors,
 } from '../design-system';
 import { cn } from '../design-system/utils/cn';
 
@@ -78,15 +79,15 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
   };
 
   // Reserved for future quiz functionality
-  const _handleQuickQuiz = (dept: Department) => {
-    // Simple quiz: Is this department in the focused region?
-    const correct = dept.region === flowState.focusedRegion;
-    setFlowState(prev => ({
-      ...prev,
-      quizCorrect: prev.quizCorrect + (correct ? 1 : 0),
-      quizTotal: prev.quizTotal + 1
-    }));
-  };
+  // const _handleQuickQuiz = (dept: Department) => {
+  //   // Simple quiz: Is this department in the focused region?
+  //   const correct = dept.region === flowState.focusedRegion;
+  //   setFlowState(prev => ({
+  //     ...prev,
+  //     quizCorrect: prev.quizCorrect + (correct ? 1 : 0),
+  //     quizTotal: prev.quizTotal + 1
+  //   }));
+  // };
 
   // Group departments by region - memoized to prevent recalculation
   const departmentsByRegion = useMemo(() => {
@@ -275,7 +276,7 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
             {/* Enhanced Card View - using memoized DepartmentCard components */}
             {viewMode === 'cards' && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {Object.entries(displayDepartments).flatMap(([region, depts]) =>
+                {Object.entries(displayDepartments).flatMap(([_region, depts]) =>
                   depts.map(dept => (
                     <DepartmentCard
                       key={dept.id}

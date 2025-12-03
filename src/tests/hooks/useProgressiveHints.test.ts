@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { useProgressiveHints } from '../../hooks/useProgressiveHints';
-import { GameProvider } from '../../context/GameContext';
 import { ReactNode } from 'react';
 
 // Mock game context with required methods
@@ -11,12 +10,43 @@ const mockGameContext = {
     name: 'Antioquia',
     region: 'Andina',
     capital: 'Medellín',
+    area: 63612,
+    population: 6677930,
+    trivia: 'Test trivia',
+    coordinates: { lat: 7.0, lng: -75.5 },
   },
   score: 100,
   departments: [
-    { id: 'antioquia', name: 'Antioquia', region: 'Andina', capital: 'Medellín' },
-    { id: 'cundinamarca', name: 'Cundinamarca', region: 'Andina', capital: 'Bogotá' },
-    { id: 'atlantico', name: 'Atlántico', region: 'Caribe', capital: 'Barranquilla' },
+    {
+      id: 'antioquia',
+      name: 'Antioquia',
+      region: 'Andina',
+      capital: 'Medellín',
+      area: 63612,
+      population: 6677930,
+      trivia: 'Test trivia',
+      coordinates: { lat: 7.0, lng: -75.5 },
+    },
+    {
+      id: 'cundinamarca',
+      name: 'Cundinamarca',
+      region: 'Andina',
+      capital: 'Bogotá',
+      area: 24210,
+      population: 3000000,
+      trivia: 'Test trivia',
+      coordinates: { lat: 5.0, lng: -74.0 },
+    },
+    {
+      id: 'atlantico',
+      name: 'Atlántico',
+      region: 'Caribe',
+      capital: 'Barranquilla',
+      area: 3388,
+      population: 2535517,
+      trivia: 'Test trivia',
+      coordinates: { lat: 10.6, lng: -75.0 },
+    },
   ],
   deductPoints: vi.fn(),
 };
@@ -35,6 +65,10 @@ describe('useProgressiveHints', () => {
       name: 'Antioquia',
       region: 'Andina',
       capital: 'Medellín',
+      area: 63612,
+      population: 6677930,
+      trivia: 'Test trivia',
+      coordinates: { lat: 7.0, lng: -75.5 },
     };
     mockGameContext.score = 100;
   });
@@ -80,7 +114,7 @@ describe('useProgressiveHints', () => {
     });
 
     it('should not activate if no current department', () => {
-      mockGameContext.currentDepartment = null;
+      (mockGameContext.currentDepartment as any) = null;
       const { result } = renderHook(() => useProgressiveHints());
 
       let activated = false;
@@ -139,7 +173,7 @@ describe('useProgressiveHints', () => {
     });
 
     it('should not activate if no current department', () => {
-      mockGameContext.currentDepartment = null;
+      (mockGameContext.currentDepartment as any) = null;
       const { result } = renderHook(() => useProgressiveHints());
 
       let activated = false;
@@ -199,7 +233,7 @@ describe('useProgressiveHints', () => {
     });
 
     it('should not activate if no current department', () => {
-      mockGameContext.currentDepartment = null;
+      (mockGameContext.currentDepartment as any) = null;
       const { result } = renderHook(() => useProgressiveHints());
 
       let activated = false;

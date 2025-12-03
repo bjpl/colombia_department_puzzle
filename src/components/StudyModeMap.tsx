@@ -1,10 +1,10 @@
-import React, { useMemo, useState, useRef } from 'react';
+import { useMemo, useState, useRef } from 'react';
 import * as d3 from 'd3-geo';
 import { Department } from '../data/colombiaDepartments';
 import { normalizeId } from '../utils/nameNormalizer';
 import { useAccessibility } from '../context/AccessibilityContext';
 import {
-  Button, Card, CardHeader, CardTitle, CardContent, Badge,
+  Button, Badge,
   colors, spacing, textStyles, shadows
 } from '../design-system';
 
@@ -21,7 +21,7 @@ export default function StudyModeMap({
   studiedDepartments,
   onDepartmentClick,
   departments,
-  focusedRegion
+  focusedRegion: _focusedRegion
 }: StudyModeMapProps) {
   const [zoomLevel, setZoomLevel] = useState(1);
   const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
@@ -32,16 +32,16 @@ export default function StudyModeMap({
   // Use accessibility context
   const { getRegionColor } = useAccessibility();
 
-  // Simplified Colombia bounds
-  const colombiaBounds = {
-    type: "Feature" as const,
-    geometry: {
-      type: "Polygon" as const,
-      coordinates: [[
-        [-79, 12], [-79, -5], [-67, -5], [-67, 12], [-79, 12]
-      ]]
-    }
-  };
+  // Colombia bounds for reference (currently unused but kept for future zoom-to-fit features)
+  // const _colombiaBounds = {
+  //   type: "Feature" as const,
+  //   geometry: {
+  //     type: "Polygon" as const,
+  //     coordinates: [[
+  //       [-79, 12], [-79, -5], [-67, -5], [-67, 12], [-79, 12]
+  //     ]]
+  //   }
+  // };
 
   const projection = useMemo(() => {
     return d3.geoMercator()

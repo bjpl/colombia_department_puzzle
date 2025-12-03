@@ -1,4 +1,4 @@
-import React, { createContext, useContext, ReactNode } from 'react';
+import { createContext, useContext, ReactNode } from 'react';
 import { create } from 'zustand';
 import { Department, colombiaDepartments } from '../data/colombiaDepartments';
 import { GameModeConfig } from '../components/GameModeSelector';
@@ -190,7 +190,6 @@ const useGameStore = create<GameState>((set, get) => ({
 
   // Regional mode actions
   setGameMode: (mode: GameModeConfig) => {
-    const state = get();
     let activeDepartments: Department[];
 
     if (mode.type === 'full') {

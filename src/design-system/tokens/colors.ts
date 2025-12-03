@@ -105,11 +105,27 @@ export const colors = {
     primary: '#171717',
     secondary: '#525252',
     tertiary: '#a3a3a3',
+    disabled: '#9ca3af',
     inverse: '#ffffff',
     brand: '#3b82f6',
     success: '#16a34a',
     warning: '#d97706',
     error: '#dc2626',
+  },
+
+  // Semantic aliases for common patterns
+  background: '#ffffff',
+  danger: {
+    50: '#fef2f2',
+    100: '#fee2e2',
+    200: '#fecaca',
+    300: '#fca5a5',
+    400: '#f87171',
+    500: '#ef4444',
+    600: '#dc2626',
+    700: '#b91c1c',
+    800: '#991b1b',
+    900: '#7f1d1d',
   },
 } as const;
 

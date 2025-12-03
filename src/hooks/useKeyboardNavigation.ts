@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useGame } from '../context/GameContext';
-import { Department } from '../types/game';
-import { keyboardManager } from '../services/keyboardManager';
+import { Department } from '../data/colombiaDepartments';
 
 /**
  * CONCEPT: Keyboard Navigation for Accessibility

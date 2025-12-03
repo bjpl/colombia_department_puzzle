@@ -43,8 +43,7 @@ export default function KeyboardHelp() {
     );
   }
 
-  // Simplified shortcuts - removed unused keyboard manager calls
-  const _accessibilityShortcuts: string[] = []; // Simplified for now
+  // Accessibility shortcuts are handled inline in the JSX below
 
   return (
     <div

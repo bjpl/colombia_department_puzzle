@@ -4,12 +4,11 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { TouchModeAdapter } from '../../components/TouchModeAdapter';
 import { AllProviders } from '../utils/testProviders';
 import DepartmentTray from '../../components/DepartmentTray';
-import MapCanvas from '../../components/MapCanvas';
 import { prefersTouchMode } from '../../utils/deviceDetection';
 
 // Mock device detection
@@ -91,7 +90,6 @@ describe('Touch Interaction Integration Tests', () => {
       // Get first chip
       const chips = document.querySelectorAll('[data-department-id]');
       const firstChip = chips[0] as HTMLElement;
-      const chipId = firstChip.dataset.departmentId!;
 
       // Simulate tap (quick down + up)
       act(() => {

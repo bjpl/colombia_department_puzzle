@@ -35,10 +35,7 @@ global.AudioContext = MockAudioContext as any;
 // We'll test it indirectly through the exported instance
 
 describe('soundManager Service', () => {
-  let mockLocalStorage: Record<string, string>;
-
   beforeEach(() => {
-    mockLocalStorage = {};
     localStorage.clear();
   });
 

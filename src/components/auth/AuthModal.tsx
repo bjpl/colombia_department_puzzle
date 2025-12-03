@@ -10,24 +10,14 @@ export interface AuthModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   initialTab?: AuthTab;
-  onLogin?: (email: string, password: string) => Promise<void>;
-  onSignup?: (email: string, password: string, displayName?: string) => Promise<void>;
-  onMagicLink?: (email: string) => Promise<void>;
-  onOAuthGoogle?: () => Promise<void>;
-  onOAuthGithub?: () => Promise<void>;
-  onForgotPassword?: () => void;
+  onSuccess?: () => void;
 }
 
 export default function AuthModal({
   open,
   onOpenChange,
   initialTab = 'login',
-  onLogin,
-  onSignup,
-  onMagicLink,
-  onOAuthGoogle,
-  onOAuthGithub,
-  onForgotPassword,
+  onSuccess,
 }: AuthModalProps) {
   const [activeTab, setActiveTab] = useState<AuthTab>(initialTab);
 
@@ -39,7 +29,7 @@ export default function AuthModal({
   }, [open, initialTab]);
 
   // Use native mobile bottom sheet on small screens
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  // const _isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   return (
     <Modal
@@ -85,18 +75,12 @@ export default function AuthModal({
         <div role="tabpanel">
           {activeTab === 'login' ? (
             <LoginForm
-              onSubmit={onLogin}
-              onMagicLink={onMagicLink}
-              onOAuthGoogle={onOAuthGoogle}
-              onOAuthGithub={onOAuthGithub}
-              onForgotPassword={onForgotPassword}
+              onSuccess={onSuccess}
               className="shadow-none border-0"
             />
           ) : (
             <SignupForm
-              onSubmit={onSignup}
-              onOAuthGoogle={onOAuthGoogle}
-              onOAuthGithub={onOAuthGithub}
+              onSuccess={onSuccess}
               className="shadow-none border-0"
             />
           )}

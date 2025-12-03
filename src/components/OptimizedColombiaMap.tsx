@@ -115,7 +115,7 @@ const DepartmentPath = memo(({
 });
 
 // Droppable wrapper for each department
-const DroppableDepartment = ({ feature, isDragging, children }: {
+const DroppableDepartment = ({ feature, isDragging: _isDragging, children }: {
   feature: GeoFeature;
   isDragging: boolean;
   children: (isOver: boolean, shouldHighlight: boolean) => React.ReactNode;
@@ -148,7 +148,7 @@ const DroppableDepartment = ({ feature, isDragging, children }: {
   const shouldHighlight = !isPlaced && (isOver || isKeyboardTarget);
 
   return (
-    <g ref={setNodeRef}
+    <g ref={setNodeRef as React.LegacyRef<SVGGElement>}
        data-over={isOver}
        data-department-drop-zone={departmentId}
        data-keyboard-target={isKeyboardTarget}
@@ -244,7 +244,8 @@ export default function OptimizedColombiaMap() {
 
     const paths: Record<string, string> = {};
     geoData.features.forEach((feature: GeoFeature) => {
-      const pathString = pathGenerator(feature);
+      // Cast to any to satisfy d3-geo's GeoPermissibleObjects type requirement
+      const pathString = pathGenerator(feature as any);
       if (pathString) {
         paths[feature.properties.id || feature.properties.name] = pathString;
       }

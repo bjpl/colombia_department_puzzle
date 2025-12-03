@@ -16,7 +16,6 @@
  * - Fade-in animation on mount
  */
 
-import React from 'react';
 import { useGame } from '../context/GameContext';
 import { Button } from '../design-system';
 import { Menu, Settings } from 'lucide-react';

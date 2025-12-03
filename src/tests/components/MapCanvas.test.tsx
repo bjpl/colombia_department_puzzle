@@ -1,5 +1,4 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render } from '@testing-library/react';
 import MapCanvas from '../../components/MapCanvas';
 import { renderWithProviders } from '../utils/testProviders';
 

@@ -122,7 +122,7 @@ describe('Card', () => {
     });
 
     it('should forward HTML div attributes', () => {
-      const { container } = render(
+      render(
         <Card data-testid="test-card" role="region">
           Test
         </Card>
@@ -197,7 +197,7 @@ describe('CardTitle', () => {
   });
 
   it('should have proper styling', () => {
-    const { container } = render(<CardTitle>Styled Title</CardTitle>);
+    render(<CardTitle>Styled Title</CardTitle>);
 
     const title = screen.getByRole('heading');
     expect(title).toHaveClass('text-lg');

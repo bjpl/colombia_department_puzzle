@@ -172,7 +172,7 @@ describe('Colorblind Palette Validation', () => {
       it(`${mode}: all colors should be valid hex codes`, () => {
         const palette = COLORBLIND_PALETTES[mode];
 
-        Object.entries(palette).forEach(([region, color]) => {
+        Object.entries(palette).forEach(([_region, color]) => {
           expect(color).toMatch(/^#[0-9A-F]{6}$/i);
         });
       });

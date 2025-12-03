@@ -6,7 +6,7 @@
  * PATTERN: Direct store testing with renderHook for state isolation
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { create } from 'zustand';
 import { Department, colombiaDepartments } from '../../data/colombiaDepartments';
@@ -190,7 +190,6 @@ function createTestGameStore(initialState?: Partial<GameState>) {
     },
 
     setGameMode: (mode: GameModeConfig) => {
-      const state = get();
       let activeDepartments: Department[];
 
       if (mode.type === 'full') {

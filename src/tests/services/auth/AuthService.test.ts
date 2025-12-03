@@ -19,10 +19,9 @@ import {
 
 describe('AuthService - Initialization', () => {
   let authService: AuthService;
-  let mockClient: any;
 
   beforeEach(() => {
-    mockClient = setupMockSupabaseClient();
+    setupMockSupabaseClient();
     authService = new AuthService();
   });
 

@@ -6,11 +6,10 @@
  * PATTERN: React Context testing with localStorage mocking
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { renderHook, act } from '@testing-library/react';
-import { ReactNode } from 'react';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { act } from '@testing-library/react';
+import { ColorblindMode } from '../../design-system/themes/accessibility';
 import {
-  ColorblindMode,
   ACCESSIBLE_REGION_COLORS,
   COLORBLIND_PALETTES,
   getAccessibleRegionColor
@@ -79,7 +78,7 @@ function createTestAccessibilityContext() {
 
       return color;
     },
-    getTextColor: (background: string): string => {
+    getTextColor: (_background: string): string => {
       return '#FFFFFF';
     }
   });
@@ -473,7 +472,7 @@ describe('AccessibilityContext - Color Palette Validation', () => {
     const modes: ColorblindMode[] = ['normal', 'protanopia', 'deuteranopia', 'tritanopia', 'monochrome'];
 
     modes.forEach(mode => {
-      const palette = COLORBLIND_PALETTES[mode];
+      const palette = COLORBLIND_PALETTES[mode] as Record<string, string>;
       const colors = Object.values(palette);
       const uniqueColors = new Set(colors);
 

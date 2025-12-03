@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { geoMercator, geoPath } from 'd3-geo';
 import { normalizeId } from '../utils/nameNormalizer';
 import { useAccessibility } from '../context/AccessibilityContext';

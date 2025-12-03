@@ -8,9 +8,9 @@
  * NOTE: ProtectedRoute component to be created by coder agent
  */
 
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, afterEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import React from 'react';
 import {
   MockAuthProvider,
@@ -50,11 +50,11 @@ function ProtectedContent() {
   return <div>Protected Content</div>;
 }
 
-// Test component to show current location
-function LocationDisplay() {
-  const location = useLocation();
-  return <div data-testid="location">{location.pathname}</div>;
-}
+// Test component to show current location (reserved for future tests)
+// function LocationDisplay() {
+//   const location = useLocation();
+//   return <div data-testid="location">{location.pathname}</div>;
+// }
 
 describe('ProtectedRoute - Authentication Check', () => {
   it('should show loading state initially', () => {

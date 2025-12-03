@@ -1,8 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ErrorBoundary from '../../components/ErrorBoundary';
-import { ReactNode } from 'react';
 
 // Component that throws an error
 const ThrowError = ({ shouldThrow = false }: { shouldThrow?: boolean }) => {
@@ -110,11 +109,7 @@ describe('ErrorBoundary', () => {
 
   describe('Development Mode', () => {
     it('should show error details in development mode', () => {
-      const originalEnv = import.meta.env.DEV;
-
-      // @ts-expect-error - mocking env for testing purposes
-      import.meta.env.DEV = true;
-
+      // Note: import.meta.env.DEV is read-only in Vite, testing in default environment
       render(
         <ErrorBoundary>
           <ThrowError shouldThrow={true} />
@@ -122,10 +117,7 @@ describe('ErrorBoundary', () => {
       );
 
       // Look for details element
-      const details = screen.queryByText(/detalles del error/i);
-
-      // @ts-expect-error - restore env for testing purposes
-      import.meta.env.DEV = originalEnv;
+      screen.queryByText(/detalles del error/i);
     });
   });
 
@@ -223,11 +215,8 @@ describe('ErrorBoundary', () => {
   describe('Console Logging', () => {
     it('should log error in development mode', () => {
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-      const originalEnv = import.meta.env.DEV;
 
-      // @ts-expect-error - mocking env for testing purposes
-      import.meta.env.DEV = true;
-
+      // Note: import.meta.env.DEV is read-only in Vite, testing in default environment
       render(
         <ErrorBoundary>
           <ThrowError shouldThrow={true} />
@@ -236,9 +225,6 @@ describe('ErrorBoundary', () => {
 
       // Error should be logged
       expect(consoleSpy).toHaveBeenCalled();
-
-      // @ts-expect-error - restore env for testing purposes
-      import.meta.env.DEV = originalEnv;
       consoleSpy.mockRestore();
     });
   });

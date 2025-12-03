@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useGame } from '../context/GameContext';
 import { storage, GameSession } from '../services/storage';
 import NextChallengeRecommender from './NextChallengeRecommender';
@@ -20,13 +20,6 @@ interface Achievement {
   description: string;
   icon: string;
   earned: boolean;
-}
-
-interface DepartmentStats {
-  departmentId: string;
-  attempts: number;
-  timeToPlace: number;
-  hintsUsed: number;
 }
 
 export default function PostGameReport({ onClose, onPlayAgain, onStudyMode, onSelectMode }: PostGameReportProps) {

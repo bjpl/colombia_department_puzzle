@@ -1,6 +1,6 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useGame } from '../context/GameContext';
-import { Department } from '../types/game';
+import { Department } from '../data/colombiaDepartments';
 
 /**
  * CONCEPT: Enhanced Keyboard Navigation for Drag & Drop
@@ -19,7 +19,7 @@ interface NavigationState {
 
 export function useEnhancedKeyboardNavigation() {
   const game = useGame();
-  const [placementFeedback, setPlacementFeedback] = useState<any>(null);
+  const [_placementFeedback, _setPlacementFeedback] = useState<any>(null);
   const [navState, setNavState] = useState<NavigationState>({
     mode: 'idle',
     selectedDepartment: null,
@@ -47,45 +47,32 @@ export function useEnhancedKeyboardNavigation() {
     );
   }, [game.placedDepartments]);
 
-  // Smooth movement animation
-  const animateMovement = useCallback((targetX: number, targetY: number) => {
-    if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current);
-    }
-
-    const animate = () => {
-      setNavState(prev => {
-        if (prev.mode !== 'moving') return prev;
-
-        const dx = targetX - prev.cursorPosition.x;
-        const dy = targetY - prev.cursorPosition.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < 1) {
-          return { ...prev, cursorPosition: { x: targetX, y: targetY } };
-        }
-
-        const speed = 0.2; // Smoothing factor
-        const newX = prev.cursorPosition.x + dx * speed;
-        const newY = prev.cursorPosition.y + dy * speed;
-
-        // Check for drop zones
-        const element = document.elementFromPoint(newX, newY);
-        const dropZone = element?.closest('[data-department-drop-zone]');
-        const zoneId = dropZone?.getAttribute('data-department-drop-zone') || null;
-
-        animationFrameRef.current = requestAnimationFrame(animate);
-
-        return {
-          ...prev,
-          cursorPosition: { x: newX, y: newY },
-          targetZone: zoneId
-        };
-      });
-    };
-
-    animate();
-  }, []);
+  // Reserved for future use: Smooth movement animation
+  // const _animateMovement = useCallback((targetX: number, targetY: number) => {
+  //   if (animationFrameRef.current) {
+  //     cancelAnimationFrame(animationFrameRef.current);
+  //   }
+  //   const animate = () => {
+  //     setNavState(prev => {
+  //       if (prev.mode !== 'moving') return prev;
+  //       const dx = targetX - prev.cursorPosition.x;
+  //       const dy = targetY - prev.cursorPosition.y;
+  //       const distance = Math.sqrt(dx * dx + dy * dy);
+  //       if (distance < 1) {
+  //         return { ...prev, cursorPosition: { x: targetX, y: targetY } };
+  //       }
+  //       const speed = 0.2;
+  //       const newX = prev.cursorPosition.x + dx * speed;
+  //       const newY = prev.cursorPosition.y + dy * speed;
+  //       const element = document.elementFromPoint(newX, newY);
+  //       const dropZone = element?.closest('[data-department-drop-zone]');
+  //       const zoneId = dropZone?.getAttribute('data-department-drop-zone') || null;
+  //       animationFrameRef.current = requestAnimationFrame(animate);
+  //       return { ...prev, cursorPosition: { x: newX, y: newY }, targetZone: zoneId };
+  //     });
+  //   };
+  //   animate();
+  // }, []);
 
   // Handle keyboard events
   useEffect(() => {
@@ -129,7 +116,6 @@ export function useEnhancedKeyboardNavigation() {
 
         // Enhanced drop zone detection with better accuracy
         let zoneId = null;
-        let detectionMethod = '';
 
         // Method 1: Direct hit test - hide ALL cursor elements first
         const cursorElements = document.querySelectorAll('.fixed.pointer-events-none');
@@ -152,13 +138,11 @@ export function useEnhancedKeyboardNavigation() {
         for (const element of elementsAtPoint) {
           if (element && element.hasAttribute('data-department-drop-zone')) {
             zoneId = element.getAttribute('data-department-drop-zone');
-            detectionMethod = 'direct-element';
             break;
           } else if (element) {
             const dropZone = element.closest('[data-department-drop-zone]');
             if (dropZone) {
               zoneId = dropZone.getAttribute('data-department-drop-zone');
-              detectionMethod = 'closest-parent';
               break;
             }
           }
@@ -169,7 +153,6 @@ export function useEnhancedKeyboardNavigation() {
           const allZones = document.querySelectorAll('[data-department-drop-zone]');
           let bestMatch = null;
           let bestMatchDistance = Infinity;
-          let insideZone = null;
 
           for (const zone of allZones) {
             const rect = zone.getBoundingClientRect();
@@ -177,9 +160,7 @@ export function useEnhancedKeyboardNavigation() {
             // Check if cursor is INSIDE the bounding box (no padding for accuracy)
             if (newX >= rect.left && newX <= rect.right &&
                 newY >= rect.top && newY <= rect.bottom) {
-              insideZone = zone;
               zoneId = zone.getAttribute('data-department-drop-zone');
-              detectionMethod = 'inside-bounds';
               break;  // Prioritize being inside bounds
             }
 
@@ -197,7 +178,6 @@ export function useEnhancedKeyboardNavigation() {
           // Only use proximity as last resort, with stricter threshold
           if (!zoneId && bestMatch && bestMatchDistance < 40) {  // Reduced from 50
             zoneId = bestMatch.getAttribute('data-department-drop-zone');
-            detectionMethod = 'proximity-fallback';
 
             // Optional: Snap to center when very close (within 20 pixels) and using Ctrl
             if (bestMatchDistance < 20 && ctrlKey) {
@@ -223,7 +203,7 @@ export function useEnhancedKeyboardNavigation() {
         return; // Exit early - we've handled this
       }
 
-      const { key, shiftKey, ctrlKey } = e;
+      const { key } = e;
 
       // Tab navigation through departments - let browser handle it naturally
       if (key === 'Tab') {
@@ -440,30 +420,26 @@ function announceToScreenReader(message: string) {
   setTimeout(() => announcement.remove(), 1000);
 }
 
-function createSuccessAnimation(position: { x: number; y: number }) {
-  const element = document.createElement('div');
-  element.className = 'fixed pointer-events-none z-50';
-  element.style.left = `${position.x}px`;
-  element.style.top = `${position.y}px`;
-  element.style.transform = 'translate(-50%, -50%)';
-  element.innerHTML = `
-    <div class="text-6xl animate-bounce">✅</div>
-  `;
+// Reserved for future use: Success animation
+// function _createSuccessAnimation(position: { x: number; y: number }) {
+//   const element = document.createElement('div');
+//   element.className = 'fixed pointer-events-none z-50';
+//   element.style.left = `${position.x}px`;
+//   element.style.top = `${position.y}px`;
+//   element.style.transform = 'translate(-50%, -50%)';
+//   element.innerHTML = `<div class="text-6xl animate-bounce">✅</div>`;
+//   document.body.appendChild(element);
+//   setTimeout(() => element.remove(), 1000);
+// }
 
-  document.body.appendChild(element);
-  setTimeout(() => element.remove(), 1000);
-}
-
-function createErrorAnimation(position: { x: number; y: number }) {
-  const element = document.createElement('div');
-  element.className = 'fixed pointer-events-none z-50';
-  element.style.left = `${position.x}px`;
-  element.style.top = `${position.y}px`;
-  element.style.transform = 'translate(-50%, -50%)';
-  element.innerHTML = `
-    <div class="text-6xl animate-pulse text-red-500">❌</div>
-  `;
-
-  document.body.appendChild(element);
-  setTimeout(() => element.remove(), 1000);
-}
+// Reserved for future use: Error animation
+// function _createErrorAnimation(position: { x: number; y: number }) {
+//   const element = document.createElement('div');
+//   element.className = 'fixed pointer-events-none z-50';
+//   element.style.left = `${position.x}px`;
+//   element.style.top = `${position.y}px`;
+//   element.style.transform = 'translate(-50%, -50%)';
+//   element.innerHTML = `<div class="text-6xl animate-pulse text-red-500">❌</div>`;
+//   document.body.appendChild(element);
+//   setTimeout(() => element.remove(), 1000);
+// }

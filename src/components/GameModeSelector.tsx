@@ -11,7 +11,7 @@ interface GameModeSelectorProps {
 }
 
 export interface GameModeConfig {
-  type: 'full' | 'region' | 'study';
+  type: 'full' | 'region' | 'study' | 'progression';
   selectedRegions?: string[];
   difficulty?: 'easy' | 'medium' | 'hard';
 }

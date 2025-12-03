@@ -194,21 +194,3 @@ export interface MeasurementFormatting {
   time: (seconds: number) => string;
   percentage: (value: number) => string;
 }
-
-export default {
-  Locale,
-  RegionKey,
-  DifficultyKey,
-  GameModeType,
-  HintLevel,
-  ColombianDepartment,
-  RegionInfo,
-  GameStats,
-  TranslationParams,
-  CulturalAdaptation,
-  ColombianExpressions,
-  GeographicTerminology,
-  TranslationFunction,
-  PluralizationFunction,
-  NumberFormatter,
-};

@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import {
-  colors, spacing, textStyles, shadows, animations
-} from '../design-system';
+import { useEffect, useState } from 'react';
 
 interface PlacementFeedbackProps {
   show: boolean;

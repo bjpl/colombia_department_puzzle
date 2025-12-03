@@ -2,6 +2,7 @@
  * Color Consistency Test Suite
  * Verifies that all components use the unified design system colors
  */
+import { describe, test, expect } from 'vitest';
 
 describe('Color Consistency Tests', () => {
   const deprecatedColors = ['blue-', 'purple-'];
@@ -9,7 +10,7 @@ describe('Color Consistency Tests', () => {
 
   test('No deprecated blue- color classes remain', () => {
     // This test would check that no blue- prefixed classes exist
-    const componentsPath = './src/components';
+    // const _componentsPath = './src/components';
     // In a real test, we'd scan files for deprecated colors
     expect(deprecatedColors).toBeDefined();
   });

@@ -423,7 +423,7 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
                       background: index === currentStep
                         ? 'linear-gradient(to right, rgb(14 165 233), rgb(16 185 129))'
                         : index < currentStep
-                        ? colors.success
+                        ? colors.success[500]
                         : colors.gray[300],
                       cursor: 'pointer',
                       minWidth: '44px',
@@ -442,7 +442,7 @@ export default function InteractiveTutorial({ onComplete, onSkip }: InteractiveT
                         background: index === currentStep
                           ? 'linear-gradient(to right, rgb(14 165 233), rgb(16 185 129))'
                           : index < currentStep
-                          ? colors.success
+                          ? colors.success[500]
                           : colors.gray[300],
                         transition: 'all 0.3s'
                       }}

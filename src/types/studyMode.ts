@@ -509,31 +509,10 @@ export interface PaginatedResponse<T> {
 }
 
 // ================================
-// EXPORT ALL TYPES
+// UTILITY TYPE HELPERS
 // ================================
 
-// Re-export all types for easy importing in React components
-export type {
-  Region,
-  RegionConfig,
-  VocabularyItem,
-  CulturalNote,
-  FlashCard,
-  ReviewItem,
-  ReviewSchedule,
-  UserProgress,
-  Achievement,
-  PracticeSession,
-  PracticeMode,
-  SessionResults,
-  StudyAnalytics,
-  UserSettings,
-  ApiResponse,
-  PaginatedResponse
-};
-
 // Utility type helpers
-export type RegionKey = keyof typeof Region;
 export type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced';
 export type LearningStage = 'new' | 'learning' | 'review' | 'relearning' | 'graduated';
 export type AchievementType = 'milestone' | 'streak' | 'accuracy' | 'region' | 'cultural' | 'speed';

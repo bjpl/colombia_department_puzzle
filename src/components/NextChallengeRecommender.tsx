@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { GameModeConfig } from './GameModeSelector';
 import {
   Button, Card, CardHeader, CardTitle, CardContent,

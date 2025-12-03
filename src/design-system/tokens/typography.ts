@@ -90,6 +90,11 @@ export const textStyles = {
 
   // Heading text
   heading: {
+    xlarge: {
+      fontSize: typography.fontSize['3xl'],
+      fontWeight: typography.fontWeight.bold,
+      lineHeight: typography.lineHeight.tight,
+    },
     h1: {
       fontSize: typography.fontSize['2xl'],
       fontWeight: typography.fontWeight.bold,
@@ -119,6 +124,11 @@ export const textStyles = {
       fontWeight: typography.fontWeight.normal,
       lineHeight: typography.lineHeight.relaxed,
     },
+    base: {
+      fontSize: typography.fontSize.base,
+      fontWeight: typography.fontWeight.normal,
+      lineHeight: typography.lineHeight.normal,
+    },
     medium: {
       fontSize: typography.fontSize.base,
       fontWeight: typography.fontWeight.normal,
@@ -136,6 +146,11 @@ export const textStyles = {
     large: {
       fontSize: typography.fontSize.base,
       fontWeight: typography.fontWeight.medium,
+      lineHeight: typography.lineHeight.none,
+    },
+    semibold: {
+      fontSize: typography.fontSize.base,
+      fontWeight: typography.fontWeight.semibold,
       lineHeight: typography.lineHeight.none,
     },
     medium: {

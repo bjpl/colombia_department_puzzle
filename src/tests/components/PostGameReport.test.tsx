@@ -9,7 +9,6 @@ import userEvent from '@testing-library/user-event';
 import PostGameReport from '../../components/PostGameReport';
 import { createMockGameStore } from '../utils/testProviders';
 import { storage } from '../../services/storage';
-import React from 'react';
 
 // Mock GameContext
 const mockUseGame = vi.fn();
@@ -119,7 +118,16 @@ describe('PostGameReport', () => {
         placedDepartments: new Set(['antioquia']),
         attempts: 3,
         activeDepartments: [
-          { id: 'antioquia', name: 'Antioquia', region: 'Andina', capital: 'Medellín' },
+          {
+            id: 'antioquia',
+            name: 'Antioquia',
+            region: 'Andina',
+            capital: 'Medellín',
+            area: 63612,
+            population: 6677930,
+            trivia: 'Test trivia',
+            coordinates: { lat: 7.0, lng: -75.5 },
+          },
         ],
       });
       mockUseGame.mockReturnValue(gameStore.getState());
@@ -328,6 +336,10 @@ describe('PostGameReport', () => {
           name: `Dept ${i}`,
           region: 'Andina',
           capital: 'City',
+          area: 1000,
+          population: 100000,
+          trivia: 'Test trivia',
+          coordinates: { lat: 4.0, lng: -74.0 },
         })),
       });
       mockUseGame.mockReturnValue(gameStore.getState());
@@ -350,8 +362,26 @@ describe('PostGameReport', () => {
         placedDepartments: new Set(['antioquia', 'cundinamarca']),
         attempts: 0, // 100% accuracy
         activeDepartments: [
-          { id: 'antioquia', name: 'Antioquia', region: 'Andina', capital: 'Medellín' },
-          { id: 'cundinamarca', name: 'Cundinamarca', region: 'Andina', capital: 'Bogotá' },
+          {
+            id: 'antioquia',
+            name: 'Antioquia',
+            region: 'Andina',
+            capital: 'Medellín',
+            area: 63612,
+            population: 6677930,
+            trivia: 'Test trivia',
+            coordinates: { lat: 7.0, lng: -75.5 },
+          },
+          {
+            id: 'cundinamarca',
+            name: 'Cundinamarca',
+            region: 'Andina',
+            capital: 'Bogotá',
+            area: 24210,
+            population: 3000000,
+            trivia: 'Test trivia',
+            coordinates: { lat: 5.0, lng: -74.0 },
+          },
         ],
       });
       mockUseGame.mockReturnValue(gameStore.getState());
@@ -372,7 +402,16 @@ describe('PostGameReport', () => {
         placedDepartments: new Set(['antioquia']),
         attempts: 5, // Lower accuracy
         activeDepartments: [
-          { id: 'antioquia', name: 'Antioquia', region: 'Andina', capital: 'Medellín' },
+          {
+            id: 'antioquia',
+            name: 'Antioquia',
+            region: 'Andina',
+            capital: 'Medellín',
+            area: 63612,
+            population: 6677930,
+            trivia: 'Test trivia',
+            coordinates: { lat: 7.0, lng: -75.5 },
+          },
         ],
       });
       mockUseGame.mockReturnValue(gameStore.getState());

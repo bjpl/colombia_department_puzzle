@@ -10,7 +10,7 @@
  * @vitest-environment jsdom
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 
 describe('Mobile Performance', () => {
   describe('Animation Performance', () => {
@@ -21,21 +21,16 @@ describe('Mobile Performance', () => {
       const frameDuration = 1000 / targetFPS; // 16.666...ms per frame
       const totalFrames = 60;
       let frameCount = 0;
-      let startTime = 0;
-      let animationId: number;
 
-      const animate = (currentTime: number) => {
-        if (frameCount === 0) {
-          startTime = currentTime;
-        }
+      const animate = (_currentTime: number) => {
         frameCount++;
 
         if (frameCount < totalFrames) {
-          animationId = requestAnimationFrame(animate);
+          requestAnimationFrame(animate);
         }
       };
 
-      animationId = requestAnimationFrame(animate);
+      requestAnimationFrame(animate);
 
       // Simulate 60 frames at 16.67ms each (1 second total)
       for (let i = 0; i < totalFrames; i++) {

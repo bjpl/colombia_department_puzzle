@@ -15,12 +15,6 @@ export type SoundType =
   | 'levelUp'
   | 'star';
 
-interface SoundConfig {
-  url: string;
-  volume?: number;
-  loop?: boolean;
-}
-
 class SoundManager {
   private static instance: SoundManager;
   private audioContext: AudioContext | null = null;

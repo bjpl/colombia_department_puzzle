@@ -5,6 +5,7 @@ export interface UserProfile {
   name: string;
   createdAt: number;
   stats: PlayerStats;
+  supabaseUserId?: string; // Optional Supabase user ID for cloud sync
 }
 
 export interface PlayerStats {

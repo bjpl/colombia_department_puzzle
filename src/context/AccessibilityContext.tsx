@@ -1,10 +1,6 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import {
-  ColorblindMode,
-  ACCESSIBLE_REGION_COLORS,
-  COLORBLIND_PALETTES,
-  getAccessibleRegionColor
-} from '../design-system/themes/regions';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { ColorblindMode } from '../design-system/themes/accessibility';
+import { getAccessibleRegionColor } from '../design-system/themes/regions';
 
 interface AccessibilityContextType {
   colorMode: ColorblindMode;
@@ -60,7 +56,7 @@ export function AccessibilityProvider({ children }: AccessibilityProviderProps) 
   };
 
   // Get appropriate text color based on background
-  const getTextColor = (background: string): string => {
+  const getTextColor = (_background: string): string => {
     // All our WCAG AAA colors have been tested to work with white text
     // They all have at least 7:1 contrast ratio with white
     return '#FFFFFF';

@@ -7,6 +7,11 @@
  * - Material Design: 48×48dp (we use 44 for iOS consistency)
  */
 
+// Import from responsive.ts for internal use
+// Use these for all responsive layout decisions
+import { BREAKPOINTS as RESPONSIVE_BREAKPOINTS } from './responsive';
+export { getViewportCategory } from './responsive';
+
 /**
  * Responsive breakpoints
  * NOTE: For responsive layout breakpoints, use BREAKPOINTS from './responsive.ts'
@@ -20,10 +25,6 @@ export const TAILWIND_BREAKPOINTS = {
   xl: 1280,  // Extra large devices (1280px and up)
   '2xl': 1536, // 2X Extra large devices (1536px and up)
 } as const;
-
-// Re-export from responsive.ts for backwards compatibility
-// Use these for all responsive layout decisions
-export { BREAKPOINTS, isMobileViewport, isTabletViewport, isDesktopViewport, getViewportCategory } from './responsive';
 
 /**
  * Touch target standards
@@ -193,17 +194,22 @@ export const Z_INDEX = {
 
 /**
  * Mobile viewport detection utilities
+ * Uses RESPONSIVE_BREAKPOINTS from responsive.ts for consistency
  */
 export const isMobileViewport = (): boolean => {
-  return window.innerWidth < BREAKPOINTS.md;
+  if (typeof window === 'undefined') return false;
+  return window.innerWidth <= RESPONSIVE_BREAKPOINTS.mobile.max;
 };
 
 export const isTabletViewport = (): boolean => {
-  return window.innerWidth >= BREAKPOINTS.md && window.innerWidth < BREAKPOINTS.lg;
+  if (typeof window === 'undefined') return false;
+  const width = window.innerWidth;
+  return width >= RESPONSIVE_BREAKPOINTS.tablet.min && width <= RESPONSIVE_BREAKPOINTS.tablet.max;
 };
 
 export const isDesktopViewport = (): boolean => {
-  return window.innerWidth >= BREAKPOINTS.lg;
+  if (typeof window === 'undefined') return false;
+  return window.innerWidth >= RESPONSIVE_BREAKPOINTS.desktop.min;
 };
 
 /**

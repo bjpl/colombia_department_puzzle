@@ -34,8 +34,9 @@ export interface StudyModeState {
 // Spaced repetition algorithm constants
 const EASE_FACTOR_MIN = 1.3;
 const EASE_FACTOR_MAX = 2.5;
-const INITIAL_EASE_FACTOR = 2.5;
-const INITIAL_INTERVAL = 1; // days
+// Spaced repetition initial values (reserved for future initialization logic)
+// const _INITIAL_EASE_FACTOR = 2.5;
+// const _INITIAL_INTERVAL = 1; // days
 
 export const useStudyMode = () => {
   const [state, setState] = useState<StudyModeState>({

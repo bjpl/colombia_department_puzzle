@@ -12,10 +12,9 @@
  */
 
 import React, { ReactNode, useState, useEffect, useCallback } from 'react';
-import { useTouchGestures, GestureType, InputMethod } from '../hooks/useTouchGestures';
-import { prefersTouchMode, getDeviceCapabilities } from '../utils/deviceDetection';
+import { useTouchGestures, InputMethod } from '../hooks/useTouchGestures';
+import { prefersTouchMode } from '../utils/deviceDetection';
 import { useGame } from '../context/GameContext';
-import { Department } from '../data/colombiaDepartments';
 
 /**
  * Props for TouchModeAdapter
@@ -77,7 +76,7 @@ export function TouchModeAdapter({
   /**
    * Handle chip tap/click
    */
-  const handleChipInteraction = useCallback((chipId: string, inputMethod: InputMethod) => {
+  const handleChipInteraction = useCallback((chipId: string, _inputMethod: InputMethod) => {
     // Skip if not in touch mode
     if (!isTouchMode || longPressActive) {
       return;

@@ -8,7 +8,7 @@
  * Follows patterns from GameContext.tsx and AccessibilityContext.tsx.
  */
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useState, useEffect, ReactNode } from 'react';
 import { authService } from '../services/auth/AuthService';
 import type { AuthContextType, AuthState } from '../types/auth';
 import type { User, Session } from '@supabase/supabase-js';

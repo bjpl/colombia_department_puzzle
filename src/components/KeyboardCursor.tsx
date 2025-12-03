@@ -1,4 +1,4 @@
-import { Department } from '../types/game';
+import { Department } from '../data/colombiaDepartments';
 import {
   spacing, textStyles, shadows, radius
 } from '../design-system';

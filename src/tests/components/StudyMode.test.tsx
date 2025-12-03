@@ -1,6 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import StudyMode from '../../components/StudyMode';
 import { colombiaDepartments } from '../../data/colombiaDepartments';
 import * as storage from '../../services/storage';
@@ -29,7 +28,7 @@ import React from 'react';
 
 // Mock complex child components
 vi.mock('../../components/StudyModeMap', () => ({
-  default: ({ selectedDepartment, onDepartmentClick, departments, studiedDepartments }: any) => (
+  default: ({ selectedDepartment, onDepartmentClick, departments }: any) => (
     <div data-testid="study-mode-map">
       <div data-testid="map-departments-count">{departments.length}</div>
       {selectedDepartment && (
@@ -350,7 +349,6 @@ describe('StudyMode Component', () => {
     it('should mark department as studied when clicked', () => {
       renderWithGameProvider(<StudyMode {...defaultProps} />);
 
-      const valle = colombiaDepartments.find(d => d.name === 'Valle del Cauca')!;
       const deptCard = screen.getAllByText('Valle del Cauca')[0];
 
       fireEvent.click(deptCard);
@@ -813,7 +811,7 @@ describe('StudyMode Component', () => {
       }
 
       // Clear selection by clicking elsewhere
-      const closeButton = screen.getByText('✕ Cerrar');
+      screen.getByText('✕ Cerrar');
       await waitFor(() => {
         expect(screen.getByText(/Practicar Región Estudiada/)).toBeInTheDocument();
       });

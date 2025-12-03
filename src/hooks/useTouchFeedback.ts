@@ -30,12 +30,12 @@ const DEFAULT_SETTINGS: TouchFeedbackSettings = {
 /**
  * Haptic feedback patterns
  */
-const HAPTIC_PATTERNS = {
+const HAPTIC_PATTERNS: Record<FeedbackType, number | number[]> = {
   tap: 10,                    // Light tap (10ms)
   success: [20, 10, 20],      // Success pattern (vibrate-pause-vibrate)
   error: 50,                  // Error buzz (50ms)
   disabled: 0,                // No vibration
-} as const;
+};
 
 /**
  * Check if haptics are supported
@@ -54,7 +54,8 @@ function triggerHaptic(type: FeedbackType): void {
   if (pattern === 0) return;
 
   try {
-    navigator.vibrate(pattern);
+    // Cast to VibratePattern type (number | number[]) for navigator.vibrate
+    navigator.vibrate(pattern as VibratePattern);
   } catch (error) {
     console.warn('Haptic feedback failed:', error);
   }

@@ -14,16 +14,6 @@ console.warn('[DEPRECATED] src/constants/regionColors.ts is deprecated. Use src/
 
 import { ACCESSIBLE_REGION_COLORS } from './accessibleColorsFixed';
 
-// Legacy colors (for reference - DO NOT USE)
-const LEGACY_COLORS = {
-  'Andina': 'lime-400', // Old: Lime Green (poor contrast)
-  'Caribe': 'blue-300', // Old: Light Blue (poor contrast)
-  'Pacífico': 'purple-200', // Old: Light Purple (very poor contrast)
-  'Orinoquía': 'yellow-300', // Old: Yellow (fails WCAG)
-  'Amazonía': 'green-300', // Old: Light Green (poor contrast)
-  'Insular': 'cyan-300', // Old: Cyan (poor contrast)
-};
-
 // Modern beautiful color mapping - WCAG AAA compliant
 export const REGION_COLORS: Record<string, string> = {
   'Andina': ACCESSIBLE_REGION_COLORS['Andina'].primary,      // Forest green

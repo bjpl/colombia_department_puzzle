@@ -34,12 +34,12 @@ export interface AuthButtonProps {
 export default function AuthButton({
   user,
   isLoading = false,
-  onLogin,
-  onSignup,
-  onMagicLink,
-  onOAuthGoogle,
-  onOAuthGithub,
-  onForgotPassword,
+  onLogin: _onLogin,
+  onSignup: _onSignup,
+  onMagicLink: _onMagicLink,
+  onOAuthGoogle: _onOAuthGoogle,
+  onOAuthGithub: _onOAuthGithub,
+  onForgotPassword: _onForgotPassword,
   onProfileClick,
   className,
   variant = 'default',
@@ -49,11 +49,6 @@ export default function AuthButton({
 
   function handleOpenLogin() {
     setInitialTab('login');
-    setShowAuthModal(true);
-  }
-
-  function handleOpenSignup() {
-    setInitialTab('signup');
     setShowAuthModal(true);
   }
 
@@ -129,12 +124,6 @@ export default function AuthButton({
         open={showAuthModal}
         onOpenChange={setShowAuthModal}
         initialTab={initialTab}
-        onLogin={onLogin}
-        onSignup={onSignup}
-        onMagicLink={onMagicLink}
-        onOAuthGoogle={onOAuthGoogle}
-        onOAuthGithub={onOAuthGithub}
-        onForgotPassword={onForgotPassword}
       />
     </>
   );

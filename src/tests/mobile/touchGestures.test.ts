@@ -306,7 +306,7 @@ describe('Touch Gesture System', () => {
       });
 
       // This should be prevented by the touch event preventDefault
-      const mouseDispatched = testElement.dispatchEvent(mouseEvent);
+      testElement.dispatchEvent(mouseEvent);
 
       // Should only count the touch event, not both
       expect(eventCount).toBe(1);

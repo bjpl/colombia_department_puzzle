@@ -5,10 +5,10 @@
  * Verifies touch handling, accessibility, and spring physics animations.
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import BottomSheet, { SnapPoint } from '../../components/BottomSheet';
+import BottomSheet from '../../components/BottomSheet';
 import { BOTTOM_SHEET_SNAP_POINTS, MOBILE_LAYOUT } from '../../constants/responsive';
 
 describe('BottomSheet', () => {
@@ -484,8 +484,7 @@ describe('BottomSheet', () => {
         </BottomSheet>
       );
 
-      const dragHandle = screen.getByRole('button', { name: /Desliza/i });
-      const style = window.getComputedStyle(dragHandle.parentElement!);
+      screen.getByRole('button', { name: /Desliza/i });
 
       // Check that drag handle area meets WCAG AAA guidelines
       expect(MOBILE_LAYOUT.dragHandleHeight).toBe(44);
@@ -584,7 +583,7 @@ describe('BottomSheet', () => {
       onSnapChange.mockClear();
 
       // Simulate state change by rerendering
-      const { rerender } = render(
+      render(
         <BottomSheet initialSnapPoint="half" onSnapChange={onSnapChange}>
           <div>Content</div>
         </BottomSheet>

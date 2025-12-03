@@ -6,12 +6,14 @@ import { cn } from '../utils/cn';
  */
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'success' | 'warning' | 'error' | 'info';
+  variant?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
   size?: 'sm' | 'md' | 'lg';
 }
 
 const badgeVariants = {
   default: 'bg-gray-100 text-gray-700 border-gray-200',
+  primary: 'bg-sky-100 text-sky-700 border-sky-200',
+  secondary: 'bg-gray-50 text-gray-600 border-gray-200',
   success: 'bg-success-100 text-success-700 border-success-200',
   warning: 'bg-warning-100 text-warning-700 border-warning-200',
   error: 'bg-error-100 text-error-700 border-error-200',

@@ -394,6 +394,10 @@ describe('GameHeader', () => {
           name: `Dept ${i}`,
           region: 'Andina',
           capital: 'City',
+          area: 1000,
+          population: 100000,
+          trivia: 'Test trivia',
+          coordinates: { lat: 4.0, lng: -74.0 },
         })),
       });
 
@@ -409,6 +413,10 @@ describe('GameHeader', () => {
         name: `Dept ${i}`,
         region: 'Andina',
         capital: 'City',
+        area: 1000,
+        population: 100000,
+        trivia: 'Test trivia',
+        coordinates: { lat: 4.0, lng: -74.0 },
       }));
 
       const store = createMockGameStore({

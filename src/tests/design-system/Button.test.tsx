@@ -127,7 +127,7 @@ describe('Button', () => {
         </Button>
       );
 
-      const button = screen.getByRole('button');
+      screen.getByRole('button');
       const icon = screen.getByTestId('star-icon');
 
       expect(icon).toBeInTheDocument();

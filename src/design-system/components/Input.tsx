@@ -22,8 +22,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     type,
     ...props
   }, ref) => {
-    const hasIcons = leftIcon || rightIcon;
-
     return (
       <div className={cn('relative', fullWidth && 'w-full')}>
         {leftIcon && (

@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  Button, colors, spacing, shadows
-} from '../design-system';
+import { Button } from '../design-system';
 
 interface ScrollIndicatorProps {
   containerId: string;

@@ -9,7 +9,7 @@
  * - Integrates with useTouchFeedback hook
  */
 
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { useTouchFeedback, FeedbackType } from '../hooks/useTouchFeedback';
 
 interface RippleEffect {
@@ -45,7 +45,7 @@ export function TouchFeedback({
 }: TouchFeedbackProps) {
   const [ripples, setRipples] = useState<RippleEffect[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { trigger, settings } = useTouchFeedback();
+  const { trigger } = useTouchFeedback();
 
   /**
    * Create ripple effect at touch/click position

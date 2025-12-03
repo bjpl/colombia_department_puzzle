@@ -10,7 +10,7 @@
  * @vitest-environment jsdom
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Mock Service Worker API
 class MockServiceWorkerRegistration {
@@ -162,7 +162,6 @@ describe('PWA Features', () => {
     });
 
     it('should clean up old caches', async () => {
-      const currentVersion = 'v2';
       const cacheWhitelist = ['app-shell-v2', 'dynamic-v2'];
 
       vi.mocked(caches.keys).mockResolvedValue(['app-shell-v1', 'dynamic-v1', 'app-shell-v2']);
@@ -324,7 +323,6 @@ describe('PWA Features', () => {
     });
 
     it('should show iOS install instructions', () => {
-      const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
       const isInStandaloneMode = (window.navigator as any).standalone === true;
 
       // Mock iOS Safari
