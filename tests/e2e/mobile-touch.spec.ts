@@ -1,14 +1,15 @@
-import { test, expect, devices } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
 /**
  * CONCEPT: Mobile touch interaction E2E test
  * WHY: Validates touch targets and mobile-specific features
- * PATTERN: Device emulation with real browser rendering
+ * PATTERN: Device emulation with Chromium (avoids WebKit install requirement in CI)
  */
 
 test.use({
-  ...devices['iPhone 14 Pro'],
+  viewport: { width: 393, height: 852 }, // iPhone 14 Pro dimensions
   hasTouch: true,
+  isMobile: true,
 });
 
 test.describe('Mobile Touch Interactions', () => {
