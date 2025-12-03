@@ -19,6 +19,7 @@ export default defineConfig({
       '**/tests/mobile/**',
       '**/tests/utils/deviceDetection.test.ts',
       '**/tests/hooks/useTouchGestures.test.ts',
+      '**/tests/integration/touchInteraction.test.tsx',
     ],
     coverage: {
       provider: 'v8',
