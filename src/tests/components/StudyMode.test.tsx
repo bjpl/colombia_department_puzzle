@@ -140,7 +140,8 @@ describe('StudyMode Component', () => {
   describe('Rendering and Initial State', () => {
     it('should render without crashing', () => {
       renderWithGameProvider(<StudyMode {...defaultProps} />);
-      expect(screen.getByText('📚 Modo de Estudio Mejorado')).toBeInTheDocument();
+      // Note: emoji is in separate span with aria-hidden, so search for accessible text only
+      expect(screen.getByText('Modo de Estudio Mejorado')).toBeInTheDocument();
     });
 
     it('should start in explore phase by default', () => {
