@@ -489,7 +489,7 @@ export default function HintModal({ isOpen, onClose, departmentName, region, hin
                     ⚠️ Departamento muy conectado
                   </p>
                   <p className="text-xs text-yellow-700">
-                    Limita con {geoHints.neighbors.length} departamentos
+                    Limita con {geoHints.neighbors?.length ?? 0} departamentos
                   </p>
                 </div>
               )}

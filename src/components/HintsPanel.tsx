@@ -19,7 +19,7 @@ export default function HintsPanel() {
         <CardTitle style={{ fontSize: textStyles.heading.h3.fontSize[0], fontWeight: textStyles.heading.h3.fontWeight }}>
           💡 Pistas Progresivas
         </CardTitle>
-        <Badge variant="secondary" style={{ marginLeft: 'auto', fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>
+        <Badge variant="default" style={{ marginLeft: 'auto', fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary }}>
           Puntos: {game.score}
         </Badge>
       </CardHeader>
@@ -33,7 +33,7 @@ export default function HintsPanel() {
           style={{
             width: '100%',
             padding: spacing[3],
-            border: `2px solid ${game.score >= hints.HINT_COSTS.region && !hints.activeHint ? colors.success : colors.gray[300]}`,
+            border: `2px solid ${game.score >= hints.HINT_COSTS.region && !hints.activeHint ? colors.success[500] : colors.gray[300]}`,
             backgroundColor: game.score >= hints.HINT_COSTS.region && !hints.activeHint ? 'rgb(240 253 244)' : colors.gray[50],
             cursor: game.score >= hints.HINT_COSTS.region && !hints.activeHint ? 'pointer' : 'not-allowed',
             opacity: game.score >= hints.HINT_COSTS.region && !hints.activeHint ? 1 : 0.6,
@@ -48,7 +48,7 @@ export default function HintsPanel() {
               </div>
             </div>
             <div>
-              <Badge variant="secondary" style={{ fontSize: textStyles.body.small.fontSize[0], fontWeight: 'bold', color: colors.success }}>
+              <Badge variant="default" style={{ fontSize: textStyles.body.small.fontSize[0], fontWeight: 'bold', color: colors.success[600] }}>
                 -{hints.HINT_COSTS.region} pts
               </Badge>
             </div>
@@ -63,7 +63,7 @@ export default function HintsPanel() {
           style={{
             width: '100%',
             padding: spacing[3],
-            border: `2px solid ${game.score >= hints.HINT_COSTS.letter && !hints.activeHint ? colors.warning : colors.gray[300]}`,
+            border: `2px solid ${game.score >= hints.HINT_COSTS.letter && !hints.activeHint ? colors.warning[500] : colors.gray[300]}`,
             backgroundColor: game.score >= hints.HINT_COSTS.letter && !hints.activeHint ? 'rgb(254 252 232)' : colors.gray[50],
             cursor: game.score >= hints.HINT_COSTS.letter && !hints.activeHint ? 'pointer' : 'not-allowed',
             opacity: game.score >= hints.HINT_COSTS.letter && !hints.activeHint ? 1 : 0.6,
@@ -78,7 +78,7 @@ export default function HintsPanel() {
               </div>
             </div>
             <div>
-              <Badge variant="secondary" style={{ fontSize: textStyles.body.small.fontSize[0], fontWeight: 'bold', color: colors.warning }}>
+              <Badge variant="default" style={{ fontSize: textStyles.body.small.fontSize[0], fontWeight: 'bold', color: colors.warning[600] }}>
                 -{hints.HINT_COSTS.letter} pts
               </Badge>
             </div>
@@ -93,7 +93,7 @@ export default function HintsPanel() {
           style={{
             width: '100%',
             padding: spacing[3],
-            border: `2px solid ${game.score >= hints.HINT_COSTS.flash && !hints.activeHint ? colors.error : colors.gray[300]}`,
+            border: `2px solid ${game.score >= hints.HINT_COSTS.flash && !hints.activeHint ? colors.error[500] : colors.gray[300]}`,
             backgroundColor: game.score >= hints.HINT_COSTS.flash && !hints.activeHint ? '#fef2f2' : colors.gray[50],
             cursor: game.score >= hints.HINT_COSTS.flash && !hints.activeHint ? 'pointer' : 'not-allowed',
             opacity: game.score >= hints.HINT_COSTS.flash && !hints.activeHint ? 1 : 0.6,
@@ -108,7 +108,7 @@ export default function HintsPanel() {
               </div>
             </div>
             <div>
-              <Badge variant="secondary" style={{ fontSize: textStyles.body.small.fontSize[0], fontWeight: 'bold', color: colors.error }}>
+              <Badge variant="default" style={{ fontSize: textStyles.body.small.fontSize[0], fontWeight: 'bold', color: colors.error[600] }}>
                 -{hints.HINT_COSTS.flash} pts
               </Badge>
             </div>
@@ -129,7 +129,7 @@ export default function HintsPanel() {
 
       {/* First Letter Display */}
       {hints.showFirstLetter && game.currentDepartment && (
-        <Card variant="default" style={{ marginTop: spacing[3], padding: spacing[3], backgroundColor: '#fefce8', border: `2px solid ${colors.warning}` }}>
+        <Card variant="default" style={{ marginTop: spacing[3], padding: spacing[3], backgroundColor: '#fefce8', border: `2px solid ${colors.warning[500]}` }}>
           <div style={{ textAlign: 'center' }}>
             <div style={{ fontSize: textStyles.heading.xlarge.fontSize[0], fontWeight: 'bold', color: '#a16207' }}>
               {game.currentDepartment.name[0]}...

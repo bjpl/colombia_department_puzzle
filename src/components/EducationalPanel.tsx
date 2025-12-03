@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useGameHints, useCurrentDepartment, useAttempts, usePlacedDepartments, useGameActions } from '../context/GameContext';
+import { useGameHints, useCurrentDepartment, useAttempts, usePlacedDepartments, useGameActions, useActiveDepartments } from '../context/GameContext';
 import HintModal from './HintModal';
 import {
   Button, Card, CardTitle, CardContent, Badge,
@@ -17,6 +17,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
   const attempts = useAttempts();
   const placedDepartments = usePlacedDepartments();
   const { consumeHint, clearCurrentDepartment } = useGameActions();
+  const activeDepartments = useActiveDepartments();
 
   const [showHintModal, setShowHintModal] = useState(false);
   const [currentHintLevel, setCurrentHintLevel] = useState(1);
@@ -155,7 +156,7 @@ export default function EducationalPanel({ compact = false }: EducationalPanelPr
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Restantes:</span>
             <Badge variant="default" style={{ fontWeight: 'bold', color: colors.brand[600] }}>
-              {game.departments.length - game.placedDepartments.size}
+              {activeDepartments.length - placedDepartments.size}
             </Badge>
           </div>
         </CardContent>

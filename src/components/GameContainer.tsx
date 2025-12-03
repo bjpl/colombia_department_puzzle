@@ -437,7 +437,12 @@ export default function GameContainer() {
             onClose={() => safeCloseModal()}
             userStats={{
               unlockedRegions: new Set(['Insular', 'Pacífica', 'Orinoquía', 'Amazonía', 'Caribe', 'Andina']),
-              regionProgress: game.regionProgress,
+              regionProgress: new Map(
+                Array.from(game.regionProgress.entries()).map(([key, value]) => [
+                  key,
+                  { stars: value.stars, bestTime: value.bestTime, attempts: value.attemptCount }
+                ])
+              ),
               totalStars: game.totalStars
             }}
           />

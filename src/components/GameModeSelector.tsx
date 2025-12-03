@@ -66,7 +66,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
   };
 
   return (
-    <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50 p-4" style={{ backgroundColor: colors.overlay }}>
+    <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50 p-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
       <Card variant="default" className="w-full max-w-[95vw] sm:max-w-md md:max-w-2xl lg:max-w-4xl max-h-[90vh] overflow-auto transition-all">
         <CardContent className="p-8">
           <div className="flex justify-between items-start mb-6">
@@ -103,7 +103,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                     Todos los 33 departamentos de una vez. ¡El desafío completo!
                   </p>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: spacing[2] }}>
-                    <Badge variant="secondary" className="bg-sky-100 text-sky-800">33 departamentos</Badge>
+                    <Badge variant="default" className="bg-sky-100 text-sky-800">33 departamentos</Badge>
                   </div>
                 </Card>
               </Button>
@@ -121,12 +121,12 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                     Elige regiones específicas para practicar paso a paso.
                   </p>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: spacing[2] }}>
-                    <Badge variant="secondary" className="bg-green-100 text-green-800">1-10 departamentos</Badge>
+                    <Badge variant="default" className="bg-green-100 text-green-800">1-10 departamentos</Badge>
                   </div>
                 </Card>
                 <Badge
-                  variant="primary"
-                  style={{ position: 'absolute', top: '-8px', right: '-8px', backgroundColor: colors.warning, fontSize: textStyles.body.small.fontSize[0], fontWeight: 'bold' }}
+                  variant="warning"
+                  style={{ position: 'absolute', top: '-8px', right: '-8px', backgroundColor: colors.warning[500], fontSize: textStyles.body.small.fontSize[0], fontWeight: 'bold' }}
                 >
                   Recomendado
                 </Badge>
@@ -145,7 +145,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                     Aprende primero, luego practica. Ideal para principiantes.
                   </p>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: spacing[2] }}>
-                    <Badge variant="secondary" className="bg-violet-100 text-violet-800">Aprendizaje</Badge>
+                    <Badge variant="default" className="bg-violet-100 text-violet-800">Aprendizaje</Badge>
                   </div>
                 </Card>
               </Button>
@@ -183,8 +183,8 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                         borderRadius: radius.lg,
                         padding: spacing[4],
                         paddingTop: spacing[3],
-                        border: `2px solid ${isSelected ? colors.brand[500] : colors.border}`,
-                        backgroundColor: isSelected ? colors.brand[50] : colors.background,
+                        border: `2px solid ${isSelected ? colors.brand[500] : colors.gray[200]}`,
+                        backgroundColor: isSelected ? colors.brand[50] : 'white',
                         transition: 'all 0.2s',
                         transform: isSelected ? 'scale(1.05)' : 'scale(1)',
                         height: 'auto',
@@ -227,7 +227,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
 
                       <div className="flex items-center justify-between" style={{ marginTop: 'auto' }}>
                         <Badge
-                          variant="secondary"
+                          variant="default"
                           style={{
                             fontSize: textStyles.body.small.fontSize[0],
                             padding: `${spacing[1]} ${spacing[2]}`,
@@ -254,7 +254,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                                 key={star}
                                 style={{
                                   fontSize: textStyles.heading.h4.fontSize[0],
-                                  color: star <= progress.stars ? colors.warning : colors.text.disabled
+                                  color: star <= progress.stars ? colors.warning[500] : colors.gray[400]
                                 }}
                               >
                                 ⭐
@@ -301,8 +301,8 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                   onClick={confirmRegionSelection}
                   disabled={selectedRegions.size === 0}
                   style={{
-                    background: selectedRegions.size > 0 ? 'linear-gradient(to right, rgb(14 165 233), rgb(16 185 129))' : colors.background,
-                    color: selectedRegions.size > 0 ? colors.text.primary : colors.text.disabled,
+                    background: selectedRegions.size > 0 ? 'linear-gradient(to right, rgb(14 165 233), rgb(16 185 129))' : 'white',
+                    color: selectedRegions.size > 0 ? colors.text.primary : colors.gray[400],
                     fontWeight: 'bold',
                     cursor: selectedRegions.size === 0 ? 'not-allowed' : 'pointer'
                   }}

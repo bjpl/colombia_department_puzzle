@@ -63,7 +63,7 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
 
   const getModeDisplay = () => {
     if (game.gameMode.type === 'full') return 'Colombia Completa';
-    if (game.gameMode.type === 'progression') return 'Modo Aprendizaje';
+    if (game.gameMode.type === 'study') return 'Modo Estudio';
     if (game.gameMode.type === 'region' && game.gameMode.selectedRegions) {
       const regions = game.gameMode.selectedRegions.join(', ');
       return regions;
