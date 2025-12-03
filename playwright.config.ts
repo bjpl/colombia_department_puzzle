@@ -28,8 +28,8 @@ export default defineConfig({
 
   // Shared settings for all projects
   use: {
-    // Base URL for tests
-    baseURL: 'http://localhost:3000',
+    // Base URL for tests - use preview port in CI, dev port locally
+    baseURL: process.env.CI ? 'http://localhost:4173' : 'http://localhost:3000',
 
     // Collect trace on first retry
     trace: 'on-first-retry',
@@ -60,10 +60,11 @@ export default defineConfig({
   ],
 
   // Run dev server before starting tests
+  // In CI, use preview server (port 4173) after build; locally use dev server (port 3000)
   webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
-    reuseExistingServer: true, // Reuse existing dev server
+    command: process.env.CI ? 'npm run preview' : 'npm run dev',
+    url: process.env.CI ? 'http://localhost:4173' : 'http://localhost:3000',
+    reuseExistingServer: !process.env.CI, // Only reuse locally, not in CI
     timeout: 120 * 1000,
   },
 });
