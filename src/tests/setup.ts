@@ -212,8 +212,8 @@ afterAll(() => {
   vi.restoreAllMocks();
 });
 
-// Mock localStorage
-const localStorageMock = (() => {
+// Mock localStorage - use Object.defineProperty since jsdom's localStorage is read-only
+const createLocalStorageMock = () => {
   let store: Record<string, string> = {};
 
   return {
@@ -227,10 +227,30 @@ const localStorageMock = (() => {
     clear: () => {
       store = {};
     },
+    get length() {
+      return Object.keys(store).length;
+    },
+    key: (index: number) => Object.keys(store)[index] || null,
   };
-})();
+};
 
-global.localStorage = localStorageMock as Storage;
+// Only mock if needed (jsdom provides localStorage but we may need to reset it)
+const localStorageMock = createLocalStorageMock();
+
+// Use Object.defineProperty to avoid "Cannot assign to read only property" error
+try {
+  Object.defineProperty(global, 'localStorage', {
+    value: localStorageMock,
+    writable: true,
+    configurable: true,
+  });
+} catch {
+  // If global.localStorage is already defined and not configurable,
+  // just replace the methods on the existing object
+  if (typeof localStorage !== 'undefined') {
+    Object.assign(localStorage, localStorageMock);
+  }
+}
 
 // Mock window.matchMedia - must be set before any imports use it
 const matchMediaMock = vi.fn().mockImplementation((query: string) => ({
