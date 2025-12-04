@@ -31,9 +31,7 @@ export default defineConfig({
       '**/tests/services/auth/**',
       '**/tests/components/auth/**',
       // TODO: Mobile tests need DOM/viewport mocks for CI headless environment
-      '**/tests/mobile/**',
-      '**/tests/utils/deviceDetection.test.ts',
-      '**/tests/hooks/useTouchGestures.test.ts',
+      // NOTE: deviceDetection and touchGestures re-enabled - have self-contained mocks
       '**/tests/integration/touchInteraction.test.tsx',
       // TODO: Zustand hooks require proper React context wrapper in CI
       '**/tests/hooks/useEnhancedKeyboardNavigation.test.tsx',
