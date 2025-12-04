@@ -350,36 +350,36 @@ describe('deviceDetection', () => {
   });
 
   describe('breakpoint consistency', () => {
-    it('should use mobile < 768px breakpoint', () => {
+    it('should use mobile <= 1023px breakpoint', () => {
       mockMatchMedia({ '(pointer: coarse)': true });
 
-      mockWindowDimensions(767);
+      mockWindowDimensions(1023);
       expect(getDeviceCapabilities().isMobile).toBe(true);
 
-      mockWindowDimensions(768);
+      mockWindowDimensions(1024);
       expect(getDeviceCapabilities().isMobile).toBe(false);
     });
 
-    it('should use tablet 768-1023px breakpoint', () => {
+    it('should use tablet 1024-1279px breakpoint', () => {
       mockMatchMedia({ '(pointer: coarse)': true });
 
-      mockWindowDimensions(768);
-      expect(getDeviceCapabilities().isTablet).toBe(true);
-
-      mockWindowDimensions(1023);
-      expect(getDeviceCapabilities().isTablet).toBe(true);
-
       mockWindowDimensions(1024);
+      expect(getDeviceCapabilities().isTablet).toBe(true);
+
+      mockWindowDimensions(1279);
+      expect(getDeviceCapabilities().isTablet).toBe(true);
+
+      mockWindowDimensions(1280);
       expect(getDeviceCapabilities().isTablet).toBe(false);
     });
 
-    it('should use desktop >= 1024px breakpoint', () => {
+    it('should use desktop >= 1280px breakpoint', () => {
       mockMatchMedia({ '(pointer: fine)': true });
 
-      mockWindowDimensions(1023);
+      mockWindowDimensions(1279);
       expect(getDeviceCapabilities().isDesktop).toBe(false);
 
-      mockWindowDimensions(1024);
+      mockWindowDimensions(1280);
       expect(getDeviceCapabilities().isDesktop).toBe(true);
     });
   });

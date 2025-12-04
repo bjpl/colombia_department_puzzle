@@ -3,8 +3,8 @@
  * Tests for accessibility settings panel and keyboard shortcuts
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { render, screen, waitFor, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import AccessibilitySettings from '../../components/AccessibilitySettings';
 import { AccessibilityProvider } from '../../context/AccessibilityContext';
@@ -17,6 +17,19 @@ vi.mock('react-dom', async () => {
     createPortal: (children: any) => children,
   };
 });
+
+// Mock useTouchFeedback to avoid potential issues with navigator.vibrate
+vi.mock('../../hooks/useTouchFeedback', () => ({
+  useTouchFeedback: () => ({
+    settings: {
+      hapticsEnabled: false,
+      audioEnabled: false,
+    },
+    toggleHaptics: vi.fn(),
+    toggleAudio: vi.fn(),
+    isHapticsSupported: false,
+  }),
+}));
 
 describe('AccessibilitySettings', () => {
   // Helper to render with real AccessibilityProvider
@@ -31,6 +44,11 @@ describe('AccessibilitySettings', () => {
   beforeEach(() => {
     // Clear localStorage before each test
     localStorage.clear();
+  });
+
+  afterEach(() => {
+    // Clean up DOM and remove all event listeners
+    cleanup();
   });
 
   describe('Button Rendering', () => {
