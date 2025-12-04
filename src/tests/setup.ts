@@ -2,9 +2,48 @@ import { afterEach, vi, beforeEach, afterAll } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 
+// CI Environment Detection
+const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
+
 // Ensure window is defined for jsdom environment
 if (typeof window === 'undefined') {
   (global as Record<string, unknown>).window = {};
+}
+
+// Mock ResizeObserver for CI headless environment
+if (typeof ResizeObserver === 'undefined') {
+  global.ResizeObserver = class ResizeObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+}
+
+// Mock IntersectionObserver for CI headless environment
+if (typeof IntersectionObserver === 'undefined') {
+  global.IntersectionObserver = class IntersectionObserver {
+    constructor() {}
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+    root = null;
+    rootMargin = '';
+    thresholds = [];
+    takeRecords() { return []; }
+  } as unknown as typeof IntersectionObserver;
+}
+
+// Mock window.scrollTo for CI headless environment
+if (typeof window !== 'undefined' && !window.scrollTo) {
+  window.scrollTo = vi.fn();
+}
+
+// Mock requestAnimationFrame for CI headless environment
+if (typeof requestAnimationFrame === 'undefined') {
+  global.requestAnimationFrame = (cb: FrameRequestCallback) => {
+    return setTimeout(() => cb(Date.now()), 16);
+  };
+  global.cancelAnimationFrame = (id: number) => clearTimeout(id);
 }
 
 // Cleanup after each test
