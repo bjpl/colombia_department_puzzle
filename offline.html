@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#3b82f6">
+    <title>Sin Conexión - Colombia Puzzle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #FCD116 0%, #003893 50%, #CE1126 100%);
+            color: #1a1a2e;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #003893;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .retry-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #3b82f6;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        .retry-btn:hover {
+            background: #2563eb;
+        }
+
+        .retry-btn:active {
+            transform: scale(0.98);
+        }
+
+        .retry-btn:focus {
+            outline: 3px solid #93c5fd;
+            outline-offset: 2px;
+        }
+
+        .tips {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        .tips h2 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #718096;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tips ul {
+            list-style: none;
+            font-size: 0.875rem;
+            color: #4a5568;
+        }
+
+        .tips li {
+            padding: 0.25rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .tips li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+        }
+
+        .footer {
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            color: #a0aec0;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .retry-btn {
+                transition: none;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            .container {
+                background: rgba(26, 32, 44, 0.95);
+            }
+
+            h1 {
+                color: #90cdf4;
+            }
+
+            p, .tips ul {
+                color: #cbd5e0;
+            }
+
+            .tips h2 {
+                color: #a0aec0;
+            }
+
+            .tips {
+                border-top-color: #4a5568;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="container" role="main" aria-labelledby="offline-title">
+        <div class="icon" aria-hidden="true">📡</div>
+        <h1 id="offline-title">Sin Conexión a Internet</h1>
+        <p>
+            Parece que no tienes conexión a internet.
+            El juego necesita conexión para cargar los datos del mapa de Colombia.
+        </p>
+
+        <button class="retry-btn" onclick="window.location.reload()" aria-label="Reintentar conexión">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M1 4v6h6"></path>
+                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+            </svg>
+            Reintentar
+        </button>
+
+        <div class="tips">
+            <h2>Mientras tanto</h2>
+            <ul>
+                <li>Verifica tu conexión WiFi o datos móviles</li>
+                <li>Intenta moverte a un área con mejor señal</li>
+                <li>Si usaste el juego antes, los datos pueden cargarse del caché</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            Rompecabezas de Departamentos de Colombia
+        </div>
+    </main>
+
+    <script>
+        // Auto-retry when online
+        window.addEventListener('online', () => {
+            window.location.reload();
+        });
+
+        // Check if we're actually offline or just couldn't load
+        if (navigator.onLine) {
+            // We have network but couldn't load - might be server issue
+            document.querySelector('p').textContent =
+                'Hubo un problema al cargar el juego. Por favor, intenta de nuevo.';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Colombia Flag Colors Background -->
+  <rect width="512" height="256" fill="#FCD116"/>
+  <rect y="256" width="512" height="128" fill="#003893"/>
+  <rect y="384" width="512" height="128" fill="#CE1126"/>
+
+  <!-- Puzzle Piece Overlay -->
+  <g transform="translate(80, 80)">
+    <!-- Main puzzle piece shape - larger version -->
+    <path d="M50 0 h252 v80 c0 32 54 32 54 0 v-80 h0 v352 h-80 c-32 0 -32 -54 0 -54 h80 v0 h-352 v-80 c0 -32 -54 -32 -54 0 v80 h0 v-352 h80 c32 0 32 54 0 54 h-80 z"
+          fill="white"
+          fill-opacity="0.92"
+          stroke="#003893"
+          stroke-width="6"/>
+
+    <!-- Colombia map silhouette -->
+    <path d="M176 60 c-45 15 -75 45 -90 90 c-9 30 0 60 15 84 c15 24 36 45 66 54 c30 9 66 6 96 -9 c30 -15 54 -42 66 -75 c12 -33 6 -72 -15 -99 c-21 -27 -54 -45 -90 -48 c-18 0 -33 3 -48 3 z"
+          fill="#003893"
+          fill-opacity="0.85"/>
+
+    <!-- Decorative stars (like Colombian shield) -->
+    <circle cx="176" cy="150" r="8" fill="#FCD116"/>
+    <circle cx="150" cy="180" r="6" fill="#FCD116"/>
+    <circle cx="202" cy="180" r="6" fill="#FCD116"/>
+  </g>
+
+  <!-- Text -->
+  <text x="256" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white">
+    COLOMBIA PUZZLE
+  </text>
+</svg>
