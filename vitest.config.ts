@@ -8,6 +8,21 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/tests/setup.ts',
+    // Performance optimization: parallel test execution
+    pool: 'threads',
+    poolOptions: {
+      threads: {
+        singleThread: false,
+        minThreads: 2,
+        maxThreads: 4,
+      },
+    },
+    // Faster test isolation
+    isolate: true,
+    // Cache for faster reruns
+    cache: {
+      dir: 'node_modules/.vitest',
+    },
     exclude: [
       '**/node_modules/**',
       '**/dist/**',

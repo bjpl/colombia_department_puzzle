@@ -9,6 +9,8 @@
     "build:analyze": "vite build && node scripts/optimize-build.js && du -sh dist",
     "preview": "vite preview",
     "test": "vitest",
+    "test:fast": "vitest run --reporter=dot --pool=threads",
+    "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
