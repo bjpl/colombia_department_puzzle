@@ -1,0 +1,145 @@
+{
+  "total_sprints": 4,
+  "duration_weeks": 8,
+  "total_effort_hours": 205,
+  "total_effort_with_buffer_hours": 247,
+  "buffer_percentage": 20,
+  "sprints": [
+    {
+      "sprint": 1,
+      "name": "Foundation",
+      "weeks": "1-2",
+      "days": "1-9",
+      "goal": "Establish stable TypeScript foundation and critical test coverage",
+      "milestones": [
+        {
+          "id": "M1",
+          "name": "TypeScript Stability",
+          "days": "1-2",
+          "hours": 6
+        },
+        {
+          "id": "M2",
+          "name": "Auth Tests",
+          "days": "3-4",
+          "hours": 10
+        },
+        {
+          "id": "M3",
+          "name": "Hook Tests",
+          "days": "5-7",
+          "hours": 12
+        },
+        {
+          "id": "M4",
+          "name": "React Warnings",
+          "days": "8-9",
+          "hours": 7
+        }
+      ],
+      "total_hours": 35,
+      "total_days": 4.4,
+      "buffer_hours": 5,
+      "buffer_percentage": 12
+    },
+    {
+      "sprint": 2,
+      "name": "Test Coverage & Refactoring",
+      "weeks": "3-4",
+      "days": "10-20",
+      "goal": "Comprehensive test coverage and code quality",
+      "milestones": [
+        {
+          "id": "M5",
+          "name": "Mobile Tests",
+          "days": "10-12",
+          "hours": 14
+        },
+        {
+          "id": "M6",
+          "name": "Component Tests",
+          "days": "13-16",
+          "hours": 20
+        },
+        {
+          "id": "M7",
+          "name": "Refactoring",
+          "days": "17-20",
+          "hours": 22
+        }
+      ],
+      "total_hours": 56,
+      "total_days": 7,
+      "buffer_hours": 8,
+      "buffer_percentage": 14
+    },
+    {
+      "sprint": 3,
+      "name": "Quality & Modernization",
+      "weeks": "5-6",
+      "days": "21-34",
+      "goal": "Type safety and dependency updates",
+      "milestones": [
+        {
+          "id": "M8",
+          "name": "Any Types Reduction",
+          "days": "21-23",
+          "hours": 17
+        },
+        {
+          "id": "M9",
+          "name": "Coverage Maintenance",
+          "days": "24-28",
+          "hours": 14
+        },
+        {
+          "id": "M10",
+          "name": "Dependency Updates",
+          "days": "29-34",
+          "hours": 25
+        }
+      ],
+      "total_hours": 56,
+      "total_days": 7,
+      "buffer_hours": 8,
+      "buffer_percentage": 14
+    },
+    {
+      "sprint": 4,
+      "name": "Performance & Infrastructure",
+      "weeks": "7-8",
+      "days": "35-41",
+      "goal": "Optimize performance and CI/CD",
+      "milestones": [
+        {
+          "id": "M11",
+          "name": "Lazy Loading",
+          "days": "35-38",
+          "hours": 18
+        },
+        {
+          "id": "M12",
+          "name": "CI/CD Maturity",
+          "days": "39-41",
+          "hours": 20
+        }
+      ],
+      "total_hours": 38,
+      "total_days": 4.75,
+      "buffer_hours": 6,
+      "buffer_percentage": 16
+    }
+  ],
+  "velocity_targets": {
+    "tests_per_day": "15-20",
+    "any_types_removed_per_day": "10-15",
+    "components_refactored_per_2_days": 1,
+    "lines_changed_per_day": "500-1000"
+  },
+  "adaptive_replanning_triggers": [
+    "Milestone takes >150% estimated time",
+    "Unexpected blocker discovered (>2 days to resolve)",
+    "Test coverage drops below 65%",
+    "Critical bug discovered in production"
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "id": "M1",
+  "name": "TypeScript Compilation Stability",
+  "priority": "P0",
+  "sprint": "Week 1, Days 1-2",
+  "status": "pending",
+  "goal": "Eliminate all TypeScript compilation errors to establish a stable foundation",
+  "success_criteria": [
+    "0 TypeScript compilation errors",
+    "npm run build completes without errors",
+    "npm run typecheck passes clean",
+    "All existing tests continue to pass (180/180)"
+  ],
+  "preconditions": [],
+  "actions": [
+    {
+      "step": 1,
+      "name": "Identify Error Sources",
+      "duration_minutes": 30,
+      "tasks": [
+        "Run npm run typecheck > typecheck-errors.log",
+        "Categorize errors by type and file",
+        "Priority: type mismatches > missing types > strictNullChecks"
+      ]
+    },
+    {
+      "step": 2,
+      "name": "Fix Type Errors",
+      "duration_minutes": 240,
+      "tasks": [
+        "Fix highest-impact errors first",
+        "Add proper type annotations",
+        "Update deprecated type imports",
+        "Validate with incremental typecheck"
+      ]
+    },
+    {
+      "step": 3,
+      "name": "Validate Build",
+      "duration_minutes": 30,
+      "tasks": [
+        "Run full build: npm run build",
+        "Check bundle output for warnings",
+        "Verify no new runtime errors"
+      ]
+    },
+    {
+      "step": 4,
+      "name": "Regression Test",
+      "duration_minutes": 60,
+      "tasks": [
+        "Run full test suite: npm test -- --run",
+        "Verify 180/180 tests still pass",
+        "Check for new console warnings"
+      ]
+    }
+  ],
+  "estimated_effort_hours": 6,
+  "estimated_effort_days": 0.75,
+  "risks": [
+    {
+      "risk": "Fixing type errors may require refactoring that breaks tests",
+      "impact": "high",
+      "probability": "medium",
+      "mitigation": "Fix in small increments, run tests after each change",
+      "fallback": "Revert individual commits if tests fail"
+    },
+    {
+      "risk": "Circular dependency issues when adding proper imports",
+      "impact": "medium",
+      "probability": "low",
+      "mitigation": "Use type-only imports (import type) where possible",
+      "fallback": "Extract shared types to dedicated files"
+    }
+  ],
+  "validation_commands": [
+    "npm run typecheck",
+    "npm run build",
+    "npm test -- --run",
+    "git diff --stat"
+  ],
+  "dependencies": [],
+  "blocks": ["M2", "M3", "M4", "M8"],
+  "deliverables": [
+    "Zero TypeScript compilation errors",
+    "Build script running successfully",
+    "Documentation of type improvements made",
+    "Commit: fix: resolve all TypeScript compilation errors"
+  ],
+  "metrics": {
+    "baseline": {
+      "typescript_errors": 5,
+      "tests_passing": 180,
+      "build_success": true
+    },
+    "target": {
+      "typescript_errors": 0,
+      "tests_passing": 180,
+      "build_success": true
+    }
+  }
+}

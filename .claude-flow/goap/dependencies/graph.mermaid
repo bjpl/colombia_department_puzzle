@@ -1,0 +1,53 @@
+graph TD
+    M1[M1: TypeScript Stability<br/>6h | P0 | Week 1]
+    M2[M2: Auth Tests<br/>10h | P0 | Week 1]
+    M3[M3: Hook Tests<br/>12h | P0 | Week 1-2]
+    M4[M4: React Warnings<br/>7h | P0 | Week 2]
+    M5[M5: Mobile Tests<br/>14h | P1 | Week 3]
+    M6[M6: Component Tests<br/>20h | P1 | Week 3-4]
+    M7[M7: Refactoring<br/>22h | P1 | Week 4]
+    M8[M8: Any Types<br/>17h | P1 | Week 4-5]
+    M9[M9: Coverage Maintenance<br/>14h | P2 | Week 5-6]
+    M10[M10: Dependencies<br/>25h | P2 | Week 6-7]
+    M11[M11: Lazy Loading<br/>18h | P2 | Week 7-8]
+    M12[M12: CI/CD Maturity<br/>20h | P2 | Week 8]
+
+    M1 --> M2
+    M1 --> M3
+    M1 --> M4
+    M1 --> M8
+
+    M2 --> M5
+    M2 --> M6
+    M3 --> M5
+    M3 --> M6
+    M4 --> M5
+    M4 --> M6
+
+    M5 --> M7
+    M6 --> M7
+
+    M7 --> M9
+    M8 --> M9
+
+    M9 --> M10
+    M10 --> M11
+    M11 --> M12
+
+    classDef p0 fill:#ff6b6b,stroke:#c92a2a,color:#fff
+    classDef p1 fill:#ffd43b,stroke:#fab005,color:#000
+    classDef p2 fill:#51cf66,stroke:#2f9e44,color:#000
+
+    class M1,M2,M3,M4 p0
+    class M5,M6,M7,M8 p1
+    class M9,M10,M11,M12 p2
+
+    %% Critical path highlighted
+    style M1 stroke-width:4px
+    style M2 stroke-width:4px
+    style M5 stroke-width:4px
+    style M7 stroke-width:4px
+    style M9 stroke-width:4px
+    style M10 stroke-width:4px
+    style M11 stroke-width:4px
+    style M12 stroke-width:4px

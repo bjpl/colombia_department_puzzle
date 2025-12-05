@@ -1,0 +1,84 @@
+{
+  "critical_path": [
+    "M1",
+    "M2-M4",
+    "M5-M6",
+    "M7",
+    "M9",
+    "M10",
+    "M11",
+    "M12"
+  ],
+  "dependencies": {
+    "M1": {
+      "depends_on": [],
+      "blocks": ["M2", "M3", "M4", "M8"],
+      "can_parallelize_with": []
+    },
+    "M2": {
+      "depends_on": ["M1"],
+      "blocks": ["M5", "M6"],
+      "can_parallelize_with": ["M3", "M4", "M8"]
+    },
+    "M3": {
+      "depends_on": ["M1"],
+      "blocks": ["M5", "M6"],
+      "can_parallelize_with": ["M2", "M4", "M8"]
+    },
+    "M4": {
+      "depends_on": ["M1"],
+      "blocks": ["M5", "M6"],
+      "can_parallelize_with": ["M2", "M3", "M8"]
+    },
+    "M5": {
+      "depends_on": ["M2", "M3", "M4"],
+      "blocks": ["M7"],
+      "can_parallelize_with": ["M6"]
+    },
+    "M6": {
+      "depends_on": ["M2", "M3", "M4"],
+      "blocks": ["M7"],
+      "can_parallelize_with": ["M5"]
+    },
+    "M7": {
+      "depends_on": ["M5", "M6"],
+      "blocks": ["M9"],
+      "can_parallelize_with": ["M8"]
+    },
+    "M8": {
+      "depends_on": ["M1"],
+      "blocks": ["M9"],
+      "can_parallelize_with": ["M2", "M3", "M4", "M7"]
+    },
+    "M9": {
+      "depends_on": ["M7", "M8"],
+      "blocks": ["M10"],
+      "can_parallelize_with": []
+    },
+    "M10": {
+      "depends_on": ["M9"],
+      "blocks": ["M11"],
+      "can_parallelize_with": []
+    },
+    "M11": {
+      "depends_on": ["M10"],
+      "blocks": ["M12"],
+      "can_parallelize_with": []
+    },
+    "M12": {
+      "depends_on": ["M11"],
+      "blocks": [],
+      "can_parallelize_with": []
+    }
+  },
+  "parallelization_opportunities": {
+    "sprint_1": {
+      "after_m1": ["M2", "M3", "M4", "M8"],
+      "estimated_speedup": "2.5x"
+    },
+    "sprint_2": {
+      "after_m234": ["M5", "M6"],
+      "estimated_speedup": "1.8x"
+    }
+  }
+}
