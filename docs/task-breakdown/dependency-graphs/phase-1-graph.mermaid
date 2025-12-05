@@ -1,0 +1,149 @@
+```mermaid
+graph TD
+    %% Phase 1 Dependency Graph - Complete Task Breakdown
+    %% Milestone 1: TypeScript Stability (6h, 12 tasks)
+    M1_1[M1.1: Remove isCI Variable<br/>0.5h - Low Risk]
+    M1_2[M1.2: Fix RAF Type<br/>1h - Low Risk]
+    M1_3[M1.3: Create TouchListMock<br/>1.5h - Medium Risk]
+    M1_4[M1.4: Apply TouchList Helper<br/>1h - Low Risk]
+    M1_5[M1.5: Verify Type Safety<br/>1h - Low Risk]
+    M1_6[M1.6: Add Type Guards<br/>0.5h - Low Risk]
+    M1_7[M1.7: Document API<br/>0.5h - Low Risk]
+    M1_8[M1.8: Unit Tests<br/>1h - Low Risk]
+    M1_9[M1.9: Full Validation<br/>0.5h - Low Risk]
+    M1_10[M1.10: Update CI/CD<br/>0.5h - Low Risk]
+    M1_11[M1.11: Performance Benchmark<br/>0.5h - Low Risk]
+    M1_12[M1.12: Integration Test<br/>0.5h - Low Risk]
+
+    %% M1 Dependencies
+    M1_1 --> M1_2
+    M1_2 --> M1_3
+    M1_3 --> M1_4
+    M1_4 --> M1_5
+    M1_4 --> M1_6
+    M1_4 --> M1_7
+    M1_6 --> M1_7
+    M1_7 --> M1_8
+    M1_5 --> M1_9
+    M1_8 --> M1_9
+    M1_9 --> M1_10
+    M1_8 --> M1_11
+    M1_10 --> M1_12
+    M1_11 --> M1_12
+
+    %% Milestone 2: Auth Tests (10h, 25 tasks)
+    M2_1[M2.1: Auth Utils Structure<br/>2h - Low Risk]
+    M2_2[M2.2: Supabase Mock<br/>2h - Medium Risk]
+    M2_3[M2.3: Session Management<br/>1h - Low Risk]
+    M2_4[M2.4: Auth Context Wrapper<br/>1.5h - Medium Risk]
+    M2_5[M2.5: Login Tests<br/>1h - Low Risk]
+    M2_6[M2.6: Signup Tests<br/>1h - Low Risk]
+    M2_7[M2.7: Logout Tests<br/>0.5h - Low Risk]
+    M2_8[M2.8: Session Persistence<br/>1h - Medium Risk]
+    M2_9[M2.9: Hook Tests<br/>1.5h - Medium Risk]
+    M2_10[M2.10: Auth Guard Tests<br/>1h - Medium Risk]
+    M2_11[M2.11: Email Validation<br/>1h - Low Risk]
+    M2_12[M2.12: Password Strength<br/>1h - Low Risk]
+    M2_13[M2.13: Token Refresh<br/>1.5h - Medium Risk]
+    M2_14[M2.14: Session Expiry<br/>1h - Medium Risk]
+    M2_15[M2.15: Multi-Tab Sync<br/>1.5h - High Risk]
+    M2_25[M2.25: Integration Test<br/>0.5h - Low Risk]
+
+    %% M2 Dependencies
+    M1_12 --> M2_1
+    M2_1 --> M2_2
+    M2_2 --> M2_3
+    M2_2 --> M2_4
+    M2_3 --> M2_4
+    M2_4 --> M2_5
+    M2_4 --> M2_6
+    M2_4 --> M2_7
+    M2_5 --> M2_8
+    M2_6 --> M2_8
+    M2_7 --> M2_8
+    M2_8 --> M2_9
+    M2_9 --> M2_10
+    M2_10 --> M2_11
+    M2_10 --> M2_12
+    M2_11 --> M2_13
+    M2_12 --> M2_13
+    M2_13 --> M2_14
+    M2_14 --> M2_15
+    M2_15 --> M2_25
+
+    %% Milestone 3: Hook Tests (12h, 30 tasks)
+    M3_1[M3.1: Hook Test Structure<br/>1.5h - Low Risk]
+    M3_2[M3.2: useGame Hook Tests<br/>2h - Medium Risk]
+    M3_3[M3.3: usePuzzle Hook Tests<br/>2h - Medium Risk]
+    M3_4[M3.4: useAudio Hook Tests<br/>1.5h - Low Risk]
+    M3_30[M3.30: Integration Test<br/>0.5h - Low Risk]
+
+    %% M3 Dependencies (simplified)
+    M1_12 --> M3_1
+    M3_1 --> M3_2
+    M3_1 --> M3_3
+    M3_1 --> M3_4
+    M3_2 --> M3_30
+    M3_3 --> M3_30
+    M3_4 --> M3_30
+
+    %% Milestone 4: React Warnings (7h, 18 tasks)
+    M4_1[M4.1: Warning Analysis<br/>1h - Low Risk]
+    M4_2[M4.2: Fix Key Props<br/>1.5h - Low Risk]
+    M4_3[M4.3: Fix useEffect Deps<br/>1.5h - Medium Risk]
+    M4_18[M4.18: Integration Test<br/>0.5h - Low Risk]
+
+    %% M4 Dependencies (simplified)
+    M1_12 --> M4_1
+    M4_1 --> M4_2
+    M4_1 --> M4_3
+    M4_2 --> M4_18
+    M4_3 --> M4_18
+
+    %% Critical Path Highlighting
+    classDef critical fill:#ff6b6b,stroke:#c92a2a,color:#fff
+    classDef medium fill:#ffd43b,stroke:#f59f00,color:#000
+    classDef low fill:#51cf66,stroke:#2f9e44,color:#000
+
+    class M1_1,M1_2,M1_3,M1_4,M1_12 critical
+    class M2_1,M2_2,M2_4,M2_25 critical
+    class M3_1,M3_30 critical
+    class M4_1,M4_18 critical
+
+    class M1_3,M2_2,M2_4,M2_9,M2_10,M2_13,M2_14,M2_15,M3_2,M3_3,M4_3 medium
+    class M1_5,M1_6,M1_7,M1_8,M1_9,M1_10,M1_11,M2_5,M2_6,M2_7,M2_11,M2_12,M3_4,M4_2 low
+
+    %% Phase Gates
+    M2_25 --> PHASE1_COMPLETE[Phase 1 Complete<br/>35h total]
+    M3_30 --> PHASE1_COMPLETE
+    M4_18 --> PHASE1_COMPLETE
+
+    PHASE1_COMPLETE --> PHASE2_START[Phase 2: Mobile & Components<br/>73h total]
+
+    style PHASE1_COMPLETE fill:#4c6ef5,stroke:#364fc7,color:#fff,stroke-width:3px
+    style PHASE2_START fill:#868e96,stroke:#495057,color:#fff,stroke-width:3px
+```
+
+## Phase 1 Metrics
+
+**Total Duration:** 35 hours
+**Total Tasks:** 85 tasks
+**Critical Path:** 18.5 hours (M1.1 → M1.2 → M1.3 → M1.4 → M1.12 → M2.1 → M2.2 → M2.4 → M2.25)
+
+**Parallelization Opportunities:**
+- **Day 1 (8h):** M1.1-M1.4 (sequential, 4h) + M3.1-M3.4 (parallel, 4h)
+- **Day 2 (8h):** M1.5-M1.11 (parallel, 4h) + M4.1-M4.3 (parallel, 4h)
+- **Day 3 (8h):** M2.1-M2.4 (sequential, 6.5h) + M4.4-M4.10 (parallel, 1.5h)
+- **Day 4 (8h):** M2.5-M2.12 (parallel, 8h)
+- **Day 5 (3h):** M2.13-M2.25 (parallel) + M3.5-M3.30 (parallel) + Integration tests
+
+**Risk Distribution:**
+- Low Risk: 60 tasks (71%)
+- Medium Risk: 20 tasks (24%)
+- High Risk: 5 tasks (5%)
+
+**Resource Allocation:**
+- Coder: 40% of tasks
+- Tester: 35% of tasks
+- Reviewer: 15% of tasks
+- Specialized (api-docs, cicd-engineer, perf-analyzer): 10%
