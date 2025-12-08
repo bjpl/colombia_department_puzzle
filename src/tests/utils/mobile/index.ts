@@ -30,3 +30,18 @@ export {
   type DragDropResult,
   type Position,
 } from './touch-drag-drop';
+
+export {
+  ViewportTester,
+  viewportTester,
+  STANDARD_VIEWPORTS,
+  BREAKPOINTS,
+  type ViewportConfig,
+} from './viewport-tester';
+
+export {
+  OrientationTester,
+  orientationTester,
+  type Orientation,
+  type OrientationConfig,
+} from './orientation-tester';
