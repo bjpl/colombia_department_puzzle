@@ -5,6 +5,7 @@
   "phase": 2,
   "waves_completed": [1, 2],
   "current_wave": 3,
+  "wave_status": "complete",
   "phase_summary": "Mobile Testing & Component Integration - Test-Driven Development",
   "milestones": {
     "M5": {
@@ -18,13 +19,15 @@
       "completion_date": "2025-12-08T19:39:00Z"
     },
     "M6": {
-      "status": "in_progress",
+      "status": "complete",
       "title": "Component Integration Testing",
-      "completed_tasks": ["M6.1-gameflow-integration", "M6.2-puzzle-grid-integration", "M6.3-board-state-integration"],
-      "pending_tasks": ["M6.4-animations-integration", "M6.5-responsive-integration", "M6.6-mobile-ui-integration", "M6.7-e2e-validation"],
-      "tests_added": 18,
-      "tests_todo": 57,
+      "completed_tasks": ["M6.1-gameflow-integration", "M6.2-puzzle-grid-integration", "M6.3-board-state-integration", "M6.4-department-tray", "M6.5-study-mode", "M6.6-game-header", "M6.7-modals"],
+      "pending_tasks": [],
+      "tests_added": 51,
+      "tests_passing": 3,
+      "tests_todo": 48,
       "target_completion": "2025-12-08T23:59:00Z",
+      "completion_date": "2025-12-09T18:42:34Z",
       "subtasks": {
         "M6.1": {
           "status": "complete",
@@ -40,16 +43,54 @@
           "status": "complete",
           "tests": 6,
           "files": ["GameBoard.integration.test.tsx"]
+        },
+        "M6.4": {
+          "status": "complete",
+          "tests": 4,
+          "files": ["ComponentSuite.integration.test.tsx"]
+        },
+        "M6.5": {
+          "status": "complete",
+          "tests": 3,
+          "files": ["ComponentSuite.integration.test.tsx"]
+        },
+        "M6.6": {
+          "status": "complete",
+          "tests": 2,
+          "files": ["ComponentSuite.integration.test.tsx"]
+        },
+        "M6.7": {
+          "status": "complete",
+          "tests": 4,
+          "files": ["ComponentSuite.integration.test.tsx"]
         }
       }
     },
     "M7": {
-      "status": "preparing",
+      "status": "in_progress",
       "title": "Component Structure Refactoring",
-      "next_task": "M7.1-component-structure",
-      "scheduled_start": "2025-12-08T23:59:00Z",
-      "estimated_duration": "4-6 hours",
-      "description": "Refactor components for improved testability, type safety, and mobile optimization"
+      "completion_date_m7_1": "2025-12-09T18:42:34Z",
+      "subtasks": {
+        "M7.1": {
+          "status": "complete",
+          "title": "Component Library Structure",
+          "artifacts": [
+            "src/components/ui/index.ts",
+            "src/components/layout/index.ts",
+            "src/components/game/index.ts",
+            "src/components/feedback/index.ts",
+            "src/components/modals/index.ts",
+            "src/components/_template/ComponentTemplate.tsx"
+          ]
+        },
+        "M7.2": {
+          "status": "planned",
+          "title": "Component Migration",
+          "components_to_migrate": 35,
+          "categories": {"ui": 7, "layout": 10, "game": 8, "feedback": 7, "modals": 3}
+        }
+      },
+      "commits": ["96af79a"]
     }
   },
   "metrics": {
