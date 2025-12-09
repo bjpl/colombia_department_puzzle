@@ -8,11 +8,69 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithProviders, createMockGameStore } from '../utils/testProviders';
+import { colombiaDepartments } from '../../data/colombiaDepartments';
 
 // Import components
 import DepartmentTray from '../../components/DepartmentTray';
 import GameHeader from '../../components/GameHeader';
 import StudyMode from '../../components/StudyMode';
+
+// Mock the GameContext hook - this is the key fix!
+const mockGameState = {
+  departments: colombiaDepartments,
+  placedDepartments: new Set<string>(),
+  currentDepartment: null,
+  isDraggingDepartment: false,
+  score: 0,
+  attempts: 0,
+  hints: 3,
+  isGameComplete: false,
+  startTime: null,
+  elapsedTime: 0,
+  isPaused: false,
+  isGameStarted: false,
+  gameMode: { type: 'full' as const },
+  activeDepartments: colombiaDepartments,
+  regionProgress: new Map(),
+  totalStars: 0,
+  placeDepartment: vi.fn(),
+  selectDepartment: vi.fn(),
+  clearCurrentDepartment: vi.fn(),
+  setIsDragging: vi.fn(),
+  consumeHint: vi.fn(),
+  deductPoints: vi.fn(),
+  resetGame: vi.fn(),
+  updateElapsedTime: vi.fn(),
+  startGame: vi.fn(),
+  pauseGame: vi.fn(),
+  resumeGame: vi.fn(),
+  setGameMode: vi.fn(),
+  updateRegionProgress: vi.fn(),
+  getFilteredDepartments: () => colombiaDepartments,
+};
+
+vi.mock('../../context/GameContext', () => ({
+  useGame: () => mockGameState,
+  GameProvider: ({ children }: { children: React.ReactNode }) => children,
+}));
+
+// Mock AccessibilityContext
+vi.mock('../../context/AccessibilityContext', () => ({
+  useAccessibility: () => ({
+    colorMode: 'default',
+    highContrast: false,
+    reducedMotion: false,
+    screenReaderMode: false,
+    fontSize: 'medium',
+    setColorMode: vi.fn(),
+    toggleHighContrast: vi.fn(),
+    toggleReducedMotion: vi.fn(),
+    toggleScreenReaderMode: vi.fn(),
+    setFontSize: vi.fn(),
+    getRegionColor: (region: string) => '#3b82f6',
+  }),
+  AccessibilityProvider: ({ children }: { children: React.ReactNode }) => children,
+}));
 
 // Mock complex dependencies
 vi.mock('../../hooks/useMediaQuery', () => ({
@@ -27,7 +85,71 @@ vi.mock('../../services/soundManager', () => ({
   useSoundEffect: () => ({
     initSound: vi.fn(),
     playSound: vi.fn(),
-  })
+    stopSound: vi.fn(),
+    setVolume: vi.fn(),
+    settings: {
+      enabled: true,
+      volume: 0.7,
+      effectsEnabled: true,
+      musicEnabled: true,
+    },
+    updateSettings: vi.fn(),
+  }),
+  default: {
+    initSound: vi.fn(),
+    playSound: vi.fn(),
+    stopSound: vi.fn(),
+    setVolume: vi.fn(),
+    settings: {
+      enabled: true,
+      volume: 0.7,
+    },
+  }
+}));
+
+// Mock useStudyMode hook
+vi.mock('../../hooks/useStudyMode', () => ({
+  useStudyMode: () => ({
+    selectedRegion: null,
+    selectedDepartment: null,
+    viewMode: 'overview',
+    setSelectedRegion: vi.fn(),
+    setSelectedDepartment: vi.fn(),
+    setViewMode: vi.fn(),
+    regionDepartments: [],
+    regionInfo: null,
+  }),
+  default: () => ({
+    selectedRegion: null,
+    selectedDepartment: null,
+    viewMode: 'overview',
+    setSelectedRegion: vi.fn(),
+    setSelectedDepartment: vi.fn(),
+    setViewMode: vi.fn(),
+    regionDepartments: [],
+    regionInfo: null,
+  }),
+}));
+
+// Mock useGameTimer hook
+vi.mock('../../hooks/useGameTimer', () => ({
+  useGameTimer: () => ({
+    elapsedTime: 0,
+    formattedTime: '00:00',
+    isRunning: false,
+    start: vi.fn(),
+    stop: vi.fn(),
+    reset: vi.fn(),
+  }),
+}));
+
+// Mock i18n translation context
+vi.mock('../../i18n/TranslationContext', () => ({
+  useTranslation: () => ({
+    t: (key: string) => key,
+    language: 'en',
+    setLanguage: vi.fn(),
+  }),
 }));
 
 vi.mock('../../components/MiniDepartmentShape', () => ({
