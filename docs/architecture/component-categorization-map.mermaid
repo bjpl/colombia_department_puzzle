@@ -1,0 +1,139 @@
+graph TB
+    %% Component Categorization Map
+    %% Shows how 35 components are organized into 5 categories
+
+    Root[Root: src/components<br/>35 components to migrate<br/>4 error boundaries stay]
+
+    %% Category folders
+    UI[UI Primitives<br/>src/components/ui/<br/>7 components]
+    Feedback[Feedback & Notifications<br/>src/components/feedback/<br/>7 components]
+    Modals[Modals & Dialogs<br/>src/components/modals/<br/>3 components]
+    Layout[Layout & Structure<br/>src/components/layout/<br/>10 components]
+    Game[Game Logic<br/>src/components/game/<br/>8 components]
+
+    %% UI Components
+    UI1[TouchFeedback.tsx]
+    UI2[ScrollIndicator.tsx]
+    UI3[KeyboardVisualFeedback.tsx]
+    UI4[MiniDepartmentShape.tsx]
+    UI5[InstallPrompt.tsx]
+    UI6[UpdateNotification.tsx]
+    UI7[AccessibilitySettings.tsx]
+
+    %% Feedback Components
+    FB1[ScreenReaderAnnouncements.tsx]
+    FB2[PlacementFeedback.tsx]
+    FB3[OfflineIndicator.tsx]
+    FB4[StudyModeLoading.tsx]
+    FB5[ModeTransition.tsx]
+    FB6[PostGameReport.tsx]
+    FB7[NextChallengeRecommender.tsx]
+
+    %% Modal Components
+    MD1[HintModal.tsx]
+    MD2[KeyboardHelp.tsx]
+    MD3[InteractiveTutorial.tsx]
+
+    %% Layout Components
+    LY1[BottomSheet.tsx]
+    LY2[DepartmentTray.tsx]
+    LY3[EducationalPanel.tsx]
+    LY4[HintsPanel.tsx]
+    LY5[MobileBanner.tsx]
+    LY6[MobileHeader.tsx]
+    LY7[GameHeader.tsx]
+    LY8[ModernGameHeader.tsx]
+    LY9[MobileGameLayout.tsx]
+    LY10[GameContainer.tsx]
+
+    %% Game Components
+    GM1[MapCanvas.tsx]
+    GM2[OptimizedColombiaMap.tsx]
+    GM3[DragOverlay.tsx]
+    GM4[KeyboardCursor.tsx]
+    GM5[TouchModeAdapter.tsx]
+    GM6[GameModeSelector.tsx]
+    GM7[StudyMode.tsx]
+    GM8[StudyModeMap.tsx]
+
+    %% Error Boundaries (staying in root)
+    EB[Error Boundaries<br/>Staying in Root]
+    EB1[ErrorBoundary.tsx]
+    EB2[ComponentErrorBoundary.tsx]
+    EB3[GameLogicErrorBoundary.tsx]
+    EB4[MapErrorBoundary.tsx]
+
+    %% Relationships
+    Root --> UI
+    Root --> Feedback
+    Root --> Modals
+    Root --> Layout
+    Root --> Game
+    Root --> EB
+
+    UI --> UI1
+    UI --> UI2
+    UI --> UI3
+    UI --> UI4
+    UI --> UI5
+    UI --> UI6
+    UI --> UI7
+
+    Feedback --> FB1
+    Feedback --> FB2
+    Feedback --> FB3
+    Feedback --> FB4
+    Feedback --> FB5
+    Feedback --> FB6
+    Feedback --> FB7
+
+    Modals --> MD1
+    Modals --> MD2
+    Modals --> MD3
+
+    Layout --> LY1
+    Layout --> LY2
+    Layout --> LY3
+    Layout --> LY4
+    Layout --> LY5
+    Layout --> LY6
+    Layout --> LY7
+    Layout --> LY8
+    Layout --> LY9
+    Layout --> LY10
+
+    Game --> GM1
+    Game --> GM2
+    Game --> GM3
+    Game --> GM4
+    Game --> GM5
+    Game --> GM6
+    Game --> GM7
+    Game --> GM8
+
+    EB --> EB1
+    EB --> EB2
+    EB --> EB3
+    EB --> EB4
+
+    %% Dependency arrows (selected key dependencies)
+    LY3 -.depends on.-> MD1
+    LY2 -.depends on.-> UI1
+    LY10 -.depends on many.-> UI
+    LY10 -.depends on many.-> Feedback
+    LY10 -.depends on many.-> Modals
+
+    %% Styling
+    classDef category fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:#fff,font-weight:bold
+    classDef component fill:#E3F2FD,stroke:#1565C0,stroke-width:1px,color:#000
+    classDef root fill:#607D8B,stroke:#263238,stroke-width:3px,color:#fff,font-weight:bold
+    classDef errorBoundary fill:#FF5722,stroke:#BF360C,stroke-width:2px,color:#fff
+
+    class Root root
+    class UI,Feedback,Modals,Layout,Game category
+    class UI1,UI2,UI3,UI4,UI5,UI6,UI7 component
+    class FB1,FB2,FB3,FB4,FB5,FB6,FB7 component
+    class MD1,MD2,MD3 component
+    class LY1,LY2,LY3,LY4,LY5,LY6,LY7,LY8,LY9,LY10 component
+    class GM1,GM2,GM3,GM4,GM5,GM6,GM7,GM8 component
+    class EB,EB1,EB2,EB3,EB4 errorBoundary

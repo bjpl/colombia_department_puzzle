@@ -1,3 +1,8 @@
 // UI Components - Reusable primitives
-// These will be populated during M7.2-M7.10 refactoring
-export {};
+export { TouchFeedback } from './TouchFeedback';
+export { ScrollIndicator } from './ScrollIndicator';
+export { KeyboardCursor } from './KeyboardCursor';
+export { KeyboardVisualFeedback } from './KeyboardVisualFeedback';
+export { MobileBanner } from './MobileBanner';
+export { UpdateNotification } from './UpdateNotification';
+export { InstallPrompt } from './InstallPrompt';

@@ -1,0 +1,78 @@
+graph TD
+    %% GOAP Component Migration Dependency Graph
+    %% Generated: 2025-12-09
+
+    Start([Start: Current State<br/>35 components in root])
+
+    %% Phase 1: Preparation & UI Primitives
+    S1[Step 1: CREATE_FOLDERS<br/>Risk: None<br/>Time: 1min]
+    S2[Step 2: MIGRATE_UI_PRIMITIVES<br/>7 components<br/>Risk: Low<br/>Time: 5min]
+    S3[Step 3: UPDATE_UI_BARREL<br/>Risk: Low<br/>Time: 2min<br/>✓ CHECKPOINT]
+
+    %% Phase 2: Feedback Components
+    S4[Step 4: MIGRATE_FEEDBACK<br/>7 components<br/>Risk: Low<br/>Time: 5min]
+    S5[Step 5: UPDATE_FEEDBACK_BARREL<br/>Risk: Low<br/>Time: 2min<br/>✓ CHECKPOINT]
+
+    %% Phase 3: Modal Components
+    S6[Step 6: MIGRATE_MODALS<br/>3 components<br/>Risk: Medium<br/>Time: 4min]
+    S7[Step 7: UPDATE_MODAL_BARREL<br/>Risk: Low<br/>Time: 2min<br/>✓ CHECKPOINT]
+
+    %% Phase 4: Layout Components
+    S8[Step 8: MIGRATE_LAYOUT<br/>10 components<br/>Risk: Medium-High<br/>Time: 7min]
+    S9[Step 9: UPDATE_LAYOUT_BARREL<br/>Risk: Low<br/>Time: 2min<br/>✓ CHECKPOINT]
+
+    %% Phase 5: Game Components
+    S10[Step 10: MIGRATE_GAME<br/>8 components<br/>Risk: High<br/>Time: 8min]
+    S11[Step 11: UPDATE_GAME_BARREL<br/>Risk: Low<br/>Time: 2min<br/>✓ CHECKPOINT]
+
+    %% Phase 6: Import Fixes
+    S12[Step 12: FIX_INTERNAL_IMPORTS<br/>35 files<br/>Risk: Medium<br/>Time: 10min]
+    S13[Step 13: FIX_EXTERNAL_IMPORTS<br/>50-80 files<br/>Risk: Medium<br/>Time: 8min]
+
+    %% Phase 7: Validation
+    S14[Step 14: VERIFY_BUILD<br/>npm run typecheck<br/>Risk: None<br/>Time: 3min]
+    S15[Step 15: RUN_TESTS<br/>npm test<br/>Risk: None<br/>Time: 5min]
+
+    End([Goal State Achieved<br/>All components categorized<br/>All tests passing])
+
+    %% Dependencies
+    Start --> S1
+    S1 --> S2
+    S2 --> S3
+    S3 --> S4
+    S4 --> S5
+    S5 --> S6
+    S6 --> S7
+    S7 --> S8
+    S8 --> S9
+    S9 --> S10
+    S10 --> S11
+    S11 --> S12
+    S12 --> S13
+    S13 --> S14
+    S14 --> S15
+    S15 --> End
+
+    %% Rollback paths (dashed)
+    S3 -.rollback.-> Start
+    S5 -.rollback.-> S3
+    S7 -.rollback.-> S5
+    S9 -.rollback.-> S7
+    S11 -.rollback.-> S9
+    S13 -.rollback.-> S11
+
+    %% Styling
+    classDef checkpoint fill:#4CAF50,stroke:#2E7D32,stroke-width:3px,color:#fff
+    classDef lowRisk fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:#fff
+    classDef medRisk fill:#FF9800,stroke:#E65100,stroke-width:2px,color:#fff
+    classDef highRisk fill:#F44336,stroke:#B71C1C,stroke-width:3px,color:#fff
+    classDef validation fill:#9C27B0,stroke:#4A148C,stroke-width:2px,color:#fff
+    classDef state fill:#607D8B,stroke:#263238,stroke-width:2px,color:#fff
+
+    class S3,S5,S7,S9,S11 checkpoint
+    class S2,S4 lowRisk
+    class S6,S12,S13 medRisk
+    class S8 medRisk
+    class S10 highRisk
+    class S14,S15 validation
+    class Start,End state

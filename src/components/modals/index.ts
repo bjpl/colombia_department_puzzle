@@ -1,3 +1,4 @@
 // Modal Components - Dialogs and overlays
-// These will be populated during M7 refactoring
-export {};
+export { default as HintModal } from './HintModal';
+export { default as KeyboardHelp } from './KeyboardHelp';
+export { default as InteractiveTutorial } from './InteractiveTutorial';

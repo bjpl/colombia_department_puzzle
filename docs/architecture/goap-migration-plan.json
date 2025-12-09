@@ -1,0 +1,496 @@
+{
+  "plan_metadata": {
+    "generated": "2025-12-09",
+    "planner": "GOAP Specialist Agent",
+    "algorithm": "A* state-space search",
+    "version": "1.0.0"
+  },
+  "goal_state": {
+    "all_components_categorized": true,
+    "barrel_exports_updated": true,
+    "imports_fixed": true,
+    "tests_passing": true,
+    "build_successful": true
+  },
+  "current_state": {
+    "all_components_categorized": false,
+    "barrel_exports_updated": false,
+    "imports_fixed": false,
+    "tests_passing": true,
+    "build_successful": true,
+    "components_in_root": 35
+  },
+  "action_plan": {
+    "total_steps": 15,
+    "estimated_total_risk": "low-medium",
+    "estimated_total_time_minutes": 66,
+    "rollback_strategy": "git-based with checkpoints",
+    "execution_order": [
+      {
+        "step": 1,
+        "action": "CREATE_FOLDERS",
+        "phase": "preparation",
+        "description": "Verify category folder structure exists",
+        "components": [],
+        "preconditions": [],
+        "effects": ["folders_exist"],
+        "risk": "none",
+        "estimated_time_minutes": 1,
+        "commands": [
+          "ls -la src/components/{ui,layout,game,feedback,modals}"
+        ],
+        "dependencies": [],
+        "rollback": "none_needed",
+        "checkpoint": false
+      },
+      {
+        "step": 2,
+        "action": "MIGRATE_UI_PRIMITIVES",
+        "phase": "ui_primitives",
+        "description": "Move UI primitive components (lowest dependency, highest reuse)",
+        "components": [
+          "TouchFeedback.tsx",
+          "ScrollIndicator.tsx",
+          "KeyboardVisualFeedback.tsx",
+          "MiniDepartmentShape.tsx",
+          "InstallPrompt.tsx",
+          "UpdateNotification.tsx",
+          "AccessibilitySettings.tsx"
+        ],
+        "component_count": 7,
+        "target_folder": "src/components/ui",
+        "preconditions": ["folders_exist"],
+        "effects": ["ui_components_migrated"],
+        "risk": "low",
+        "estimated_time_minutes": 5,
+        "parallel_operations": true,
+        "commands": [
+          "git mv src/components/TouchFeedback.tsx src/components/ui/",
+          "git mv src/components/ScrollIndicator.tsx src/components/ui/",
+          "git mv src/components/KeyboardVisualFeedback.tsx src/components/ui/",
+          "git mv src/components/MiniDepartmentShape.tsx src/components/ui/",
+          "git mv src/components/InstallPrompt.tsx src/components/ui/",
+          "git mv src/components/UpdateNotification.tsx src/components/ui/",
+          "git mv src/components/AccessibilitySettings.tsx src/components/ui/"
+        ],
+        "dependencies": [1],
+        "rollback": "git reset --hard HEAD",
+        "checkpoint": false
+      },
+      {
+        "step": 3,
+        "action": "UPDATE_UI_BARREL",
+        "phase": "ui_primitives",
+        "description": "Update ui/index.ts with new exports",
+        "components": ["ui/index.ts"],
+        "component_count": 1,
+        "preconditions": ["ui_components_migrated"],
+        "effects": ["ui_barrel_updated"],
+        "risk": "low",
+        "estimated_time_minutes": 2,
+        "validation": "npm run typecheck",
+        "dependencies": [2],
+        "rollback": "git checkout src/components/ui/index.ts",
+        "checkpoint": true,
+        "checkpoint_name": "UI_PRIMITIVES_COMPLETE"
+      },
+      {
+        "step": 4,
+        "action": "MIGRATE_FEEDBACK_COMPONENTS",
+        "phase": "feedback",
+        "description": "Move feedback/notification components (low-medium complexity)",
+        "components": [
+          "ScreenReaderAnnouncements.tsx",
+          "PlacementFeedback.tsx",
+          "OfflineIndicator.tsx",
+          "StudyModeLoading.tsx",
+          "ModeTransition.tsx",
+          "PostGameReport.tsx",
+          "NextChallengeRecommender.tsx"
+        ],
+        "component_count": 7,
+        "target_folder": "src/components/feedback",
+        "preconditions": ["ui_barrel_updated"],
+        "effects": ["feedback_components_migrated"],
+        "risk": "low",
+        "estimated_time_minutes": 5,
+        "parallel_operations": true,
+        "commands": [
+          "git mv src/components/ScreenReaderAnnouncements.tsx src/components/feedback/",
+          "git mv src/components/PlacementFeedback.tsx src/components/feedback/",
+          "git mv src/components/OfflineIndicator.tsx src/components/feedback/",
+          "git mv src/components/StudyModeLoading.tsx src/components/feedback/",
+          "git mv src/components/ModeTransition.tsx src/components/feedback/",
+          "git mv src/components/PostGameReport.tsx src/components/feedback/",
+          "git mv src/components/NextChallengeRecommender.tsx src/components/feedback/"
+        ],
+        "dependencies": [3],
+        "rollback": "git reset --hard HEAD",
+        "checkpoint": false
+      },
+      {
+        "step": 5,
+        "action": "UPDATE_FEEDBACK_BARREL",
+        "phase": "feedback",
+        "description": "Update feedback/index.ts with new exports",
+        "components": ["feedback/index.ts"],
+        "component_count": 1,
+        "preconditions": ["feedback_components_migrated"],
+        "effects": ["feedback_barrel_updated"],
+        "risk": "low",
+        "estimated_time_minutes": 2,
+        "validation": "npm run typecheck",
+        "dependencies": [4],
+        "rollback": "git checkout src/components/feedback/index.ts",
+        "checkpoint": true,
+        "checkpoint_name": "FEEDBACK_COMPLETE"
+      },
+      {
+        "step": 6,
+        "action": "MIGRATE_MODAL_COMPONENTS",
+        "phase": "modals",
+        "description": "Move modal/dialog components (medium complexity)",
+        "components": [
+          "HintModal.tsx",
+          "KeyboardHelp.tsx",
+          "InteractiveTutorial.tsx"
+        ],
+        "component_count": 3,
+        "target_folder": "src/components/modals",
+        "preconditions": ["feedback_barrel_updated"],
+        "effects": ["modal_components_migrated"],
+        "risk": "medium",
+        "estimated_time_minutes": 4,
+        "parallel_operations": true,
+        "commands": [
+          "git mv src/components/HintModal.tsx src/components/modals/",
+          "git mv src/components/KeyboardHelp.tsx src/components/modals/",
+          "git mv src/components/InteractiveTutorial.tsx src/components/modals/"
+        ],
+        "dependencies": [5],
+        "rollback": "git reset --hard HEAD",
+        "checkpoint": false
+      },
+      {
+        "step": 7,
+        "action": "UPDATE_MODAL_BARREL",
+        "phase": "modals",
+        "description": "Update modals/index.ts with new exports",
+        "components": ["modals/index.ts"],
+        "component_count": 1,
+        "preconditions": ["modal_components_migrated"],
+        "effects": ["modal_barrel_updated"],
+        "risk": "low",
+        "estimated_time_minutes": 2,
+        "validation": "npm run typecheck",
+        "dependencies": [6],
+        "rollback": "git checkout src/components/modals/index.ts",
+        "checkpoint": true,
+        "checkpoint_name": "MODALS_COMPLETE"
+      },
+      {
+        "step": 8,
+        "action": "MIGRATE_LAYOUT_COMPONENTS",
+        "phase": "layout",
+        "description": "Move layout/container components (medium-high complexity, many dependencies)",
+        "components": [
+          "BottomSheet.tsx",
+          "DepartmentTray.tsx",
+          "EducationalPanel.tsx",
+          "HintsPanel.tsx",
+          "MobileBanner.tsx",
+          "MobileHeader.tsx",
+          "GameHeader.tsx",
+          "ModernGameHeader.tsx",
+          "MobileGameLayout.tsx",
+          "GameContainer.tsx"
+        ],
+        "component_count": 10,
+        "target_folder": "src/components/layout",
+        "preconditions": ["modal_barrel_updated", "ui_barrel_updated", "feedback_barrel_updated"],
+        "effects": ["layout_components_migrated"],
+        "risk": "medium-high",
+        "estimated_time_minutes": 7,
+        "parallel_operations": true,
+        "note": "GameContainer has highest dependencies - move last in this group",
+        "commands": [
+          "git mv src/components/BottomSheet.tsx src/components/layout/",
+          "git mv src/components/DepartmentTray.tsx src/components/layout/",
+          "git mv src/components/EducationalPanel.tsx src/components/layout/",
+          "git mv src/components/HintsPanel.tsx src/components/layout/",
+          "git mv src/components/MobileBanner.tsx src/components/layout/",
+          "git mv src/components/MobileHeader.tsx src/components/layout/",
+          "git mv src/components/GameHeader.tsx src/components/layout/",
+          "git mv src/components/ModernGameHeader.tsx src/components/layout/",
+          "git mv src/components/MobileGameLayout.tsx src/components/layout/",
+          "git mv src/components/GameContainer.tsx src/components/layout/"
+        ],
+        "dependencies": [7],
+        "rollback": "git reset --hard HEAD",
+        "checkpoint": false
+      },
+      {
+        "step": 9,
+        "action": "UPDATE_LAYOUT_BARREL",
+        "phase": "layout",
+        "description": "Update layout/index.ts with new exports",
+        "components": ["layout/index.ts"],
+        "component_count": 1,
+        "preconditions": ["layout_components_migrated"],
+        "effects": ["layout_barrel_updated"],
+        "risk": "low",
+        "estimated_time_minutes": 2,
+        "validation": "npm run typecheck",
+        "dependencies": [8],
+        "rollback": "git checkout src/components/layout/index.ts",
+        "checkpoint": true,
+        "checkpoint_name": "LAYOUT_COMPLETE"
+      },
+      {
+        "step": 10,
+        "action": "MIGRATE_GAME_COMPONENTS",
+        "phase": "game",
+        "description": "Move game-specific components (highest complexity, performance critical)",
+        "components": [
+          "MapCanvas.tsx",
+          "OptimizedColombiaMap.tsx",
+          "DragOverlay.tsx",
+          "KeyboardCursor.tsx",
+          "TouchModeAdapter.tsx",
+          "GameModeSelector.tsx",
+          "StudyMode.tsx",
+          "StudyModeMap.tsx"
+        ],
+        "component_count": 8,
+        "target_folder": "src/components/game",
+        "preconditions": ["layout_barrel_updated"],
+        "effects": ["game_components_migrated"],
+        "risk": "high",
+        "estimated_time_minutes": 8,
+        "parallel_operations": true,
+        "commands": [
+          "git mv src/components/MapCanvas.tsx src/components/game/",
+          "git mv src/components/OptimizedColombiaMap.tsx src/components/game/",
+          "git mv src/components/DragOverlay.tsx src/components/game/",
+          "git mv src/components/KeyboardCursor.tsx src/components/game/",
+          "git mv src/components/TouchModeAdapter.tsx src/components/game/",
+          "git mv src/components/GameModeSelector.tsx src/components/game/",
+          "git mv src/components/StudyMode.tsx src/components/game/",
+          "git mv src/components/StudyModeMap.tsx src/components/game/"
+        ],
+        "dependencies": [9],
+        "rollback": "git reset --hard HEAD",
+        "checkpoint": false
+      },
+      {
+        "step": 11,
+        "action": "UPDATE_GAME_BARREL",
+        "phase": "game",
+        "description": "Update game/index.ts with new exports",
+        "components": ["game/index.ts"],
+        "component_count": 1,
+        "preconditions": ["game_components_migrated"],
+        "effects": ["game_barrel_updated"],
+        "risk": "low",
+        "estimated_time_minutes": 2,
+        "validation": "npm run typecheck",
+        "dependencies": [10],
+        "rollback": "git checkout src/components/game/index.ts",
+        "checkpoint": true,
+        "checkpoint_name": "GAME_COMPLETE"
+      },
+      {
+        "step": 12,
+        "action": "FIX_INTERNAL_IMPORTS",
+        "phase": "import_fixes",
+        "description": "Fix relative imports within migrated components",
+        "components": ["all migrated files"],
+        "component_count": 35,
+        "preconditions": ["game_barrel_updated"],
+        "effects": ["internal_imports_fixed"],
+        "risk": "medium",
+        "estimated_time_minutes": 10,
+        "strategy": "Use grep + sed for batch replacement",
+        "patterns": [
+          "from './HintModal' → from '../modals/HintModal'",
+          "from './TouchFeedback' → from '../ui/TouchFeedback'",
+          "from './GameHeader' → from '../layout/GameHeader'",
+          "from './MapCanvas' → from '../game/MapCanvas'"
+        ],
+        "dependencies": [11],
+        "rollback": "git reset --hard HEAD",
+        "checkpoint": false
+      },
+      {
+        "step": 13,
+        "action": "FIX_EXTERNAL_IMPORTS",
+        "phase": "import_fixes",
+        "description": "Fix imports in non-component files (pages, contexts, tests)",
+        "components": ["src/pages/*", "src/context/*", "src/tests/*"],
+        "estimated_affected_files": "50-80",
+        "preconditions": ["internal_imports_fixed"],
+        "effects": ["external_imports_fixed"],
+        "risk": "medium",
+        "estimated_time_minutes": 8,
+        "strategy": "Update imports in consuming files",
+        "dependencies": [12],
+        "rollback": "git reset --hard HEAD",
+        "checkpoint": false
+      },
+      {
+        "step": 14,
+        "action": "VERIFY_BUILD",
+        "phase": "validation",
+        "description": "Run TypeScript type checking",
+        "components": [],
+        "preconditions": ["external_imports_fixed"],
+        "effects": ["typescript_valid"],
+        "risk": "none",
+        "estimated_time_minutes": 3,
+        "commands": ["npm run typecheck"],
+        "dependencies": [13],
+        "rollback": "none_needed",
+        "checkpoint": false
+      },
+      {
+        "step": 15,
+        "action": "RUN_TESTS",
+        "phase": "validation",
+        "description": "Verify no test regressions",
+        "components": [],
+        "preconditions": ["typescript_valid"],
+        "effects": [
+          "tests_passing",
+          "all_components_categorized",
+          "barrel_exports_updated",
+          "imports_fixed",
+          "build_successful"
+        ],
+        "risk": "none",
+        "estimated_time_minutes": 5,
+        "commands": ["npm test"],
+        "dependencies": [14],
+        "rollback": "none_needed",
+        "checkpoint": false
+      }
+    ]
+  },
+  "optimization_strategy": {
+    "grouping": "By category and complexity",
+    "sequencing": "Least dependent → most dependent",
+    "parallelization": "File moves within each step are parallel",
+    "checkpoints": "After each barrel update (steps 3,5,7,9,11)",
+    "risk_mitigation": [
+      "Use git mv to preserve history",
+      "Update barrel exports immediately after moves",
+      "Validate TypeScript after each major group",
+      "Keep error boundaries in root (no migration)",
+      "Defer complex imports fixes to dedicated step"
+    ]
+  },
+  "circular_dependency_handling": {
+    "identified_risks": [
+      "GameContainer imports many components",
+      "HintModal imported by EducationalPanel",
+      "TouchFeedback used by DepartmentTray"
+    ],
+    "mitigation": [
+      "Move primitives (ui) first - no dependencies",
+      "Move feedback second - minimal dependencies",
+      "Move modals third - before layout that imports them",
+      "Move layout fourth - after dependencies ready",
+      "Move game last - highest complexity"
+    ]
+  },
+  "components": {
+    "to_migrate": {
+      "ui": [
+        "TouchFeedback.tsx",
+        "ScrollIndicator.tsx",
+        "KeyboardVisualFeedback.tsx",
+        "MiniDepartmentShape.tsx",
+        "InstallPrompt.tsx",
+        "UpdateNotification.tsx",
+        "AccessibilitySettings.tsx"
+      ],
+      "feedback": [
+        "ScreenReaderAnnouncements.tsx",
+        "PlacementFeedback.tsx",
+        "OfflineIndicator.tsx",
+        "StudyModeLoading.tsx",
+        "ModeTransition.tsx",
+        "PostGameReport.tsx",
+        "NextChallengeRecommender.tsx"
+      ],
+      "modals": [
+        "HintModal.tsx",
+        "KeyboardHelp.tsx",
+        "InteractiveTutorial.tsx"
+      ],
+      "layout": [
+        "BottomSheet.tsx",
+        "DepartmentTray.tsx",
+        "EducationalPanel.tsx",
+        "HintsPanel.tsx",
+        "MobileBanner.tsx",
+        "MobileHeader.tsx",
+        "GameHeader.tsx",
+        "ModernGameHeader.tsx",
+        "MobileGameLayout.tsx",
+        "GameContainer.tsx"
+      ],
+      "game": [
+        "MapCanvas.tsx",
+        "OptimizedColombiaMap.tsx",
+        "DragOverlay.tsx",
+        "KeyboardCursor.tsx",
+        "TouchModeAdapter.tsx",
+        "GameModeSelector.tsx",
+        "StudyMode.tsx",
+        "StudyModeMap.tsx"
+      ]
+    },
+    "staying_in_root": [
+      "ErrorBoundary.tsx",
+      "ComponentErrorBoundary.tsx",
+      "GameLogicErrorBoundary.tsx",
+      "MapErrorBoundary.tsx"
+    ],
+    "already_organized": {
+      "auth": [
+        "AuthButton.tsx",
+        "AuthModal.tsx",
+        "LoginForm.tsx",
+        "SignupForm.tsx",
+        "ProtectedRoute.tsx",
+        "UserProfile.tsx"
+      ],
+      "study": [
+        "DepartmentButton.tsx"
+      ]
+    }
+  },
+  "metrics": {
+    "total_components_to_migrate": 35,
+    "components_staying_in_root": 4,
+    "components_already_organized": 7,
+    "estimated_total_time_minutes": 66,
+    "estimated_import_fixes": "50-80 files",
+    "risk_distribution": {
+      "none": 3,
+      "low": 6,
+      "medium": 3,
+      "medium-high": 1,
+      "high": 1
+    },
+    "category_distribution": {
+      "ui": 7,
+      "feedback": 7,
+      "modals": 3,
+      "layout": 10,
+      "game": 8
+    },
+    "checkpoint_count": 5,
+    "phase_count": 7
+  }
+}

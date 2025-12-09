@@ -1,3 +1,8 @@
 // Feedback Components - User feedback and notifications
-// These will be populated during M7 refactoring
-export {};
+export { PlacementFeedback } from './PlacementFeedback';
+export { OfflineIndicator } from './OfflineIndicator';
+export { GameModeSelector } from './GameModeSelector';
+export { NextChallengeRecommender } from './NextChallengeRecommender';
+export { PostGameReport } from './PostGameReport';
+export { HintsPanel } from './HintsPanel';
+export { EducationalPanel } from './EducationalPanel';
