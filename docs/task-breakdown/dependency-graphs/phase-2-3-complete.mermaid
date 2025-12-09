@@ -1,0 +1,124 @@
+graph TD
+    %% Phase 2 Dependencies
+    subgraph Phase2["Phase 2: Mobile & Architecture (185 tasks, 73h)"]
+        subgraph M5["M5: Mobile Tests (35 tasks, 14h)"]
+            M5_1[M5.1: Touch Infrastructure<br/>2h, CRITICAL]
+            M5_2[M5.2: Touch Targets]
+            M5_3[M5.3: Touch Drag-Drop<br/>HIGH RISK]
+            M5_12[M5.12: Service Worker<br/>CRITICAL]
+            M5_35[M5.35: Integration]
+
+            M5_1 --> M5_2
+            M5_1 --> M5_3
+            M5_3 --> M5_12
+            M5_12 --> M5_35
+        end
+
+        subgraph M6["M6: Component Tests (50 tasks, 20h)"]
+            M6_1[M6.1: Test Infrastructure<br/>2h, CRITICAL]
+            M6_2[M6.2: GameBoard Tests]
+            M6_3[M6.3: DepartmentPiece]
+            M6_50[M6.50: Integration]
+
+            M6_1 --> M6_2
+            M6_1 --> M6_3
+            M6_2 --> M6_50
+            M6_3 --> M6_50
+        end
+
+        subgraph M7["M7: Refactoring (55 tasks, 22h)"]
+            M7_1[M7.1: Component Library<br/>1.5h, CRITICAL]
+            M7_4[M7.4: GameBoard Refactor<br/>3h, HIGH RISK]
+            M7_5[M7.5: PuzzleGrid Refactor<br/>2.5h, HIGH RISK]
+            M7_55[M7.55: Integration]
+
+            M7_1 --> M7_4
+            M7_1 --> M7_5
+            M7_4 --> M7_55
+            M7_5 --> M7_55
+        end
+
+        subgraph M8["M8: Type Safety (45 tasks, 17h)"]
+            M8_1[M8.1: Any Audit<br/>1.5h, CRITICAL]
+            M8_4[M8.4: Library Types<br/>3h, HIGH RISK]
+            M8_5[M8.5: Strict Mode<br/>2h, CRITICAL]
+            M8_45[M8.45: Integration]
+
+            M8_1 --> M8_4
+            M8_4 --> M8_5
+            M8_5 --> M8_45
+        end
+    end
+
+    %% Phase 3 Dependencies
+    subgraph Phase3["Phase 3: Excellence (215 tasks, 77h)"]
+        subgraph M9["M9: Coverage (35 tasks, 14h)"]
+            M9_1[M9.1: Coverage Thresholds<br/>1h]
+            M9_2[M9.2: Report Generator]
+            M9_35[M9.35: Integration]
+
+            M9_1 --> M9_2
+            M9_2 --> M9_35
+        end
+
+        subgraph M10["M10: Dependencies (60 tasks, 25h)"]
+            M10_1[M10.1: Dep Audit<br/>2h, CRITICAL]
+            M10_4[M10.4: TypeScript 5.6<br/>HIGH RISK]
+            M10_6[M10.6: Vitest 2.x<br/>HIGH RISK]
+            M10_60[M10.60: Integration]
+
+            M10_1 --> M10_4
+            M10_4 --> M10_6
+            M10_6 --> M10_60
+        end
+
+        subgraph M11["M11: Performance (45 tasks, 18h)"]
+            M11_1[M11.1: Perf Baseline<br/>2h]
+            M11_2[M11.2: Code Splitting<br/>3h]
+            M11_43[M11.43: Lighthouse 100]
+            M11_45[M11.45: Integration]
+
+            M11_1 --> M11_2
+            M11_2 --> M11_43
+            M11_43 --> M11_45
+        end
+
+        subgraph M12["M12: CI/CD (50 tasks, 20h)"]
+            M12_1[M12.1: CI Audit]
+            M12_3[M12.3: Parallel Tests]
+            M12_10[M12.10: Production Deploy]
+            M12_50[M12.50: Integration]
+
+            M12_1 --> M12_3
+            M12_3 --> M12_10
+            M12_10 --> M12_50
+        end
+    end
+
+    %% Phase Dependencies
+    M5_35 --> M6_1
+    M6_50 --> M7_1
+    M7_55 --> M8_1
+    M8_45 --> M9_1
+    M9_35 --> M10_1
+    M10_60 --> M11_1
+    M11_45 --> M12_1
+
+    %% Critical Path Highlight
+    classDef critical fill:#ff6b6b,stroke:#c92a2a,stroke-width:3px,color:#fff
+    classDef highRisk fill:#ffa94d,stroke:#e67700,stroke-width:2px
+    classDef milestone fill:#51cf66,stroke:#2b8a3e,stroke-width:2px
+
+    class M5_1,M5_12,M6_1,M7_1,M8_1,M8_5,M10_1 critical
+    class M5_3,M7_4,M7_5,M8_4,M10_4,M10_6 highRisk
+    class M5_35,M6_50,M7_55,M8_45,M9_35,M10_60,M11_45,M12_50 milestone
+
+    %% Legend
+    subgraph Legend
+        L1[CRITICAL PATH]:::critical
+        L2[HIGH RISK]:::highRisk
+        L3[MILESTONE]:::milestone
+    end
+
+    %% Notes
+    note1[Note: This graph shows critical dependencies only.<br/>Full task breakdowns in individual milestone files.<br/>Total: 400 tasks, 150 hours across Phases 2-3]

@@ -1,0 +1,1798 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/data/departmentEducation.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/data</a> departmentEducation.ts</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/545</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>1/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>1/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/545</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a>
+<a name='L225'></a><a href='#L225'>225</a>
+<a name='L226'></a><a href='#L226'>226</a>
+<a name='L227'></a><a href='#L227'>227</a>
+<a name='L228'></a><a href='#L228'>228</a>
+<a name='L229'></a><a href='#L229'>229</a>
+<a name='L230'></a><a href='#L230'>230</a>
+<a name='L231'></a><a href='#L231'>231</a>
+<a name='L232'></a><a href='#L232'>232</a>
+<a name='L233'></a><a href='#L233'>233</a>
+<a name='L234'></a><a href='#L234'>234</a>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a>
+<a name='L243'></a><a href='#L243'>243</a>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a>
+<a name='L266'></a><a href='#L266'>266</a>
+<a name='L267'></a><a href='#L267'>267</a>
+<a name='L268'></a><a href='#L268'>268</a>
+<a name='L269'></a><a href='#L269'>269</a>
+<a name='L270'></a><a href='#L270'>270</a>
+<a name='L271'></a><a href='#L271'>271</a>
+<a name='L272'></a><a href='#L272'>272</a>
+<a name='L273'></a><a href='#L273'>273</a>
+<a name='L274'></a><a href='#L274'>274</a>
+<a name='L275'></a><a href='#L275'>275</a>
+<a name='L276'></a><a href='#L276'>276</a>
+<a name='L277'></a><a href='#L277'>277</a>
+<a name='L278'></a><a href='#L278'>278</a>
+<a name='L279'></a><a href='#L279'>279</a>
+<a name='L280'></a><a href='#L280'>280</a>
+<a name='L281'></a><a href='#L281'>281</a>
+<a name='L282'></a><a href='#L282'>282</a>
+<a name='L283'></a><a href='#L283'>283</a>
+<a name='L284'></a><a href='#L284'>284</a>
+<a name='L285'></a><a href='#L285'>285</a>
+<a name='L286'></a><a href='#L286'>286</a>
+<a name='L287'></a><a href='#L287'>287</a>
+<a name='L288'></a><a href='#L288'>288</a>
+<a name='L289'></a><a href='#L289'>289</a>
+<a name='L290'></a><a href='#L290'>290</a>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a>
+<a name='L298'></a><a href='#L298'>298</a>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a>
+<a name='L323'></a><a href='#L323'>323</a>
+<a name='L324'></a><a href='#L324'>324</a>
+<a name='L325'></a><a href='#L325'>325</a>
+<a name='L326'></a><a href='#L326'>326</a>
+<a name='L327'></a><a href='#L327'>327</a>
+<a name='L328'></a><a href='#L328'>328</a>
+<a name='L329'></a><a href='#L329'>329</a>
+<a name='L330'></a><a href='#L330'>330</a>
+<a name='L331'></a><a href='#L331'>331</a>
+<a name='L332'></a><a href='#L332'>332</a>
+<a name='L333'></a><a href='#L333'>333</a>
+<a name='L334'></a><a href='#L334'>334</a>
+<a name='L335'></a><a href='#L335'>335</a>
+<a name='L336'></a><a href='#L336'>336</a>
+<a name='L337'></a><a href='#L337'>337</a>
+<a name='L338'></a><a href='#L338'>338</a>
+<a name='L339'></a><a href='#L339'>339</a>
+<a name='L340'></a><a href='#L340'>340</a>
+<a name='L341'></a><a href='#L341'>341</a>
+<a name='L342'></a><a href='#L342'>342</a>
+<a name='L343'></a><a href='#L343'>343</a>
+<a name='L344'></a><a href='#L344'>344</a>
+<a name='L345'></a><a href='#L345'>345</a>
+<a name='L346'></a><a href='#L346'>346</a>
+<a name='L347'></a><a href='#L347'>347</a>
+<a name='L348'></a><a href='#L348'>348</a>
+<a name='L349'></a><a href='#L349'>349</a>
+<a name='L350'></a><a href='#L350'>350</a>
+<a name='L351'></a><a href='#L351'>351</a>
+<a name='L352'></a><a href='#L352'>352</a>
+<a name='L353'></a><a href='#L353'>353</a>
+<a name='L354'></a><a href='#L354'>354</a>
+<a name='L355'></a><a href='#L355'>355</a>
+<a name='L356'></a><a href='#L356'>356</a>
+<a name='L357'></a><a href='#L357'>357</a>
+<a name='L358'></a><a href='#L358'>358</a>
+<a name='L359'></a><a href='#L359'>359</a>
+<a name='L360'></a><a href='#L360'>360</a>
+<a name='L361'></a><a href='#L361'>361</a>
+<a name='L362'></a><a href='#L362'>362</a>
+<a name='L363'></a><a href='#L363'>363</a>
+<a name='L364'></a><a href='#L364'>364</a>
+<a name='L365'></a><a href='#L365'>365</a>
+<a name='L366'></a><a href='#L366'>366</a>
+<a name='L367'></a><a href='#L367'>367</a>
+<a name='L368'></a><a href='#L368'>368</a>
+<a name='L369'></a><a href='#L369'>369</a>
+<a name='L370'></a><a href='#L370'>370</a>
+<a name='L371'></a><a href='#L371'>371</a>
+<a name='L372'></a><a href='#L372'>372</a>
+<a name='L373'></a><a href='#L373'>373</a>
+<a name='L374'></a><a href='#L374'>374</a>
+<a name='L375'></a><a href='#L375'>375</a>
+<a name='L376'></a><a href='#L376'>376</a>
+<a name='L377'></a><a href='#L377'>377</a>
+<a name='L378'></a><a href='#L378'>378</a>
+<a name='L379'></a><a href='#L379'>379</a>
+<a name='L380'></a><a href='#L380'>380</a>
+<a name='L381'></a><a href='#L381'>381</a>
+<a name='L382'></a><a href='#L382'>382</a>
+<a name='L383'></a><a href='#L383'>383</a>
+<a name='L384'></a><a href='#L384'>384</a>
+<a name='L385'></a><a href='#L385'>385</a>
+<a name='L386'></a><a href='#L386'>386</a>
+<a name='L387'></a><a href='#L387'>387</a>
+<a name='L388'></a><a href='#L388'>388</a>
+<a name='L389'></a><a href='#L389'>389</a>
+<a name='L390'></a><a href='#L390'>390</a>
+<a name='L391'></a><a href='#L391'>391</a>
+<a name='L392'></a><a href='#L392'>392</a>
+<a name='L393'></a><a href='#L393'>393</a>
+<a name='L394'></a><a href='#L394'>394</a>
+<a name='L395'></a><a href='#L395'>395</a>
+<a name='L396'></a><a href='#L396'>396</a>
+<a name='L397'></a><a href='#L397'>397</a>
+<a name='L398'></a><a href='#L398'>398</a>
+<a name='L399'></a><a href='#L399'>399</a>
+<a name='L400'></a><a href='#L400'>400</a>
+<a name='L401'></a><a href='#L401'>401</a>
+<a name='L402'></a><a href='#L402'>402</a>
+<a name='L403'></a><a href='#L403'>403</a>
+<a name='L404'></a><a href='#L404'>404</a>
+<a name='L405'></a><a href='#L405'>405</a>
+<a name='L406'></a><a href='#L406'>406</a>
+<a name='L407'></a><a href='#L407'>407</a>
+<a name='L408'></a><a href='#L408'>408</a>
+<a name='L409'></a><a href='#L409'>409</a>
+<a name='L410'></a><a href='#L410'>410</a>
+<a name='L411'></a><a href='#L411'>411</a>
+<a name='L412'></a><a href='#L412'>412</a>
+<a name='L413'></a><a href='#L413'>413</a>
+<a name='L414'></a><a href='#L414'>414</a>
+<a name='L415'></a><a href='#L415'>415</a>
+<a name='L416'></a><a href='#L416'>416</a>
+<a name='L417'></a><a href='#L417'>417</a>
+<a name='L418'></a><a href='#L418'>418</a>
+<a name='L419'></a><a href='#L419'>419</a>
+<a name='L420'></a><a href='#L420'>420</a>
+<a name='L421'></a><a href='#L421'>421</a>
+<a name='L422'></a><a href='#L422'>422</a>
+<a name='L423'></a><a href='#L423'>423</a>
+<a name='L424'></a><a href='#L424'>424</a>
+<a name='L425'></a><a href='#L425'>425</a>
+<a name='L426'></a><a href='#L426'>426</a>
+<a name='L427'></a><a href='#L427'>427</a>
+<a name='L428'></a><a href='#L428'>428</a>
+<a name='L429'></a><a href='#L429'>429</a>
+<a name='L430'></a><a href='#L430'>430</a>
+<a name='L431'></a><a href='#L431'>431</a>
+<a name='L432'></a><a href='#L432'>432</a>
+<a name='L433'></a><a href='#L433'>433</a>
+<a name='L434'></a><a href='#L434'>434</a>
+<a name='L435'></a><a href='#L435'>435</a>
+<a name='L436'></a><a href='#L436'>436</a>
+<a name='L437'></a><a href='#L437'>437</a>
+<a name='L438'></a><a href='#L438'>438</a>
+<a name='L439'></a><a href='#L439'>439</a>
+<a name='L440'></a><a href='#L440'>440</a>
+<a name='L441'></a><a href='#L441'>441</a>
+<a name='L442'></a><a href='#L442'>442</a>
+<a name='L443'></a><a href='#L443'>443</a>
+<a name='L444'></a><a href='#L444'>444</a>
+<a name='L445'></a><a href='#L445'>445</a>
+<a name='L446'></a><a href='#L446'>446</a>
+<a name='L447'></a><a href='#L447'>447</a>
+<a name='L448'></a><a href='#L448'>448</a>
+<a name='L449'></a><a href='#L449'>449</a>
+<a name='L450'></a><a href='#L450'>450</a>
+<a name='L451'></a><a href='#L451'>451</a>
+<a name='L452'></a><a href='#L452'>452</a>
+<a name='L453'></a><a href='#L453'>453</a>
+<a name='L454'></a><a href='#L454'>454</a>
+<a name='L455'></a><a href='#L455'>455</a>
+<a name='L456'></a><a href='#L456'>456</a>
+<a name='L457'></a><a href='#L457'>457</a>
+<a name='L458'></a><a href='#L458'>458</a>
+<a name='L459'></a><a href='#L459'>459</a>
+<a name='L460'></a><a href='#L460'>460</a>
+<a name='L461'></a><a href='#L461'>461</a>
+<a name='L462'></a><a href='#L462'>462</a>
+<a name='L463'></a><a href='#L463'>463</a>
+<a name='L464'></a><a href='#L464'>464</a>
+<a name='L465'></a><a href='#L465'>465</a>
+<a name='L466'></a><a href='#L466'>466</a>
+<a name='L467'></a><a href='#L467'>467</a>
+<a name='L468'></a><a href='#L468'>468</a>
+<a name='L469'></a><a href='#L469'>469</a>
+<a name='L470'></a><a href='#L470'>470</a>
+<a name='L471'></a><a href='#L471'>471</a>
+<a name='L472'></a><a href='#L472'>472</a>
+<a name='L473'></a><a href='#L473'>473</a>
+<a name='L474'></a><a href='#L474'>474</a>
+<a name='L475'></a><a href='#L475'>475</a>
+<a name='L476'></a><a href='#L476'>476</a>
+<a name='L477'></a><a href='#L477'>477</a>
+<a name='L478'></a><a href='#L478'>478</a>
+<a name='L479'></a><a href='#L479'>479</a>
+<a name='L480'></a><a href='#L480'>480</a>
+<a name='L481'></a><a href='#L481'>481</a>
+<a name='L482'></a><a href='#L482'>482</a>
+<a name='L483'></a><a href='#L483'>483</a>
+<a name='L484'></a><a href='#L484'>484</a>
+<a name='L485'></a><a href='#L485'>485</a>
+<a name='L486'></a><a href='#L486'>486</a>
+<a name='L487'></a><a href='#L487'>487</a>
+<a name='L488'></a><a href='#L488'>488</a>
+<a name='L489'></a><a href='#L489'>489</a>
+<a name='L490'></a><a href='#L490'>490</a>
+<a name='L491'></a><a href='#L491'>491</a>
+<a name='L492'></a><a href='#L492'>492</a>
+<a name='L493'></a><a href='#L493'>493</a>
+<a name='L494'></a><a href='#L494'>494</a>
+<a name='L495'></a><a href='#L495'>495</a>
+<a name='L496'></a><a href='#L496'>496</a>
+<a name='L497'></a><a href='#L497'>497</a>
+<a name='L498'></a><a href='#L498'>498</a>
+<a name='L499'></a><a href='#L499'>499</a>
+<a name='L500'></a><a href='#L500'>500</a>
+<a name='L501'></a><a href='#L501'>501</a>
+<a name='L502'></a><a href='#L502'>502</a>
+<a name='L503'></a><a href='#L503'>503</a>
+<a name='L504'></a><a href='#L504'>504</a>
+<a name='L505'></a><a href='#L505'>505</a>
+<a name='L506'></a><a href='#L506'>506</a>
+<a name='L507'></a><a href='#L507'>507</a>
+<a name='L508'></a><a href='#L508'>508</a>
+<a name='L509'></a><a href='#L509'>509</a>
+<a name='L510'></a><a href='#L510'>510</a>
+<a name='L511'></a><a href='#L511'>511</a>
+<a name='L512'></a><a href='#L512'>512</a>
+<a name='L513'></a><a href='#L513'>513</a>
+<a name='L514'></a><a href='#L514'>514</a>
+<a name='L515'></a><a href='#L515'>515</a>
+<a name='L516'></a><a href='#L516'>516</a>
+<a name='L517'></a><a href='#L517'>517</a>
+<a name='L518'></a><a href='#L518'>518</a>
+<a name='L519'></a><a href='#L519'>519</a>
+<a name='L520'></a><a href='#L520'>520</a>
+<a name='L521'></a><a href='#L521'>521</a>
+<a name='L522'></a><a href='#L522'>522</a>
+<a name='L523'></a><a href='#L523'>523</a>
+<a name='L524'></a><a href='#L524'>524</a>
+<a name='L525'></a><a href='#L525'>525</a>
+<a name='L526'></a><a href='#L526'>526</a>
+<a name='L527'></a><a href='#L527'>527</a>
+<a name='L528'></a><a href='#L528'>528</a>
+<a name='L529'></a><a href='#L529'>529</a>
+<a name='L530'></a><a href='#L530'>530</a>
+<a name='L531'></a><a href='#L531'>531</a>
+<a name='L532'></a><a href='#L532'>532</a>
+<a name='L533'></a><a href='#L533'>533</a>
+<a name='L534'></a><a href='#L534'>534</a>
+<a name='L535'></a><a href='#L535'>535</a>
+<a name='L536'></a><a href='#L536'>536</a>
+<a name='L537'></a><a href='#L537'>537</a>
+<a name='L538'></a><a href='#L538'>538</a>
+<a name='L539'></a><a href='#L539'>539</a>
+<a name='L540'></a><a href='#L540'>540</a>
+<a name='L541'></a><a href='#L541'>541</a>
+<a name='L542'></a><a href='#L542'>542</a>
+<a name='L543'></a><a href='#L543'>543</a>
+<a name='L544'></a><a href='#L544'>544</a>
+<a name='L545'></a><a href='#L545'>545</a>
+<a name='L546'></a><a href='#L546'>546</a>
+<a name='L547'></a><a href='#L547'>547</a>
+<a name='L548'></a><a href='#L548'>548</a>
+<a name='L549'></a><a href='#L549'>549</a>
+<a name='L550'></a><a href='#L550'>550</a>
+<a name='L551'></a><a href='#L551'>551</a>
+<a name='L552'></a><a href='#L552'>552</a>
+<a name='L553'></a><a href='#L553'>553</a>
+<a name='L554'></a><a href='#L554'>554</a>
+<a name='L555'></a><a href='#L555'>555</a>
+<a name='L556'></a><a href='#L556'>556</a>
+<a name='L557'></a><a href='#L557'>557</a>
+<a name='L558'></a><a href='#L558'>558</a>
+<a name='L559'></a><a href='#L559'>559</a>
+<a name='L560'></a><a href='#L560'>560</a>
+<a name='L561'></a><a href='#L561'>561</a>
+<a name='L562'></a><a href='#L562'>562</a>
+<a name='L563'></a><a href='#L563'>563</a>
+<a name='L564'></a><a href='#L564'>564</a>
+<a name='L565'></a><a href='#L565'>565</a>
+<a name='L566'></a><a href='#L566'>566</a>
+<a name='L567'></a><a href='#L567'>567</a>
+<a name='L568'></a><a href='#L568'>568</a>
+<a name='L569'></a><a href='#L569'>569</a>
+<a name='L570'></a><a href='#L570'>570</a>
+<a name='L571'></a><a href='#L571'>571</a>
+<a name='L572'></a><a href='#L572'>572</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// Comprehensive Educational Content for Colombian Departments
+// Rich narratives, historical context, and detailed information for Study Mode
+&nbsp;
+export interface DepartmentEducation {
+  departmentId: string;
+  historiaContexto: string;        // History &amp; Context - full paragraphs
+  importanciaEconomica: string;    // Economic Importance - detailed info
+  caracteristicasUnicas: string;   // Unique Features - complete descriptions
+  patrimonioCultural: string;      // Cultural Heritage - rich narratives
+  datosEspecificos: {             // Specific verified data
+    fechaCreacion?: string;
+    poblacionIndigena?: string;
+    patrimonioUNESCO?: string[];
+    atraccionesPrincipales?: string[];
+    industrias?: string[];
+    clima?: string;
+    altitud?: string;
+  };
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >export const departmentEducationData: DepartmentEducation[] = [</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'amazonas',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Amazonas representa el corazón de la selva colombiana, un territorio que ha sido habitado por más de 40 grupos indígenas durante milenios. Esta región fue explorada por los conquistadores españoles en el siglo XVI en busca del mítico El Dorado, pero su geografía selvática y la resistencia indígena mantuvieron gran parte del territorio fuera del control colonial. Durante el siglo XX, la extracción de caucho marcó una época violenta conocida como la "fiebre del caucho", documentada magistralmente por José Eustasio Rivera en "La Vorágine".',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'La economía amazónica se basa principalmente en la pesca artesanal, la extracción sostenible de productos forestales no maderables, y un creciente ecoturismo. Leticia, su capital, sirve como puerto tripartito con Brasil y Perú, facilitando el comercio fronterizo. Los recursos incluyen maderas finas, plantas medicinales, frutas exóticas como el camu-camu (con el mayor contenido de vitamina C del mundo), y artesanías indígenas. El turismo científico y ecológico genera importantes ingresos, con visitantes internacionales que vienen a observar los delfines rosados del Amazonas.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Amazonas es el departamento más grande de Colombia, cubriendo 109,665 km² (9.6% del territorio nacional) pero albergando menos de 80,000 habitantes. Es el único departamento accesible únicamente por aire o río, sin carreteras terrestres que lo conecten con el resto del país. La biodiversidad es extraordinaria: se han identificado más de 3,000 especies de plantas, 1,500 especies de mariposas, y 600 especies de aves. Los ríos Negro y Solimões crean el fenómeno natural del "encuentro de las aguas" cerca de Leticia.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'La diversidad cultural del Amazonas es única en el mundo, con más de 40 grupos étnicos que mantienen sus lenguas originarias, tradiciones medicinales, y sistemas de conocimiento ancestral. Los grupos principales incluyen los Tikuna, Huitoto, Yagua, y Cocama, cada uno con cosmogonías distintivas y prácticas rituales. La maloca, casa comunal tradicional, sigue siendo el centro de la vida social indígena. Los saberes sobre plantas medicinales amazónicas han contribuido significativamente a la farmacología moderna.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1991 (constitución)',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '67% (53,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Reserva de Biosfera del Río Putumayo'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Parque Nacional Natural Amacayacu', 'Isla de los Micos', 'Lagos de Tarapoto', 'Reserva Tanimboca'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Ecoturismo', 'Pesca artesanal', 'Productos forestales', 'Artesanías indígenas'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical húmedo, 26°C promedio, 2,500-3,000mm lluvia anual',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: '84 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'antioquia',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Antioquia fue colonizada en el siglo XVI por exploradores españoles en busca de oro, estableciendo poblaciones como Santa Fe de Antioquia (1541). La región desarrolló una cultura minera distintiva que evolucionó hacia el comercio y la industria. Durante las guerras de independencia, Antioquia jugó un papel crucial, y en el siglo XIX se convirtió en pionera de la industrialización colombiana. La cultura "paisa" se caracteriza por su espíritu emprendedor, tradicionalmente atribuido a la herencia vasca de muchos colonos.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Antioquia es el motor económico de Colombia, contribuyendo con el 13% del PIB nacional. Medellín, su capital, es el segundo centro industrial del país, destacando en textiles, confecciones, metalurgia, y tecnología. El departamento produce significativas cantidades de oro, carbón, y café. La Feria de las Flores genera más de $200 millones de pesos en turismo anualmente. Las empresas antioqueñas como el Grupo Empresarial Antioqueño (GEA) tienen presencia internacional. El metro de Medellín, único en Colombia, simboliza la transformación urbana y genera importantes ingresos.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Medellín es reconocida mundialmente por su transformación de ciudad violenta a centro de innovación, ganando el premio "Ciudad Más Innovadora" en 2013. La Feria de las Flores es uno de los festivales más importantes de América Latina, celebrando la tradición silletera desde 1957. El sistema integrado de transporte incluye metro, metrocable, y tranvía, siendo modelo para otras ciudades latinoamericanas. Fernando Botero, el artista colombiano más reconocido internacionalmente, es nativo de Medellín.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'La cultura paisa se expresa en tradiciones como la arriería (declarada Patrimonio Cultural Inmaterial de la Humanidad por UNESCO), el silletero, y festivales como la Feria de las Flores. Las obras de Fernando Botero adornan Medellín, con el Museo de Antioquia albergando la mayor colección del artista. La arquitectura colonial de Santa Fe de Antioquia está protegida como patrimonio nacional. La gastronomía incluye la bandeja paisa, considerada plato nacional de Colombia.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1856',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '1.2% (80,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Paisaje Cultural Cafetero (parte)', 'Arriería como patrimonio inmaterial'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Comuna 13', 'Museo de Antioquia', 'Pueblito Paisa', 'Parque Arví', 'Santa Fe de Antioquia'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Textiles', 'Metalurgia', 'Servicios financieros', 'Tecnología', 'Minería'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical de montaña, "eterna primavera" en Medellín (22°C promedio)',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Medellín: 1,495 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'arauca',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Arauca formó parte del territorio disputado durante las guerras de independencia, donde los llaneros comandados por José Antonio Páez jugaron un papel decisivo. El departamento se creó en 1991, separándose de Boyacá. La cultura llanera, compartida con Venezuela, se desarrolló alrededor de la ganadería extensiva y el contrabando histórico a través del río Arauca. El descubrimiento de petróleo en los años 1980 transformó radicalmente la economía y demografía regional.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'La economía araucana se basa principalmente en la explotación petrolera, que ha generado importantes regalías para el departamento desde los años 1980. El Complejo Petrolero de Caño Limón produce cerca de 100,000 barriles diarios. La ganadería sigue siendo importante, con más de 2 millones de cabezas de ganado. La agricultura incluye arroz, plátano, yuca, y palma africana. El comercio fronterizo con Venezuela es significativo, aunque fluctúa según las relaciones diplomáticas.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'El Puente José Antonio Páez, que conecta con Venezuela, es uno de los más largos de Sudamérica con 1,430 metros. Arauca tiene la peculiaridad geográfica de ser tan plano que las tormentas son visibles desde 50 kilómetros de distancia. El departamento experimenta dos estaciones extremas: una húmeda (abril-noviembre) donde las llanuras se inundan, y una seca (diciembre-marzo) donde el paisaje se vuelve árido. Es el único departamento colombiano cuya capital tiene el mismo nombre.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'La cultura llanera de Arauca es compartida con Venezuela, expresándose en el joropo, música tradicional interpretada con arpa, cuatro, y maracas. El coleo, deporte tradicional donde se derriba un toro agarrándolo por la cola, es patrimonio cultural regional. Las tradiciones orales incluyen los "contrapunteos" improvisados y las coplas llaneras. Las ferias ganaderas mantienen vivas las tradiciones de vaquería y monta de caballos. La artesanía en cuero y sombreros de palma refleja la vida rural llanera.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1991',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '2.8% (7,600 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: [],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Puente José Antonio Páez', 'Reserva Natural El Lipa', 'Laguna de Lipa', 'Parque Nacional El Tuparro (parcial)'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Petróleo', 'Ganadería', 'Agricultura', 'Comercio fronterizo'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical de sabana, 27°C promedio, estaciones húmeda y seca marcadas',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: '125 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'atlantico',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Atlántico fue creado en 1905, siendo uno de los departamentos más jóvenes de Colombia. Barranquilla emergió en el siglo XIX como el principal puerto del país cuando el río Magdalena se convirtió en la arteria comercial principal. La llegada de inmigrantes árabes, judíos, italianos, y alemanes en el siglo XX creó una sociedad cosmopolita. El Carnaval de Barranquilla tiene raíces en las celebraciones españolas coloniales mezcladas con tradiciones africanas e indígenas.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Atlántico, a pesar de ser el departamento más pequeño de la región Caribe, concentra una gran actividad económica. Barranquilla es el tercer puerto marítimo más importante de Colombia, manejando 40% del comercio exterior por la costa Caribe. El sector industrial incluye química, alimentos, textiles, y metalurgia. El Carnaval de Barranquilla genera más de $150 millones de pesos anuales en turismo. La ubicación estratégica en la desembocadura del Magdalena facilita el comercio fluvial y marítimo.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Atlántico es el departamento con mayor densidad poblacional de Colombia (más de 700 habitantes por km²). Barranquilla fue la primera ciudad colombiana en tener aviación comercial, servicio telefónico, y energía eléctrica. El Carnaval es la segunda festividad más importante de América Latina después del de Río de Janeiro. Shakira, la artista colombiana más exitosa internacionalmente, es nativa de Barranquilla. El municipio de Puerto Colombia tiene la peculiaridad de ser uno de los pocos pueblos costeros construidos en acantilados.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'El Carnaval de Barranquilla fue declarado Patrimonio Cultural Inmaterial de la Humanidad por UNESCO en 2008. Las tradiciones incluyen personajes como la Marimonda, el Congo, y el Rey Momo. La cumbia, ritmo musical que se extendió por toda América Latina, tiene sus raíces en esta región. La gastronomía costeña incluye especialidades como el sancocho de guandú, el bollo limpio, y la arepa de huevo. Santa Verónica es reconocida como uno de los mejores sitios de parapente del mundo.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1905',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '0.1% (2,500 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Carnaval de Barranquilla (2008)'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Carnaval de Barranquilla', 'Casa del Carnaval', 'Museo del Caribe', 'Santa Verónica', 'Puerto Colombia'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Servicios portuarios', 'Química', 'Alimentos', 'Turismo', 'Textiles'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical seco, 28°C promedio, precipitación 800-1000mm anual',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: '98 metros sobre el nivel del mar en promedio'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'bolivar',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Bolívar tiene una de las historias más ricas de Colombia. Cartagena fue fundada en 1533 y se convirtió en el principal puerto español en América, donde llegaban los galeones cargados de oro peruano. Las fortificaciones de Cartagena, construidas durante tres siglos, la convirtieron en la ciudad más protegida del Nuevo Mundo. Durante la independencia, Cartagena resistió el sitio de Pablo Morillo (1815), conocido como "el año terrible". San Basilio de Palenque, fundado por esclavos cimarrones en el siglo XVII, fue el primer pueblo libre de América.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Cartagena es el principal puerto turístico de Colombia, recibiendo más de 3 millones de visitantes anuales y generando ingresos superiores a $1.5 billones de pesos. El complejo industrial de Mamonal alberga refinerías, petroquímicas, y plantas químicas que contribuyen significativamente al PIB nacional. El puerto de Cartagena maneja el 30% del comercio marítimo nacional. La industria naval y la joyería con esmeraldas son importantes fuentes de empleo. Las islas del Rosario desarrollan turismo náutico y ecológico.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Las murallas de Cartagena son las fortificaciones coloniales españolas más extensas y mejor conservadas de América, con 11 kilómetros de longitud. El Castillo San Felipe de Barajas es considerado la obra de ingeniería militar más grande construida por España en sus colonias. Cartagena es la única ciudad colombiana que conserva completamente su centro histórico colonial. La Heroica resistió exitosamente los ataques de Francis Drake (1586) y Edward Vernon (1741), consolidando su fama de inexpugnable.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'El centro histórico de Cartagena fue declarado Patrimonio Cultural de la Humanidad por UNESCO en 1984. San Basilio de Palenque es reconocido como Patrimonio Inmaterial por preservar la lengua palenquera y tradiciones africanas únicas en América. La música de gaita y tambores, el vallenato, y la champeta son expresiones culturales distintivas. La gastronomía incluye el sancocho de mondongo cartagenero y dulces tradicionales como el cocadas y las alegrías.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1886',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '0.8% (21,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Centro Histórico de Cartagena (1984)', 'San Basilio de Palenque (2008)'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Ciudad Amurallada', 'Castillo San Felipe', 'Islas del Rosario', 'San Basilio de Palenque', 'Volcán del Totumo'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Turismo', 'Petroquímica', 'Servicios portuarios', 'Industria naval', 'Refinación'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical seco, 28°C promedio, temporada seca diciembre-abril',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: '2 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'boyaca',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Boyacá es conocida como la "Cuna de la Libertad" porque allí se libró la Batalla de Boyacá el 7 de agosto de 1819, que selló la independencia de Colombia y gran parte de América del Sur. El puente de Boyacá, donde ocurrió el encuentro decisivo entre las tropas de Simón Bolívar y las españolas, es considerado lugar sagrado de la patria. Durante la colonia, la región fue importante por sus minas de sal y esmeraldas. Villa de Leyva, fundada en 1572, conserva la arquitectura colonial más pura del país.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Boyacá es el principal productor de esmeraldas del mundo, concentrando el 70% de la producción global en minas como Muzo y Chivor. La agricultura incluye papa, cebolla, zanahoria, y flores para exportación. El turismo histórico y cultural genera importantes ingresos, especialmente en Villa de Leyva y Tunja. La industria siderúrgica en Sogamoso produce acero para construcción. El sector lácteo de la Sabana de Bogotá y los páramos proporcionan productos para el centro del país.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Villa de Leyva posee la plaza mayor más grande de Colombia (14,000 m²) y una de las más grandes de América Latina. El departamento contiene el 18.3% de todos los páramos de Colombia, ecosistemas únicos que regulan el agua para millones de personas. El Lago de Tota es el lago natural más grande de Colombia. El Festival Internacional de la Cultura (FIC) convierte a Boyacá en capital cultural de América Latina cada agosto desde 1973.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'El Puente de Boyacá es considerado altar de la patria, donde se realizan ceremonias oficiales cada 7 de agosto. Villa de Leyva es Monumento Nacional por su arquitectura colonial intacta y sus calles empedradas originales. Las tradiciones incluyen el Festival de Cometas de agosto, las festividades navideñas de Villa de Leyva, y el aguinaldo boyacense. La artesanía en lana, cerámica de Ráquira, y tejidos tradicionales mantienen técnicas ancestrales.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1886',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '1.1% (14,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: [],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Villa de Leyva', 'Puente de Boyacá', 'Lago de Tota', 'Ráquira', 'Parque Nacional Natural El Cocuy'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Minería (esmeraldas)', 'Agricultura', 'Turismo', 'Siderurgia', 'Lácteos'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical de montaña, páramos fríos, valles templados',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Varía entre 200m y 5,330m (Sierra Nevada del Cocuy)'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'caldas',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Caldas fue creado en 1905 como parte del desmembramiento del Gran Caldas, junto con Risaralda y Quindío. La colonización antioqueña del siglo XIX trajo la cultura paisa y el cultivo del café a estas montañas. Manizales fue fundada en 1849 por colonos antioqueños y se convirtió en centro del comercio cafetero. La ciudad ha sido reconstruida múltiples veces debido a incendios y terremotos, desarrollando una arquitectura única adaptada a las condiciones sísmicas.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Caldas es parte del Paisaje Cultural Cafetero, declarado Patrimonio de la Humanidad, produciendo café de alta calidad reconocido mundialmente. Manizales alberga la Bolsa Nacional Agropecuaria y es centro de comercialización del café colombiano. La Feria de Manizales atrae más de 500,000 visitantes anuales, generando importantes ingresos turísticos. El departamento produce también flores para exportación y desarrolla agroindustria. La Universidad Nacional de Colombia campus Manizales es líder en investigación agrícola.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Manizales es conocida como la "Ciudad de las Puertas Abiertas" por la hospitalidad de sus habitantes. El Nevado del Ruiz, volcán activo, domina el paisaje y es parte del Parque Nacional Natural Los Nevados. La ciudad está construida sobre fuertes pendientes, con un sistema de transporte por cable único en el país. El Carnaval del Diablo de Riosucio, cada dos años, es uno de los carnavales más antiguos y auténticos de Colombia.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'El Paisaje Cultural Cafetero fue declarado Patrimonio de la Humanidad por UNESCO en 2011, reconociendo las tradiciones ancestrales del cultivo del café. La Feria de Manizales incluye corridas de toros, reinado internacional, y el festival "Manizales Grita Rock". El Carnaval del Diablo de Riosucio celebra la diversidad cultural y la resistencia indígena cada dos años desde 1915. La arquitectura de bahareque y guadua es característica de la región cafetera.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1905',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '3.2% (32,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Paisaje Cultural Cafetero (2011)'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Nevado del Ruiz', 'Termales de Santa Rosa', 'Riosucio', 'Reserva de Río Blanco', 'Centro Histórico de Manizales'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Café', 'Turismo', 'Flores', 'Agroindustria', 'Servicios'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical de montaña, 17°C promedio en Manizales',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Manizales: 2,153 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'caqueta',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Caquetá fue colonizado a principios del siglo XX por campesinos en busca de tierras, convirtiéndose en territorio nacional en 1904 y departamento en 1981. Florencia fue fundada en 1902 por colonos que llegaron huyendo de la Guerra de los Mil Días. La región sirvió como puerta de entrada al Amazonas colombiano, desarrollando una cultura de colonización y adaptación a la selva tropical. Durante el conflicto armado interno, el departamento fue escenario de confrontaciones entre grupos irregulares.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'La economía de Caquetá se basa en la ganadería extensiva, con más de 2.5 millones de cabezas de ganado, y la agricultura de pancoger que incluye plátano, yuca, maíz, y arroz. La piscicultura está en desarrollo, aprovechando los recursos hídricos amazónicos. El ecoturismo emerge como alternativa económica, especialmente en las zonas de transición Andes-Amazonas. La explotación maderera regulada y los productos forestales no maderables complementan la economía regional.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Caquetá es el "Portal del Amazonas" colombiano, ubicado en la transición entre la región andina y la amazónica. La Serranía de la Lindosa contiene arte rupestre de más de 12,000 años de antigüedad, considerado la "Capilla Sixtina" del arte precolombino. El río Caquetá es navegable en gran parte de su recorrido, sirviendo como vía de comunicación principal. Las formaciones rocosas de la Lindosa incluyen tepuis similares a los de Venezuela y Brasil.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'El arte rupestre de la Serranía de la Lindosa representa una de las colecciones más importantes de América, con pinturas que narran la historia de los primeros pobladores amazónicos. Las tradiciones de navegación fluvial en canoas talladas incluyen técnicas ancestrales adaptadas al medio acuático. La música regional combina influencias andinas y amazónicas. Los conocimientos tradicionales sobre plantas medicinales y alimenticias de la selva se mantienen en las comunidades rurales.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1981',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '1.8% (9,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: [],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Serranía de la Lindosa', 'Parque Nacional Natural Serranía de los Churumbelos', 'Cascadas del Fin del Mundo', 'Río Caquetá'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Ganadería', 'Agricultura', 'Piscicultura', 'Ecoturismo', 'Productos forestales'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical húmedo, 25°C promedio, alta precipitación',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Florencia: 242 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'casanare',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Casanare formó parte de la antigua provincia de Tunja durante la colonia y fue escenario crucial de las guerras de independencia, donde los llaneros fueron determinantes en las victorias patriotas. El departamento se creó en 1991, separándose de Boyacá. El descubrimiento del campo petrolero de Cusiana en 1988 transformó dramáticamente la región, convirtiendo a Yopal de un pequeño pueblo ganadero en una ciudad moderna. La cultura llanera tradicional coexiste con la modernidad petrolera.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Casanare es uno de los principales productores de petróleo de Colombia, con campos como Cusiana y Cupiagua que han aportado billones de pesos en regalías. La ganadería sigue siendo importante, con más de 1.8 millones de cabezas de ganado. El arroz de los llanos de Casanare abastece gran parte del consumo nacional. Yopal experimentó un crecimiento económico acelerado, convirtiéndose en centro de servicios petroleros y financieros para la región.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Casanare es el epicentro de la cultura llanera colombiana, donde el coleo (deporte de derribar toros por la cola) es tradición ancestral. El departamento experimenta estaciones extremas: la época de lluvias convierte las sabanas en enormes lagos, mientras la sequía crea paisajes áridos. Los caballos de paso fino casanareño son reconocidos por su calidad. El Torneo Internacional del Joropo es el evento cultural más importante de la región.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'El coleo es el deporte tradicional más representativo, donde jinetes a caballo deben derribar un toro agarrándolo por la cola. El joropo, música interpretada con arpa, cuatro, y maracas, expresa el alma llanera en coplas improvisadas. Las tradicionales "coleadas" son festivales que combinan deporte, música, y gastronomía. Los "contrapunteos" (duelos de improvisación musical) mantienen viva la tradición oral llanera. La elaboración de sombreros de palma y trabajos en cuero son artesanías tradicionales.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1991',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '0.9% (4,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: [],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Wisirare (Orocué)', 'Caño Cristales (parcial)', 'Reserva Natural La Macarena', 'Hato La Aurora'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Petróleo', 'Ganadería', 'Agricultura (arroz)', 'Servicios', 'Turismo rural'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical de sabana, 26°C promedio, estaciones húmeda y seca marcadas',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Yopal: 350 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'cauca',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'El Cauca tiene una historia prehispánica rica con la cultura San Agustín y culturas del Pacífico. Durante la colonia fue importante por sus minas de oro y la población esclavizada africana que trabajaba en ellas. La región se convirtió en cuna de música tradicional como el bambuco, nacido de la fusión de elementos africanos, indígenas, y españoles. Popayán, fundada en 1537, fue centro administrativo colonial y es conocida como la "Ciudad Blanca" por su arquitectura.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'El Cauca es un departamento con economía diversificada que incluye agricultura (café, caña de azúcar, fique), ganadería, y minería aurífera artesanal. Popayán es centro de servicios y educación superior, con varias universidades importantes. La industria azucarera del norte del departamento complementa la del Valle del Cauca. El ecoturismo en el Pacífico caucano, especialmente para avistamiento de ballenas jorobadas, genera importantes ingresos.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'El Cauca es único por su diversidad geográfica, abarcando desde la cordillera andina hasta el océano Pacífico. El Macizo Colombiano, donde nacen los ríos Magdalena, Cauca, Patía, y Caquetá, está ubicado en este departamento. La música de marimba del Pacífico caucano fue declarada Patrimonio Inmaterial de la Humanidad por UNESCO. Las comunidades afrocolombianas del litoral mantienen tradiciones únicas de navegación y pesca.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'La música y danzas de marimba fueron declaradas Patrimonio Cultural Inmaterial de la Humanidad por UNESCO en 2015, reconociendo la tradición afrocolombiana del Pacífico. El bambuco, considerado aire nacional de Colombia, tiene sus orígenes en esta región. Popayán es famosa por sus procesiones de Semana Santa, declaradas Patrimonio Inmaterial por UNESCO. La gastronomía incluye especialidades como las empanadas de pipián y el champús.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1886',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '21.5% (295,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Música de marimba (2015)', 'Procesiones de Semana Santa de Popayán (2009)'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Popayán', 'Parque Nacional Natural Gorgona', 'Tierradentro', 'Silvia', 'Guapi'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Agricultura', 'Minería', 'Turismo', 'Agroindustria', 'Pesca'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Variado: templado en Popayán (19°C), tropical húmedo en el Pacífico',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Popayán: 1,760 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'cesar',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'César fue creado en 1967, separándose de Magdalena. Esta región ha sido cuna de la música vallenata, que surgió de la fusión de tres culturas: la indígena (guacharaca), la africana (caja), y la europea (acordeón alemán). El Valle de Upar fue habitado por los indígenas chimilas, y durante la colonia fue zona de haciendas ganaderas. El Festival de la Leyenda Vallenata, iniciado en 1968, convirtió a Valledupar en la capital mundial de este género musical.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'César es uno de los principales productores de carbón de Colombia, con minas en El Cerrejón y La Loma que exportan a Europa y Asia. La ganadería es tradicional y muy importante, con más de 1.5 millones de cabezas de ganado. La agricultura incluye algodón, sorgo, maíz, y yuca. El turismo musical atrae miles de visitantes durante el Festival Vallenato. La producción de aceite de palma es creciente en la región.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'César es la cuna del vallenato, declarado Patrimonio Cultural Inmaterial de la Humanidad por UNESCO en 2015. El valle donde está ubicada Valledupar está rodeado por dos sistemas montañosos: la Sierra Nevada de Santa Marta y la Serranía de los Perijás. La región tiene la peculiaridad de ser frontera con Venezuela. El vallenato tradicional se interpreta únicamente con tres instrumentos: acordeón, caja vallenata, y guacharaca.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'El vallenato fue reconocido por UNESCO como Patrimonio Cultural Inmaterial de la Humanidad en 2015, honrando esta tradición musical que narra la vida cotidiana del pueblo caribeño. El Festival de la Leyenda Vallenata corona al "Rey Vallenato" anualmente desde 1968. Los aires del vallenato (paseo, merengue, puya, y son) cada uno tiene características rítmicas distintivas. Figuras como Rafael Escalona, Carlos Vives, y Diomedes Díaz han llevado el vallenato al mundo.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1967',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '8.7% (90,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Vallenato como patrimonio inmaterial (2015)'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Casa de la Cultura Vallenata', 'Parque de la Leyenda Vallenata', 'Sierra Nevada de Santa Marta', 'Balneario Hurtado'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Minería (carbón)', 'Ganadería', 'Agricultura', 'Turismo musical', 'Palma africana'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical seco, 28°C promedio, lluvias de abril a noviembre',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Valledupar: 169 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'choco',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Chocó fue creado en 1947 y tiene una historia marcada por la explotación aurífera desde la época colonial, cuando fue poblado principalmente por esclavos africanos traídos para trabajar en las minas. Esta herencia africana es dominante: el 82.1% de la población es afrocolombiana. La región desarrolló una cultura única de resistencia y preservación de tradiciones africanas. Durante el siglo XX, la marimba se convirtió en símbolo de identidad cultural chocoana.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Chocó posee importantes recursos naturales incluyendo oro, platino, y la mayor biodiversidad por hectárea del planeta. Sin embargo, es uno de los departamentos con mayores desafíos de desarrollo. La economía se basa en minería artesanal, pesca, agricultura de subsistencia, y aprovechamiento forestal sostenible. El ecoturismo emerge como alternativa, especialmente para avistamiento de ballenas jorobadas. Buenaventura (Valle) sirve como puerto principal para el comercio del Pacífico.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Lloró, municipio de Chocó, ostenta el récord mundial de precipitación con 13,300mm anuales. El departamento contiene la mayor biodiversidad por área del planeta, con 7,000-8,000 especies vegetales identificadas. Es el único departamento de Colombia con costas en el Pacífico pero sin salida directa al mar (comparte con Valle del Cauca). El 96% del territorio es propiedad colectiva de comunidades indígenas y afrocolombianas.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'La música de marimba y los cantos tradicionales del Pacífico Sur fueron declarados Patrimonio Cultural Inmaterial de la Humanidad por UNESCO en 2015. Esta tradición musical afrocolombiana incluye ritmos como el currulao, la juga, y el aguabajo. Las técnicas tradicionales de construcción naval, pesca, y medicina ancestral se mantienen vivas. El conocimiento sobre plantas medicinales del Chocó ha contribuido a descubrimientos farmacológicos importantes.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1947',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '12% (60,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Música de marimba del Pacífico (2015)'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Parque Nacional Natural Utría', 'Nuquí', 'Bahía Solano', 'Capurganá', 'El Valle'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Minería artesanal', 'Pesca', 'Ecoturismo', 'Productos forestales', 'Agricultura'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical húmedo, 26°C promedio, hasta 13,300mm lluvia anual',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Quibdó: 43 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'cordoba',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Córdoba fue creado en 1951, separándose de Bolívar. La región fue habitada por los pueblos indígenas zenúes, quienes desarrollaron sofisticados sistemas de ingeniería hidráulica para controlar las inundaciones del río Sinú. Durante la colonia se establecieron haciendas ganaderas que definieron la vocación económica regional. Montería, fundada en 1777, se convirtió en centro comercial y ganadero. El sombrero vueltiao, símbolo cultural, tiene sus raíces en las tradiciones zenúes.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Córdoba es uno de los principales departamentos ganaderos de Colombia, con más de 2.5 millones de cabezas de ganado bovino. La agricultura incluye arroz, algodón, maíz, y yuca. La región está desarrollando agroindustria, especialmente procesamiento de carne y lácteos. La minería de níquel en Cerro Matoso es significativa. El comercio y los servicios en Montería complementan la economía departamental.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'El sombrero vueltiao es símbolo cultural nacional, elaborado con fibra de caña flecha por artesanos zenúes con técnicas ancestrales. Córdoba tiene una forma geográfica irregular alargada en sentido norte-sur. La región del Bajo Sinú se caracteriza por extensas llanuras que se inundan estacionalmente. Los festivales del porro y el fandango son tradiciones musicales distintivas de la región.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'El sombrero vueltiao fue declarado Patrimonio Cultural de la Nación, representando la identidad costeña y el legado zenú. Las técnicas de tejido se transmiten de generación en generación en las comunidades indígenas. La música de porro y fandango son expresiones culturales tradicionales. Los conocimientos ancestrales zenúes sobre manejo del agua y agricultura en zonas inundables son reconocidos internacionalmente.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1951',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '11.2% (190,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: [],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Parque Nacional Natural Paramillo', 'Ciénaga de Ayapel', 'Tuchín (sombreros vueltiao)', 'Lorica'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Ganadería', 'Agricultura', 'Minería (níquel)', 'Agroindustria', 'Comercio'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical con estaciones seca y húmeda, 28°C promedio',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Montería: 18 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'cundinamarca',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Cundinamarca fue sede de la civilización muisca, una de las más avanzadas de América precolombina, conocida por la leyenda de El Dorado en la laguna de Guatavita. Durante la colonia, la sabana de Bogotá se convirtió en centro administrativo del Virreinato de Nueva Granada. Bogotá fue declarada capital de la Gran Colombia y posteriormente de Colombia. El departamento rodea al Distrito Capital y forma con él una conurbación de más de 10 millones de habitantes.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Cundinamarca, junto con Bogotá, constituye el centro económico más importante de Colombia, contribuyendo aproximadamente 25% del PIB nacional. La sabana de Bogotá concentra industria manufacturera, servicios financieros, y agricultura intensiva (flores, papa, leche). El aeropuerto El Dorado es el más importante del país. La región es líder en educación superior y tecnología. La cercanía a Bogotá facilita el desarrollo de ciudades dormitorio y corredores industriales.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Cundinamarca tiene la particularidad de rodear completamente al Distrito Capital de Bogotá. La laguna de Guatavita es el lugar donde se originó la leyenda mundial de El Dorado. La Catedral de Sal de Zipaquirá es considerada la Primera Maravilla de Colombia. El altiplano cundiboyacense tiene el ecosistema de páramo más extenso del mundo. La sabana de Bogotá es una de las altiplanicies más pobladas de América.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'La Catedral de Sal de Zipaquirá es un templo católico construido dentro de una mina de sal, declarado Primera Maravilla de Colombia. Villa de Leyva (aunque en Boyacá) está administrativamente conectada con la región. Los pueblos coloniales como Guatavita conservan arquitectura y tradiciones. La leyenda de El Dorado se originó en ceremonias muiscas en la laguna de Guatavita. Las tradiciones campesinas de la sabana incluyen festivales agrícolas y gastronómicos.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1886',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '0.8% (25,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: [],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Catedral de Sal de Zipaquirá', 'Laguna de Guatavita', 'Parque Nacional Natural Chingaza', 'Guasca', 'La Calera'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Industria manufacturera', 'Agricultura intensiva', 'Servicios', 'Minería (sal)', 'Turismo'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical de montaña, 14°C promedio en la sabana',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Sabana de Bogotá: 2,600 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'guainia',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Guainía fue creado como comisaría en 1963 y se convirtió en departamento en 1991. Esta región amazónica ha sido habitada ancestralmente por grupos indígenas que han mantenido sus tradiciones y lenguas originarias. Inírida fue fundada en 1963 como centro administrativo. La región permaneció aislada del resto del país hasta épocas recientes, preservando ecosistemas únicos y culturas indígenas. Su nombre deriva del río Guainía, que significa "río de la estrella" en lengua indígena.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'La economía de Guainía se basa en pesca artesanal, agricultura de subsistencia, y aprovechamiento sostenible de productos forestales. El ecoturismo está en desarrollo, especialmente hacia los Cerros de Mavicure y la Estrella Fluvial del Oriente. La artesanía indígena genera ingresos para las comunidades. Los servicios gubernamentales y el comercio fronterizo con Venezuela complementan la economía. La región tiene potencial para turismo científico y ecológico.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Guainía se encuentra en el extremo oriental de Colombia, formando frontera triple con Venezuela y Brasil. Los Cerros de Mavicure son formaciones rocosas únicas que se elevan abruptamente desde la llanura amazónica. La Estrella Fluvial del Oriente es el punto donde confluyen los ríos Guaviare, Atabapo, e Inírida. Inírida es conocida como la "Ciudad de los Ríos" por su ubicación estratégica en esta confluencia fluvial.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'Las comunidades indígenas de Guainía preservan tradiciones ancestrales, idiomas nativos, y conocimientos sobre el uso sostenible de la biodiversidad amazónica. Las técnicas de navegación fluvial, pesca tradicional, y elaboración de artesanías mantienen métodos ancestrales. Los conocimientos sobre plantas medicinales y alimenticias de la selva son invaluables. Las malocas tradicionales y las ceremonias rituales son parte del patrimonio inmaterial.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1991',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '65% (26,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: [],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Cerros de Mavicure', 'Estrella Fluvial del Oriente', 'Comunidades indígenas', 'Río Inírida'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Pesca artesanal', 'Ecoturismo', 'Artesanías indígenas', 'Productos forestales', 'Servicios'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical húmedo amazónico, 26°C promedio, alta precipitación',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Inírida: 100 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'guaviare',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Guaviare fue territorio de colonización tardía, iniciada en el siglo XX por campesinos en busca de tierras baldías. San José del Guaviare fue fundado en 1938 por colonos que llegaron después de la violencia partidista. La región se convirtió en intendencia en 1977 y departamento en 1991. Durante décadas fue escenario del conflicto armado y el cultivo de coca, pero el proceso de paz ha abierto nuevas oportunidades para el desarrollo sostenible y el ecoturismo.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'La economía de Guaviare está en transición de la coca hacia cultivos legales como cacao, plátano, yuca y maíz. La ganadería sostenible se está desarrollando con apoyo gubernamental. El ecoturismo emerge como alternativa económica, especialmente las visitas al Parque Nacional Natural Chiribiquete y las pinturas rupestres de la Serranía de la Lindosa. Los programas de sustitución de cultivos ilícitos han traído inversión en infraestructura rural.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Guaviare alberga el Parque Nacional Natural Chiribiquete, declarado Patrimonio de la Humanidad por la UNESCO en 2018, conocido como la "Capilla Sixtina del arte rupestre amazónico". Las pinturas rupestres de la Serranía de la Lindosa tienen más de 12,000 años de antigüedad y representan una de las colecciones de arte prehistórico más importantes de América. El departamento es considerado la "puerta de entrada" al Amazonas colombiano.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'El arte rupestre de la Serranía de la Lindosa y Chiribiquete representa la historia de los primeros pobladores de América, con escenas de cacería, animales extintos como mastodontes, y rituales ancestrales. Las tradiciones de los colonos incluyen técnicas de navegación fluvial y conocimientos sobre plantas medicinales amazónicas. Los procesos de paz han permitido la recuperación y promoción de este patrimonio arqueológico previamente inaccesible por el conflicto.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1991',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '0.8% (4,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Parque Nacional Natural Chiribiquete (2018)'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Chiribiquete', 'Serranía de la Lindosa', 'Pinturas rupestres', 'Caño Cristales (parcial)', 'Río Guaviare'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Agricultura (sustitución)', 'Ganadería', 'Ecoturismo', 'Pesca', 'Artesanías'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical húmedo, 26°C promedio, precipitación 2,500-3,000mm anual',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'San José del Guaviare: 175 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'huila',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Huila tiene una rica historia precolombina con la cultura de San Agustín, que desarrolló una sofisticada civilización entre los años 1000 a.C. y 1600 d.C. Neiva fue fundada tres veces: inicialmente en 1539, luego en 1550, y finalmente establecida en 1612 por Diego de Ospina. Durante la independencia, la región fue refugio de líderes patriotas como Simón Bolívar. El departamento se separó de Tolima en 1905, convirtiéndose en centro del desarrollo cafetero nacional.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Huila es el departamento cafetero más importante de Colombia, produciendo el 18% del café nacional con 154,800 hectáreas cultivadas. La región combina café de alta calidad con petróleo, siendo significativo en la producción de hidrocarburos. Los embalses de Betania y El Quimbo generan energía hidroeléctrica para el país. El turismo cultural y arqueológico, especialmente en San Agustín, genera importantes ingresos. La agricultura incluye arroz, sorgo, y frutas tropicales.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Huila es la cuna del río Magdalena, que nace en el Macizo Colombiano dentro del departamento. El Nevado del Huila (5,365m) es el pico más alto de la Cordillera Central y un volcán activo. El desierto de la Tatacoa es un ecosistema único con formaciones rocosas erosionadas y uno de los mejores lugares para observación astronómica en Colombia. San Agustín alberga el parque arqueológico con las estatuas megalíticas más grandes de Sudamérica.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'El Parque Arqueológico de San Agustín fue declarado Patrimonio de la Humanidad por la UNESCO en 1995, conteniendo más de 500 estatuas megalíticas que representan una de las manifestaciones artísticas más importantes de la América precolombina. El Festival Nacional del Bambuco y el Sanjuanero Huilense celebran la música y danza tradicional. La lechona huilense es reconocida como patrimonio gastronómico nacional. Las tradiciones indígenas Nasa y Páez mantienen vivas las conexiones ancestrales con la tierra.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1905',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '4.5% (55,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Parque Arqueológico de San Agustín (1995)'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['San Agustín', 'Desierto de la Tatacoa', 'Nevado del Huila', 'Estrecho del Magdalena', 'Termales de Rivera'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Café', 'Petróleo', 'Turismo', 'Energía hidroeléctrica', 'Agricultura'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Variado: 18°C en Neiva, páramos fríos en nevados',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Neiva: 442 metros; Nevado del Huila: 5,365 metros'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'la-guajira',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'La Guajira es territorio ancestral del pueblo Wayuu, la etnia indígena más numerosa de Colombia con más de 270,000 habitantes. Esta región permaneció relativamente aislada durante la colonia española debido a su geografía desértica y la resistencia indígena. Riohacha fue fundada en 1545 por Nicolás de Federmann como puerto para el comercio de perlas. En el siglo XX, el descubrimiento de las minas de sal en Manaure y más tarde el carbón en El Cerrejón transformaron la economía regional.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'La Guajira es el principal productor de sal marina de Colombia, concentrando más del 70% de la producción nacional en las salinas de Manaure. El Cerrejón es una de las minas de carbón a cielo abierto más grandes del mundo, exportando principalmente a Europa y Estados Unidos. La ganadería caprina adaptada al clima árido es tradicional entre los Wayuu. El turismo étnico y ecológico está creciendo, especialmente hacia Cabo de la Vela y Punta Gallinas.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Punta Gallinas es el punto más septentrional de Sudamérica, ofreciendo paisajes únicos donde el desierto se encuentra con el mar Caribe. La Guajira es el único departamento de Colombia con clima desértico, recibiendo menos de 300mm de lluvia anual. Los flamencos rosados habitan las lagunas costeras, creando un espectáculo natural único. Los vientos alisios constantes han convertido la región en ideal para la generación de energía eólica.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'La cultura Wayuu mantiene tradiciones milenarias incluyendo el tejido de mochilas wayuu, reconocidas mundialmente por sus diseños geométricos y colores vibrantes que narran historias ancestrales. El wayuunaiki es la lengua nativa hablada por más de 300,000 personas. Las disputas se resuelven tradicionalmente a través del sistema de palabreros (pütchipü\'ü), reconocido por la UNESCO como Patrimonio Cultural Inmaterial de la Humanidad. La música vallenata tiene influencias wayuu significativas.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1965',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '44.9% (270,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Sistema normativo wayuu aplicado por el pütchipü\'ü (2010)'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Cabo de la Vela', 'Punta Gallinas', 'Salinas de Manaure', 'Parque Nacional Natural Macuira', 'Santuario de Flora y Fauna Los Flamencos'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Minería (carbón)', 'Sal marina', 'Turismo', 'Ganadería caprina', 'Energía eólica'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Desértico tropical, 28°C promedio, 250-500mm lluvia anual',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Riohacha: 6 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'magdalena',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Magdalena fue habitado por la avanzada civilización Tairona, que construyó la Ciudad Perdida (Teyuna) en el siglo IX. Santa Marta, fundada en 1525 por Rodrigo de Bastidas, es la ciudad más antigua de Colombia y la segunda de Sudamérica. La región fue puerto principal para las exportaciones de oro durante la colonia. En 1830, Simón Bolívar murió en la Quinta de San Pedro Alejandrino, convirtiendo a Santa Marta en lugar sagrado de la independencia americana.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'El puerto de Santa Marta es estratégico para las exportaciones colombianas, especialmente carbón de las minas del interior. La agricultura incluye banano (principal producto de exportación), café de la Sierra Nevada, y palma africana. El turismo es fundamental, con la Sierra Nevada, Tayrona, y el centro histórico atrayendo visitantes nacionales e internacionales. La pesca marítima y la industria cultural complementan la economía departamental.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'La Sierra Nevada de Santa Marta es la montaña costera más alta del mundo, elevándose desde el nivel del mar hasta 5,775 metros en solo 42 kilómetros de distancia horizontal. Esta formación única contiene todos los pisos térmicos posibles y es considerada reserva de biosfera por la UNESCO. Los cuatro pueblos indígenas (Kogui, Arhuaco, Wiwa, y Kankuamo) la consideran el "corazón del mundo" y mantienen tradiciones ancestrales de conservación.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'La Ciudad Perdida (Teyuna) es uno de los sitios arqueológicos más importantes de América, con terrazas y caminos de piedra que revelan la sofisticación de la civilización Tairona. Los pueblos indígenas de la Sierra Nevada preservan conocimientos ancestrales sobre astronomía, medicina tradicional, y manejo ambiental, considerándose "hermanos mayores" guardianes de la Tierra. El centro histórico de Santa Marta conserva arquitectura colonial y republicana. La tradición oral incluye leyendas sobre El Dorado y los tesoros perdidos.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1886',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '2.8% (35,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Reserva de Biosfera Sierra Nevada de Santa Marta'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Ciudad Perdida', 'Parque Nacional Natural Tayrona', 'Sierra Nevada', 'Quinta de San Pedro Alejandrino', 'Centro Histórico Santa Marta'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Turismo', 'Puerto marítimo', 'Agricultura (banano)', 'Minería (carbón)', 'Pesca'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical seco en costa, todos los pisos térmicos en Sierra Nevada',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Santa Marta: 2 metros; Pico Cristóbal Colón: 5,775 metros'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'meta',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Meta fue territorio de los pueblos indígenas Guahibo, Sikuani, y Achagua antes de la llegada española. Durante la colonia sirvió como ruta de comunicación entre los Andes y los llanos. Villavicencio, fundada en 1840, se convirtió en la "Puerta de los Llanos" por ser el punto de acceso desde Bogotá a la Orinoquia. El departamento experimentó un boom petrolero en las décadas de 1980 y 1990 que transformó su economía y demografía.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Meta es un importante productor de petróleo colombiano, con campos como Castilla y Chichimene que han generado significativas regalías. La agricultura incluye arroz (uno de los principales productores), palma africana, plátano, y maíz. La ganadería es tradicional con más de 1.2 millones de cabezas de ganado. El turismo hacia Caño Cristales, conocido como "el río más hermoso del mundo", atrae visitantes internacionales y genera importante actividad económica.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Caño Cristales es un fenómeno natural único donde plantas acuáticas endémicas (Macarenia clavigera) tiñen el río de cinco colores: rojo, amarillo, verde, azul, y negro, creando un espectáculo visible entre junio y noviembre. El río Guatiquía forma las cascadas del Amor y otros paisajes espectaculares. La región de la Macarena es una de las zonas de mayor biodiversidad del planeta, considerada el encuentro de los Andes, la Orinoquia, y el Amazonas.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'La cultura llanera se expresa en el joropo, música interpretada con arpa, cuatro, y maracas, que narra la vida en las sabanas. El coleo es el deporte tradicional donde jinetes deben derribar toros sujetándolos por la cola. Los "contrapunteos" son duelos musicales improvisados que mantienen viva la tradición oral llanera. El Festival de Joropo en Villavicencio es uno de los eventos culturales más importantes de la Orinoquia. Las tradiciones de trabajo de llano incluyen la elaboración de sombreros de palma y aperos de cuero.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1960',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '0.7% (7,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: [],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Caño Cristales', 'Parque Nacional Natural La Macarena', 'Bioparque Los Ocarros', 'Cascadas del Amor', 'Reserva Natural Kalawasi'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Petróleo', 'Agricultura', 'Ganadería', 'Turismo', 'Agroindustria'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical de sabana, 26°C promedio, estaciones seca y húmeda',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Villavicencio: 467 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'narino',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Nariño fue habitado por las culturas Quillacingas y Pastos antes de la conquista española. Pasto fue fundada en 1537 por Lorenzo de Aldana. La región jugó un papel crucial durante las guerras de independencia, siendo inicialmente realista pero luego uniéndose a la causa patriota. Antonio Nariño, prócer de la independencia, dio nombre al departamento creado en 1904. La frontera con Ecuador ha influenciado significativamente su desarrollo cultural y económico.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Nariño es un importante productor de café de alta calidad, especialmente en las zonas montañosas cercanas a Pasto. La agricultura incluye papa, fríjol, maíz, y frutas andinas. Tumaco, su puerto principal en el Pacífico, maneja exportaciones de productos agrícolas y es centro de la industria pesquera. El comercio fronterizo con Ecuador es significativo. La artesanía, especialmente el barniz de Pasto, genera ingresos culturales importantes.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Nariño es el único departamento colombiano que limita con Ecuador, creando una rica zona fronteriza de intercambio cultural. El Santuario de Las Lajas, construido sobre un cañón, es considerado una de las iglesias más hermosas del mundo y atrae peregrinos internacionales. La Laguna de la Cocha es el segundo lago natural más grande de Colombia. Tumaco en el Pacífico es famoso por el avistamiento de ballenas jorobadas entre julio y octubre.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'El barniz de Pasto es una técnica artesanal única que utiliza la resina del árbol mopa-mopa para crear objetos decorativos con diseños geométricos prehispánicos, reconocida como patrimonio cultural nacional. El Carnaval de Negros y Blancos de Pasto, celebrado cada enero, fue declarado Patrimonio Cultural Inmaterial de la Humanidad por la UNESCO en 2009. Las tradiciones culinarias incluyen el cuy asado y preparaciones únicas de la gastronomía andina-pacífica.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1904',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '10.8% (185,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Carnaval de Negros y Blancos (2009)'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Santuario de Las Lajas', 'Laguna de la Cocha', 'Tumaco', 'Volcán Galeras', 'Carnaval de Negros y Blancos'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Café', 'Agricultura', 'Pesca', 'Turismo religioso', 'Artesanías'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Andino frío en Pasto (13°C), tropical húmedo en Tumaco (26°C)',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Pasto: 2,527 metros; Tumaco: 2 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'norte-de-santander',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Norte de Santander fue territorio de los indígenas Chitareros antes de la conquista española. Cúcuta fue fundada en 1733 por Juana Rangel de Cuéllar. La región fue escenario crucial de las guerras de independencia, donde ocurrieron batallas decisivas como la de Cúcuta en 1813. El departamento se separó de Santander en 1910. Su posición fronteriza con Venezuela ha marcado su desarrollo histórico, especialmente durante los períodos de migración e intercambio comercial.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Norte de Santander basa su economía en el comercio fronterizo con Venezuela, especialmente a través de Cúcuta. La agricultura incluye café, cacao, arroz, y palma africana. La industria manufacturera produce calzado, textiles, y productos alimenticios. Los servicios financieros y comerciales son importantes debido al intercambio fronterizo. El carbón de la región de Zulia contribuye a las exportaciones nacionales.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Cúcuta es conocida como la "Puerta de Colombia" por ser el principal paso fronterizo con Venezuela. El Puente Internacional Simón Bolívar es uno de los cruces fronterizos más transitados de América Latina. La región tiene microclimas únicos que permiten el cultivo de café de alta calidad en las zonas montañosas. El área metropolitana de Cúcuta forma una conurbación binacional con San Antonio del Táchira en Venezuela.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'La Casa Natal del General Santander en Villa del Rosario es un sitio histórico nacional donde nació el "Hombre de las Leyes". El Congreso de Cúcuta de 1821 dio origen a la Gran Colombia, evento fundamental en la historia americana. Las tradiciones fronterizas incluyen gastronomía compartida con Venezuela como las arepas ocañeras y el masato. La música vallenata y los festivales binacionales celebran la hermandad entre los dos países.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1910',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '0.6% (8,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: [],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Casa Natal del General Santander', 'Área Metropolitana de Cúcuta', 'Parque Nacional Natural Tamá', 'Ocaña', 'Villa del Rosario'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Comercio fronterizo', 'Agricultura', 'Manufactura', 'Servicios', 'Minería (carbón)'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical seco en valle de Cúcuta (28°C), templado en montañas',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Cúcuta: 320 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'putumayo',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Putumayo fue territorio ancestral de pueblos indígenas como los Inga, Kamsá, Awá, y Siona. Durante la colonia española se establecieron misiones franciscanas y capuchinas. La región sufrió durante la "Casa Arana" y la explotación cauchera de principios del siglo XX que esclavizó poblaciones indígenas. Se convirtió en departamento en 1991. El conflicto armado y los cultivos de coca han marcado su historia reciente, pero los acuerdos de paz han abierto nuevas oportunidades.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'La economía de Putumayo está en transición de cultivos ilícitos hacia alternativas legales como café, cacao, plátano, y yuca. La extracción petrolera en campos como Orito genera regalías importantes. La ganadería sostenible y la piscicultura están en desarrollo. El ecoturismo hacia el Valle de Sibundoy y la observación de aves amazónicas tiene potencial creciente. Los programas de sustitución de cultivos han traído inversión en infraestructura rural.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'El Valle de Sibundoy es una planicie andina única en medio de la región amazónica, con un microclima especial que permite agricultura de altura. Mocoa es conocida como la "Puerta de Oro del Amazonas" por su posición de entrada a la selva desde los Andes. La región tiene una biodiversidad extraordinaria donde convergen ecosistemas andinos y amazónicos. Las comunidades indígenas mantienen tradiciones de medicina ancestral con plantas como el yagé.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'Las comunidades Inga y Kamsá del Valle de Sibundoy preservan tradiciones milenarias incluyendo el uso ceremonial del yagé (ayahuasca) para propósitos espirituales y curativos. El Día Grande o Inti Raymi es la celebración del solsticio de verano que mantiene vivas las tradiciones astronómicas ancestrales. La artesanía incluye tejidos en telar, instrumentos musicales tradicionales, y medicina herbal. Las chagras (huertas tradicionales) representan sistemas agrícolas sostenibles ancestrales.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1991',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '3.8% (13,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: [],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Valle de Sibundoy', 'Fin del Mundo', 'Parque Nacional Natural La Paya', 'Laguna de la Cocha (parcial)', 'Termales de Yunguillo'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Agricultura (sustitución)', 'Petróleo', 'Ecoturismo', 'Ganadería', 'Artesanías'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical húmedo en tierras bajas, templado en Valle de Sibundoy',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Mocoa: 655 metros; Valle de Sibundoy: 2,200 metros'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'risaralda',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Risaralda fue creado en 1966 como parte de la división del Gran Caldas, junto con Quindío. La región fue colonizada por antioqueños en el siglo XIX durante la expansión cafetera. Pereira fue fundada en 1863 por Remigio Antonio Cañarte. La ciudad se convirtió en centro del comercio cafetero y punto de conexión entre Bogotá, Medellín, y Cali. La cultura paisa y la tradición cafetera definieron la identidad departamental.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Risaralda es parte fundamental del Paisaje Cultural Cafetero, patrimonio de la UNESCO, produciendo café de alta calidad reconocido mundialmente. Pereira es un importante centro de servicios y comercio para el Eje Cafetero. La industria incluye textiles, confecciones, y productos alimenticios. El turismo cafetero atrae visitantes nacionales e internacionales. El departamento es estratégico por su ubicación central en el triángulo de oro económico colombiano.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Pereira es conocida como "La Perla del Otún" y "Ciudad sin Puertas" por la hospitalidad de sus habitantes. El Parque Nacional Natural Los Nevados incluye el Nevado de Santa Isabel dentro del departamento. La región tiene una de las mayores densidades de cultivo de café por hectárea en el mundo. El paisaje cafetero combina montañas, guaduales, y fincas tradicionales creando un mosaico cultural único.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'El Paisaje Cultural Cafetero fue declarado Patrimonio de la Humanidad por la UNESCO en 2011, reconociendo las tradiciones centenarias del cultivo del café y la arquitectura vernácula de guadua y bahareque. La Feria de Pereira celebra la cultura paisa con cabalgatas, música, y gastronomía tradicional. El Festival Internacional de Arte de Pereira posiciona la ciudad como centro cultural del Eje Cafetero. Las tradiciones incluyen el trabajo manual en los cafetales y el secado de café en patios de las fincas.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1966',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '1.4% (14,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Paisaje Cultural Cafetero (2011)'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Parque Nacional Natural Los Nevados', 'Termales de Santa Rosa', 'Santuario de Fauna y Flora Otún Quimbaya', 'Marsella', 'Santa Rosa de Cabal'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Café', 'Servicios', 'Industria textil', 'Turismo', 'Comercio'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical de montaña, 21°C promedio en Pereira',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Pereira: 1,411 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'santander',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Santander fue territorio de los indígenas Guanes, reconocidos por su avanzada orfebrería y sistemas agrícolas. Durante la colonia se desarrolló la minería de oro y la agricultura. Bucaramanga fue fundada en 1622. La región fue cuna de líderes independentistas y escenario de batallas cruciales. El departamento lleva el nombre de Francisco de Paula Santander, el "Hombre de las Leyes". La cultura santandereana se caracteriza por el espíritu emprendedor y la tradición comercial.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Santander es uno de los departamentos más prósperos de Colombia, con una economía diversificada que incluye petróleo, manufactura, agricultura, y servicios. El área metropolitana de Bucaramanga es el cuarto centro económico del país. La industria del calzado, textiles, y productos alimenticios es importante. La agricultura incluye tabaco, café, cacao, y frutas tropicales. El turismo de aventura en San Gil genera significativa actividad económica.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'San Gil es reconocida como la "Capital Turística de Aventura de Colombia" ofreciendo rafting, parapente, espeleología, y escalada en roca. El Cañón del Chicamocha es uno de los más profundos de América y alberga el parque nacional del mismo nombre. Barichara es considerado uno de los pueblos más hermosos de Colombia, conservando arquitectura colonial intacta. Las hormigas culonas son una delicia gastronómica única de la región.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'Barichara fue declarado Patrimonio Cultural de la Nación por su excepcional conservación de arquitectura colonial de los siglos XVIII y XIX. El Camino Real que conecta Barichara con Guane es una ruta histórica empedrada de la época colonial. Las tradiciones santandereanas incluyen la elaboración artesanal de tabaco, la gastronomía con hormigas culonas y cabrito, y el Festival de la Canción de Barichara. La artesanía en fique y la talla en piedra mantienen técnicas ancestrales.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1886',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '0.4% (8,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: [],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Barichara', 'San Gil', 'Cañón del Chicamocha', 'Parque Nacional del Chicamocha', 'Girón'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Petróleo', 'Manufactura', 'Turismo', 'Agricultura', 'Servicios'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical en valles (24°C), templado en mesetas (18°C)',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Bucaramanga: 959 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'sucre',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Sucre fue habitado por los pueblos indígenas Zenúes, quienes desarrollaron sistemas sofisticados de ingeniería hidráulica para el manejo de las inundaciones del río San Jorge. Sincelejo fue fundada en 1535 por Alonso de Heredia. La región formó parte de Bolívar hasta 1966, cuando se creó el departamento más joven de la región Caribe. El nombre honra a Antonio José de Sucre, el "Gran Mariscal de Ayacucho".',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'La economía de Sucre se basa principalmente en la ganadería, con más de 1.8 millones de cabezas de ganado bovino. La agricultura incluye arroz, maíz, yuca, ñame, y tabaco. La pesca en el Golfo de Morrosquillo y la actividad turística en las playas de Tolú y Coveñas generan importantes ingresos. La artesanía tradicional, especialmente los sombreros vueltiao elaborados por comunidades zenúes, tiene reconocimiento nacional e internacional.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Sucre tiene acceso tanto al mar Caribe como a importantes sistemas de humedales y ciénagas que regulan las inundaciones estacionales. El Golfo de Morrosquillo alberga el archipiélago de San Bernardo con sus aguas cristalinas y arrecifes coralinos. Las sabanas de Sucre se caracterizan por extensas llanuras ideales para la ganadería. La región tiene cinco subregiones distintivas: Morrosquillo, Montes de María, Sabanas, San Jorge, y La Mojana.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'El sombrero vueltiao, elaborado por las comunidades zenúes con fibra de caña flecha, es símbolo cultural nacional y fue declarado patrimonio cultural de Colombia. Las técnicas de tejido se transmiten de generación en generación entre las mujeres zenúes. El Festival Nacional del Sombrero Vueltiao en las Sabanas es la celebración cultural más importante del departamento. La gastronomía incluye el sancocho de gallina criolla, las empanadas de arroz, y dulces tradicionales como el enyucado.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1966',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '10.8% (90,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: [],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Archipiélago San Bernardo', 'Tolú', 'Coveñas', 'Ciénaga de la Caimanera', 'Morroa'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Ganadería', 'Agricultura', 'Turismo', 'Pesca', 'Artesanías'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical seco, 28°C promedio, estaciones seca y húmeda',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Sincelejo: 213 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'tolima',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Tolima fue territorio de los pueblos indígenas Pijaos, reconocidos por su resistencia a la conquista española durante más de un siglo. Ibagué fue fundada en 1550 por Andrés López de Galarza. La región fue escenario de importantes batallas durante las guerras de independencia y más tarde durante La Violencia del siglo XX. El departamento se convirtió en centro del desarrollo agrícola nacional, especialmente en la producción de arroz y algodón.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Tolima es uno de los principales productores agrícolas de Colombia, destacando en arroz (30% de la producción nacional), algodón, sorgo, y café en las zonas montañosas. La industria incluye la Siderúrgica del Muña y empresas textiles. Ibagué es un importante centro de servicios y distribución para el centro del país. El turismo hacia el Nevado del Tolima y las aguas termales genera actividad económica significativa.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Ibagué es conocida como la "Capital Musical de Colombia" por su tradición en festivales de música popular y conservatorios. El Nevado del Tolima (5,276m) es uno de los volcanes más altos de Colombia y atrae montañistas de todo el mundo. La tragedia de Armero en 1985, causada por la erupción del Nevado del Ruiz, marcó profundamente la historia del departamento. El valle del río Magdalena en Tolima es una de las regiones agrícolas más fértiles del país.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'El Festival Nacional de la Música Colombiana en Ibagué es el evento musical más importante del país, celebrando todos los géneros de la música tradicional colombiana desde 1959. La gastronomía tolimense incluye la lechona, el tamal tolimense, y los productos derivados del arroz. Las tradiciones pijaos incluyen leyendas sobre la resistencia indígena y sitios arqueológicos en los Montes de María. La artesanía en guadua y cerámica mantiene técnicas ancestrales.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1886',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '0.8% (11,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: [],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Nevado del Tolima', 'Parque Nacional Natural Los Nevados', 'Termales de Jamundí', 'Honda', 'Mariquita'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Agricultura', 'Industria', 'Servicios', 'Turismo', 'Minería'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical en valles (28°C), páramo en nevados',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Ibagué: 1,285 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'valle-del-cauca',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Valle del Cauca fue habitado por los pueblos indígenas Quimbaya, reconocidos por su orfebrería excepcional. Santiago de Cali fue fundada en 1536 por Sebastián de Belalcázar. Durante la colonia se desarrolló la cultura de la caña de azúcar con base en el trabajo esclavo africano, creando una importante población afrocolombiana. El departamento se convirtió en centro industrial y puerta del Pacífico para Colombia.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Valle del Cauca produce el 75% del azúcar de Colombia y es líder en agroindustria azucarera. El puerto de Buenaventura maneja el 60% del comercio marítimo nacional, siendo la principal puerta del Pacífico. Cali es el tercer centro industrial del país con industrias químicas, farmacéuticas, y alimentarias. El departamento contribuye significativamente al PIB nacional y es centro de servicios para el suroccidente colombiano.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Cali es reconocida mundialmente como la "Capital de la Salsa" con una vibrante escena musical y de baile que atrae turistas internacionales. El valle geográfico del río Cauca es una de las regiones más fértiles de Colombia, ideal para la agricultura intensiva. Buenaventura es el puerto más importante del Pacífico colombiano, conectando el país con Asia y la cuenca del Pacífico. La región fue designada por la UNESCO como "Ciudad de la Gastronomía" en 2017.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'La salsa caleña es reconocida mundialmente, con escuelas de baile que atraen estudiantes internacionales y festivales que posicionan a Cali como capital mundial de este ritmo. La cultura afrocolombiana del Pacífico incluye tradiciones musicales como el currulao y la marimba. La gastronomía valle-caucana combina influencias indígenas, africanas, y españolas en platos como el sancocho de gallina, empanadas vallunas, y dulces tradicionales. El Carnaval de Cali y la Feria de Cali son festividades que celebran la identidad cultural regional.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1910',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '0.7% (33,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Cali - Ciudad Creativa de la Gastronomía (2017)'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Centro Histórico de Cali', 'Cristo Rey', 'Buenaventura', 'Parque Nacional Natural Farallones', 'Lago Calima'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Agroindustria azucarera', 'Puerto marítimo', 'Manufactura', 'Servicios', 'Turismo'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical en valle (24°C), todos los pisos térmicos hasta páramo',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Cali: 1,018 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'vaupes',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Vaupés es territorio ancestral de más de 25 grupos indígenas que han habitado la región durante milenios, incluyendo los Cubeo, Desano, Tucano, y Wanano. La región permaneció prácticamente aislada durante la época colonial y republicana. Se convirtió en comisaría en 1963 y departamento en 1991. La penetración occidental ha sido mínima, permitiendo que las culturas indígenas mantengan sus tradiciones ancestrales casi intactas.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'La economía de Vaupés se basa en actividades de subsistencia tradicionales como pesca, caza, recolección, y agricultura de chagra. El ecoturismo especializado en cultura indígena amazónica está emergiendo como alternativa económica. Los servicios gubernamentales proporcionan empleo limitado. La artesanía indígena, especialmente canastos, instrumentos musicales, y arte plumario, tiene valor cultural y económico. Los conocimientos tradicionales sobre plantas medicinales tienen potencial para la investigación farmacológica.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Vaupés es el departamento con mayor porcentaje de población indígena en Colombia (95%), donde se hablan más de 20 idiomas nativos diferentes. Mitú es accesible únicamente por avión, siendo una de las capitales más aisladas del país. La región conserva tradiciones de construcción de malocas (casas comunales) que pueden albergar hasta 100 personas. Los sistemas de conocimiento astronómico indígena incluyen calendarios complejos basados en constelaciones y ciclos naturales.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'Las tradiciones culturales de Vaupés incluyen sistemas complejos de iniciación masculina, uso ceremonial del yagé, y conocimientos astronómicos sofisticados que regulan actividades agrícolas y rituales. La maloca es el centro de la vida social y espiritual, donde se transmiten conocimientos ancestrales a través de la tradición oral. Los sistemas de intercambio tradicional incluyen el trueque de productos entre diferentes grupos étnicos. La música tradicional con instrumentos como yurupary (flautas sagradas) es fundamental en ceremonias rituales.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1991',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '95% (40,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: [],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Comunidades indígenas', 'Río Vaupés', 'Malocas tradicionales', 'Raudales del río', 'Piedras rituales'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Subsistencia tradicional', 'Artesanías indígenas', 'Ecoturismo cultural', 'Servicios gubernamentales'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical húmedo amazónico, 26°C promedio, alta precipitación',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Mitú: 180 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'vichada',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Vichada fue territorio de pueblos indígenas como los Sikuani, Piaroa, Curripaco, y Puinave que desarrollaron culturas adaptadas a las sabanas y bosques de galería de la Orinoquia. La colonización occidental fue tardía y limitada. Se creó como comisaría en 1913 y se convirtió en departamento en 1991. Puerto Carreño fue establecido como puerto fluvial en el río Orinoco para conectar Colombia con Venezuela y facilitar el comercio regional.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'La economía de Vichada se basa en ganadería extensiva adaptada a las sabanas inundables, pesca artesanal en los ríos Orinoco y Meta, y agricultura de subsistencia. El ecoturismo hacia la observación de fauna llanera y la pesca deportiva está en desarrollo. Los servicios gubernamentales proporcionan empleo en Puerto Carreño. La extracción sostenible de productos forestales no maderables complementa la economía. El comercio fronterizo con Venezuela es limitado pero significativo localmente.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Vichada es el segundo departamento más grande de Colombia pero el menos poblado, con vastas extensiones de sabanas prístinas y bosques de galería. Puerto Carreño está ubicado en la confluencia de los ríos Orinoco y Meta, formando frontera con Venezuela. La región experimenta estaciones extremas con inundaciones masivas en época de lluvias y sequías severas. Los ecosistemas de sabana albergan fauna única como anacondas, jaguares, y más de 300 especies de aves.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'Las culturas indígenas de Vichada mantienen tradiciones de navegación fluvial, conocimientos sobre ciclos naturales de inundación, y técnicas de pesca y caza adaptadas a los ecosistemas de sabana. Las comunidades Sikuani preservan tradiciones de música y danza que narran la relación con la naturaleza. Los sistemas tradicionales de manejo del ganado incluyen técnicas de pastoreo rotativo adaptadas a las inundaciones estacionales. La tradición oral incluye leyendas sobre los orígenes de los ríos y la fauna llanera.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1991',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '44.8% (35,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: [],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Confluencia Orinoco-Meta', 'Sabanas del Orinoco', 'Observación de fauna', 'Parque Nacional Natural El Tuparro', 'Puerto Carreño'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Ganadería', 'Pesca artesanal', 'Ecoturismo', 'Servicios gubernamentales', 'Productos forestales'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical de sabana, 27°C promedio, estaciones húmeda y seca extremas',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Puerto Carreño: 51 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'san-andres-providencia',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'El archipiélago fue habitado inicialmente por pueblos indígenas antes de la colonización europea. Los puritanos ingleses establecieron asentamientos en 1630, trayendo esclavos africanos para trabajar en plantaciones de algodón y coco. La población raizal (afrocaribeña) desarrolló una cultura única mezclando elementos africanos, ingleses, y caribeños. Colombia asumió soberanía definitiva en 1822, pero la población mantuvo sus tradiciones culturales distintivas.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'La economía se basa principalmente en turismo, aprovechando las playas caribeñas, arrecifes coralinos, y la condición de puerto libre. El comercio duty-free atrae compradores de todo el Caribe y Colombia continental. La pesca artesanal y la agricultura de coco y frutas tropicales son tradicionales. Los servicios turísticos incluyen hoteles, restaurantes, y actividades acuáticas. El transporte aéreo y marítimo conecta el archipiélago con el continente y otros países caribeños.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'San Andrés y Providencia es el único departamento de Colombia completamente insular y el más pequeño del país. La población raizal habla inglés, español, y creole (inglés criollo). La Reserva de Biosfera Seaflower protege el tercer arrecife de barrera coralina más grande del mundo. El departamento está más cerca de Nicaragua que de Colombia continental. Las tradiciones arquitectónicas incluyen casas de madera estilo caribeño sobre pilotes.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'La cultura raizal combina tradiciones africanas, inglesas, y caribeñas en una síntesis única, expresada en música calypso, soca, y reggae. El idioma creole es patrimonio lingüístico distintivo del archipiélago. Las tradiciones gastronómicas incluyen rondón (sopa de coco), cangrejo negro, y pescados preparados con coco. Las festividades como el Festival de la Música Caribe y celebraciones del Emancipation Day mantienen vivas las conexiones con la herencia africana y caribeña.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1991',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '0.1% (75 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Reserva de Biosfera Seaflower (2000)'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Johnny Cay', 'Acuario', 'West View', 'Hoyo Soplador', 'Old Providence McBean Lagoon'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Turismo', 'Comercio duty-free', 'Pesca', 'Servicios', 'Agricultura'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical seco caribeño, 27°C promedio, vientos alisios',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'San Andrés: 2 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'quindio',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Quindío fue territorio de los indígenas Quimbaya, reconocidos por su excepcional orfebrería precolombina que hoy forma parte del Museo del Oro. La colonización antioqueña del siglo XIX transformó esta región con la fundación de Armenia en 1889 por Jesús María Ocampo. El departamento se separó de Caldas en 1966, consolidándose como el corazón de la región cafetera. La influencia paisa marcó profundamente la cultura, arquitectura, y tradiciones de la región.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Quindío es reconocido mundialmente por la producción de café suave colombiano de alta calidad, siendo parte del Paisaje Cultural Cafetero declarado Patrimonio de la Humanidad por UNESCO. El turismo cafetero genera importantes ingresos, con fincas que ofrecen experiencias de agroturismo y educación sobre el proceso del café. La agroindustria incluye también plátano, cítricos, y aguacate. Los parques temáticos como el Parque Nacional del Café atraen turismo nacional e internacional.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Armenia es conocida como la "Ciudad Milagro" por su rápida reconstrucción después del terremoto de 1999 que devastó la región. Quindío es el departamento más pequeño de la región andina, pero uno de los más densamente poblados y productivos. El Valle de Cocora alberga las palmas de cera más altas del mundo, símbolo nacional de Colombia, que pueden alcanzar hasta 70 metros de altura. La arquitectura paisa con sus casas de bahareque y corredores es característica de la región.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'El Paisaje Cultural Cafetero de Quindío representa una tradición centenaria de cultivo del café que combina técnicas ancestrales con sostenibilidad ambiental. La cultura paisa se expresa en festividades como la Fiesta Nacional del Café y tradiciones gastronómicas que incluyen la bandeja paisa, arepas, y dulces típicos. Los arrieros y la tradición del café han creado un patrimonio intangible único. Las ferias equinas y festivales culturales mantienen vivas las tradiciones regionales.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1966',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '0.5% (2,500 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Paisaje Cultural Cafetero (2011)'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Valle de Cocora', 'Parque Nacional del Café', 'Filandia', 'Salento', 'Panaca'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Café', 'Turismo', 'Agroindustria', 'Servicios', 'Manufactura'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical de montaña, 19-24°C promedio',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: 'Armenia: 1,483 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    departmentId: 'bogota-dc',</span>
+<span class="cstat-no" title="statement not covered" >    historiaContexto: 'Bogotá fue fundada en 1538 por Gonzalo Jiménez de Quesada en territorio del pueblo Muisca, especialmente el cacicazgo de Bacatá. Como Santa Fe de Bogotá, fue la capital del Virreinato de Nueva Granada desde 1717. La ciudad fue epicentro de los movimientos independentistas, siendo escenario del Grito de Independencia el 20 de julio de 1810. En 1991 se constituyó como Distrito Capital, consolidando su estatus como centro político, económico, y cultural de Colombia.',</span>
+<span class="cstat-no" title="statement not covered" >    importanciaEconomica: 'Bogotá D.C. concentra aproximadamente el 25% del PIB nacional, siendo el principal centro económico de Colombia. La ciudad alberga las sedes de las principales empresas nacionales e internacionales, bancos, y entidades financieras. Los sectores de servicios, comercio, industria manufacturera, y tecnología son los motores económicos principales. Como centro de telecomunicaciones y transporte, conecta todo el territorio nacional. El sector educativo superior contribuye significativamente con universidades de prestigio internacional.',</span>
+<span class="cstat-no" title="statement not covered" >    caracteristicasUnicas: 'Bogotá es la tercera capital más alta del mundo a 2,640 metros sobre el nivel del mar, ubicada en la sabana cundiboyacense. Es la ciudad más poblada de Colombia con más de 8 millones de habitantes en su área metropolitana. El sistema TransMilenio fue pionero en Latinoamérica en transporte masivo BRT. La ciclovía dominical es una de las más extensas del mundo con más de 120 kilómetros. El centro histórico La Candelaria preserva arquitectura colonial y republicana.',</span>
+<span class="cstat-no" title="statement not covered" >    patrimonioCultural: 'El centro histórico de La Candelaria alberga la mayor concentración de patrimonio colonial de Colombia, con museos como el Museo del Oro y la Casa de Moneda. Bogotá es reconocida como "Ciudad de la Música" por UNESCO, con una vibrante escena cultural que incluye rock, salsa, vallenato, y música académica. La Biblioteca Luis Ángel Arango es una de las más visitadas del mundo. Los festivales como Rock al Parque y el Festival Iberoamericano de Teatro posicionan la ciudad internacionalmente.',</span>
+<span class="cstat-no" title="statement not covered" >    datosEspecificos: {</span>
+<span class="cstat-no" title="statement not covered" >      fechaCreacion: '1538 (fundación), 1991 (Distrito Capital)',</span>
+<span class="cstat-no" title="statement not covered" >      poblacionIndigena: '1.2% (100,000 personas aprox.)',</span>
+<span class="cstat-no" title="statement not covered" >      patrimonioUNESCO: ['Candidato: Centro Histórico La Candelaria'],</span>
+<span class="cstat-no" title="statement not covered" >      atraccionesPrincipales: ['Monserrate', 'La Candelaria', 'Museo del Oro', 'Plaza Bolívar', 'Zona Rosa'],</span>
+<span class="cstat-no" title="statement not covered" >      industrias: ['Servicios financieros', 'Tecnología', 'Manufactura', 'Comercio', 'Educación'],</span>
+<span class="cstat-no" title="statement not covered" >      clima: 'Tropical de altura, 14°C promedio, dos temporadas de lluvia',</span>
+<span class="cstat-no" title="statement not covered" >      altitud: '2,640 metros sobre el nivel del mar'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >];</span>
+&nbsp;
+// Helper function to get education data for a department
+<span class="cstat-no" title="statement not covered" >export function getDepartmentEducation(departmentId: string): DepartmentEducation | undefined {</span>
+<span class="cstat-no" title="statement not covered" >  return departmentEducationData.find(edu =&gt; edu.departmentId === departmentId);</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;
+// Get random educational fact
+<span class="cstat-no" title="statement not covered" >export function getRandomEducationalFact(departmentId: string): string {</span>
+<span class="cstat-no" title="statement not covered" >  const education = getDepartmentEducation(departmentId);</span>
+<span class="cstat-no" title="statement not covered" >  if (!education) return '';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  const facts = [</span>
+<span class="cstat-no" title="statement not covered" >    education.historiaContexto,</span>
+<span class="cstat-no" title="statement not covered" >    education.importanciaEconomica,</span>
+<span class="cstat-no" title="statement not covered" >    education.caracteristicasUnicas,</span>
+<span class="cstat-no" title="statement not covered" >    education.patrimonioCultural</span>
+<span class="cstat-no" title="statement not covered" >  ];</span>
+&nbsp;
+  // Return first sentence of a random section
+<span class="cstat-no" title="statement not covered" >  const randomFact = facts[Math.floor(Math.random() * facts.length)];</span>
+<span class="cstat-no" title="statement not covered" >  return randomFact.split('.')[0] + '.';</span>
+<span class="cstat-no" title="statement not covered" >}</span></pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-12-05T00:57:15.132Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    
