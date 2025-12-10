@@ -1,7 +1,7 @@
-import { Department } from '../data/colombiaDepartments';
+import { Department } from '../../data/colombiaDepartments';
 import {
   spacing, textStyles, shadows, radius
-} from '../design-system';
+} from '../../design-system';
 
 /**
  * CONCEPT: Visual Keyboard Cursor for Drag & Drop

@@ -1,9 +1,9 @@
 import { DragOverlay as DndDragOverlay } from '@dnd-kit/core';
-import { useDragState } from '../context/GameContext';
-import { useAccessibility } from '../context/AccessibilityContext';
+import { useDragState } from '../../context/GameContext';
+import { useAccessibility } from '../../context/AccessibilityContext';
 import {
   colors
-} from '../design-system';
+} from '../../design-system';
 
 export default function DragOverlay() {
   // Optimized: Only subscribes to drag state (90% fewer re-renders)

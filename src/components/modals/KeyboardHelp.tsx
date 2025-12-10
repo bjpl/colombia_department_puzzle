@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import {
   Button, Card, CardContent, Badge
-} from '../design-system';
+} from '../../design-system';
 
 /**
  * CONCEPT: Simple Keyboard Shortcuts Help Modal

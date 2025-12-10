@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useGame } from '../context/GameContext';
-import { useSoundEffect } from '../services/soundManager';
-import { Button } from '../design-system';
-import { cn } from '../design-system/utils/cn';
+import { useGame } from '../../context/GameContext';
+import { useSoundEffect } from '../../services/soundManager';
+import { Button } from '../../design-system';
+import { cn } from '../../design-system/utils/cn';
 import AccessibilitySettings from './AccessibilitySettings';
 import {
   Play,

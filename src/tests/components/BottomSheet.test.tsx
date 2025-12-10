@@ -8,7 +8,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import BottomSheet from '../../components/BottomSheet';
+import BottomSheet from '../../components/layout/BottomSheet';
 import { BOTTOM_SHEET_SNAP_POINTS, MOBILE_LAYOUT } from '../../constants/responsive';
 
 describe('BottomSheet', () => {

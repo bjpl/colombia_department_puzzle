@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GameModeConfig } from './GameModeSelector';
+import { GameModeConfig } from '../feedback/GameModeSelector';
 
 interface ModeTransitionProps {
   from: string;

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {
   Button, Card, CardContent, Badge,
   colors, spacing, textStyles, radius
-} from '../design-system';
+} from '../../design-system';
 
 interface GameModeSelectorProps {
   onSelectMode: (mode: GameModeConfig) => void;

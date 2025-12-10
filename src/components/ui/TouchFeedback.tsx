@@ -10,7 +10,7 @@
  */
 
 import React, { useState, useCallback, useRef } from 'react';
-import { useTouchFeedback, FeedbackType } from '../hooks/useTouchFeedback';
+import { useTouchFeedback, FeedbackType } from '../../hooks/useTouchFeedback';
 
 interface RippleEffect {
   id: number;

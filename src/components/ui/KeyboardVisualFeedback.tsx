@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import {
   Button, Card,
   colors, spacing, textStyles, radius
-} from '../design-system';
+} from '../../design-system';
 
 /**
  * CONCEPT: Visual Keyboard Feedback System

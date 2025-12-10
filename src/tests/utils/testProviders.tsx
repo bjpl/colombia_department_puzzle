@@ -10,7 +10,7 @@ import React, { ReactNode } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { create } from 'zustand';
 import { Department, colombiaDepartments } from '../../data/colombiaDepartments';
-import { GameModeConfig } from '../../components/GameModeSelector';
+import { GameModeConfig } from '../../components/feedback/GameModeSelector';
 
 // Mock GameContext types (matching real implementation)
 interface RegionProgress {

@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { cn } from '../utils/cn';
-import { TouchFeedback } from '../../components/TouchFeedback';
+import { TouchFeedback } from '../../components/ui/TouchFeedback';
 import { FeedbackType } from '../../hooks/useTouchFeedback';
 
 /**

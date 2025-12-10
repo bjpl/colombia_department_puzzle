@@ -15,10 +15,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { screen, waitFor } from '@testing-library/react';
 import { renderWithProviders, createMockGameStore } from '../utils/testProviders';
-import MapCanvas from '../../components/MapCanvas';
+import MapCanvas from '../../components/game/MapCanvas';
 
 // Mock OptimizedColombiaMap since it uses useGame hook directly
-vi.mock('../../components/OptimizedColombiaMap', () => ({
+vi.mock('../../components/game/OptimizedColombiaMap', () => ({
   default: () => <div data-testid="colombia-map">Colombia Map Mock</div>
 }));
 

@@ -6,7 +6,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import DepartmentTray from '../../components/DepartmentTray';
+import DepartmentTray from '../../components/layout/DepartmentTray';
 import { colombiaDepartments } from '../../data/colombiaDepartments';
 
 // Mock @dnd-kit

@@ -16,10 +16,10 @@
  * - Fade-in animation on mount
  */
 
-import { useGame } from '../context/GameContext';
-import { Button } from '../design-system';
+import { useGame } from '../../context/GameContext';
+import { Button } from '../../design-system';
 import { Menu, Settings } from 'lucide-react';
-import { cn } from '../design-system/utils/cn';
+import { cn } from '../../design-system/utils/cn';
 
 export interface MobileHeaderProps {
   onMenuClick?: () => void;

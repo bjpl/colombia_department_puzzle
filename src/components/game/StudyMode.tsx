@@ -1,13 +1,13 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Department, colombiaDepartments } from '../data/colombiaDepartments';
-import { useGame } from '../context/GameContext';
-import { GameModeConfig } from './GameModeSelector';
+import { Department, colombiaDepartments } from '../../data/colombiaDepartments';
+import { useGame } from '../../context/GameContext';
+import { GameModeConfig } from '../feedback/GameModeSelector';
 import StudyModeMap from './StudyModeMap';
-import { storage } from '../services/storage';
-import { REGION_COLORS } from '../design-system/themes/regions';
-import { getMemoryAid } from '../data/memoryAids';
-import { getDepartmentEducation } from '../data/departmentEducation';
-import { getRegionalNarrative } from '../data/regionalNarratives';
+import { storage } from '../../services/storage';
+import { REGION_COLORS } from '../../design-system/themes/regions';
+import { getMemoryAid } from '../../data/memoryAids';
+import { getDepartmentEducation } from '../../data/departmentEducation';
+import { getRegionalNarrative } from '../../data/regionalNarratives';
 import MiniDepartmentShape from './MiniDepartmentShape';
 import {
   Button,
@@ -17,8 +17,8 @@ import {
   CardContent,
   CardDescription,
   colors,
-} from '../design-system';
-import { cn } from '../design-system/utils/cn';
+} from '../../design-system';
+import { cn } from '../../design-system/utils/cn';
 
 // Import extracted study components
 import {
@@ -27,8 +27,8 @@ import {
   DepartmentButton,
   getRecommendedMode,
   initialStudyFlowState,
-} from './study';
-import type { StudyFlowState } from './study';
+} from '../study';
+import type { StudyFlowState } from '../study';
 
 interface StudyModeProps {
   onClose: () => void;

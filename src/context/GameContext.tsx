@@ -1,7 +1,7 @@
 import { createContext, useContext, ReactNode } from 'react';
 import { create } from 'zustand';
 import { Department, colombiaDepartments } from '../data/colombiaDepartments';
-import { GameModeConfig } from '../components/GameModeSelector';
+import { GameModeConfig } from '../components/feedback/GameModeSelector';
 
 interface RegionProgress {
   attemptCount: number;

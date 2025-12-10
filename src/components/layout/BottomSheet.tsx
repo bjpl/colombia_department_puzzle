@@ -4,8 +4,8 @@ import {
   MOBILE_LAYOUT,
   Z_INDEX,
   SAFE_AREA,
-} from '../constants/responsive';
-import { colors, spacing } from '../design-system';
+} from '../../constants/responsive';
+import { colors, spacing } from '../../design-system';
 
 /**
  * Bottom Sheet Snap Point Type

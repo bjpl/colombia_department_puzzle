@@ -6,7 +6,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import GameHeader from '../../components/GameHeader';
+import GameHeader from '../../components/layout/GameHeader';
 import {
   renderWithProviders,
   createMockGameStore,

@@ -12,9 +12,9 @@
  */
 
 import React, { ReactNode, useState, useEffect, useCallback } from 'react';
-import { useTouchGestures, InputMethod } from '../hooks/useTouchGestures';
-import { prefersTouchMode } from '../utils/deviceDetection';
-import { useGame } from '../context/GameContext';
+import { useTouchGestures, InputMethod } from '../../hooks/useTouchGestures';
+import { prefersTouchMode } from '../../utils/deviceDetection';
+import { useGame } from '../../context/GameContext';
 
 /**
  * Props for TouchModeAdapter

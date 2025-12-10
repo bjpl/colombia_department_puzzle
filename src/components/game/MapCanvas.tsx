@@ -1,5 +1,5 @@
 import OptimizedColombiaMap from './OptimizedColombiaMap';
-import { colors } from '../design-system';
+import { colors } from '../../design-system';
 
 export default function MapCanvas() {
   return (

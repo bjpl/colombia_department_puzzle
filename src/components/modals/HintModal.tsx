@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { colombiaDepartments } from '../data/colombiaDepartments';
-import { REGION_STYLES as regionColors } from '../design-system/themes/regions';
+import { colombiaDepartments } from '../../data/colombiaDepartments';
+import { REGION_STYLES as regionColors } from '../../design-system/themes/regions';
 import {
   Button
-} from '../design-system';
+} from '../../design-system';
 
 interface HintModalProps {
   isOpen: boolean;

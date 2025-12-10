@@ -1,12 +1,12 @@
 import { useMemo, useState, useRef } from 'react';
 import * as d3 from 'd3-geo';
-import { Department } from '../data/colombiaDepartments';
-import { normalizeId } from '../utils/nameNormalizer';
-import { useAccessibility } from '../context/AccessibilityContext';
+import { Department } from '../../data/colombiaDepartments';
+import { normalizeId } from '../../utils/nameNormalizer';
+import { useAccessibility } from '../../context/AccessibilityContext';
 import {
   Button, Badge,
   colors, spacing, textStyles, shadows
-} from '../design-system';
+} from '../../design-system';
 
 interface StudyModeMapProps {
   selectedDepartment: Department | null;

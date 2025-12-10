@@ -1,11 +1,11 @@
 import { useEffect, useState, useMemo } from 'react';
-import { useGame } from '../context/GameContext';
-import { storage, GameSession } from '../services/storage';
+import { useGame } from '../../context/GameContext';
+import { storage, GameSession } from '../../services/storage';
 import NextChallengeRecommender from './NextChallengeRecommender';
 import { GameModeConfig } from './GameModeSelector';
 import {
   Button, Card, CardHeader, CardTitle, CardContent, Badge
-} from '../design-system';
+} from '../../design-system';
 
 interface PostGameReportProps {
   onClose: () => void;

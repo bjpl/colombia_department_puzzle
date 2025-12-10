@@ -6,7 +6,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import PostGameReport from '../../components/PostGameReport';
+import PostGameReport from '../../components/feedback/PostGameReport';
 import { createMockGameStore } from '../utils/testProviders';
 import { storage } from '../../services/storage';
 

@@ -7,7 +7,7 @@
 
 import { storage } from '../services/storage';
 import { gameStatsService, type GameSessionSync } from '../services/game/GameStatsService';
-import type { GameModeConfig } from '../components/GameModeSelector';
+import type { GameModeConfig } from '../components/feedback/GameModeSelector';
 
 /**
  * Sync game completion to Supabase

@@ -1,6 +1,6 @@
 import React from 'react';
 import { WifiOff, Wifi } from 'lucide-react';
-import { usePWA } from '../hooks/usePWA';
+import { usePWA } from '../../hooks/usePWA';
 
 export function OfflineIndicator() {
   const { isOnline } = usePWA();

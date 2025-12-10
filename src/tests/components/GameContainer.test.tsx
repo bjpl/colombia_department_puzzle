@@ -10,7 +10,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import GameContainer from '../../components/GameContainer';
+import GameContainer from '../../components/layout/GameContainer';
 import { createMockGameStore } from '../utils/testProviders';
 import { colombiaDepartments } from '../../data/colombiaDepartments';
 import * as GameContext from '../../context/GameContext';

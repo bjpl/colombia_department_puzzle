@@ -1,15 +1,15 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
-import GameContainer from './components/GameContainer';
+import GameContainer from './components/layout/GameContainer';
 import { GameProvider } from './context/GameContext';
 import { AccessibilityProvider } from './context/AccessibilityContext';
 import ErrorBoundary from './components/ErrorBoundary';
-import MobileBanner from './components/MobileBanner';
+import MobileBanner from './components/ui/MobileBanner';
 import { keyboardManager } from './services/keyboardManager';
 // PWA Components from Agent 3
-import { InstallPrompt } from './components/InstallPrompt';
-import { UpdateNotification } from './components/UpdateNotification';
-import { OfflineIndicator } from './components/OfflineIndicator';
+import { InstallPrompt } from './components/ui/InstallPrompt';
+import { UpdateNotification } from './components/ui/UpdateNotification';
+import { OfflineIndicator } from './components/feedback/OfflineIndicator';
 // Version management
 import { checkVersionChange, logVersionInfo } from './utils/version';
 // Cache debugging utilities (only in development)

@@ -1,19 +1,19 @@
 import { useState } from 'react';
-import MapCanvas from './MapCanvas';
+import MapCanvas from '../game/MapCanvas';
 import DepartmentTray from './DepartmentTray';
 import BottomSheet, { SnapPoint } from './BottomSheet';
-import { useGame } from '../context/GameContext';
+import { useGame } from '../../context/GameContext';
 import {
   MOBILE_LAYOUT,
   Z_INDEX,
   SAFE_AREA,
-} from '../constants/responsive';
+} from '../../constants/responsive';
 import {
   Badge,
   colors,
   spacing,
   textStyles,
-} from '../design-system';
+} from '../../design-system';
 import '../styles/mobile.css';
 
 /**

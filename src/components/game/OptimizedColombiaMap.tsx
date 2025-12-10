@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useRef, useMemo, memo } from 'react';
 import { geoMercator, geoPath } from 'd3-geo';
 import { useDroppable } from '@dnd-kit/core';
-import { useGame } from '../context/GameContext';
-import { useAccessibility } from '../context/AccessibilityContext';
-import { normalizeId } from '../utils/nameNormalizer';
-import { colombiaDepartments } from '../data/colombiaDepartments';
+import { useGame } from '../../context/GameContext';
+import { useAccessibility } from '../../context/AccessibilityContext';
+import { normalizeId } from '../../utils/nameNormalizer';
+import { colombiaDepartments } from '../../data/colombiaDepartments';
 // Region colors are now handled by the AccessibilityContext
 import {
   Button, Card, Badge
-} from '../design-system';
+} from '../../design-system';
 
 interface GeoFeature {
   type: string;

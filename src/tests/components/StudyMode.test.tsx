@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import StudyMode from '../../components/StudyMode';
+import StudyMode from '../../components/game/StudyMode';
 import { colombiaDepartments } from '../../data/colombiaDepartments';
 import * as storage from '../../services/storage';
 import { GameProvider } from '../../context/GameContext';

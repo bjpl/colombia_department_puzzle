@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useGameHints, useCurrentDepartment, useAttempts, usePlacedDepartments, useGameActions, useActiveDepartments } from '../context/GameContext';
-import HintModal from './HintModal';
+import { useGameHints, useCurrentDepartment, useAttempts, usePlacedDepartments, useGameActions, useActiveDepartments } from '../../context/GameContext';
+import HintModal from '../modals/HintModal';
 import {
   Button, Card, CardTitle, CardContent, Badge,
   colors, spacing, textStyles
-} from '../design-system';
+} from '../../design-system';
 
 interface EducationalPanelProps {
   compact?: boolean;

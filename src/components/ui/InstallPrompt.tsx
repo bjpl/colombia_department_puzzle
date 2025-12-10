@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { X, Download, Share } from 'lucide-react';
-import { usePWA } from '../hooks/usePWA';
+import { usePWA } from '../../hooks/usePWA';
 
 interface InstallPromptProps {
   /** Only show after user completes first game */

@@ -3,7 +3,7 @@ import { GameModeConfig } from './GameModeSelector';
 import {
   Button, Card, CardHeader, CardTitle, CardContent,
   colors, spacing, textStyles
-} from '../design-system';
+} from '../../design-system';
 
 interface NextChallengeRecommenderProps {
   currentMode: GameModeConfig;

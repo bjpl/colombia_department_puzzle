@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button } from '../design-system';
+import { Button } from '../../design-system';
 
 interface ScrollIndicatorProps {
   containerId: string;

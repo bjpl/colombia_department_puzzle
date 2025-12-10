@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { storage } from '../services/storage';
+import { storage } from '../../services/storage';
 import {
   Button, Badge,
   colors, spacing, textStyles, radius
-} from '../design-system';
+} from '../../design-system';
 
 interface InteractiveTutorialProps {
   onComplete: () => void;

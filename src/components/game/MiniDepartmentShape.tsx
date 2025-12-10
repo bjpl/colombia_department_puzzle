@@ -1,9 +1,9 @@
 import { useMemo, useEffect, useState } from 'react';
 import { geoMercator, geoPath } from 'd3-geo';
-import { normalizeId } from '../utils/nameNormalizer';
-import { useAccessibility } from '../context/AccessibilityContext';
-import { colombiaDepartments } from '../data/colombiaDepartments';
-import { colors } from '../design-system';
+import { normalizeId } from '../../utils/nameNormalizer';
+import { useAccessibility } from '../../context/AccessibilityContext';
+import { colombiaDepartments } from '../../data/colombiaDepartments';
+import { colors } from '../../design-system';
 
 interface MiniDepartmentShapeProps {
   departmentName: string;

@@ -1,8 +1,9 @@
 // Feedback Components - User feedback and notifications
-export { PlacementFeedback } from './PlacementFeedback';
-export { OfflineIndicator } from './OfflineIndicator';
-export { GameModeSelector } from './GameModeSelector';
-export { NextChallengeRecommender } from './NextChallengeRecommender';
-export { PostGameReport } from './PostGameReport';
-export { HintsPanel } from './HintsPanel';
-export { EducationalPanel } from './EducationalPanel';
+export { default as PlacementFeedback } from './PlacementFeedback';
+export { default as OfflineIndicator } from './OfflineIndicator';
+export { default as GameModeSelector } from './GameModeSelector';
+export type { GameModeConfig } from './GameModeSelector';
+export { default as NextChallengeRecommender } from './NextChallengeRecommender';
+export { default as PostGameReport } from './PostGameReport';
+export { default as HintsPanel } from './HintsPanel';
+export { default as EducationalPanel } from './EducationalPanel';

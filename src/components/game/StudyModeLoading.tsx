@@ -1,4 +1,4 @@
-import { Card } from '../design-system';
+import { Card } from '../../design-system';
 
 /**
  * Loading skeleton for StudyMode component

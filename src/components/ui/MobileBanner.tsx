@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import {
   Button, Card,
   colors
-} from '../design-system';
+} from '../../design-system';
 
 /**
  * CONCEPT: Mobile Welcome Banner with Empowering Messaging

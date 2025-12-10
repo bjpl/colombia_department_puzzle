@@ -6,7 +6,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, waitFor, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import AccessibilitySettings from '../../components/AccessibilitySettings';
+import AccessibilitySettings from '../../components/layout/AccessibilitySettings';
 import { AccessibilityProvider } from '../../context/AccessibilityContext';
 
 // Mock createPortal to render in the same tree for testing

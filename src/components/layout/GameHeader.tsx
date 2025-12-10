@@ -1,7 +1,7 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { useGame } from '../context/GameContext';
-import { useSoundEffect } from '../services/soundManager';
-import { Button, Badge, Progress } from '../design-system';
+import { useGame } from '../../context/GameContext';
+import { useSoundEffect } from '../../services/soundManager';
+import { Button, Badge, Progress } from '../../design-system';
 // Lazy load AccessibilitySettings - only shown when user opens settings (~10 KB savings)
 const AccessibilitySettings = lazy(() => import('./AccessibilitySettings'));
 import {

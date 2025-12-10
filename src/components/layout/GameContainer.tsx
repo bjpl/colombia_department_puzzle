@@ -1,42 +1,42 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { DndContext, rectIntersection } from '@dnd-kit/core';
-import MapCanvas from './MapCanvas';
+import MapCanvas from '../game/MapCanvas';
 import DepartmentTray from './DepartmentTray';
 import GameHeader from './GameHeader';
-import EducationalPanel from './EducationalPanel';
-import DragOverlay from './DragOverlay';
-import PlacementFeedback from './PlacementFeedback';
+import EducationalPanel from '../feedback/EducationalPanel';
+import DragOverlay from '../game/DragOverlay';
+import PlacementFeedback from '../feedback/PlacementFeedback';
 import ScreenReaderAnnouncements from './ScreenReaderAnnouncements';
-import { useGame } from '../context/GameContext';
+import { useGame } from '../../context/GameContext';
 // Lazy load StudyMode for better initial bundle size (~14 KB savings)
-const StudyMode = lazy(() => import('./StudyMode'));
-import StudyModeLoading from './StudyModeLoading';
+const StudyMode = lazy(() => import('../game/StudyMode'));
+import StudyModeLoading from '../game/StudyModeLoading';
 // Lazy load InteractiveTutorial - shown once per user (~15-20 KB savings)
-const InteractiveTutorial = lazy(() => import('./InteractiveTutorial'));
-import { useSoundEffect } from '../services/soundManager';
+const InteractiveTutorial = lazy(() => import('../modals/InteractiveTutorial'));
+import { useSoundEffect } from '../../services/soundManager';
 // Lazy load PostGameReport - only shown after game completion (~25 KB savings)
-const PostGameReport = lazy(() => import('./PostGameReport'));
+const PostGameReport = lazy(() => import('../feedback/PostGameReport'));
 // Lazy load GameModeSelector - only shown when user selects mode (~20 KB savings)
-const GameModeSelector = lazy(() => import('./GameModeSelector'));
-import type { GameModeConfig } from './GameModeSelector';
+const GameModeSelector = lazy(() => import('../feedback/GameModeSelector'));
+import type { GameModeConfig } from '../feedback/GameModeSelector';
 import ModeTransition from './ModeTransition';
-import KeyboardHelp from './KeyboardHelp';
-import MapErrorBoundary from './MapErrorBoundary';
-import GameLogicErrorBoundary from './GameLogicErrorBoundary';
-import ComponentErrorBoundary from './ComponentErrorBoundary';
-import { useGameTimer } from '../hooks/useGameTimer';
-import { useEnhancedKeyboardNavigation } from '../hooks/useEnhancedKeyboardNavigation';
-import KeyboardCursor from './KeyboardCursor';
+import KeyboardHelp from '../modals/KeyboardHelp';
+import MapErrorBoundary from '../MapErrorBoundary';
+import GameLogicErrorBoundary from '../GameLogicErrorBoundary';
+import ComponentErrorBoundary from '../ComponentErrorBoundary';
+import { useGameTimer } from '../../hooks/useGameTimer';
+import { useEnhancedKeyboardNavigation } from '../../hooks/useEnhancedKeyboardNavigation';
+import KeyboardCursor from '../ui/KeyboardCursor';
 import MobileGameLayout from './MobileGameLayout';
-import { useMediaQuery } from '../hooks/useMediaQuery';
-import { MEDIA_QUERIES } from '../constants/responsive';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
+import { MEDIA_QUERIES } from '../../constants/responsive';
 // Touch Interaction
-import TouchModeAdapter from './TouchModeAdapter';
-import { prefersTouchMode } from '../utils/deviceDetection';
+import TouchModeAdapter from '../game/TouchModeAdapter';
+import { prefersTouchMode } from '../../utils/deviceDetection';
 // Extracted hooks for drag handling and modal orchestration (SPARC: Refinement)
-import { useDragHandlers } from '../hooks/useDragHandlers';
-import { useModalOrchestration, MODAL_NAMES } from '../hooks/useModalOrchestration';
-import { TIMING } from '../constants/gameConfig';
+import { useDragHandlers } from '../../hooks/useDragHandlers';
+import { useModalOrchestration, MODAL_NAMES } from '../../hooks/useModalOrchestration';
+import { TIMING } from '../../constants/gameConfig';
 import {
   Card,
   CardHeader,
@@ -47,7 +47,7 @@ import {
   spacing,
   textStyles,
   shadows
-} from '../design-system';
+} from '../../design-system';
 
 export default function GameContainer() {
   const game = useGame();

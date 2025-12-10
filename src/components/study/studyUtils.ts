@@ -1,5 +1,5 @@
 import { Department } from '../../data/colombiaDepartments';
-import { GameModeConfig } from '../GameModeSelector';
+import { GameModeConfig } from '../feedback/GameModeSelector';
 
 /**
  * Smart recommendations based on study progress

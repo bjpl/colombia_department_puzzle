@@ -5,7 +5,7 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import PlacementFeedback from '../../components/PlacementFeedback';
+import PlacementFeedback from '../../components/feedback/PlacementFeedback';
 
 describe('PlacementFeedback', () => {
   beforeEach(() => {

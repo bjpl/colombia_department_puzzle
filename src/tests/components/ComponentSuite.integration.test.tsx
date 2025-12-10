@@ -11,9 +11,9 @@ import { renderWithProviders, createMockGameStore } from '../utils/testProviders
 import { colombiaDepartments } from '../../data/colombiaDepartments';
 
 // Import components
-import DepartmentTray from '../../components/DepartmentTray';
-import GameHeader from '../../components/GameHeader';
-import StudyMode from '../../components/StudyMode';
+import DepartmentTray from '../../components/layout/DepartmentTray';
+import GameHeader from '../../components/layout/GameHeader';
+import StudyMode from '../../components/game/StudyMode';
 
 // Mock the GameContext hook - this is the key fix!
 const mockGameState = {

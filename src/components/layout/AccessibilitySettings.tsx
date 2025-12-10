@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { ColorblindMode } from '../design-system/themes/accessibility';
-import { useAccessibility } from '../context/AccessibilityContext';
-import { useTouchFeedback } from '../hooks/useTouchFeedback';
+import { ColorblindMode } from '../../design-system/themes/accessibility';
+import { useAccessibility } from '../../context/AccessibilityContext';
+import { useTouchFeedback } from '../../hooks/useTouchFeedback';
 import {
   Button, Card, CardContent, Badge
-} from '../design-system';
+} from '../../design-system';
 
 interface AccessibilitySettingsProps {
   onColorModeChange?: (mode: ColorblindMode) => void;

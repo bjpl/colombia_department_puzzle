@@ -6,9 +6,9 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
-import { TouchModeAdapter } from '../../components/TouchModeAdapter';
+import { TouchModeAdapter } from '../../components/game/TouchModeAdapter';
 import { AllProviders } from '../utils/testProviders';
-import DepartmentTray from '../../components/DepartmentTray';
+import DepartmentTray from '../../components/layout/DepartmentTray';
 import { prefersTouchMode } from '../../utils/deviceDetection';
 
 // Mock device detection

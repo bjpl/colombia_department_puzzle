@@ -1,17 +1,17 @@
 import React, { memo } from 'react';
 import { useDraggable } from '@dnd-kit/core';
-import { useGame } from '../context/GameContext';
-import { useAccessibility } from '../context/AccessibilityContext';
-import { Department } from '../data/colombiaDepartments';
-import { TouchFeedback } from './TouchFeedback';
-import { BREAKPOINTS } from '../constants/responsive';
+import { useGame } from '../../context/GameContext';
+import { useAccessibility } from '../../context/AccessibilityContext';
+import { Department } from '../../data/colombiaDepartments';
+import { TouchFeedback } from '../ui/TouchFeedback';
+import { BREAKPOINTS } from '../../constants/responsive';
 import {
   Card,
   Badge,
   colors,
   spacing,
   textStyles
-} from '../design-system';
+} from '../../design-system';
 
 // Ultra-compact mini chip for maximum map space
 // Mobile-optimized with 44px minimum height

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import MapCanvas from '../../components/MapCanvas';
+import MapCanvas from '../../components/game/MapCanvas';
 import { renderWithProviders } from '../utils/testProviders';
 
 /**
@@ -11,7 +11,7 @@ import { renderWithProviders } from '../utils/testProviders';
  */
 
 // Mock OptimizedColombiaMap since it has complex SVG/D3 logic
-vi.mock('../../components/OptimizedColombiaMap', () => ({
+vi.mock('../../components/game/OptimizedColombiaMap', () => ({
   default: () => <div data-testid="mocked-colombia-map">Mocked Map</div>,
 }));
 
