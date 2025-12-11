@@ -26,12 +26,12 @@ vi.mock('../../context/GameContext', async () => {
   };
 });
 
-// Mock child components that have complex dependencies
-vi.mock('../../components/MapCanvas', () => ({
+// Mock child components that have complex dependencies - CORRECT PATHS after M7.2 migration
+vi.mock('../../components/game/MapCanvas', () => ({
   default: () => <div data-testid="map-canvas">Map Canvas Mock</div>
 }));
 
-vi.mock('../../components/DepartmentTray', () => ({
+vi.mock('../../components/layout/DepartmentTray', () => ({
   default: ({ layout }: { layout?: string }) => (
     <div data-testid="department-tray" data-layout={layout}>
       <div data-testid="department-piece-1">Antioquia</div>
@@ -41,7 +41,7 @@ vi.mock('../../components/DepartmentTray', () => ({
   )
 }));
 
-vi.mock('../../components/GameHeader', () => ({
+vi.mock('../../components/layout/GameHeader', () => ({
   default: ({ onGameMode, onStudyMode, onTutorial }: any) => (
     <div data-testid="game-header">
       <button onClick={onGameMode} data-testid="game-mode-button">Modo de Juego</button>
@@ -52,35 +52,35 @@ vi.mock('../../components/GameHeader', () => ({
   )
 }));
 
-vi.mock('../../components/EducationalPanel', () => ({
+vi.mock('../../components/feedback/EducationalPanel', () => ({
   default: () => <div data-testid="educational-panel">Educational Panel Mock</div>
 }));
 
-vi.mock('../../components/DragOverlay', () => ({
+vi.mock('../../components/game/DragOverlay', () => ({
   default: () => <div data-testid="drag-overlay">Drag Overlay</div>
 }));
 
-vi.mock('../../components/PlacementFeedback', () => ({
+vi.mock('../../components/feedback/PlacementFeedback', () => ({
   default: () => <div data-testid="placement-feedback">Placement Feedback</div>
 }));
 
-vi.mock('../../components/ScreenReaderAnnouncements', () => ({
+vi.mock('../../components/layout/ScreenReaderAnnouncements', () => ({
   default: () => <div data-testid="screen-reader-announcements">Screen Reader</div>
 }));
 
-vi.mock('../../components/KeyboardHelp', () => ({
+vi.mock('../../components/modals/KeyboardHelp', () => ({
   default: () => <div data-testid="keyboard-help">Keyboard Help</div>
 }));
 
-vi.mock('../../components/KeyboardCursor', () => ({
+vi.mock('../../components/ui/KeyboardCursor', () => ({
   default: () => <div data-testid="keyboard-cursor">Keyboard Cursor</div>
 }));
 
-vi.mock('../../components/MobileGameLayout', () => ({
+vi.mock('../../components/layout/MobileGameLayout', () => ({
   default: () => <div data-testid="mobile-game-layout">Mobile Layout</div>
 }));
 
-vi.mock('../../components/TouchModeAdapter', () => ({
+vi.mock('../../components/game/TouchModeAdapter', () => ({
   default: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="touch-mode-adapter">{children}</div>
   )
