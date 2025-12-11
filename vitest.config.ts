@@ -39,6 +39,15 @@ export default defineConfig({
       '**/tests/hooks/usePWA.test.ts',
       '**/tests/hooks/useProgressiveHints.test.ts',
       '**/tests/hooks/useMediaQuery.test.ts',
+      // === NEW TDD HOOKS - London School tests with heavy mocking ===
+      '**/tests/hooks/useScreenReaderAnnouncer.test.ts',
+      '**/tests/hooks/useScreenReaderAnnouncer.simple.test.ts',
+      '**/tests/hooks/useModalAccessibility.test.ts',
+      '**/tests/hooks/useSVGTouchInteraction.test.ts',
+      '**/tests/hooks/useSVGTouchInteraction.verify.ts',
+      '**/tests/hooks/useAnimationMonitor.test.ts',
+      '**/tests/hooks/usePinchZoom.test.ts',
+      '**/tests/hooks/usePinchZoom.smoke.test.ts',
       // === UTILS TESTS - need viewport/dimension mocks ===
       '**/tests/utils/deviceDetection.test.ts',
       // === COMPONENT TESTS - need DOM/viewport mocks for CI headless ===
