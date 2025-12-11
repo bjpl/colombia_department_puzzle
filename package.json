@@ -51,6 +51,9 @@
     "react-router-dom": "7.9.4",
     "zustand": "^4.4.7"
   },
+  "overrides": {
+    "@modelcontextprotocol/sdk": ">=1.24.0"
+  },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",
     "@playwright/test": "^1.56.0",

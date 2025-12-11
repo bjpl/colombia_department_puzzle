@@ -4,6 +4,7 @@ import StudyMode from '../../components/game/StudyMode';
 import { colombiaDepartments } from '../../data/colombiaDepartments';
 import * as storage from '../../services/storage';
 import { GameProvider } from '../../context/GameContext';
+import { AccessibilityProvider } from '../../context/AccessibilityContext';
 import React from 'react';
 
 /**
@@ -27,14 +28,15 @@ import React from 'react';
  */
 
 // Mock complex child components
-vi.mock('../../components/StudyModeMap', () => ({
+// Path must match how the component imports them (from src/components/game/)
+vi.mock('../../components/game/StudyModeMap', () => ({
   default: ({ selectedDepartment, onDepartmentClick, departments }: any) => (
     <div data-testid="study-mode-map">
-      <div data-testid="map-departments-count">{departments.length}</div>
+      <div data-testid="map-departments-count">{departments?.length ?? 0}</div>
       {selectedDepartment && (
         <div data-testid="map-selected">{selectedDepartment.name}</div>
       )}
-      {departments.map((dept: any) => (
+      {departments?.map((dept: any) => (
         <button
           key={dept.id}
           data-testid={`map-dept-${dept.id}`}
@@ -47,7 +49,7 @@ vi.mock('../../components/StudyModeMap', () => ({
   ),
 }));
 
-vi.mock('../../components/MiniDepartmentShape', () => ({
+vi.mock('../../components/game/MiniDepartmentShape', () => ({
   default: ({ departmentName }: any) => (
     <div data-testid={`mini-shape-${departmentName}`}>Shape: {departmentName}</div>
   ),
@@ -128,12 +130,14 @@ describe('StudyMode Component', () => {
     Object.defineProperty(window, 'localStorage', { value: localStorageMock });
   });
 
-  // Helper to render with GameProvider
+  // Helper to render with GameProvider and AccessibilityProvider
   const renderWithGameProvider = (ui: React.ReactElement) => {
     return render(
-      <GameProvider>
-        {ui}
-      </GameProvider>
+      <AccessibilityProvider>
+        <GameProvider>
+          {ui}
+        </GameProvider>
+      </AccessibilityProvider>
     );
   };
 

@@ -4,9 +4,9 @@
  * Tests for DepartmentTray, StudyMode, GameHeader, and Modal components
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { describe, it, expect, vi } from 'vitest';
+// screen import available for future tests
+// import { screen } from '@testing-library/react';
 import { renderWithProviders, createMockGameStore } from '../utils/testProviders';
 import { colombiaDepartments } from '../../data/colombiaDepartments';
 
@@ -67,7 +67,7 @@ vi.mock('../../context/AccessibilityContext', () => ({
     toggleReducedMotion: vi.fn(),
     toggleScreenReaderMode: vi.fn(),
     setFontSize: vi.fn(),
-    getRegionColor: (region: string) => '#3b82f6',
+    getRegionColor: (_region: string) => '#3b82f6',
   }),
   AccessibilityProvider: ({ children }: { children: React.ReactNode }) => children,
 }));
@@ -170,7 +170,7 @@ describe('M6.4 - DepartmentTray Integration Tests', () => {
   describe('Rendering', () => {
     it('renders department tray container', () => {
       const gameStore = createMockGameStore();
-      renderWithProviders(<DepartmentTray layout="grid" />, { gameStore });
+      renderWithProviders(<DepartmentTray layout="horizontal" />, { gameStore });
 
       // DepartmentTray should be present in the DOM
       expect(document.body).toBeInTheDocument();
@@ -200,7 +200,7 @@ describe('M6.5 - StudyMode Integration Tests', () => {
   describe('Rendering', () => {
     it('renders study mode container', () => {
       const gameStore = createMockGameStore();
-      renderWithProviders(<StudyMode onClose={vi.fn()} />, { gameStore });
+      renderWithProviders(<StudyMode onClose={vi.fn()} onStartGame={vi.fn()} />, { gameStore });
 
       expect(document.body).toBeInTheDocument();
     });

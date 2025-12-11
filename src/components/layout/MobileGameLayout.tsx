@@ -14,7 +14,7 @@ import {
   spacing,
   textStyles,
 } from '../../design-system';
-import '../styles/mobile.css';
+import '../../styles/mobile.css';
 
 /**
  * MobileGameLayout Component

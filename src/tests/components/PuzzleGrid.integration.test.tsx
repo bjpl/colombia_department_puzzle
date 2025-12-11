@@ -12,8 +12,8 @@
  * These tests verify MapCanvas integration with the game state and drag/drop system.
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { screen, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import { screen } from '@testing-library/react';
 import { renderWithProviders, createMockGameStore } from '../utils/testProviders';
 import MapCanvas from '../../components/game/MapCanvas';
 

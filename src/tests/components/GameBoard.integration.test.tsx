@@ -11,8 +11,8 @@
  * These tests verify the integration between these components.
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { screen, waitFor, within } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithProviders, createMockGameStore } from '../utils/testProviders';
 import GameContainer from '../../components/layout/GameContainer';
@@ -249,8 +249,8 @@ describe('M6.2 - GameBoard Integration Tests', () => {
     it('tracks game completion state', () => {
       const gameStore = createMockGameStore({
         activeDepartments: [
-          { id: 'dept1', name: 'Test 1', region: 'Andina', coordinates: { x: 0, y: 0 }, shape: [] },
-          { id: 'dept2', name: 'Test 2', region: 'Andina', coordinates: { x: 0, y: 0 }, shape: [] }
+          { id: 'dept1', name: 'Test 1', capital: 'Capital1', area: 100, population: 1000, region: 'Andina', trivia: 'Test', coordinates: { lat: 0, lng: 0 } },
+          { id: 'dept2', name: 'Test 2', capital: 'Capital2', area: 200, population: 2000, region: 'Andina', trivia: 'Test', coordinates: { lat: 0, lng: 0 } }
         ]
       });
 

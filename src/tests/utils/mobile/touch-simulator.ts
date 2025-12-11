@@ -35,7 +35,7 @@ export interface PinchOptions {
 /**
  * Creates a TouchList from an array of Touch objects
  */
-function createTouchList(touches: Touch[]): TouchList {
+export function createTouchList(touches: Touch[]): TouchList {
   const touchList = {
     length: touches.length,
     item: (index: number) => touches[index] ?? null,

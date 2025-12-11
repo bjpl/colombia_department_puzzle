@@ -2,8 +2,9 @@ import { afterEach, vi, beforeEach, afterAll } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 
-// CI Environment Detection
-const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
+// CI Environment Detection (used for conditional mocking)
+const _isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
+void _isCI; // Suppress unused variable warning
 
 // Ensure window is defined for jsdom environment
 if (typeof window === 'undefined') {
@@ -40,8 +41,8 @@ if (typeof window !== 'undefined' && !window.scrollTo) {
 
 // Mock requestAnimationFrame for CI headless environment
 if (typeof requestAnimationFrame === 'undefined') {
-  global.requestAnimationFrame = (cb: FrameRequestCallback) => {
-    return setTimeout(() => cb(Date.now()), 16);
+  global.requestAnimationFrame = (cb: FrameRequestCallback): number => {
+    return setTimeout(() => cb(Date.now()), 16) as unknown as number;
   };
   global.cancelAnimationFrame = (id: number) => clearTimeout(id);
 }
@@ -195,9 +196,9 @@ if (typeof TouchEvent === 'undefined') {
 
     constructor(type: string, params: TouchEventInit = {}) {
       super(type, params);
-      this.touches = params.touches as TouchList ?? ([] as unknown as TouchList);
-      this.targetTouches = params.targetTouches as TouchList ?? ([] as unknown as TouchList);
-      this.changedTouches = params.changedTouches as TouchList ?? ([] as unknown as TouchList);
+      this.touches = (params.touches ?? []) as unknown as TouchList;
+      this.targetTouches = (params.targetTouches ?? []) as unknown as TouchList;
+      this.changedTouches = (params.changedTouches ?? []) as unknown as TouchList;
     }
   } as unknown as typeof TouchEvent;
 }

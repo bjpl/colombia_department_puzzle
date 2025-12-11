@@ -14,7 +14,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icons/*.png', 'screenshots/*.png'],
+      includeAssets: ['icons/*.svg', 'icons/*.png', 'screenshots/*.png'],
       manifest: false, // Use public/manifest.json instead
       workbox: {
         // Define caching strategies - exclude large GeoJSON files from precaching
