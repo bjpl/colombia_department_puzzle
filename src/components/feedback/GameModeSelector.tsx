@@ -91,14 +91,14 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
           {!showRegionSelector ? (
             <div className="grid md:grid-cols-3 gap-6">
               {/* Full Country Mode */}
-              <Button
-                variant="secondary"
+              <button
+                type="button"
                 onClick={() => handleModeSelect('full')}
-                className="relative transition-all h-auto"
+                className="relative transition-all text-left focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 rounded-lg"
               >
-                <Card variant="default" className="bg-gradient-to-br from-sky-50 to-sky-100 rounded-lg p-6 border-2 border-sky-200 transition-all duration-200">
+                <Card variant="default" className="bg-gradient-to-br from-sky-50 to-sky-100 rounded-lg p-6 border-2 border-sky-200 transition-all duration-200 hover:border-sky-400 hover:shadow-lg h-full">
                   <div className="text-4xl mb-4">🌎</div>
-                  <h3 className="text-xl font-bold mb-2">Colombia Completa</h3>
+                  <h3 className="text-xl font-bold mb-2 whitespace-nowrap">Colombia Completa</h3>
                   <p style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary, marginBottom: spacing[4] }}>
                     Todos los 33 departamentos de una vez. ¡El desafío completo!
                   </p>
@@ -106,17 +106,17 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                     <Badge variant="default" className="bg-sky-100 text-sky-800">33 departamentos</Badge>
                   </div>
                 </Card>
-              </Button>
+              </button>
 
               {/* Region Mode */}
-              <Button
-                variant="secondary"
+              <button
+                type="button"
                 onClick={() => handleModeSelect('region')}
-                className="relative transition-all h-auto"
+                className="relative transition-all text-left focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 rounded-lg"
               >
-                <Card variant="default" className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6 border-2 border-green-200 transition-all duration-200">
+                <Card variant="default" className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6 border-2 border-green-200 transition-all duration-200 hover:border-green-400 hover:shadow-lg h-full">
                   <div className="text-4xl mb-4">🗺️</div>
-                  <h3 className="text-xl font-bold mb-2">Por Regiones</h3>
+                  <h3 className="text-xl font-bold mb-2 whitespace-nowrap">Por Regiones</h3>
                   <p style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary, marginBottom: spacing[4] }}>
                     Elige regiones específicas para practicar paso a paso.
                   </p>
@@ -126,21 +126,22 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                 </Card>
                 <Badge
                   variant="warning"
-                  style={{ position: 'absolute', top: '-8px', right: '-8px', backgroundColor: colors.warning[500], fontSize: textStyles.body.small.fontSize[0], fontWeight: 'bold' }}
+                  className="absolute -top-2 -right-2 px-2 py-1 text-xs font-bold shadow-sm"
+                  style={{ backgroundColor: colors.warning[500] }}
                 >
                   Recomendado
                 </Badge>
-              </Button>
+              </button>
 
               {/* Study Mode */}
-              <Button
-                variant="secondary"
+              <button
+                type="button"
                 onClick={() => handleModeSelect('study')}
-                className="relative transition-all h-auto"
+                className="relative transition-all text-left focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 rounded-lg"
               >
-                <Card variant="default" className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-6 border-2 border-purple-200 transition-all duration-200">
+                <Card variant="default" className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-6 border-2 border-purple-200 transition-all duration-200 hover:border-purple-400 hover:shadow-lg h-full">
                   <div className="text-4xl mb-4">📚</div>
-                  <h3 className="text-xl font-bold mb-2">Modo Estudio</h3>
+                  <h3 className="text-xl font-bold mb-2 whitespace-nowrap">Modo Estudio</h3>
                   <p style={{ fontSize: textStyles.body.small.fontSize[0], color: colors.text.secondary, marginBottom: spacing[4] }}>
                     Aprende primero, luego practica. Ideal para principiantes.
                   </p>
@@ -148,7 +149,7 @@ export default function GameModeSelector({ onSelectMode, onClose, userStats }: G
                     <Badge variant="default" className="bg-violet-100 text-violet-800">Aprendizaje</Badge>
                   </div>
                 </Card>
-              </Button>
+              </button>
             </div>
           ) : (
             <div>

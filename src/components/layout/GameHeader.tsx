@@ -101,19 +101,20 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
           {/* Right: Actions */}
           <div className="flex items-center gap-2">
             {/* Hints */}
-            <Button
-              variant="secondary"
-              size="sm"
-              icon={<Lightbulb className="w-4 h-4" />}
-              className="relative"
-              title={`${game.hints} pistas disponibles`}
-              aria-label={`${game.hints} pistas disponibles`}
-            >
-              <span className="hidden sm:inline ml-1">Pista</span>
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-medium rounded-full w-5 h-5 flex items-center justify-center">
+            <div className="relative">
+              <Button
+                variant="secondary"
+                size="sm"
+                icon={<Lightbulb className="w-4 h-4" />}
+                title={`${game.hints} pistas disponibles`}
+                aria-label={`${game.hints} pistas disponibles`}
+              >
+                <span className="hidden sm:inline ml-1">Pista</span>
+              </Button>
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1 shadow-sm border-2 border-white">
                 {game.hints}
               </span>
-            </Button>
+            </div>
 
             {/* Sound Toggle */}
             <Button

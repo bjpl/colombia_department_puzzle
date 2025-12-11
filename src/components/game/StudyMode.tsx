@@ -143,22 +143,22 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                 {flowState.phase === 'ready' && '¡Listo para jugar!'}
               </p>
             </div>
-            <div className="flex gap-1">
+            <div className="flex items-center gap-2">
               {/* Flow Phase Indicators */}
               <div
-                className="flex items-center rounded-lg bg-white/20 gap-0.5 px-2 py-0.5"
+                className="flex items-center rounded-lg bg-white/20 gap-1 px-2 py-1"
               >
                 <span
-                  className={`rounded-full w-1 h-1 ${flowState.phase === 'explore' ? 'bg-white' : 'bg-white/40'}`}
+                  className={`rounded-full w-2 h-2 ${flowState.phase === 'explore' ? 'bg-white' : 'bg-white/40'}`}
                 />
                 <span
-                  className={`rounded-full w-1 h-1 ${flowState.phase === 'focus' ? 'bg-white' : 'bg-white/40'}`}
+                  className={`rounded-full w-2 h-2 ${flowState.phase === 'focus' ? 'bg-white' : 'bg-white/40'}`}
                 />
                 <span
-                  className={`rounded-full w-1 h-1 ${flowState.phase === 'quiz' ? 'bg-white' : 'bg-white/40'}`}
+                  className={`rounded-full w-2 h-2 ${flowState.phase === 'quiz' ? 'bg-white' : 'bg-white/40'}`}
                 />
                 <span
-                  className={`rounded-full w-1 h-1 ${flowState.phase === 'ready' ? 'bg-white' : 'bg-white/40'}`}
+                  className={`rounded-full w-2 h-2 ${flowState.phase === 'ready' ? 'bg-white' : 'bg-white/40'}`}
                 />
               </div>
               <Button
@@ -167,15 +167,17 @@ export default function StudyMode({ onClose, onStartGame, onSelectMode }: StudyM
                   viewMode === 'grid' ? 'map' : 'cards'
                 )}
                 variant="ghost"
-                className="bg-white/20 hover:bg-white/30 text-white border-none"
+                size="sm"
+                className="bg-white/20 hover:bg-white/30 text-white border-white/30 shadow-sm whitespace-nowrap"
               >
-                {viewMode === 'cards' ? '📋 Vista Cuadrícula' :
-                 viewMode === 'grid' ? '🗺️ Vista Mapa' : '🃏 Vista Tarjetas'}
+                {viewMode === 'cards' ? '📋 Cuadrícula' :
+                 viewMode === 'grid' ? '🗺️ Mapa' : '🃏 Tarjetas'}
               </Button>
               <Button
                 onClick={onClose}
                 variant="ghost"
-                className="bg-white/20 hover:bg-white/30 text-white border-none"
+                size="sm"
+                className="bg-white/20 hover:bg-white/30 text-white border-white/30 shadow-sm whitespace-nowrap"
               >
                 ✕ Cerrar
               </Button>
