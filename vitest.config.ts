@@ -40,6 +40,7 @@ export default defineConfig({
       '**/tests/hooks/useProgressiveHints.test.ts',
       '**/tests/hooks/useMediaQuery.test.ts',
       // === NEW TDD HOOKS - London School tests with heavy mocking ===
+      '**/tests/hooks/useFocusTrap.test.ts',
       '**/tests/hooks/useScreenReaderAnnouncer.test.ts',
       '**/tests/hooks/useScreenReaderAnnouncer.simple.test.ts',
       '**/tests/hooks/useModalAccessibility.test.ts',
