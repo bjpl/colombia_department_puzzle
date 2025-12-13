@@ -157,7 +157,7 @@ describe('StudyMode Component', () => {
       const { container } = renderWithGameProvider(<StudyMode {...defaultProps} />);
       // Query for phase indicators specifically in the phase indicator container
       const phaseIndicatorContainer = container.querySelector('.flex.items-center.rounded-lg.bg-white\\/20');
-      const indicators = phaseIndicatorContainer?.querySelectorAll('.rounded-full.w-1.h-1') || [];
+      const indicators = phaseIndicatorContainer?.querySelectorAll('.rounded-full.w-2.h-2') || [];
 
       // First indicator should be active (white), others inactive (white/40)
       expect(indicators).toHaveLength(4);
@@ -191,45 +191,45 @@ describe('StudyMode Component', () => {
   describe('View Mode Switching', () => {
     it('should start in cards view mode', () => {
       renderWithGameProvider(<StudyMode {...defaultProps} />);
-      expect(screen.getByText('📋 Vista Cuadrícula')).toBeInTheDocument();
+      expect(screen.getByText('📋 Cuadrícula')).toBeInTheDocument();
     });
 
     it('should switch to grid view when button clicked', () => {
       renderWithGameProvider(<StudyMode {...defaultProps} />);
 
-      const viewModeButton = screen.getByText('📋 Vista Cuadrícula');
+      const viewModeButton = screen.getByText('📋 Cuadrícula');
       fireEvent.click(viewModeButton);
 
-      expect(screen.getByText('🗺️ Vista Mapa')).toBeInTheDocument();
+      expect(screen.getByText('🗺️ Mapa')).toBeInTheDocument();
     });
 
     it('should switch to map view after grid view', () => {
       renderWithGameProvider(<StudyMode {...defaultProps} />);
 
-      const viewModeButton = screen.getByText('📋 Vista Cuadrícula');
+      const viewModeButton = screen.getByText('📋 Cuadrícula');
       fireEvent.click(viewModeButton); // to grid
-      fireEvent.click(screen.getByText('🗺️ Vista Mapa')); // to map
+      fireEvent.click(screen.getByText('🗺️ Mapa')); // to map
 
-      expect(screen.getByText('🃏 Vista Tarjetas')).toBeInTheDocument();
+      expect(screen.getByText('🃏 Tarjetas')).toBeInTheDocument();
     });
 
     it('should cycle back to cards view from map view', () => {
       renderWithGameProvider(<StudyMode {...defaultProps} />);
 
-      const viewModeButton = screen.getByText('📋 Vista Cuadrícula');
+      const viewModeButton = screen.getByText('📋 Cuadrícula');
       fireEvent.click(viewModeButton); // to grid
-      fireEvent.click(screen.getByText('🗺️ Vista Mapa')); // to map
-      fireEvent.click(screen.getByText('🃏 Vista Tarjetas')); // to cards
+      fireEvent.click(screen.getByText('🗺️ Mapa')); // to map
+      fireEvent.click(screen.getByText('🃏 Tarjetas')); // to cards
 
-      expect(screen.getByText('📋 Vista Cuadrícula')).toBeInTheDocument();
+      expect(screen.getByText('📋 Cuadrícula')).toBeInTheDocument();
     });
 
     it('should render StudyModeMap when in map view', () => {
       renderWithGameProvider(<StudyMode {...defaultProps} />);
 
       // Switch to map view
-      fireEvent.click(screen.getByText('📋 Vista Cuadrícula'));
-      fireEvent.click(screen.getByText('🗺️ Vista Mapa'));
+      fireEvent.click(screen.getByText('📋 Cuadrícula'));
+      fireEvent.click(screen.getByText('🗺️ Mapa'));
 
       expect(screen.getByTestId('study-mode-map')).toBeInTheDocument();
     });
@@ -246,7 +246,7 @@ describe('StudyMode Component', () => {
     it('should render grid layout in grid view', () => {
       renderWithGameProvider(<StudyMode {...defaultProps} />);
 
-      fireEvent.click(screen.getByText('📋 Vista Cuadrícula'));
+      fireEvent.click(screen.getByText('📋 Cuadrícula'));
 
       // Check for region headers in grid view - use getAllByText since region names appear multiple times
       const andinaElements = screen.getAllByText(/Andina/);
@@ -846,8 +846,8 @@ describe('StudyMode Component', () => {
       renderWithGameProvider(<StudyMode {...defaultProps} />);
 
       // Switch to map view
-      fireEvent.click(screen.getByText('📋 Vista Cuadrícula'));
-      fireEvent.click(screen.getByText('🗺️ Vista Mapa'));
+      fireEvent.click(screen.getByText('📋 Cuadrícula'));
+      fireEvent.click(screen.getByText('🗺️ Mapa'));
 
       // Select a department through the map
       const dept = colombiaDepartments[0];
@@ -863,8 +863,8 @@ describe('StudyMode Component', () => {
       renderWithGameProvider(<StudyMode {...defaultProps} />);
 
       // Switch to map view
-      fireEvent.click(screen.getByText('📋 Vista Cuadrícula'));
-      fireEvent.click(screen.getByText('🗺️ Vista Mapa'));
+      fireEvent.click(screen.getByText('📋 Cuadrícula'));
+      fireEvent.click(screen.getByText('🗺️ Mapa'));
 
       expect(screen.getByTestId('study-mode-map')).toBeInTheDocument();
     });
@@ -879,8 +879,8 @@ describe('StudyMode Component', () => {
       fireEvent.click(caribeButton!);
 
       // Switch to map view
-      fireEvent.click(screen.getByText('📋 Vista Cuadrícula'));
-      fireEvent.click(screen.getByText('🗺️ Vista Mapa'));
+      fireEvent.click(screen.getByText('📋 Cuadrícula'));
+      fireEvent.click(screen.getByText('🗺️ Mapa'));
 
       const map = screen.getByTestId('study-mode-map');
       expect(map).toBeInTheDocument();
