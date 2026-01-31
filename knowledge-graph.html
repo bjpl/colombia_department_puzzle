@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colombia Puzzle Game - Tech Stack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    :root {
+      --bg: #faf9f7;
+      --bg-warm: #f5f3ef;
+      --ink: #1a1a1a;
+      --ink-light: #4a4a4a;
+      --ink-muted: #8a8a8a;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --border: #e5e3df;
+      --shadow: rgba(0,0,0,0.06);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* Header - Editorial style */
+    header {
+      margin-bottom: 4rem;
+    }
+
+    .eyebrow {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--ink);
+      max-width: 600px;
+    }
+
+    .intro {
+      margin-top: 1.5rem;
+      font-size: 1.125rem;
+      color: var(--ink-light);
+      max-width: 520px;
+    }
+
+    /* Stats - Horizontal ticker style */
+    .metrics {
+      display: flex;
+      gap: 3rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .metric {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .metric-value {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .metric-label {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+    }
+
+    /* Graph canvas */
+    .canvas {
+      background: var(--bg-warm);
+      border-radius: 2px;
+      position: relative;
+      margin: 3rem 0;
+      overflow: hidden;
+    }
+
+    .canvas::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(37, 99, 235, 0.02) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    #graph {
+      width: 100%;
+      height: 520px;
+    }
+
+    /* Tooltip - Clean, minimal */
+    .tooltip {
+      position: fixed;
+      background: var(--ink);
+      color: #fff;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+      max-width: 260px;
+      z-index: 100;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    .tooltip-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .tooltip-file {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.6);
+      word-break: break-all;
+    }
+
+    /* Category tabs */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab:hover {
+      border-color: var(--ink-muted);
+      color: var(--ink);
+    }
+
+    .tab.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .tab-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    /* Detail grid - Magazine layout */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1.5rem;
+      transition: box-shadow 0.2s;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 20px var(--shadow);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-title {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    .card-count {
+      font-size: 0.7rem;
+      color: var(--ink-muted);
+      background: var(--bg-warm);
+      padding: 0.25rem 0.6rem;
+      border-radius: 100px;
+    }
+
+    .feature-list {
+      list-style: none;
+    }
+
+    .feature {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .feature:last-child {
+      border-bottom: none;
+    }
+
+    .feature-name {
+      font-size: 0.875rem;
+      color: var(--ink);
+    }
+
+    .feature-path {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--ink-muted);
+      margin-top: 0.15rem;
+    }
+
+    /* SVG styling */
+    .link {
+      stroke: #d0d0d0;
+      stroke-width: 1;
+    }
+
+    .node circle {
+      cursor: pointer;
+      transition: transform 0.2s, filter 0.2s;
+    }
+
+    .node:hover circle {
+      filter: brightness(1.1);
+    }
+
+    .node text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      fill: var(--ink-muted);
+      pointer-events: none;
+    }
+
+    .center-node text {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 13px;
+      font-weight: 600;
+      fill: var(--ink);
+    }
+
+    @media (max-width: 768px) {
+      .page { padding: 2rem 1rem 4rem; }
+      .metrics { flex-wrap: wrap; gap: 1.5rem; }
+      #graph { height: 380px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="eyebrow">Technical Overview</div>
+      <h1>Colombia Puzzle Game</h1>
+      <p class="intro">An interactive geography learning app built with React, TypeScript, and modern web APIs. Developed with AI assistance using Claude Code.</p>
+      <div class="metrics">
+        <div class="metric">
+          <span class="metric-value">214</span>
+          <span class="metric-label">source files</span>
+        </div>
+        <div class="metric">
+          <span class="metric-value">59</span>
+          <span class="metric-label">test files</span>
+        </div>
+        <div class="metric">
+          <span class="metric-value">97.5%</span>
+          <span class="metric-label">tests passing</span>
+        </div>
+        <div class="metric">
+          <span class="metric-value">33</span>
+          <span class="metric-label">departments</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="canvas">
+      <div id="graph"></div>
+      <div class="tooltip" id="tooltip"></div>
+    </div>
+
+    <div class="tabs" id="tabs"></div>
+    <div class="detail-grid" id="details"></div>
+  </div>
+
+  <script>
+    const palette = {
+      slate: '#475569',
+      blue: '#2563eb',
+      emerald: '#059669',
+      amber: '#d97706',
+      rose: '#e11d48',
+      violet: '#7c3aed',
+      cyan: '#0891b2',
+      lime: '#65a30d',
+      gray: '#6b7280'
+    };
+
+    const categories = {
+      frontend: {
+        name: 'Frontend',
+        color: palette.blue,
+        items: [
+          { name: 'React 18', file: 'package.json' },
+          { name: 'TypeScript', file: 'tsconfig.json' },
+          { name: 'Zustand', file: 'src/context/GameContext.tsx' },
+          { name: '3 Contexts', file: 'src/context/' },
+          { name: '4 Error Boundaries', file: 'src/components/*ErrorBoundary.tsx' },
+          { name: 'Design System', file: 'src/design-system/' }
+        ]
+      },
+      interaction: {
+        name: 'Drag & Drop',
+        color: palette.violet,
+        items: [
+          { name: '@dnd-kit/core', file: 'package.json' },
+          { name: 'Touch Gestures', file: 'src/hooks/useTouchGestures.ts' },
+          { name: 'Pointer Events', file: 'src/hooks/useTouchGestures.ts' },
+          { name: 'Drag Handlers', file: 'src/hooks/useDragHandlers.ts' },
+          { name: '4 Gesture Types', file: 'tap, long-press, swipe, drag' }
+        ]
+      },
+      geo: {
+        name: 'Geographic',
+        color: palette.emerald,
+        items: [
+          { name: 'D3.js d3-geo', file: 'package.json' },
+          { name: 'Mercator Projection', file: 'src/components/game/OptimizedColombiaMap.tsx' },
+          { name: '4 GeoJSON Files', file: 'public/data/*.json' },
+          { name: 'SVG Rendering', file: 'src/components/game/' }
+        ]
+      },
+      pwa: {
+        name: 'PWA',
+        color: palette.amber,
+        items: [
+          { name: 'Service Worker', file: 'vite.config.ts' },
+          { name: 'Workbox', file: 'vite.config.ts' },
+          { name: 'Offline Mode', file: 'src/hooks/usePWA.ts' },
+          { name: 'Install Prompt', file: 'src/hooks/usePWA.ts' },
+          { name: 'Manifest', file: 'public/manifest.json' }
+        ]
+      },
+      a11y: {
+        name: 'Accessibility',
+        color: palette.rose,
+        items: [
+          { name: '5 Colorblind Modes', file: 'src/design-system/themes/accessibility.ts' },
+          { name: 'WCAG AAA (44px)', file: 'src/design-system/themes/accessibility.ts' },
+          { name: 'Keyboard Nav', file: 'src/hooks/useKeyboardNavigation.ts' },
+          { name: 'Screen Reader', file: 'src/hooks/useScreenReaderAnnouncer.ts' },
+          { name: 'Focus Trap', file: 'src/hooks/useFocusTrap.ts' },
+          { name: 'High Contrast', file: 'src/design-system/themes/accessibility.ts' }
+        ]
+      },
+      mobile: {
+        name: 'Mobile',
+        color: palette.cyan,
+        items: [
+          { name: 'Bottom Sheet', file: 'src/components/layout/BottomSheet.tsx' },
+          { name: 'Device Detection', file: 'src/utils/deviceDetection.ts' },
+          { name: 'Responsive Layout', file: 'src/components/layout/MobileGameLayout.tsx' },
+          { name: 'Touch Feedback', file: 'src/hooks/useTouchFeedback.ts' },
+          { name: 'Pinch Zoom', file: 'src/hooks/usePinchZoom.ts' }
+        ]
+      },
+      content: {
+        name: 'Content',
+        color: palette.lime,
+        items: [
+          { name: '33 Departments', file: 'src/data/colombiaDepartments.ts' },
+          { name: '6 Narratives', file: 'src/data/regionalNarratives.ts' },
+          { name: '32 Memory Aids', file: 'src/data/memoryAids.ts' },
+          { name: '3 Hint Types', file: 'src/hooks/useProgressiveHints.ts' },
+          { name: 'Spanish i18n', file: 'src/i18n/translations.ts' }
+        ]
+      },
+      testing: {
+        name: 'Testing',
+        color: palette.slate,
+        items: [
+          { name: 'Vitest', file: 'package.json' },
+          { name: '344 Tests', file: 'src/tests/' },
+          { name: 'Playwright E2E', file: 'tests/e2e/*.spec.ts' },
+          { name: 'Testing Library', file: 'package.json' },
+          { name: 'axe-core', file: 'package.json' }
+        ]
+      },
+      build: {
+        name: 'Build',
+        color: palette.gray,
+        items: [
+          { name: 'Vite', file: 'vite.config.ts' },
+          { name: 'Code Splitting', file: 'vite.config.ts' },
+          { name: 'Terser', file: 'vite.config.ts' },
+          { name: 'GitHub Pages', file: 'package.json' },
+          { name: 'Lighthouse', file: 'lighthouse-budget.json' }
+        ]
+      },
+      security: {
+        name: 'Security',
+        color: '#dc2626',
+        items: [
+          { name: 'AES-GCM Encryption', file: 'src/lib/secureStorage.ts' },
+          { name: 'PBKDF2 (100k iter)', file: 'src/lib/secureStorage.ts' },
+          { name: 'Content Security Policy', file: 'vercel.json' },
+          { name: 'HSTS + Security Headers', file: 'vercel.json' },
+          { name: 'Daily NPM Audit', file: '.github/workflows/security.yml' },
+          { name: 'Secret Scanning', file: '.github/workflows/security.yml' }
+        ]
+      }
+    };
+
+    // Build nodes & links
+    const nodes = [{ id: 'center', name: 'Colombia Puzzle', group: 'center', radius: 28 }];
+    const links = [];
+
+    Object.entries(categories).forEach(([key, cat]) => {
+      nodes.push({ id: key, name: cat.name, group: key, color: cat.color, radius: 16, count: cat.items.length });
+      links.push({ source: 'center', target: key });
+
+      cat.items.forEach((item, i) => {
+        const id = `${key}-${i}`;
+        nodes.push({ id, name: item.name, group: key, color: cat.color, radius: 6, file: item.file });
+        links.push({ source: key, target: id });
+      });
+    });
+
+    // SVG setup
+    const container = document.getElementById('graph');
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    const svg = d3.select('#graph')
+      .append('svg')
+      .attr('width', '100%')
+      .attr('height', '100%')
+      .attr('viewBox', `0 0 ${width} ${height}`);
+
+    const defs = svg.append('defs');
+    const grad = defs.append('radialGradient').attr('id', 'centerGrad');
+    grad.append('stop').attr('offset', '0%').attr('stop-color', '#3b82f6');
+    grad.append('stop').attr('offset', '100%').attr('stop-color', '#1d4ed8');
+
+    const simulation = d3.forceSimulation(nodes)
+      .force('link', d3.forceLink(links).id(d => d.id).distance(d => d.source.id === 'center' ? 100 : 50))
+      .force('charge', d3.forceManyBody().strength(d => d.id === 'center' ? -350 : d.radius === 16 ? -150 : -40))
+      .force('center', d3.forceCenter(width / 2, height / 2))
+      .force('collision', d3.forceCollide().radius(d => d.radius + 4));
+
+    const link = svg.append('g')
+      .selectAll('line')
+      .data(links)
+      .join('line')
+      .attr('class', 'link');
+
+    const node = svg.append('g')
+      .selectAll('g')
+      .data(nodes)
+      .join('g')
+      .attr('class', d => `node ${d.id === 'center' ? 'center-node' : ''}`)
+      .call(d3.drag().on('start', dragstart).on('drag', dragging).on('end', dragend));
+
+    node.append('circle')
+      .attr('r', d => d.radius)
+      .attr('fill', d => d.id === 'center' ? 'url(#centerGrad)' : d.color)
+      .attr('opacity', d => d.radius === 6 ? 0.75 : 1);
+
+    node.filter(d => d.radius >= 16)
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .attr('dy', d => d.id === 'center' ? 4 : 28)
+      .text(d => d.name);
+
+    // Tooltip
+    const tooltip = document.getElementById('tooltip');
+
+    function showTooltip(event, d) {
+      if (d.id === 'center') return;
+      let html = `<div class="tooltip-name">${d.name}</div>`;
+      if (d.file) html += `<div class="tooltip-file">${d.file}</div>`;
+      tooltip.innerHTML = html;
+      tooltip.style.opacity = 1;
+      positionTooltip(event);
+    }
+
+    function positionTooltip(event) {
+      const rect = tooltip.getBoundingClientRect();
+      let x = event.clientX + 12;
+      let y = event.clientY - 8;
+      if (x + rect.width + 12 > window.innerWidth) x = event.clientX - rect.width - 12;
+      if (y + rect.height + 12 > window.innerHeight) y = window.innerHeight - rect.height - 12;
+      if (y < 12) y = 12;
+      tooltip.style.left = x + 'px';
+      tooltip.style.top = y + 'px';
+    }
+
+    node.on('mouseover', showTooltip)
+      .on('mousemove', (event, d) => { if (d.id !== 'center') positionTooltip(event); })
+      .on('mouseout', () => { tooltip.style.opacity = 0; });
+
+    simulation.on('tick', () => {
+      link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+        .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+      node.attr('transform', d => `translate(${d.x},${d.y})`);
+    });
+
+    function dragstart(event) {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      event.subject.fx = event.subject.x;
+      event.subject.fy = event.subject.y;
+    }
+
+    function dragging(event) {
+      event.subject.fx = event.x;
+      event.subject.fy = event.y;
+    }
+
+    function dragend(event) {
+      if (!event.active) simulation.alphaTarget(0);
+      event.subject.fx = null;
+      event.subject.fy = null;
+    }
+
+    // Tabs
+    const tabs = document.getElementById('tabs');
+    Object.entries(categories).forEach(([key, cat]) => {
+      const btn = document.createElement('button');
+      btn.className = 'tab';
+      btn.innerHTML = `<span class="tab-dot" style="background:${cat.color}"></span>${cat.name}`;
+      btn.onclick = () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        const targetNode = nodes.find(n => n.id === key);
+        if (targetNode) simulation.alpha(0.3).restart();
+      };
+      tabs.appendChild(btn);
+    });
+
+    // Detail cards
+    const details = document.getElementById('details');
+    Object.entries(categories).forEach(([key, cat]) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="card-title" style="color:${cat.color}">${cat.name}</div>
+          <div class="card-count">${cat.items.length} items</div>
+        </div>
+        <ul class="feature-list">
+          ${cat.items.map(item => `
+            <li class="feature">
+              <div class="feature-name">${item.name}</div>
+              <div class="feature-path">${item.file}</div>
+            </li>
+          `).join('')}
+        </ul>
+      `;
+      details.appendChild(card);
+    });
+  </script>
+</body>
+</html>
