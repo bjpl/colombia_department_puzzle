@@ -3,13 +3,12 @@
  *
  * Provides authentication state and methods to the application.
  * Manages session persistence, token refresh, and auth state changes.
- *
- * Based on Authentication Architecture patterns.
- * Follows patterns from GameContext.tsx and AccessibilityContext.tsx.
+ * Gracefully handles disabled auth (feature flag off / no credentials).
  */
 
 import { createContext, useState, useEffect, ReactNode } from 'react';
 import { authService } from '../services/auth/AuthService';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import type { AuthContextType, AuthState } from '../types/auth';
 import type { User, Session } from '@supabase/supabase-js';
 
@@ -24,18 +23,28 @@ export function AuthProvider({ children }: AuthProviderProps) {
     user: null,
     session: null,
     isAuthenticated: false,
-    isLoading: true,
+    isLoading: isSupabaseConfigured, // Only show loading if auth is configured
   });
 
-  // Initialize auth state on mount
   useEffect(() => {
+    if (!isSupabaseConfigured) {
+      // Auth is disabled - skip initialization
+      setAuthState({
+        user: null,
+        session: null,
+        isAuthenticated: false,
+        isLoading: false,
+      });
+      return;
+    }
+
     initializeAuth();
-    setupAuthListener();
+    const cleanup = setupAuthListener();
+    return cleanup;
   }, []);
 
   /**
    * Initialize authentication state
-   * Attempts to restore session from storage
    */
   async function initializeAuth() {
     try {
@@ -60,55 +69,35 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   /**
-   * Setup listener for auth state changes
+   * Setup listener for auth state changes using the imported supabase client
    */
-  function setupAuthListener() {
-    try {
-      // Get supabase client if available
-      const supabase = (window as any).supabaseClient;
-      if (!supabase) {
-        console.warn('Supabase client not available for auth listener');
-        return;
-      }
+  function setupAuthListener(): (() => void) | undefined {
+    if (!supabase) return undefined;
 
-      // Listen for auth state changes
-      const { data: { subscription } } = supabase.auth.onAuthStateChange(
-        async (event: string, session: Session | null) => {
-          if (import.meta.env.DEV) {
-            // eslint-disable-next-line no-console
-            console.log('Auth state changed:', event);
-          }
-
-          const user = session?.user || null;
-
-          setAuthState({
-            user,
-            session,
-            isAuthenticated: !!user && !!session,
-            isLoading: false,
-          });
-
-          // Handle specific events
-          if (event === 'SIGNED_OUT') {
-            // Clear any cached data
-            localStorage.removeItem('supabase.auth.token');
-          } else if (event === 'TOKEN_REFRESHED') {
-            // Session was automatically refreshed
-            if (import.meta.env.DEV) {
-              // eslint-disable-next-line no-console
-              console.log('Session token refreshed');
-            }
-          }
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (_event: string, session: Session | null) => {
+        if (import.meta.env.DEV) {
+          console.log('Auth state changed:', _event);
         }
-      );
 
-      // Cleanup subscription on unmount
-      return () => {
-        subscription?.unsubscribe();
-      };
-    } catch (error) {
-      console.error('Failed to setup auth listener:', error);
-    }
+        const user = session?.user || null;
+
+        setAuthState({
+          user,
+          session,
+          isAuthenticated: !!user && !!session,
+          isLoading: false,
+        });
+
+        if (_event === 'SIGNED_OUT') {
+          localStorage.removeItem('colombia-puzzle-auth');
+        }
+      }
+    );
+
+    return () => {
+      subscription?.unsubscribe();
+    };
   }
 
   /**
@@ -132,10 +121,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
    */
   async function signUp(email: string, password: string, displayName?: string): Promise<User> {
     const user = await authService.signUp(email, password, displayName);
-
-    // Note: User may not be authenticated yet (email verification required)
-    // Auth state will be updated via onAuthStateChange when verification completes
-
+    // Auth state updated via onAuthStateChange when email is verified
     return user;
   }
 

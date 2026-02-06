@@ -2,22 +2,10 @@ import { useState } from 'react';
 import { User, LogIn } from 'lucide-react';
 import { Button } from '../../design-system';
 import { cn } from '../../design-system/utils/cn';
+import { useAuth } from '../../hooks/useAuth';
 import AuthModal, { AuthTab } from './AuthModal';
 
 export interface AuthButtonProps {
-  user?: {
-    displayName?: string;
-    email: string;
-    avatarUrl?: string;
-  } | null;
-  isLoading?: boolean;
-  onLogin?: (email: string, password: string) => Promise<void>;
-  onSignup?: (email: string, password: string, displayName?: string) => Promise<void>;
-  onMagicLink?: (email: string) => Promise<void>;
-  onOAuthGoogle?: () => Promise<void>;
-  onOAuthGithub?: () => Promise<void>;
-  onForgotPassword?: () => void;
-  onProfileClick?: () => void;
   className?: string;
   variant?: 'default' | 'compact';
 }
@@ -27,35 +15,27 @@ export interface AuthButtonProps {
  *
  * Compact authentication button for the header.
  * Shows user avatar/name when logged in, or "Sign In" button when logged out.
- * Opens AuthModal on click.
+ * Opens AuthModal on click. Connects directly to AuthContext.
  *
  * Mobile-optimized with 44x44px minimum touch target.
  */
 export default function AuthButton({
-  user,
-  isLoading = false,
-  onLogin: _onLogin,
-  onSignup: _onSignup,
-  onMagicLink: _onMagicLink,
-  onOAuthGoogle: _onOAuthGoogle,
-  onOAuthGithub: _onOAuthGithub,
-  onForgotPassword: _onForgotPassword,
-  onProfileClick,
   className,
   variant = 'default',
 }: AuthButtonProps) {
+  const { user, isAuthenticated, isLoading, signOut } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [initialTab, setInitialTab] = useState<AuthTab>('login');
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   function handleOpenLogin() {
     setInitialTab('login');
     setShowAuthModal(true);
   }
 
-  function handleUserClick() {
-    if (onProfileClick) {
-      onProfileClick();
-    }
+  function handleSignOut() {
+    setShowUserMenu(false);
+    signOut();
   }
 
   // Loading state
@@ -66,11 +46,14 @@ export default function AuthButton({
   }
 
   // Logged in state
-  if (user) {
+  if (isAuthenticated && user) {
+    const displayName = user.user_metadata?.display_name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'User';
+    const avatarUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture;
+
     return (
-      <>
+      <div className="relative">
         <button
-          onClick={handleUserClick}
+          onClick={() => setShowUserMenu(!showUserMenu)}
           className={cn(
             'min-w-[44px] min-h-[44px] rounded-full',
             'flex items-center gap-2',
@@ -80,29 +63,52 @@ export default function AuthButton({
             variant === 'compact' ? 'p-0' : 'px-3 py-1',
             className
           )}
-          aria-label={`Profile: ${user.displayName || user.email}`}
+          aria-label={`Profile: ${displayName}`}
+          aria-expanded={showUserMenu}
         >
-          {/* Avatar */}
           <div className="w-8 h-8 rounded-full bg-sky-100 flex items-center justify-center flex-shrink-0">
-            {user.avatarUrl ? (
+            {avatarUrl ? (
               <img
-                src={user.avatarUrl}
-                alt={user.displayName || 'User avatar'}
+                src={avatarUrl}
+                alt={displayName}
                 className="w-8 h-8 rounded-full object-cover"
+                referrerPolicy="no-referrer"
               />
             ) : (
               <User className="w-4 h-4 text-sky-600" />
             )}
           </div>
 
-          {/* Name (hidden on mobile in compact mode) */}
           {variant === 'default' && (
             <span className="hidden md:inline text-sm font-medium text-gray-900 truncate max-w-[120px]">
-              {user.displayName || user.email.split('@')[0]}
+              {displayName}
             </span>
           )}
         </button>
-      </>
+
+        {/* User dropdown menu */}
+        {showUserMenu && (
+          <>
+            {/* Backdrop to close menu */}
+            <div
+              className="fixed inset-0 z-40"
+              onClick={() => setShowUserMenu(false)}
+            />
+            <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50 py-1">
+              <div className="px-4 py-2 border-b border-gray-100">
+                <p className="text-sm font-medium text-gray-900 truncate">{displayName}</p>
+                <p className="text-xs text-gray-500 truncate">{user.email}</p>
+              </div>
+              <button
+                onClick={handleSignOut}
+                className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors min-h-[44px] flex items-center"
+              >
+                Sign Out
+              </button>
+            </div>
+          </>
+        )}
+      </div>
     );
   }
 
@@ -119,7 +125,6 @@ export default function AuthButton({
         <span className="hidden sm:inline">Sign In</span>
       </Button>
 
-      {/* Auth Modal */}
       <AuthModal
         open={showAuthModal}
         onOpenChange={setShowAuthModal}

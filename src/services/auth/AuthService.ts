@@ -13,19 +13,22 @@
 
 import { BaseService } from '../base/BaseService';
 import { ServiceError, ErrorCode } from '../../types/errors';
-import type { User, Session } from '@supabase/supabase-js';
+import { getSupabaseClient, isSupabaseConfigured } from '../../lib/supabase';
+import type { User, Session, SupabaseClient } from '@supabase/supabase-js';
 
 export class AuthService extends BaseService {
   /**
-   * Override to provide supabase client once available
+   * Get the Supabase client from the centralized lib/supabase module
    */
-  protected getSupabaseClient(): any {
-    // This will be implemented by supabase setup
-    // For now, check if window has supabase client
-    if (typeof window !== 'undefined' && (window as any).supabaseClient) {
-      return (window as any).supabaseClient;
-    }
-    throw new Error('Supabase client not initialized');
+  protected getSupabaseClient(): SupabaseClient {
+    return getSupabaseClient();
+  }
+
+  /**
+   * Check if auth is available
+   */
+  isAvailable(): boolean {
+    return isSupabaseConfigured;
   }
 
   /**
@@ -41,7 +44,7 @@ export class AuthService extends BaseService {
           data: {
             display_name: displayName,
           },
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
+          emailRedirectTo: `${window.location.origin}/colombia_department_puzzle/auth/callback`,
         },
       });
 
@@ -90,7 +93,7 @@ export class AuthService extends BaseService {
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
+          emailRedirectTo: `${window.location.origin}/colombia_department_puzzle/auth/callback`,
         },
       });
 
@@ -99,7 +102,7 @@ export class AuthService extends BaseService {
   }
 
   /**
-   * Sign in with OAuth provider
+   * Sign in with OAuth provider (Google, GitHub)
    */
   async signInWithOAuth(provider: 'google' | 'github'): Promise<void> {
     return this.executeWithRetry(async () => {
@@ -107,7 +110,13 @@ export class AuthService extends BaseService {
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
+          redirectTo: `${window.location.origin}/colombia_department_puzzle/auth/callback`,
+          ...(provider === 'google' && {
+            queryParams: {
+              access_type: 'offline',
+              prompt: 'consent',
+            },
+          }),
         },
       });
 
@@ -131,6 +140,7 @@ export class AuthService extends BaseService {
    * Get current session
    */
   async getSession(): Promise<Session | null> {
+    if (!isSupabaseConfigured) return null;
     const supabase = this.getSupabaseClient();
     const { data: { session } } = await supabase.auth.getSession();
     return session;
@@ -140,6 +150,7 @@ export class AuthService extends BaseService {
    * Get current user
    */
   async getCurrentUser(): Promise<User | null> {
+    if (!isSupabaseConfigured) return null;
     const supabase = this.getSupabaseClient();
     const { data: { user } } = await supabase.auth.getUser();
     return user;
@@ -211,7 +222,7 @@ export class AuthService extends BaseService {
     return this.executeWithRetry(async () => {
       const supabase = this.getSupabaseClient();
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/auth/reset-password`,
+        redirectTo: `${window.location.origin}/colombia_department_puzzle/auth/reset-password`,
       });
 
       if (error) throw error;

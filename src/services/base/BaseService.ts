@@ -10,17 +10,17 @@
  */
 
 import { ServiceError, ErrorCode } from '../../types/errors';
+import { getSupabaseClient } from '../../lib/supabase';
 
 /**
  * Abstract base service class with common service functionality
  */
 export abstract class BaseService {
-  // Supabase client will be injected by derived classes
+  /**
+   * Get the Supabase client. Can be overridden by derived classes.
+   */
   protected getSupabaseClient(): any {
-    if (typeof window !== 'undefined' && (window as any).supabaseClient) {
-      return (window as any).supabaseClient;
-    }
-    throw new Error('Supabase client not initialized');
+    return getSupabaseClient();
   }
 
   /**

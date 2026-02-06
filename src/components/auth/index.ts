@@ -22,3 +22,7 @@ export type { ProtectedRouteProps } from './ProtectedRoute';
 
 export { default as AuthButton } from './AuthButton';
 export type { AuthButtonProps } from './AuthButton';
+
+export { default as AuthCallback } from './AuthCallback';
+
+export { default as ResetPassword } from './ResetPassword';

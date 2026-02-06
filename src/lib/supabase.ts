@@ -3,25 +3,26 @@
  *
  * Initializes and configures the Supabase client for authentication and database operations.
  * Implements secure session management with automatic token refresh.
+ * Gracefully handles missing credentials when auth is disabled via feature flag.
  *
  * @module lib/supabase
  * @see docs/architecture/01-authentication-architecture.md
  */
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-// Environment variables validation
+// Environment variables
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    'Missing Supabase environment variables. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file.'
-  );
-}
+const isAuthEnabled = import.meta.env.VITE_ENABLE_SUPABASE_AUTH === 'true';
 
 /**
- * Configured Supabase client instance
+ * Check if Supabase is properly configured with credentials
+ */
+export const isSupabaseConfigured = !!(supabaseUrl && supabaseAnonKey && isAuthEnabled);
+
+/**
+ * Configured Supabase client instance (null when auth is disabled or unconfigured)
  *
  * Features:
  * - Automatic session persistence
@@ -29,45 +30,49 @@ if (!supabaseUrl || !supabaseAnonKey) {
  * - Cross-tab session detection
  * - Secure token storage
  */
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    // Persist session to localStorage (will be encrypted via SecureStorage)
-    persistSession: true,
+export const supabase: SupabaseClient | null = isSupabaseConfigured
+  ? createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+        storageKey: 'colombia-puzzle-auth',
+        storage: window.localStorage,
+      },
+      global: {
+        headers: {
+          'X-Client-Info': 'colombia-puzzle-pwa',
+        },
+      },
+      realtime: {
+        params: {
+          eventsPerSecond: 10,
+        },
+      },
+    })
+  : null;
 
-    // Automatically refresh tokens before expiry
-    autoRefreshToken: true,
-
-    // Detect session changes across tabs
-    detectSessionInUrl: true,
-
-    // Storage key for session data
-    storageKey: 'colombia-puzzle-auth',
-
-    // Use localStorage (will be wrapped by SecureStorage)
-    storage: window.localStorage,
-  },
-
-  // Additional security and performance options
-  global: {
-    headers: {
-      'X-Client-Info': 'colombia-puzzle-pwa',
-    },
-  },
-
-  // Real-time rate limiting
-  realtime: {
-    params: {
-      eventsPerSecond: 10,
-    },
-  },
-});
+/**
+ * Get the Supabase client, throwing if not configured.
+ * Use this in code paths that require auth to be enabled.
+ */
+export function getSupabaseClient(): SupabaseClient {
+  if (!supabase) {
+    throw new Error(
+      'Supabase is not configured. Set VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY, and VITE_ENABLE_SUPABASE_AUTH=true in your .env file.'
+    );
+  }
+  return supabase;
+}
 
 /**
  * Validate current session and refresh if needed
  *
- * @returns Valid session or null if invalid/expired
+ * @returns Valid session or null if invalid/expired/unconfigured
  */
 export async function validateSession() {
+  if (!supabase) return null;
+
   try {
     const { data: { session }, error } = await supabase.auth.getSession();
 
@@ -98,9 +103,10 @@ export async function validateSession() {
 /**
  * Get current authenticated user
  *
- * @returns User object or null if not authenticated
+ * @returns User object or null if not authenticated/unconfigured
  */
 export async function getCurrentUser() {
+  if (!supabase) return null;
   const { data: { user } } = await supabase.auth.getUser();
   return user;
 }

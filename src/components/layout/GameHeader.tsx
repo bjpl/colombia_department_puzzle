@@ -2,8 +2,11 @@ import { useState, useEffect, lazy, Suspense } from 'react';
 import { useGame } from '../../context/GameContext';
 import { useSoundEffect } from '../../services/soundManager';
 import { Button, Badge, Progress } from '../../design-system';
+import { isSupabaseConfigured } from '../../lib/supabase';
 // Lazy load AccessibilitySettings - only shown when user opens settings (~10 KB savings)
 const AccessibilitySettings = lazy(() => import('./AccessibilitySettings'));
+// Lazy load AuthButton - only rendered when auth is enabled
+const AuthButtonLazy = lazy(() => import('../auth/AuthButton'));
 import {
   Play,
   Pause,
@@ -100,6 +103,16 @@ export default function GameHeader({ onStudyMode, onTutorial, onGameMode }: Game
 
           {/* Right: Actions */}
           <div className="flex items-center gap-2">
+            {/* Auth Button - only shown when Supabase auth is configured */}
+            {isSupabaseConfigured && (
+              <Suspense fallback={<div className="w-10 h-10 rounded-full bg-gray-100 animate-pulse" />}>
+                <AuthButtonLazy variant="compact" />
+              </Suspense>
+            )}
+
+            {/* Divider (auth separator) */}
+            {isSupabaseConfigured && <div className="w-px h-6 bg-gray-300" />}
+
             {/* Hints */}
             <div className="relative">
               <Button
